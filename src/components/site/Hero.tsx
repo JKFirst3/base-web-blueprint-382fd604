@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { FoldedClothesArt } from "./FoldedClothesArt";
+import stackedLogo from "@/assets/lavidro-stacked.svg.asset.json";
 
 function scrollToWaitlist() {
   document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -43,8 +43,12 @@ export function Hero() {
 
         <div className="relative animate-fade-in">
           <div className="absolute -inset-6 rounded-[3rem] bg-card/40 blur-2xl" aria-hidden />
-          <div className="relative rounded-[2.5rem] border border-border bg-card/60 p-6 shadow-sm">
-            <FoldedClothesArt className="h-auto w-full" />
+          <div className="relative flex items-center justify-center rounded-[2.5rem] border border-border bg-card/60 p-8 shadow-sm sm:p-12">
+            <img
+              src={stackedLogo.url}
+              alt="Lavidro — Textile Care Intelligence"
+              className="h-auto w-full max-w-md"
+            />
           </div>
         </div>
       </div>
