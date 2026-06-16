@@ -18,8 +18,8 @@ export function Hero() {
             <span className="italic font-normal text-foreground/80">bevor du dran denkst.</span>
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/75 sm:text-lg">
-            Das erste System, das den vollständigen Wäscheprozess nach deinen Gewohnheiten —
-            autonom und qualitätssicher — übernimmt.
+            Das erste System, das den vollständigen Wäscheprozess nach deinen Gewohnheiten
+            autonom und qualitätssicher übernimmt.
           </p>
           <p className="mt-4 text-sm font-medium text-muted-foreground">
             Lavidro — Textile Care Intelligence.
