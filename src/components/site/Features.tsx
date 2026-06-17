@@ -5,7 +5,7 @@ const features = [
     icon: Sparkles,
     title: "Vollständig Autonom",
     body:
-      "Lavidro übernimmt den gesamten Waschprozess: Entladen, Trocknen, Falten und Sortieren – ohne dass du eingreifen musst.",
+      "Lavidro übernimmt den gesamten Waschprozess: Entladen, Trocknen, Falten und Sortieren ohne dass du eingreifen musst.",
   },
   {
     icon: ShieldCheck,
