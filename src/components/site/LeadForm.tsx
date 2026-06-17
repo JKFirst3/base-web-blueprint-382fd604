@@ -23,10 +23,10 @@ const schema = z.object({
 });
 
 const painOptions = [
-  "Falten & Sortieren",
-  "Waschen & Trocknen",
-  "Zeitaufwand",
-  "Platzbedarf",
+  "Sortieren",
+  "Waschen",
+  "Bügeln",
+  "Falten",
 ];
 
 export function LeadForm() {
