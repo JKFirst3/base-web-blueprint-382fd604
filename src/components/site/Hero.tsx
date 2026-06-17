@@ -14,8 +14,7 @@ export function Hero() {
             Textile Care Intelligence
           </p>
           <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            Wäsche erledigt,{" "}
-            <span className="italic font-normal text-foreground/80">bevor du dran denkst.</span>
+            Nie wieder Waschen, Sortieren oder Falten
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/75 sm:text-lg">
             Das erste System, das den&nbsp;vollständigen Wäscheprozess&nbsp;nach&nbsp;deinen
