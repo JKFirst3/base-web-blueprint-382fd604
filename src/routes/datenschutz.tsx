@@ -367,9 +367,8 @@ function DatenschutzPage() {
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Zweck der Verarbeitung ist die Information über den Produktstart von Lavidro sowie
             die Anbahnung einer Geschäftsbeziehung. Rechtsgrundlage ist Ihre Einwilligung
-            (Art. 6 Abs. 1 lit. a DSGVO) sowie Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche
-            Maßnahmen). Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft per
-            E-Mail an{" "}
+            (Art. 6 Abs. 1 lit. a DSGVO)). Sie können Ihre Einwilligung jederzeit mit Wirkung
+            für die Zukunft per E-Mail an{" "}
             <a href="mailto:lavidro@gmx.net" className="underline underline-offset-4">
               lavidro@gmx.net
             </a>{" "}
