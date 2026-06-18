@@ -22,7 +22,7 @@ export function Features() {
         <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
           Was Lavidro anders macht
         </p>
-        <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl whitespace-nowrap">
+        <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl sm:whitespace-nowrap">
           Wäschepflege auf einem neuen Niveau.
         </h2>
       </div>
