@@ -93,11 +93,12 @@ function DatenschutzPage() {
           <h3 className="mt-6 font-display text-lg font-semibold">Externes Hosting</h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
             Die Website wird über die Plattform <strong>Lovable</strong> bereitgestellt
-            (Lovable AB, Stockholm, Schweden). Die technische Auslieferung erfolgt über das
-            Content-Delivery-Network von <strong>Cloudflare, Inc.</strong> (101 Townsend St,
-            San Francisco, CA 94107, USA). Beim Aufruf der Website werden technisch notwendige
-            Verbindungsdaten verarbeitet, insbesondere die IP-Adresse, Zeitpunkt der Anfrage,
-            aufgerufene URL, Browsertyp und Betriebssystem.
+            (Lovable Labs AB, Regeringsgatan 25, 111 53 Stockholm, Schweden). Die technische
+            Auslieferung erfolgt über das Content-Delivery-Network von{" "}
+            <strong>Cloudflare, Inc.</strong> (101 Townsend St, San Francisco, CA 94107, USA).
+            Beim Aufruf der Website werden technisch notwendige Verbindungsdaten verarbeitet,
+            insbesondere die IP-Adresse, Zeitpunkt der Anfrage, aufgerufene URL, Browsertyp und
+            Betriebssystem.
           </p>
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer
