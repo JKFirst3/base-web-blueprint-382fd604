@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import stackedLogo from "@/assets/lavidro-stacked.svg.asset.json";
+import heroImage from "@/assets/hero-laundry-room.png.asset.json";
 
 function scrollToWaitlist() {
   document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -45,9 +45,9 @@ export function Hero() {
           <div className="absolute -inset-6 rounded-[3rem] bg-card/40 blur-2xl" aria-hidden />
           <div className="relative flex items-center justify-center rounded-[2.5rem] border border-border bg-card/60 p-8 shadow-sm sm:p-12">
             <img
-              src={stackedLogo.url}
-              alt="Lavidro — Textile Care Intelligence"
-              className="h-auto w-full max-w-md"
+              src={heroImage.url}
+              alt="Moderne Waschküche mit autonomem Lavidro-Roboterarm"
+              className="h-auto w-full rounded-2xl"
             />
           </div>
         </div>
