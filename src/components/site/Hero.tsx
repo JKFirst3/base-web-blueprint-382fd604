@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import stackedLogo from "@/assets/lavidro-stacked.svg.asset.json";
+import heroImage from "@/assets/hero-laundry-room.png.asset.json";
 
 function scrollToWaitlist() {
   document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" });
