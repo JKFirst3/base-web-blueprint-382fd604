@@ -5,9 +5,9 @@ export function Footer() {
   return (
     <footer className="border-t border-border/60 bg-background">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 py-10 sm:px-6 md:flex-row lg:px-8">
-        <div className="flex items-center gap-3">
+        <Link to="/" aria-label="Lavidro Startseite" className="flex items-center gap-3">
           <LogoHorizontal className="h-12 w-auto" />
-        </div>
+        </Link>
         <p className="text-sm text-muted-foreground">
           © {new Date().getFullYear()} Lavidro. Alle Rechte vorbehalten.
         </p>
