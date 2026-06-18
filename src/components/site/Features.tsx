@@ -23,7 +23,7 @@ export function Features() {
           Was Lavidro anders macht
         </p>
         <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
-          Pflege auf einem neuen Niveau.
+          Wäschepflege auf einem neuen Niveau.
         </h2>
       </div>
       <div className="grid gap-6 md:grid-cols-2">
