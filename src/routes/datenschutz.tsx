@@ -393,6 +393,8 @@ function DatenschutzPage() {
             widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach
             abgeschlossener Bearbeitung Ihres Anliegens). Zwingende gesetzliche Bestimmungen –
             insbesondere gesetzliche Aufbewahrungsfristen – bleiben unberührt.
+          </p>
+
 
           <h3 className="mt-6 font-display text-lg font-semibold">
             Datenbank und Backend (Lovable Cloud)
