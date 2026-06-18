@@ -90,15 +90,22 @@ function DatenschutzPage() {
             Wir hosten die Inhalte unserer Website bei folgenden Anbietern:
           </p>
 
-          <h3 className="mt-6 font-display text-lg font-semibold">Externes Hosting</h3>
+          <h3 className="mt-6 font-display text-lg font-semibold">Hosting über Lovable Cloud (AWS)</h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
-            Die Website wird über die Plattform <strong>Lovable</strong> bereitgestellt
-            (Lovable Labs AB, Regeringsgatan 25, 111 53 Stockholm, Schweden). Die technische
-            Auslieferung erfolgt über das Content-Delivery-Network von{" "}
-            <strong>Cloudflare, Inc.</strong> (101 Townsend St, San Francisco, CA 94107, USA).
-            Beim Aufruf der Website werden technisch notwendige Verbindungsdaten verarbeitet,
-            insbesondere die IP-Adresse, Zeitpunkt der Anfrage, aufgerufene URL, Browsertyp und
-            Betriebssystem.
+            Unsere Website wird über die Plattform <strong>Lovable</strong> bereitgestellt (Anbieter: Lovable Labs AB, Regeringsgatan 25, 111 53 Stockholm, Schweden). Die physische Speicherung der Website-Inhalte erfolgt auf der von Lovable genutzten Cloud-Infrastruktur von <strong>Amazon Web Services (AWS)</strong> an einem Serverstandort innerhalb der Europäischen Union.
+          </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Beim Aufruf der Website werden technisch notwendige Verbindungsdaten (insbesondere Ihre IP-Adresse, Zeitpunkt der Anfrage, aufgerufene URL, Browsertyp und Betriebssystem) verarbeitet, um die Website stabil und sicher bereitzustellen.
+          </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">Content Delivery Network (Cloudflare)</h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Zur schnellen und sicheren Auslieferung der Website-Inhalte (insbesondere zur Performance-Optimierung und zum Schutz vor DDoS-Angriffen) nutzen wir das Content Delivery Network (CDN) von <strong>Cloudflare, Inc.</strong> (101 Townsend St, San Francisco, CA 94107, USA). Alle Anfragen an unsere Website werden über die Server von Cloudflare geleitet. Hierbei werden Verbindungsdaten (IP-Adresse) verarbeitet.
+          </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">Rechtsgrundlage und Auftragsverarbeitung</h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Die Datenverarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer technisch fehlerfreien, schnellen und sicheren Bereitstellung unserer Website). Wir nutzen diese Dienste auf Grundlage eines Vertrags über Auftragsverarbeitung (Art. 28 DSGVO) mit der Lovable Labs AB, welche wiederum entsprechende vertragliche Vereinbarungen (einschließlich EU-Standardvertragsklauseln für eventuelle US-Transfers der Subprozessoren wie Cloudflare oder AWS) abgeschlossen hat.
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">Server-Log-Dateien</h3>
