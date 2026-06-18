@@ -105,6 +105,28 @@ function DatenschutzPage() {
             erfolgt auf Grundlage von Standardvertragsklauseln (Art. 46 DSGVO) sowie der
             Zertifizierung von Cloudflare nach dem EU-US Data Privacy Framework.
           </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">Server-Log-Dateien</h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Der Provider der Seiten erhebt und speichert automatisch Informationen in so
+            genannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt. Dies
+            sind:
+          </p>
+          <ul className="mt-3 list-disc pl-6 text-foreground/80 leading-relaxed space-y-1">
+            <li>Browsertyp und Browserversion</li>
+            <li>verwendetes Betriebssystem</li>
+            <li>Referrer URL</li>
+            <li>Hostname des zugreifenden Rechners</li>
+            <li>Uhrzeit der Serveranfrage</li>
+            <li>IP-Adresse</li>
+          </ul>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen.
+            Die Erfassung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO.
+            Der Websitebetreiber hat ein berechtigtes Interesse an der technisch fehlerfreien
+            Darstellung und der Optimierung seiner Website – hierzu müssen die Server-Log-Files
+            erfasst werden.
+          </p>
         </section>
 
         {/* 3. Allgemeine Hinweise und Pflichtinformationen */}
@@ -144,9 +166,6 @@ function DatenschutzPage() {
               lavidro@gmx.net
             </a>
           </address>
-          <p className="mt-4 text-foreground/80 leading-relaxed">
-            {"\n"}
-          </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">Speicherdauer</h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
@@ -356,6 +375,26 @@ function DatenschutzPage() {
             widerrufen. Wir speichern die Daten bis zum Widerruf bzw. bis sie für den genannten
             Zweck nicht mehr erforderlich sind.
           </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">Anfrage per E-Mail</h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Wenn Sie uns per E-Mail kontaktieren, wird Ihre Anfrage inklusive aller daraus
+            hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung
+            Ihres Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht
+            ohne Ihre Einwilligung weiter. Die Verarbeitung dieser Daten erfolgt auf Grundlage
+            von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines
+            Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen
+            erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem
+            berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten
+            Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1
+            lit. a DSGVO) sofern diese abgefragt wurde; die Einwilligung ist jederzeit
+            widerrufbar. Die von Ihnen an uns per Kontaktanfragen übersandten Daten verbleiben
+            bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung
+            widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach
+            abgeschlossener Bearbeitung Ihres Anliegens). Zwingende gesetzliche Bestimmungen –
+            insbesondere gesetzliche Aufbewahrungsfristen – bleiben unberührt.
+          </p>
+
 
           <h3 className="mt-6 font-display text-lg font-semibold">
             Datenbank und Backend (Lovable Cloud)
