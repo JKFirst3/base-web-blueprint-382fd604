@@ -18,6 +18,9 @@ export function Footer() {
           <Link to="/datenschutz" className="hover:text-foreground hover:underline underline-offset-4">
             Datenschutz
           </Link>
+          <Link to="/kontakt" className="hover:text-foreground hover:underline underline-offset-4">
+            Kontakt
+          </Link>
         </nav>
       </div>
     </footer>
