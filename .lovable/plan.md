@@ -1,58 +1,51 @@
-## Lavidro Landing Page — Plan
+## Welche Subprocessors / Drittdienste laufen aktuell auf der Seite?
 
-A single-page, premium lead-gen landing page in German, built on the existing TanStack Start + Tailwind v4 + shadcn stack, using the warm Lavidro palette and the provided SVG logo assets.
+Ich habe den Code geprüft (`package.json`, `__root.tsx`, Integrationen, alle Routen). Es laufen **keine** Tracker, Analytics-Tools, Stripe, Sentry, Hotjar oder ähnliches. Es gibt aber drei datenschutzrelevante Drittdienste/Subprocessors, die nach DSGVO Art. 13 in der Datenschutzerklärung genannt werden müssen:
 
-### Sections (all on `/`)
+### 1. Lovable Cloud (Backend / Datenbank / Hosting der API)
+- **Verarbeiter:** Supabase, Inc., 970 Toa Payoh North #07-04, Singapore (mit EU-Hosting über Lovable)
+- **Anbieter der Plattform:** Lovable AB, Stockholm, Schweden
+- **Zweck:** Speicherung der Warteliste (`leads`) und Kontaktformular-Nachrichten (`contact_messages`); Bereitstellung der Backend-API.
+- **Daten:** Name, E-Mail, ggf. Pain Point / Nachricht, Zeitstempel, IP-Metadaten bei API-Aufrufen.
+- **Rechtsgrundlage:** Art. 6 Abs. 1 lit. b DSGVO (Anbahnung) bzw. lit. a (Einwilligung) für die Warteliste, lit. f für das Kontaktformular.
 
-1. **Header** — horizontal Lavidro logo (left), CTA button "Jetzt eintragen" (right) that smooth-scrolls to the form.
-2. **Hero** — left: H1 with the long USP headline, subheading "Lavidro — Textile Care Intelligence.", primary CTA "Auf die Warteliste setzen" (scrolls to form). Right: abstract SVG of folded clothing (custom inline SVG, warm sand tones).
-3. **Features** — two `#EAE4D5` cards: "Vollständig Autonom" + "Textilschonend & Sicher", with subtle sand-colored line icons.
-4. **Lead capture** — centered card, fields: Name, E-Mail (required), optional Select "Was stört dich an deiner Wäsche am meisten?" (4 options), GDPR checkbox, submit "Jetzt eintragen". Success overlay on submit.
-5. **Footer** — small logo icon, © Lavidro, links to `/impressum` and `/datenschutz` (stub routes with placeholder text).
+### 2. Cloudflare (Hosting / CDN / Edge)
+- **Verarbeiter:** Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA
+- **Zweck:** Auslieferung der Website über das CDN von Lovable; bei jedem Aufruf wird die IP-Adresse verarbeitet.
+- **Rechtsgrundlage:** Art. 6 Abs. 1 lit. f DSGVO (sichere und performante Bereitstellung).
+- **Drittland:** USA, Übermittlung auf Basis Standardvertragsklauseln + EU-US Data Privacy Framework.
 
-### Design system
+### 3. Google Fonts (in `__root.tsx` per `<link>` eingebunden)
+- **Verarbeiter:** Google Ireland Ltd., Gordon House, Barrow Street, Dublin 4, Irland (Mutter: Google LLC, USA)
+- **Zweck:** Laden der Schriften „Montserrat" und „Inter" vom Google-CDN. Dabei wird die IP-Adresse an Google übertragen.
+- **Rechtsgrundlage:** Art. 6 Abs. 1 lit. f DSGVO. **Achtung:** Das LG München (Urteil v. 20.01.2022, Az. 3 O 17493/20) hat die Einbindung von Google Fonts vom Google-Server ohne Einwilligung als rechtswidrig eingestuft. Wer sicher gehen will, sollte Google Fonts **selbst hosten** (siehe optionaler Schritt unten).
 
-- Update `src/styles.css` tokens to brand palette:
-  - `--background` `#F3F2EE`, `--foreground` `#323232`
-  - `--card` `#EAE4D5`, `--border` / `--ring` / `--accent` `#CCC2AC`
-  - `--primary` `#000000` / `--primary-foreground` `#FFFFFF` (hover inverts to sand)
-- Load Montserrat (headings, uppercase wide tracking) + Inter (body) via `<link>` tags in `__root.tsx` head; register `--font-display` and `--font-sans` in `@theme`.
-- Reusable `.font-display` for the wordmark/headings.
+### Was läuft NICHT (zur Klarstellung — muss nicht erwähnt werden)
+- Keine Google Analytics, kein GTM, kein Meta Pixel, kein Hotjar/PostHog/Sentry, kein Stripe.
+- Keine Cookies außer technisch notwendige (Supabase-Session-Storage nur bei eingeloggten Nutzern — derzeit gibt es keinen Login).
 
-### Logo assets
+---
 
-Upload the three provided SVGs via `lovable-assets` and reference the horizontal logo in the header, the icon-only version in the footer.
+## Geplante Umsetzung
 
-### Lead storage
+**Datei:** `src/routes/datenschutz.tsx` (oder wie das Pendant zu `impressum.tsx` heißt — ich prüfe das in Build-Mode und passe an).
 
-Enable **Lovable Cloud** to persist signups:
-- Table `public.leads` (id, name, email, pain_point, consent, created_at) with proper GRANTs, RLS enabled, INSERT policy allowing `anon` (public waitlist), SELECT restricted to `service_role` only.
-- Submit handler uses the browser Supabase client to insert; on success shows an animated overlay ("Danke! Wir melden uns.") and resets the form.
+Ich füge dort folgende Abschnitte hinzu bzw. ergänze sie, im selben Stil wie das Impressum (`<section>` mit `font-display`-Überschriften):
 
-### Interactions
+1. **Verantwortlicher** (Robin Zach, Jonah Blümel, Adresse, E-Mail — Übernahme aus Impressum)
+2. **Hosting & Bereitstellung der Website** → Cloudflare + Lovable
+3. **Datenbank & Backend** → Lovable Cloud / Supabase
+4. **Warteliste** → Zweck, gespeicherte Felder (Name, E-Mail, Pain Point, Consent), Rechtsgrundlage Art. 6 (1) a + b DSGVO, Speicherdauer, Widerrufsrecht
+5. **Kontaktformular** → Zweck, gespeicherte Felder (Name, E-Mail, Betreff, Nachricht), Rechtsgrundlage Art. 6 (1) b/f DSGVO
+6. **Schriftarten (Google Fonts)** → Beschreibung + Hinweis auf Drittlandübermittlung
+7. **Betroffenenrechte** (Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerspruch, Beschwerde bei Aufsichtsbehörde — zuständig: LDI NRW, da Paderborn)
+8. **SSL/TLS-Verschlüsselung**
+9. **Aktualität der Erklärung**
 
-- Smooth scroll via `element.scrollIntoView({ behavior: "smooth" })` for both CTAs (anchor `#waitlist`).
-- Section enter animations using a small `useInView` + `animate-fade-in` utility (already in animation set).
-- Button hover: black ↔ sand transition; tactile scale-down on click.
+## Optional (empfohlen, separate Entscheidung)
 
-### Responsiveness
+**Google Fonts selbst hosten**, um die Drittland-Übermittlung an Google zu vermeiden. Das hieße: `<link>` zu `fonts.googleapis.com` in `__root.tsx` entfernen, Schriftdateien in `src/assets/fonts/` ablegen und per `@font-face` in `src/styles.css` einbinden. Sag Bescheid, ob ich das mit erledigen soll — dann fliegt Punkt 6 oben fast komplett raus.
 
-Mobile-first: hero stacks single-column under `md`, feature cards stack, form card full-width with comfortable padding.
+## Hinweis
 
-### Technical details
-
-- Files to create:
-  - `src/routes/index.tsx` (replace placeholder) — composes sections
-  - `src/components/site/Header.tsx`, `Hero.tsx`, `Features.tsx`, `LeadForm.tsx`, `Footer.tsx`, `FoldedClothesArt.tsx`
-  - `src/routes/impressum.tsx`, `src/routes/datenschutz.tsx` (minimal placeholders)
-  - Asset pointers under `src/assets/lavidro-*.svg.asset.json`
-- Files to edit:
-  - `src/styles.css` — tokens + font registration
-  - `src/routes/__root.tsx` — Google Fonts links, default `<html lang="de">`, base meta
-- Cloud migration: create `leads` table + RLS + GRANTs.
-- SEO: title "Lavidro — Textile Care Intelligence", meta description from USP, og tags, single H1.
-
-### Out of scope
-
-- Email notifications / double opt-in (can be added later via edge function + Resend).
-- Admin dashboard for viewing leads (rows are accessible via Cloud backend view).
+Ich bin keine Rechtsberatung; der Text wird sachlich korrekt formuliert, aber für eine rechtssichere finale Version solltest du ihn ggf. von einem Anwalt prüfen lassen.
