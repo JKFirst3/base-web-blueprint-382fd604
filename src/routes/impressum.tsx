@@ -24,7 +24,7 @@ function ImpressumPage() {
         <h1 className="font-display text-4xl font-bold tracking-tight">Impressum</h1>
 
         <section className="mt-10">
-          <h2 className="font-display text-xl font-semibold">Angaben gemäß § 5 TMG</h2>
+          <h2 className="font-display text-xl font-semibold">Angaben gemäß&nbsp;§ 5 des DDG</h2>
           <address className="mt-4 not-italic text-foreground/80 leading-relaxed">
             Robin Zach<br />
             Jonah Blümel<br />
