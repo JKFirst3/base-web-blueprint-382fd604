@@ -18,11 +18,11 @@ const features = [
 export function Features() {
   return (
     <section id="features" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28 lg:px-8">
-      <div className="mb-12 max-w-2xl">
+      <div className="mb-12 max-w-4xl">
         <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
           Was Lavidro anders macht
         </p>
-        <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+        <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl whitespace-nowrap">
           Wäschepflege auf einem neuen Niveau.
         </h2>
       </div>
