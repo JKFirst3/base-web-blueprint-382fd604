@@ -1,15 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { LogoIcon } from "./Logo";
+import { LogoHorizontal } from "./Logo";
 
 export function Footer() {
   return (
     <footer className="border-t border-border/60 bg-background">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 py-10 sm:px-6 md:flex-row lg:px-8">
         <div className="flex items-center gap-3">
-          <LogoIcon className="h-8 w-8" />
-          <span className="font-display text-sm uppercase tracking-[0.25em] text-foreground/80">
-            Lavidro
-          </span>
+          <LogoHorizontal className="h-12 w-auto" />
         </div>
         <p className="text-sm text-muted-foreground">
           © {new Date().getFullYear()} Lavidro. Alle Rechte vorbehalten.
