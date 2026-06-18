@@ -144,9 +144,6 @@ function DatenschutzPage() {
               lavidro@gmx.net
             </a>
           </address>
-          <p className="mt-4 text-foreground/80 leading-relaxed">
-            {"\n"}
-          </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">Speicherdauer</h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
