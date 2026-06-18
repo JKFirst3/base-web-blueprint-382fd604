@@ -105,6 +105,28 @@ function DatenschutzPage() {
             erfolgt auf Grundlage von Standardvertragsklauseln (Art. 46 DSGVO) sowie der
             Zertifizierung von Cloudflare nach dem EU-US Data Privacy Framework.
           </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">Server-Log-Dateien</h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Der Provider der Seiten erhebt und speichert automatisch Informationen in so
+            genannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt. Dies
+            sind:
+          </p>
+          <ul className="mt-3 list-disc pl-6 text-foreground/80 leading-relaxed space-y-1">
+            <li>Browsertyp und Browserversion</li>
+            <li>verwendetes Betriebssystem</li>
+            <li>Referrer URL</li>
+            <li>Hostname des zugreifenden Rechners</li>
+            <li>Uhrzeit der Serveranfrage</li>
+            <li>IP-Adresse</li>
+          </ul>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen.
+            Die Erfassung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO.
+            Der Websitebetreiber hat ein berechtigtes Interesse an der technisch fehlerfreien
+            Darstellung und der Optimierung seiner Website – hierzu müssen die Server-Log-Files
+            erfasst werden.
+          </p>
         </section>
 
         {/* 3. Allgemeine Hinweise und Pflichtinformationen */}
