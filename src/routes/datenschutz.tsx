@@ -406,6 +406,18 @@ function DatenschutzPage() {
             einheitlichen und ansprechenden Darstellung unseres Online-Angebots unter
             Wahrung des Datenschutzes).
           </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">Cookies / Local Storage</h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Wir verwenden auf dieser Website keine einwilligungspflichtigen Cookies oder
+            Tracking-Technologien. Es werden lediglich technisch notwendige Local-Storage-Einträge
+            oder Cookies verarbeitet, die zur sicheren Bereitstellung der Website (z. B. durch das
+            CDN Cloudflare zur Bot-Erkennung) zwingend erforderlich sind.
+          </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Rechtsgrundlage: § 25 Abs. 2 Nr. 2 TDDDG (technische Notwendigkeit).
+          </p>
+
         </section>
 
         {/* 5. Aktualität */}
