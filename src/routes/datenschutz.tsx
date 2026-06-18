@@ -408,30 +408,18 @@ function DatenschutzPage() {
             Anbieter besteht ein Vertrag zur Auftragsverarbeitung gemäß Art. 28 DSGVO.
           </p>
 
-          <h3 className="mt-6 font-display text-lg font-semibold">Schriftarten (Google Fonts)</h3>
+          <h3 className="mt-6 font-display text-lg font-semibold">Schriftarten (lokal eingebunden)</h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
-            Zur einheitlichen Darstellung von Schriftarten verwenden wir „Google Fonts"
-            (Anbieter: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland).
-            Beim Aufruf der Website lädt Ihr Browser die benötigten Schriftarten von einem
-            Google-Server. Dadurch erhält Google Kenntnis darüber, dass über Ihre IP-Adresse
-            unsere Website aufgerufen wurde.
+            Zur einheitlichen Darstellung von Schriftarten verwenden wir auf dieser Website
+            lokal gehostete Schriftarten (u. a. „Inter" und „Montserrat"). Die Schriftdateien
+            werden direkt vom Server unseres Hosting-Anbieters ausgeliefert. Es erfolgt keine
+            Verbindung zu Servern Dritter (insbesondere keine Verbindung zu Google Fonts) und
+            es werden keine personenbezogenen Daten an Dritte übertragen.
           </p>
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer
-            einheitlichen und ansprechenden Darstellung unseres Online-Angebots). Eine
-            Übermittlung in die USA durch das Mutterunternehmen Google LLC kann nicht
-            ausgeschlossen werden; diese erfolgt auf Grundlage von Standardvertragsklauseln und
-            der Zertifizierung nach dem EU-US Data Privacy Framework. Weitere Informationen
-            unter{" "}
-            <a
-              href="https://policies.google.com/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-4"
-            >
-              policies.google.com/privacy
-            </a>
-            .
+            einheitlichen und ansprechenden Darstellung unseres Online-Angebots unter
+            Wahrung des Datenschutzes).
           </p>
         </section>
 
