@@ -145,9 +145,7 @@ function DatenschutzPage() {
             </a>
           </address>
           <p className="mt-4 text-foreground/80 leading-relaxed">
-            Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder
-            gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von
-            personenbezogenen Daten (z. B. Namen, E-Mail-Adressen o. Ä.) entscheidet.
+            {"\n"}
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">Speicherdauer</h3>
