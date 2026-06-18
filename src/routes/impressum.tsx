@@ -22,11 +22,40 @@ function ImpressumPage() {
       <Header />
       <main className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
         <h1 className="font-display text-4xl font-bold tracking-tight">Impressum</h1>
-        <p className="mt-6 text-foreground/75">
-          Angaben gemäß § 5 TMG folgen in Kürze. Für Anfragen wende dich bitte an{" "}
-          <a href="mailto:hello@lavidro.com" className="underline underline-offset-4">hello@lavidro.com</a>.
-        </p>
-        <Link to="/" className="mt-10 inline-block text-sm underline underline-offset-4">← Zurück zur Startseite</Link>
+
+        <section className="mt-10">
+          <h2 className="font-display text-xl font-semibold">Angaben gemäß § 5 TMG</h2>
+          <address className="mt-4 not-italic text-foreground/80 leading-relaxed">
+            Robin Zach<br />
+            Jonah Blümel<br />
+            Ausblick 1<br />
+            33100 Paderborn
+          </address>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="font-display text-xl font-semibold">Kontakt</h2>
+          <p className="mt-4 text-foreground/80">
+            E-Mail:{" "}
+            <a href="mailto:lavidro@gmx.net" className="underline underline-offset-4">
+              lavidro@gmx.net
+            </a>
+          </p>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="font-display text-xl font-semibold">
+            Verbraucherstreitbeilegung / Universalschlichtungsstelle
+          </h2>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
+            Verbraucherschlichtungsstelle teilzunehmen.
+          </p>
+        </section>
+
+        <Link to="/" className="mt-12 inline-block text-sm underline underline-offset-4">
+          ← Zurück zur Startseite
+        </Link>
       </main>
       <Footer />
     </div>
