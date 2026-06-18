@@ -11,7 +11,7 @@ export function Hero() {
       <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 md:items-center md:gap-16 md:py-28 lg:px-8 lg:py-32">
         <div className="animate-fade-in-up">
           <p className="font-display text-xs uppercase tracking-[0.35em] text-muted-foreground">
-            Textile Care Intelligence
+            &nbsp;
           </p>
           <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
             Nie wieder Waschen, Sortieren oder Falten
