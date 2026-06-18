@@ -11,7 +11,7 @@ export function Header() {
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="#top" aria-label="Lavidro Startseite" className="flex items-center">
-          <LogoHorizontal className="h-9 w-auto sm:h-10" />
+          <LogoHorizontal className="h-18 w-auto sm:h-20" />
         </a>
         <Button
           onClick={scrollToWaitlist}
