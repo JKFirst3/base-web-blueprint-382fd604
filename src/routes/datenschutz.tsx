@@ -100,12 +100,6 @@ function DatenschutzPage() {
             insbesondere die IP-Adresse, Zeitpunkt der Anfrage, aufgerufene URL, Browsertyp und
             Betriebssystem.
           </p>
-          <p className="mt-4 text-foreground/80 leading-relaxed">
-            Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer
-            sicheren und performanten Bereitstellung der Website). Eine Übermittlung in die USA
-            erfolgt auf Grundlage von Standardvertragsklauseln (Art. 46 DSGVO) sowie der
-            Zertifizierung von Cloudflare nach dem EU-US Data Privacy Framework.
-          </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">Server-Log-Dateien</h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
