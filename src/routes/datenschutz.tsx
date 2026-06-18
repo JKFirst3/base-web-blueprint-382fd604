@@ -400,11 +400,18 @@ function DatenschutzPage() {
             Datenbank und Backend (Lovable Cloud)
           </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
-            Für die Speicherung der über die Formulare übermittelten Daten nutzen wir
-            „Lovable Cloud", ein Backend-Service auf Basis von <strong>Supabase</strong>
-            {" "}(Supabase, Inc., 970 Toa Payoh North #07-04, Singapore). Die Daten werden in
-            einer verschlüsselten Datenbank in der Europäischen Union gespeichert. Mit dem
-            Anbieter besteht ein Vertrag zur Auftragsverarbeitung gemäß Art. 28 DSGVO.
+            Für die Speicherung und Verarbeitung der über die Website erfassten Daten (z. B.
+            Warteliste) nutzen wir „Lovable Cloud“. Anbieter ist die Lovable Labs AB,
+            Regeringsgatan 25, 111 53 Stockholm, Schweden. Lovable Cloud stellt uns eine
+            verwaltete Datenbank-Infrastruktur bereit. Im Hintergrund nutzt Lovable für diese
+            Dienste den Infrastruktur-Anbieter Supabase, Inc. (Palo Alto, USA) als
+            Unterauftragsverarbeiter. Die Daten werden auf Servern innerhalb der Europäischen
+            Union gespeichert. Für den Fall, dass Daten in die USA übertragen oder von dort aus
+            eingesehen werden können, haben Lovable bzw. Supabase sich zur Einhaltung der
+            EU-Standardvertragsklauseln verpflichtet, um ein angemessenes Datenschutzniveau zu
+            garantieren. Rechtsgrundlage ist unser berechtigtes Interesse an einer sicheren,
+            skalierbaren und performanten Datenbank-Infrastruktur (Art. 6 Abs. 1 lit. f
+            DSGVO).
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">Schriftarten (lokal eingebunden)</h3>
