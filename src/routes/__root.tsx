@@ -80,8 +80,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "LAVIDRO is a lead-generation landing page for textile care intelligence." },
       { property: "og:description", content: "LAVIDRO is a lead-generation landing page for textile care intelligence." },
       { name: "twitter:description", content: "LAVIDRO is a lead-generation landing page for textile care intelligence." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/IieP0OFIfPbZZdw0ANZ3Bfdb3oA2/social-images/social-1781695724424-lavidro_shirt_logo_light_horizontal_slogan.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/IieP0OFIfPbZZdw0ANZ3Bfdb3oA2/social-images/social-1781695724424-lavidro_shirt_logo_light_horizontal_slogan.webp" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/591d2bb9-17de-4fa6-9ec7-392132b0ed44/id-preview-5b5dc4c4--59757f7c-2bbb-4dee-af05-cb24ed7c885b.lovable.app-1781820494167.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/591d2bb9-17de-4fa6-9ec7-392132b0ed44/id-preview-5b5dc4c4--59757f7c-2bbb-4dee-af05-cb24ed7c885b.lovable.app-1781820494167.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
