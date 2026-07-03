@@ -292,58 +292,146 @@ function KonfiguratorPage() {
           active={step3Unlocked}
           last
         >
-          <div className="rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-12">
-            <div className="grid gap-8 md:grid-cols-2">
-              <div>
-                <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                  Zusammenfassung
-                </p>
-                <dl className="mt-4 space-y-3 text-sm">
-                  <div>
-                    <dt className="text-muted-foreground">Platz</dt>
-                    <dd className="font-display text-lg">
-                      {SPACE_OPTIONS.find((s) => s.id === space)?.label ?? "—"}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground">Automatisierte Schritte</dt>
-                    <dd className="mt-1 flex flex-wrap gap-2">
-                      {steps.length === 0 && <span className="text-foreground/60">—</span>}
-                      {steps.map((id) => {
-                        const label = PROCESS_STEPS.find((s) => s.id === id)?.label;
-                        return (
-                          <span
-                            key={id}
-                            className="rounded-full border border-border bg-background px-3 py-1 text-xs"
-                          >
-                            {label}
-                          </span>
-                        );
-                      })}
-                    </dd>
-                  </div>
-                </dl>
-              </div>
-              <div className="rounded-2xl bg-secondary/50 p-6">
-                <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                  Empfohlene Lösung
-                </p>
-                <p className="mt-4 font-display text-2xl font-semibold">
-                  Wird bald verfügbar
-                </p>
-                <p className="mt-3 text-sm text-foreground/70">
-                  Die Entscheidungsmatrix, die deine Auswahl auf ein konkretes Lavidro-Setup
-                  abbildet, wird demnächst ergänzt. Anschließend siehst du hier genau, welches
-                  Modulset zu deinem Zuhause passt.
-                </p>
-              </div>
-            </div>
-          </div>
+          <SolutionResult space={space} steps={steps} />
         </ConfigStep>
 
         <div className="h-24" />
       </main>
       <Footer />
+    </div>
+  );
+}
+
+function SolutionResult({ space, steps }: { space: SpaceOption | null; steps: StepId[] }) {
+  const maxArea = space ? SPACE_MAX[space] : Infinity;
+
+  const matches = PRODUCTS.filter((p) => p.area <= maxArea)
+    .map((p) => {
+      const missing = steps.filter((s) => !p.steps[s]);
+      return { product: p, missing };
+    })
+    .sort((a, b) => a.missing.length - b.missing.length || a.product.priceBuy - b.product.priceBuy);
+
+  const perfect = matches.filter((m) => m.missing.length === 0);
+  const primary = matches[0];
+  const alternatives = matches.slice(1, 4);
+
+  return (
+    <div className="space-y-6">
+      <div className="rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-12">
+        <div className="grid gap-8 md:grid-cols-2">
+          <div>
+            <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              Zusammenfassung
+            </p>
+            <dl className="mt-4 space-y-3 text-sm">
+              <div>
+                <dt className="text-muted-foreground">Platz</dt>
+                <dd className="font-display text-lg">
+                  {SPACE_OPTIONS.find((s) => s.id === space)?.label ?? "—"}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-muted-foreground">Automatisierte Schritte</dt>
+                <dd className="mt-1 flex flex-wrap gap-2">
+                  {steps.length === 0 && <span className="text-foreground/60">—</span>}
+                  {steps.map((id) => {
+                    const label = PROCESS_STEPS.find((s) => s.id === id)?.label;
+                    return (
+                      <span
+                        key={id}
+                        className="rounded-full border border-border bg-background px-3 py-1 text-xs"
+                      >
+                        {label}
+                      </span>
+                    );
+                  })}
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <div className="rounded-2xl bg-secondary/50 p-6">
+            <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              Empfohlene Lösung
+            </p>
+            {primary ? (
+              <>
+                <p className="mt-4 font-display text-2xl font-semibold">{primary.product.name}</p>
+                <p className="mt-2 text-sm text-foreground/70">{primary.product.description}</p>
+                <dl className="mt-5 grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <dt className="text-muted-foreground">Platzbedarf</dt>
+                    <dd className="font-display text-base">{primary.product.area} m²</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Einmalkauf</dt>
+                    <dd className="font-display text-base">{formatEuro(primary.product.priceBuy)}</dd>
+                  </div>
+                  <div className="col-span-2">
+                    <dt className="text-muted-foreground">Miete</dt>
+                    <dd className="font-display text-base">{formatEuro(primary.product.priceRent)} / Monat</dd>
+                  </div>
+                </dl>
+                {primary.missing.length > 0 && (
+                  <p className="mt-4 rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground/70">
+                    Diese gewünschten Schritte übernimmst du weiterhin selbst:{" "}
+                    <span className="font-medium text-foreground">
+                      {primary.missing
+                        .map((id) => PROCESS_STEPS.find((s) => s.id === id)?.label)
+                        .join(", ")}
+                    </span>
+                  </p>
+                )}
+                {perfect.length === 0 && primary.missing.length > 0 && (
+                  <p className="mt-3 text-xs text-foreground/60">
+                    Keine Lösung erfüllt alle gewählten Schritte innerhalb deines Platzbudgets — dies ist die
+                    beste Annäherung.
+                  </p>
+                )}
+              </>
+            ) : (
+              <p className="mt-4 font-display text-lg font-semibold">
+                Keine passende Lösung im gewählten Platzbudget gefunden.
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {alternatives.length > 0 && (
+        <div>
+          <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
+            Weitere Optionen
+          </p>
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            {alternatives.map(({ product, missing }) => (
+              <div key={product.id} className="rounded-2xl border border-border bg-card p-5">
+                <p className="font-display text-base font-semibold leading-tight">{product.name}</p>
+                <p className="mt-2 text-xs text-foreground/60">{product.description}</p>
+                <dl className="mt-4 space-y-1 text-xs">
+                  <div className="flex justify-between">
+                    <dt className="text-muted-foreground">Platz</dt>
+                    <dd>{product.area} m²</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-muted-foreground">Kauf</dt>
+                    <dd>{formatEuro(product.priceBuy)}</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-muted-foreground">Miete</dt>
+                    <dd>{formatEuro(product.priceRent)} / Mon.</dd>
+                  </div>
+                </dl>
+                {missing.length > 0 && (
+                  <p className="mt-3 text-[11px] text-foreground/60">
+                    Nicht automatisiert: {missing.map((id) => PROCESS_STEPS.find((s) => s.id === id)?.label).join(", ")}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
