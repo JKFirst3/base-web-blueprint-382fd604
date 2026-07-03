@@ -37,13 +37,115 @@ const PROCESS_STEPS = [
   { id: "einsammeln", label: "Wäsche im Haus einsammeln" },
   { id: "sortieren", label: "Wäsche sortieren" },
   { id: "waschen", label: "Wäsche waschen / trocknen" },
-  { id: "buegeln", label: "Wäsche bügeln" },
   { id: "falten", label: "Wäsche falten" },
   { id: "bereitstellen", label: "Wäsche bereitstellen" },
-  { id: "einlagern", label: "Wäsche im Schrank einlagern" },
+  { id: "einlagern", label: "Wäsche in den Schrank bringen" },
 ] as const;
 
 type StepId = (typeof PROCESS_STEPS)[number]["id"];
+
+type Product = {
+  id: string;
+  name: string;
+  description: string;
+  area: number;
+  priceBuy: number;
+  priceRent: number;
+  steps: Record<StepId, boolean>;
+};
+
+const PRODUCTS: Product[] = [
+  {
+    id: "mobil-s",
+    name: "Mobiler Roboter — Größe S",
+    description:
+      "Roboterarm auf einer Schiene zwischen Waschmaschine und Trockner, der be-, um- und entladen kann.",
+    area: 2,
+    priceBuy: 1500,
+    priceRent: 75,
+    steps: { einsammeln: false, sortieren: false, waschen: true, falten: false, bereitstellen: false, einlagern: false },
+  },
+  {
+    id: "mobil-m",
+    name: "Mobiler Roboter — Größe M",
+    description:
+      "Einarmiger Roboter auf einer mobilen Plattform, der zusätzlich sortieren kann.",
+    area: 3,
+    priceBuy: 5000,
+    priceRent: 250,
+    steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: false, einlagern: false },
+  },
+  {
+    id: "mobil-l",
+    name: "Mobiler Roboter — Größe L",
+    description:
+      "Zweiarmiger Roboter auf mobiler Plattform, der zusätzlich sortiert, faltet und die gefaltete Wäsche bereitstellt.",
+    area: 4,
+    priceBuy: 7000,
+    priceRent: 350,
+    steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: false },
+  },
+  {
+    id: "wand-s",
+    name: "Integrierter Wandschrank — Größe S",
+    description:
+      "Roboterarm im integrierten Wandschrank auf einer Schiene zwischen Waschmaschine und Trockner. Sortieren und Falten übernimmst du selbst.",
+    area: 3,
+    priceBuy: 2250,
+    priceRent: 112,
+    steps: { einsammeln: false, sortieren: false, waschen: true, falten: false, bereitstellen: false, einlagern: false },
+  },
+  {
+    id: "wand-m",
+    name: "Integrierter Wandschrank — Größe M",
+    description:
+      "Roboterarm im Wandschrank, der zusätzlich sortiert. Wäsche wird selbst in den HWR gebracht und abgeholt.",
+    area: 4,
+    priceBuy: 6000,
+    priceRent: 300,
+    steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: false, einlagern: false },
+  },
+  {
+    id: "wand-l",
+    name: "Integrierter Wandschrank — Größe L",
+    description:
+      "Zwei Roboterarme im Wandschrank vom Sortieren bis zum Bereitstellen. Wäsche wird selbst in den HWR gebracht und abgeholt.",
+    area: 5,
+    priceBuy: 8000,
+    priceRent: 400,
+    steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: false },
+  },
+  {
+    id: "humanoid-l",
+    name: "Humanoider Roboter — Größe L",
+    description:
+      "Humanoider Roboter, der im definierten Bereich vom Sortieren bis zum Falten alles übernimmt. Wäsche wird selbst in den HWR gebracht und abgeholt.",
+    area: 5,
+    priceBuy: 10000,
+    priceRent: 500,
+    steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: false },
+  },
+  {
+    id: "humanoid-xl",
+    name: "Humanoider Roboter — Größe XL",
+    description:
+      "Humanoider Roboter, der die schmutzige Wäsche eigenständig holt, den Waschprozess im HWR durchführt und die gefaltete Wäsche wieder verteilt.",
+    area: 5,
+    priceBuy: 15000,
+    priceRent: 750,
+    steps: { einsammeln: true, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: true },
+  },
+];
+
+const SPACE_MAX: Record<SpaceOption, number> = { "1-3": 3, "3-4": 4, "4+": Infinity };
+
+function formatEuro(v: number) {
+  return new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+  }).format(v);
+}
 
 function KonfiguratorPage() {
   const [space, setSpace] = useState<SpaceOption | null>(null);
@@ -190,58 +292,146 @@ function KonfiguratorPage() {
           active={step3Unlocked}
           last
         >
-          <div className="rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-12">
-            <div className="grid gap-8 md:grid-cols-2">
-              <div>
-                <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                  Zusammenfassung
-                </p>
-                <dl className="mt-4 space-y-3 text-sm">
-                  <div>
-                    <dt className="text-muted-foreground">Platz</dt>
-                    <dd className="font-display text-lg">
-                      {SPACE_OPTIONS.find((s) => s.id === space)?.label ?? "—"}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground">Automatisierte Schritte</dt>
-                    <dd className="mt-1 flex flex-wrap gap-2">
-                      {steps.length === 0 && <span className="text-foreground/60">—</span>}
-                      {steps.map((id) => {
-                        const label = PROCESS_STEPS.find((s) => s.id === id)?.label;
-                        return (
-                          <span
-                            key={id}
-                            className="rounded-full border border-border bg-background px-3 py-1 text-xs"
-                          >
-                            {label}
-                          </span>
-                        );
-                      })}
-                    </dd>
-                  </div>
-                </dl>
-              </div>
-              <div className="rounded-2xl bg-secondary/50 p-6">
-                <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                  Empfohlene Lösung
-                </p>
-                <p className="mt-4 font-display text-2xl font-semibold">
-                  Wird bald verfügbar
-                </p>
-                <p className="mt-3 text-sm text-foreground/70">
-                  Die Entscheidungsmatrix, die deine Auswahl auf ein konkretes Lavidro-Setup
-                  abbildet, wird demnächst ergänzt. Anschließend siehst du hier genau, welches
-                  Modulset zu deinem Zuhause passt.
-                </p>
-              </div>
-            </div>
-          </div>
+          <SolutionResult space={space} steps={steps} />
         </ConfigStep>
 
         <div className="h-24" />
       </main>
       <Footer />
+    </div>
+  );
+}
+
+function SolutionResult({ space, steps }: { space: SpaceOption | null; steps: StepId[] }) {
+  const maxArea = space ? SPACE_MAX[space] : Infinity;
+
+  const matches = PRODUCTS.filter((p) => p.area <= maxArea)
+    .map((p) => {
+      const missing = steps.filter((s) => !p.steps[s]);
+      return { product: p, missing };
+    })
+    .sort((a, b) => a.missing.length - b.missing.length || a.product.priceBuy - b.product.priceBuy);
+
+  const perfect = matches.filter((m) => m.missing.length === 0);
+  const primary = matches[0];
+  const alternatives = matches.slice(1, 4);
+
+  return (
+    <div className="space-y-6">
+      <div className="rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-12">
+        <div className="grid gap-8 md:grid-cols-2">
+          <div>
+            <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              Zusammenfassung
+            </p>
+            <dl className="mt-4 space-y-3 text-sm">
+              <div>
+                <dt className="text-muted-foreground">Platz</dt>
+                <dd className="font-display text-lg">
+                  {SPACE_OPTIONS.find((s) => s.id === space)?.label ?? "—"}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-muted-foreground">Automatisierte Schritte</dt>
+                <dd className="mt-1 flex flex-wrap gap-2">
+                  {steps.length === 0 && <span className="text-foreground/60">—</span>}
+                  {steps.map((id) => {
+                    const label = PROCESS_STEPS.find((s) => s.id === id)?.label;
+                    return (
+                      <span
+                        key={id}
+                        className="rounded-full border border-border bg-background px-3 py-1 text-xs"
+                      >
+                        {label}
+                      </span>
+                    );
+                  })}
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <div className="rounded-2xl bg-secondary/50 p-6">
+            <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              Empfohlene Lösung
+            </p>
+            {primary ? (
+              <>
+                <p className="mt-4 font-display text-2xl font-semibold">{primary.product.name}</p>
+                <p className="mt-2 text-sm text-foreground/70">{primary.product.description}</p>
+                <dl className="mt-5 grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <dt className="text-muted-foreground">Platzbedarf</dt>
+                    <dd className="font-display text-base">{primary.product.area} m²</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Einmalkauf</dt>
+                    <dd className="font-display text-base">{formatEuro(primary.product.priceBuy)}</dd>
+                  </div>
+                  <div className="col-span-2">
+                    <dt className="text-muted-foreground">Miete</dt>
+                    <dd className="font-display text-base">{formatEuro(primary.product.priceRent)} / Monat</dd>
+                  </div>
+                </dl>
+                {primary.missing.length > 0 && (
+                  <p className="mt-4 rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground/70">
+                    Diese gewünschten Schritte übernimmst du weiterhin selbst:{" "}
+                    <span className="font-medium text-foreground">
+                      {primary.missing
+                        .map((id) => PROCESS_STEPS.find((s) => s.id === id)?.label)
+                        .join(", ")}
+                    </span>
+                  </p>
+                )}
+                {perfect.length === 0 && primary.missing.length > 0 && (
+                  <p className="mt-3 text-xs text-foreground/60">
+                    Keine Lösung erfüllt alle gewählten Schritte innerhalb deines Platzbudgets — dies ist die
+                    beste Annäherung.
+                  </p>
+                )}
+              </>
+            ) : (
+              <p className="mt-4 font-display text-lg font-semibold">
+                Keine passende Lösung im gewählten Platzbudget gefunden.
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {alternatives.length > 0 && (
+        <div>
+          <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
+            Weitere Optionen
+          </p>
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            {alternatives.map(({ product, missing }) => (
+              <div key={product.id} className="rounded-2xl border border-border bg-card p-5">
+                <p className="font-display text-base font-semibold leading-tight">{product.name}</p>
+                <p className="mt-2 text-xs text-foreground/60">{product.description}</p>
+                <dl className="mt-4 space-y-1 text-xs">
+                  <div className="flex justify-between">
+                    <dt className="text-muted-foreground">Platz</dt>
+                    <dd>{product.area} m²</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-muted-foreground">Kauf</dt>
+                    <dd>{formatEuro(product.priceBuy)}</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-muted-foreground">Miete</dt>
+                    <dd>{formatEuro(product.priceRent)} / Mon.</dd>
+                  </div>
+                </dl>
+                {missing.length > 0 && (
+                  <p className="mt-3 text-[11px] text-foreground/60">
+                    Nicht automatisiert: {missing.map((id) => PROCESS_STEPS.find((s) => s.id === id)?.label).join(", ")}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
