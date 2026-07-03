@@ -305,16 +305,32 @@ function KonfiguratorPage() {
 function SolutionResult({ space, steps }: { space: SpaceOption | null; steps: StepId[] }) {
   const maxArea = space ? SPACE_MAX[space] : Infinity;
 
-  const matches = PRODUCTS.filter((p) => p.area <= maxArea)
-    .map((p) => {
-      const missing = steps.filter((s) => !p.steps[s]);
-      return { product: p, missing };
-    })
-    .sort((a, b) => a.missing.length - b.missing.length || a.product.priceBuy - b.product.priceBuy);
+  const scored = PRODUCTS.map((p) => {
+    const missing = steps.filter((s) => !p.steps[s]);
+    const areaOver = Math.max(0, p.area - maxArea);
+    return { product: p, missing, areaOver, fits: areaOver === 0 && missing.length === 0 };
+  });
 
-  const perfect = matches.filter((m) => m.missing.length === 0);
-  const primary = matches[0];
-  const alternatives = matches.slice(1, 4);
+  const perfect = scored
+    .filter((m) => m.fits)
+    .sort((a, b) => a.product.priceBuy - b.product.priceBuy);
+
+  const primary = perfect[0] ?? null;
+
+  // Alternatives: other perfect matches, or (if none perfect) closest compromises
+  const alternatives = primary
+    ? perfect.slice(1, 4)
+    : scored
+        .slice()
+        .sort(
+          (a, b) =>
+            a.missing.length - b.missing.length ||
+            a.areaOver - b.areaOver ||
+            a.product.priceBuy - b.product.priceBuy,
+        )
+        .slice(0, 3);
+
+  const spaceLabel = SPACE_OPTIONS.find((s) => s.id === space)?.label ?? "—";
 
   return (
     <div className="space-y-6">
@@ -327,9 +343,7 @@ function SolutionResult({ space, steps }: { space: SpaceOption | null; steps: St
             <dl className="mt-4 space-y-3 text-sm">
               <div>
                 <dt className="text-muted-foreground">Platz</dt>
-                <dd className="font-display text-lg">
-                  {SPACE_OPTIONS.find((s) => s.id === space)?.label ?? "—"}
-                </dd>
+                <dd className="font-display text-lg">{spaceLabel}</dd>
               </div>
               <div>
                 <dt className="text-muted-foreground">Automatisierte Schritte</dt>
@@ -352,7 +366,7 @@ function SolutionResult({ space, steps }: { space: SpaceOption | null; steps: St
           </div>
           <div className="rounded-2xl bg-secondary/50 p-6">
             <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-              Empfohlene Lösung
+              {primary ? "Empfohlene Lösung" : "Keine perfekte Lösung"}
             </p>
             {primary ? (
               <>
@@ -369,30 +383,22 @@ function SolutionResult({ space, steps }: { space: SpaceOption | null; steps: St
                   </div>
                   <div className="col-span-2">
                     <dt className="text-muted-foreground">Miete</dt>
-                    <dd className="font-display text-base">{formatEuro(primary.product.priceRent)} / Monat</dd>
+                    <dd className="font-display text-base">
+                      {formatEuro(primary.product.priceRent)} / Monat
+                    </dd>
                   </div>
                 </dl>
-                {primary.missing.length > 0 && (
-                  <p className="mt-4 rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground/70">
-                    Diese gewünschten Schritte übernimmst du weiterhin selbst:{" "}
-                    <span className="font-medium text-foreground">
-                      {primary.missing
-                        .map((id) => PROCESS_STEPS.find((s) => s.id === id)?.label)
-                        .join(", ")}
-                    </span>
-                  </p>
-                )}
-                {perfect.length === 0 && primary.missing.length > 0 && (
-                  <p className="mt-3 text-xs text-foreground/60">
-                    Keine Lösung erfüllt alle gewählten Schritte innerhalb deines Platzbudgets — dies ist die
-                    beste Annäherung.
-                  </p>
-                )}
               </>
             ) : (
-              <p className="mt-4 font-display text-lg font-semibold">
-                Keine passende Lösung im gewählten Platzbudget gefunden.
-              </p>
+              <>
+                <p className="mt-4 font-display text-lg font-semibold">
+                  Keine Lösung erfüllt exakt deine Auswahl.
+                </p>
+                <p className="mt-2 text-sm text-foreground/70">
+                  Sieh dir unten alternative Lösungen an — bei jeder ist markiert, welche
+                  Kompromisse du eingehen müsstest.
+                </p>
+              </>
             )}
           </div>
         </div>
@@ -401,34 +407,65 @@ function SolutionResult({ space, steps }: { space: SpaceOption | null; steps: St
       {alternatives.length > 0 && (
         <div>
           <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            Weitere Optionen
+            {primary ? "Weitere Optionen" : "Alternative Lösungen mit Kompromissen"}
           </p>
           <div className="mt-4 grid gap-4 md:grid-cols-3">
-            {alternatives.map(({ product, missing }) => (
-              <div key={product.id} className="rounded-2xl border border-border bg-card p-5">
-                <p className="font-display text-base font-semibold leading-tight">{product.name}</p>
-                <p className="mt-2 text-xs text-foreground/60">{product.description}</p>
-                <dl className="mt-4 space-y-1 text-xs">
-                  <div className="flex justify-between">
-                    <dt className="text-muted-foreground">Platz</dt>
-                    <dd>{product.area} m²</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-muted-foreground">Kauf</dt>
-                    <dd>{formatEuro(product.priceBuy)}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-muted-foreground">Miete</dt>
-                    <dd>{formatEuro(product.priceRent)} / Mon.</dd>
-                  </div>
-                </dl>
-                {missing.length > 0 && (
-                  <p className="mt-3 text-[11px] text-foreground/60">
-                    Nicht automatisiert: {missing.map((id) => PROCESS_STEPS.find((s) => s.id === id)?.label).join(", ")}
+            {alternatives.map(({ product, missing, areaOver }) => {
+              const hasCompromise = missing.length > 0 || areaOver > 0;
+              return (
+                <div
+                  key={product.id}
+                  className={cn(
+                    "rounded-2xl border bg-card p-5",
+                    hasCompromise ? "border-foreground/40" : "border-border",
+                  )}
+                >
+                  <p className="font-display text-base font-semibold leading-tight">
+                    {product.name}
                   </p>
-                )}
-              </div>
-            ))}
+                  <p className="mt-2 text-xs text-foreground/60">{product.description}</p>
+                  <dl className="mt-4 space-y-1 text-xs">
+                    <div className="flex justify-between">
+                      <dt className="text-muted-foreground">Platz</dt>
+                      <dd className={cn(areaOver > 0 && "font-semibold text-foreground")}>
+                        {product.area} m²
+                      </dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt className="text-muted-foreground">Kauf</dt>
+                      <dd>{formatEuro(product.priceBuy)}</dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt className="text-muted-foreground">Miete</dt>
+                      <dd>{formatEuro(product.priceRent)} / Mon.</dd>
+                    </div>
+                  </dl>
+                  {hasCompromise && (
+                    <div className="mt-4 space-y-2 rounded-lg border border-foreground/30 bg-background p-3">
+                      <p className="font-display text-[10px] uppercase tracking-[0.2em] text-foreground">
+                        Kompromiss
+                      </p>
+                      {areaOver > 0 && (
+                        <p className="text-[11px] text-foreground/80">
+                          Benötigt <span className="font-semibold">{product.area} m²</span> —
+                          das sind {areaOver} m² mehr als dein gewählter Platz ({spaceLabel}).
+                        </p>
+                      )}
+                      {missing.length > 0 && (
+                        <p className="text-[11px] text-foreground/80">
+                          Übernimmt folgende Schritte nicht:{" "}
+                          <span className="font-semibold">
+                            {missing
+                              .map((id) => PROCESS_STEPS.find((s) => s.id === id)?.label)
+                              .join(", ")}
+                          </span>
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
