@@ -450,6 +450,9 @@ function SolutionResult({
           <div className="mt-4 grid gap-4 md:grid-cols-3">
             {alternatives.map(({ product, missing, areaOver }) => {
               const hasCompromise = missing.length > 0 || areaOver > 0;
+              const extras = hasCompromise
+                ? []
+                : PROCESS_STEPS.filter((s) => product.steps[s.id] && !steps.includes(s.id));
               return (
                 <button
                   type="button"
