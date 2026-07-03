@@ -126,31 +126,39 @@ function KonfiguratorPage() {
           subtitle="Mehrfachauswahl möglich."
           active={step2Unlocked}
         >
-          <ol className="flex w-full items-stretch gap-1.5 sm:gap-2">
+          <ol className="flex w-full flex-col items-stretch gap-1.5 md:flex-row md:gap-2">
             {PROCESS_STEPS.map((s, i) => {
               const selected = steps.includes(s.id);
               return (
-                <li key={s.id} className="flex min-w-0 flex-1 items-center gap-1 sm:gap-1.5">
+                <li
+                  key={s.id}
+                  className="flex min-w-0 flex-1 flex-col items-center gap-1 md:flex-row md:gap-1.5"
+                >
                   <button
                     type="button"
                     onClick={() => toggleStep(s.id)}
                     aria-pressed={selected}
                     className={cn(
-                      "group relative flex h-32 w-full min-w-0 flex-col items-start justify-between rounded-2xl border bg-card p-3 text-left transition-all hover:border-foreground/40 hover:shadow-sm sm:p-4",
+                      "group relative flex w-full min-w-0 flex-row items-center justify-between gap-3 rounded-2xl border bg-card p-4 text-left transition-all hover:border-foreground/40 hover:shadow-sm",
+                      "md:h-32 md:flex-col md:items-start md:justify-between md:gap-0 md:p-3 lg:p-4",
                       selected
                         ? "border-foreground ring-2 ring-foreground/80"
                         : "border-border",
                     )}
                   >
-                    <span className="font-display text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                    <span className="font-display text-[10px] uppercase tracking-[0.2em] text-muted-foreground md:order-none">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="hyphens-auto break-words font-display text-[11px] font-semibold leading-tight sm:text-xs lg:text-[13px]" lang="de">
+                    <span
+                      className="flex-1 hyphens-auto break-words font-display text-sm font-semibold leading-tight md:text-[11px] lg:text-[13px]"
+                      lang="de"
+                    >
                       {s.label}
                     </span>
                     <span
                       className={cn(
-                        "absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full border transition-colors sm:right-3 sm:top-3",
+                        "flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors",
+                        "md:absolute md:right-2 md:top-2 lg:right-3 lg:top-3",
                         selected
                           ? "border-foreground bg-foreground text-background"
                           : "border-border bg-background",
@@ -162,8 +170,8 @@ function KonfiguratorPage() {
                   </button>
                   <ChevronRight
                     className={cn(
-                      "h-4 w-4 shrink-0 text-foreground/25 sm:h-5 sm:w-5",
-                      i === PROCESS_STEPS.length - 1 && "invisible",
+                      "h-4 w-4 shrink-0 rotate-90 text-foreground/25 md:h-5 md:w-5 md:rotate-0",
+                      i === PROCESS_STEPS.length - 1 && "invisible md:invisible",
                     )}
                     aria-hidden
                   />
