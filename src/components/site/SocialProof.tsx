@@ -1,36 +1,42 @@
 export function SocialProof() {
   const quotes = [
     {
-      text: "Endlich eine Lösung, die den Wäsche-Alltag wirklich neu denkt. Ich habe Stunden pro Woche zurückgewonnen.",
+      text: "Die Idee überzeugt sofort — ich würde einen solchen Service ausprobieren, sobald er verfügbar ist.",
       author: "Anna R.",
-      role: "Beta-Nutzerin, Berlin",
+      role: "Teilnehmerin Konzeptbefragung",
     },
     {
-      text: "Lavidro fühlt sich an wie ein persönlicher Concierge für Textilpflege — durchdacht, verlässlich, elegant.",
+      text: "Ein durchdachtes Konzept, das genau meinen Nerv trifft: weniger Aufwand, gleiche Qualität.",
       author: "Julian K.",
-      role: "Early Adopter, München",
+      role: "Teilnehmer Konzeptbefragung",
     },
     {
-      text: "Was mich überzeugt: Meine Kleidung sieht länger neu aus und ich muss mich um nichts mehr kümmern.",
+      text: "Wenn Lavidro hält, was es verspricht, ist das für mich der spannendste Ansatz zur Textilpflege seit Langem.",
       author: "Sophie M.",
-      role: "Warteliste, Hamburg",
+      role: "Teilnehmerin Konzeptbefragung",
     },
   ];
 
-  const partners = ["Cleanly Co.", "Textilia", "Fabriq", "Nordwash", "Linea", "Vestra"];
+  const partners = [
+    { name: "Miele", note: "Industriepartner" },
+    { name: "Universität Paderborn", note: "Forschungspartner" },
+    { name: "Factory33", note: "Innovationspartner" },
+  ];
 
   return (
     <section className="border-t border-border/60 bg-secondary/40 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            Stimmen & Partner
+            Konzeptbefragung
           </p>
           <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
-            Vertrauen, das wir uns verdienen
+            Stimmen aus unserer Konzeptbefragung
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-foreground/70">
-            Was frühe Nutzer:innen über Lavidro sagen — und mit wem wir zusammenarbeiten.
+            Lavidro ist noch nicht als Produkt verfügbar. Diese Rückmeldungen stammen aus
+            Interviews und Umfragen, in denen wir unser Konzept mit potenziellen Nutzer:innen
+            geteilt haben.
           </p>
         </div>
 
@@ -61,13 +67,18 @@ export function SocialProof() {
           <p className="text-center font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
             Unsere Partner
           </p>
-          <div className="mt-8 grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-3 lg:grid-cols-6">
-            {partners.map((name) => (
+          <div className="mx-auto mt-8 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
+            {partners.map((p) => (
               <div
-                key={name}
-                className="flex h-16 items-center justify-center rounded-xl border border-border/70 bg-background/60 px-4 font-display text-base font-semibold tracking-wide text-foreground/70 transition-colors hover:text-foreground"
+                key={p.name}
+                className="flex h-24 flex-col items-center justify-center rounded-2xl border border-border/70 bg-background/70 px-6 text-center transition-colors hover:border-foreground/30"
               >
-                {name}
+                <div className="font-display text-lg font-semibold tracking-tight text-foreground">
+                  {p.name}
+                </div>
+                <div className="mt-1 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                  {p.note}
+                </div>
               </div>
             ))}
           </div>
