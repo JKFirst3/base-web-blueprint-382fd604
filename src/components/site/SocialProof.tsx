@@ -6,17 +6,17 @@ export function SocialProof() {
     {
       text: "Wäsche wird im Alltag oft vergessen, da die einzelnen Prozessschritte nicht bündig nacheinander laufen. Ein Roboter löst genau dieses Timing-Problem.",
       author: "Alena K.",
-      role: "Teilnehmerin Konzeptbefragung",
+      role: "",
     },
     {
       text: "Eine Haushaltshilfe für die Wäsche kommt für uns aus Gründen der Privatsphäre nicht infrage. Eine automatisierte Schranklösung im Hintergrund ist da die perfekte Alternative.",
       author: "Eleonora P.",
-      role: "Teilnehmerin Konzeptbefragung",
+      role: "",
     },
     {
       text: "Wir wollen technologisch mit der Zeit gehen. Wenn das Waschergebnis und die Textilschonung absolut zuverlässig sind, investieren wir gerne in eine komplette Systemwand.",
       author: "Lisa-Marie B.",
-      role: "Teilnehmerin Konzeptbefragung",
+      role: "",
     },
   ];
 
