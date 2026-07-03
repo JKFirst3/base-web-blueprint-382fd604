@@ -176,14 +176,6 @@ function KonfiguratorPage() {
     }
   }, [space]);
 
-  useEffect(() => {
-    if (steps.length === 1) {
-      const t = setTimeout(() => {
-        step3Ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 200);
-      return () => clearTimeout(t);
-    }
-  }, [steps.length]);
 
   // Direct user changes to Step 1 / Step 2 clear any manual product override
   const setSpace = (s: SpaceOption) => {
