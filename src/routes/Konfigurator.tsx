@@ -461,6 +461,14 @@ function SolutionResult({
                       : "cursor-default border-border",
                   )}
                 >
+                  <div className="mb-4 aspect-[16/10] overflow-hidden rounded-lg bg-background">
+                    <img
+                      src={productImage(product.id)}
+                      alt={product.name}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
                   <p className="font-display text-base font-semibold leading-tight">
                     {product.name}
                   </p>
