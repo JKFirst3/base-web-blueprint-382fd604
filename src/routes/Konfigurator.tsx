@@ -519,6 +519,21 @@ function SolutionResult({
                       </p>
                     </div>
                   )}
+                  {!hasCompromise && extras.length > 0 && (
+                    <div className="mt-4 space-y-2 rounded-lg border border-foreground/20 bg-secondary/40 p-3">
+                      <p className="font-display text-[10px] uppercase tracking-[0.2em] text-foreground">
+                        Zusätzlich automatisiert
+                      </p>
+                      <p className="text-[11px] text-foreground/80">
+                        <span className="font-semibold">
+                          {extras.map((s) => s.label).join(", ")}
+                        </span>
+                      </p>
+                      <p className="mt-2 font-display text-[10px] uppercase tracking-[0.2em] text-foreground/70 group-hover:text-foreground">
+                        Diese Lösung wählen →
+                      </p>
+                    </div>
+                  )}
                 </button>
               );
             })}
