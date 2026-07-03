@@ -292,7 +292,18 @@ function KonfiguratorPage() {
           active={step3Unlocked}
           last
         >
-          <SolutionResult space={space} steps={steps} />
+          <SolutionResult
+            space={space}
+            steps={steps}
+            onAcceptCompromise={(product) => {
+              // Adjust space to the smallest option that fits the product's area
+              const nextSpace = (SPACE_OPTIONS.find((o) => SPACE_MAX[o.id] >= product.area)?.id ??
+                space) as SpaceOption;
+              if (nextSpace !== space) setSpace(nextSpace);
+              // Drop any selected steps this product cannot automate
+              setSteps((prev) => prev.filter((s) => product.steps[s]));
+            }}
+          />
         </ConfigStep>
 
         <div className="h-24" />
@@ -302,7 +313,15 @@ function KonfiguratorPage() {
   );
 }
 
-function SolutionResult({ space, steps }: { space: SpaceOption | null; steps: StepId[] }) {
+function SolutionResult({
+  space,
+  steps,
+  onAcceptCompromise,
+}: {
+  space: SpaceOption | null;
+  steps: StepId[];
+  onAcceptCompromise: (product: Product) => void;
+}) {
   const maxArea = space ? SPACE_MAX[space] : Infinity;
 
   const scored = PRODUCTS.map((p) => {
@@ -413,11 +432,16 @@ function SolutionResult({ space, steps }: { space: SpaceOption | null; steps: St
             {alternatives.map(({ product, missing, areaOver }) => {
               const hasCompromise = missing.length > 0 || areaOver > 0;
               return (
-                <div
+                <button
+                  type="button"
                   key={product.id}
+                  onClick={() => hasCompromise && onAcceptCompromise(product)}
+                  disabled={!hasCompromise}
                   className={cn(
-                    "rounded-2xl border bg-card p-5",
-                    hasCompromise ? "border-foreground/40" : "border-border",
+                    "group rounded-2xl border bg-card p-5 text-left transition-all",
+                    hasCompromise
+                      ? "cursor-pointer border-foreground/40 hover:border-foreground hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                      : "cursor-default border-border",
                   )}
                 >
                   <p className="font-display text-base font-semibold leading-tight">
@@ -461,9 +485,12 @@ function SolutionResult({ space, steps }: { space: SpaceOption | null; steps: St
                           </span>
                         </p>
                       )}
+                      <p className="mt-2 font-display text-[10px] uppercase tracking-[0.2em] text-foreground/70 group-hover:text-foreground">
+                        Diese Lösung wählen →
+                      </p>
                     </div>
                   )}
-                </div>
+                </button>
               );
             })}
           </div>
