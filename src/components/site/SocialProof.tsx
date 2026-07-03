@@ -1,8 +1,7 @@
 import mieleLogo from "@/assets/miele-logo.png.asset.json";
 import uniPaderbornLogo from "@/assets/uni-paderborn-logo.png.asset.json";
 import factory33Logo from "@/assets/factory33-logo.png.asset.json";
-
-
+export function SocialProof() {
   const quotes = [
     {
       text: "Die Idee überzeugt sofort — ich würde einen solchen Service ausprobieren, sobald er verfügbar ist.",
