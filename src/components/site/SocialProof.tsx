@@ -14,8 +14,8 @@ export function SocialProof() {
       role: "Teilnehmerin Konzeptbefragung",
     },
     {
-      text: "Wenn Lavidro hält, was es verspricht, ist das für mich der spannendste Ansatz zur Textilpflege seit Langem.",
-      author: "Sophie M.",
+      text: "Wir wollen technologisch mit der Zeit gehen. Wenn das Waschergebnis und die Textilschonung absolut zuverlässig sind, investieren wir gerne in eine komplette Systemwand.",
+      author: "Lisa-Marie B.",
       role: "Teilnehmerin Konzeptbefragung",
     },
   ];
