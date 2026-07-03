@@ -292,7 +292,18 @@ function KonfiguratorPage() {
           active={step3Unlocked}
           last
         >
-          <SolutionResult space={space} steps={steps} />
+          <SolutionResult
+            space={space}
+            steps={steps}
+            onAcceptCompromise={(product) => {
+              // Adjust space to the smallest option that fits the product's area
+              const nextSpace = (SPACE_OPTIONS.find((o) => SPACE_MAX[o.id] >= product.area)?.id ??
+                space) as SpaceOption;
+              if (nextSpace !== space) setSpace(nextSpace);
+              // Drop any selected steps this product cannot automate
+              setSteps((prev) => prev.filter((s) => product.steps[s]));
+            }}
+          />
         </ConfigStep>
 
         <div className="h-24" />
@@ -302,7 +313,15 @@ function KonfiguratorPage() {
   );
 }
 
-function SolutionResult({ space, steps }: { space: SpaceOption | null; steps: StepId[] }) {
+function SolutionResult({
+  space,
+  steps,
+  onAcceptCompromise,
+}: {
+  space: SpaceOption | null;
+  steps: StepId[];
+  onAcceptCompromise: (product: Product) => void;
+}) {
   const maxArea = space ? SPACE_MAX[space] : Infinity;
 
   const scored = PRODUCTS.map((p) => {
