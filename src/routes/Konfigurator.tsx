@@ -398,6 +398,14 @@ function SolutionResult({
             </p>
             {primary ? (
               <>
+                <div className="mt-4 aspect-[16/10] overflow-hidden rounded-xl bg-background">
+                  <img
+                    src={productImage(primary.product.id)}
+                    alt={primary.product.name}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
                 <p className="mt-4 font-display text-2xl font-semibold">{primary.product.name}</p>
                 <p className="mt-2 text-sm text-foreground/70">{primary.product.description}</p>
                 <dl className="mt-5 grid grid-cols-2 gap-4 text-sm">
