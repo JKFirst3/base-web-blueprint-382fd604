@@ -37,13 +37,115 @@ const PROCESS_STEPS = [
   { id: "einsammeln", label: "Wäsche im Haus einsammeln" },
   { id: "sortieren", label: "Wäsche sortieren" },
   { id: "waschen", label: "Wäsche waschen / trocknen" },
-  { id: "buegeln", label: "Wäsche bügeln" },
   { id: "falten", label: "Wäsche falten" },
   { id: "bereitstellen", label: "Wäsche bereitstellen" },
-  { id: "einlagern", label: "Wäsche im Schrank einlagern" },
+  { id: "einlagern", label: "Wäsche in den Schrank bringen" },
 ] as const;
 
 type StepId = (typeof PROCESS_STEPS)[number]["id"];
+
+type Product = {
+  id: string;
+  name: string;
+  description: string;
+  area: number;
+  priceBuy: number;
+  priceRent: number;
+  steps: Record<StepId, boolean>;
+};
+
+const PRODUCTS: Product[] = [
+  {
+    id: "mobil-s",
+    name: "Mobiler Roboter — Größe S",
+    description:
+      "Roboterarm auf einer Schiene zwischen Waschmaschine und Trockner, der be-, um- und entladen kann.",
+    area: 2,
+    priceBuy: 1500,
+    priceRent: 75,
+    steps: { einsammeln: false, sortieren: false, waschen: true, falten: false, bereitstellen: false, einlagern: false },
+  },
+  {
+    id: "mobil-m",
+    name: "Mobiler Roboter — Größe M",
+    description:
+      "Einarmiger Roboter auf einer mobilen Plattform, der zusätzlich sortieren kann.",
+    area: 3,
+    priceBuy: 5000,
+    priceRent: 250,
+    steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: false, einlagern: false },
+  },
+  {
+    id: "mobil-l",
+    name: "Mobiler Roboter — Größe L",
+    description:
+      "Zweiarmiger Roboter auf mobiler Plattform, der zusätzlich sortiert, faltet und die gefaltete Wäsche bereitstellt.",
+    area: 4,
+    priceBuy: 7000,
+    priceRent: 350,
+    steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: false },
+  },
+  {
+    id: "wand-s",
+    name: "Integrierter Wandschrank — Größe S",
+    description:
+      "Roboterarm im integrierten Wandschrank auf einer Schiene zwischen Waschmaschine und Trockner. Sortieren und Falten übernimmst du selbst.",
+    area: 3,
+    priceBuy: 2250,
+    priceRent: 112,
+    steps: { einsammeln: false, sortieren: false, waschen: true, falten: false, bereitstellen: false, einlagern: false },
+  },
+  {
+    id: "wand-m",
+    name: "Integrierter Wandschrank — Größe M",
+    description:
+      "Roboterarm im Wandschrank, der zusätzlich sortiert. Wäsche wird selbst in den HWR gebracht und abgeholt.",
+    area: 4,
+    priceBuy: 6000,
+    priceRent: 300,
+    steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: false, einlagern: false },
+  },
+  {
+    id: "wand-l",
+    name: "Integrierter Wandschrank — Größe L",
+    description:
+      "Zwei Roboterarme im Wandschrank vom Sortieren bis zum Bereitstellen. Wäsche wird selbst in den HWR gebracht und abgeholt.",
+    area: 5,
+    priceBuy: 8000,
+    priceRent: 400,
+    steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: false },
+  },
+  {
+    id: "humanoid-l",
+    name: "Humanoider Roboter — Größe L",
+    description:
+      "Humanoider Roboter, der im definierten Bereich vom Sortieren bis zum Falten alles übernimmt. Wäsche wird selbst in den HWR gebracht und abgeholt.",
+    area: 5,
+    priceBuy: 10000,
+    priceRent: 500,
+    steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: false },
+  },
+  {
+    id: "humanoid-xl",
+    name: "Humanoider Roboter — Größe XL",
+    description:
+      "Humanoider Roboter, der die schmutzige Wäsche eigenständig holt, den Waschprozess im HWR durchführt und die gefaltete Wäsche wieder verteilt.",
+    area: 5,
+    priceBuy: 15000,
+    priceRent: 750,
+    steps: { einsammeln: true, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: true },
+  },
+];
+
+const SPACE_MAX: Record<SpaceOption, number> = { "1-3": 3, "3-4": 4, "4+": Infinity };
+
+function formatEuro(v: number) {
+  return new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+  }).format(v);
+}
 
 function KonfiguratorPage() {
   const [space, setSpace] = useState<SpaceOption | null>(null);
