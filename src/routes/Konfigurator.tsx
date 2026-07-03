@@ -160,12 +160,13 @@ function KonfiguratorPage() {
                       {selected && <Check className="h-3 w-3" />}
                     </span>
                   </button>
-                  {i < PROCESS_STEPS.length - 1 && (
-                    <ChevronRight
-                      className="h-4 w-4 shrink-0 text-foreground/25 sm:h-5 sm:w-5"
-                      aria-hidden
-                    />
-                  )}
+                  <ChevronRight
+                    className={cn(
+                      "h-4 w-4 shrink-0 text-foreground/25 sm:h-5 sm:w-5",
+                      i === PROCESS_STEPS.length - 1 && "invisible",
+                    )}
+                    aria-hidden
+                  />
                 </li>
               );
             })}
