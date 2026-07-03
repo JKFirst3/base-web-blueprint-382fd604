@@ -9,9 +9,9 @@ export function SocialProof() {
       role: "Teilnehmerin Konzeptbefragung",
     },
     {
-      text: "Ein durchdachtes Konzept, das genau meinen Nerv trifft: weniger Aufwand, gleiche Qualität.",
-      author: "Julian K.",
-      role: "Teilnehmer Konzeptbefragung",
+      text: "Eine Haushaltshilfe für die Wäsche kommt für uns aus Gründen der Privatsphäre nicht infrage. Eine automatisierte Schranklösung im Hintergrund ist da die perfekte Alternative.",
+      author: "Eleonora P.",
+      role: "Teilnehmerin Konzeptbefragung",
     },
     {
       text: "Wenn Lavidro hält, was es verspricht, ist das für mich der spannendste Ansatz zur Textilpflege seit Langem.",
