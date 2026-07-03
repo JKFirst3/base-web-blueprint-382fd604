@@ -309,7 +309,7 @@ function KonfiguratorPage() {
               const nextSpace = (SPACE_OPTIONS.find((o) => SPACE_MAX[o.id] >= product.area)?.id ??
                 space) as SpaceOption;
               if (nextSpace !== space) setSpaceState(nextSpace);
-              setStepsState((prev) => prev.filter((s) => product.steps[s]));
+              setStepsState(PROCESS_STEPS.map((s) => s.id).filter((id) => product.steps[id]));
             }}
           />
         </ConfigStep>
