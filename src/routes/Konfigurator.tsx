@@ -432,11 +432,16 @@ function SolutionResult({
             {alternatives.map(({ product, missing, areaOver }) => {
               const hasCompromise = missing.length > 0 || areaOver > 0;
               return (
-                <div
+                <button
+                  type="button"
                   key={product.id}
+                  onClick={() => hasCompromise && onAcceptCompromise(product)}
+                  disabled={!hasCompromise}
                   className={cn(
-                    "rounded-2xl border bg-card p-5",
-                    hasCompromise ? "border-foreground/40" : "border-border",
+                    "group rounded-2xl border bg-card p-5 text-left transition-all",
+                    hasCompromise
+                      ? "cursor-pointer border-foreground/40 hover:border-foreground hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                      : "cursor-default border-border",
                   )}
                 >
                   <p className="font-display text-base font-semibold leading-tight">
@@ -480,9 +485,12 @@ function SolutionResult({
                           </span>
                         </p>
                       )}
+                      <p className="mt-2 font-display text-[10px] uppercase tracking-[0.2em] text-foreground/70 group-hover:text-foreground">
+                        Diese Lösung wählen →
+                      </p>
                     </div>
                   )}
-                </div>
+                </button>
               );
             })}
           </div>
