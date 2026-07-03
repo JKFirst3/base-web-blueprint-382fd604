@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
+import { Route as AboutLavidroRouteImport } from './routes/aboutLavidro'
+import { Route as KonfiguratorRouteImport } from './routes/Konfigurator'
 import { Route as IndexRouteImport } from './routes/index'
 
 const KontaktRoute = KontaktRouteImport.update({
@@ -29,6 +31,16 @@ const DatenschutzRoute = DatenschutzRouteImport.update({
   path: '/datenschutz',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutLavidroRoute = AboutLavidroRouteImport.update({
+  id: '/aboutLavidro',
+  path: '/aboutLavidro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KonfiguratorRoute = KonfiguratorRouteImport.update({
+  id: '/Konfigurator',
+  path: '/Konfigurator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +49,16 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/Konfigurator': typeof KonfiguratorRoute
+  '/aboutLavidro': typeof AboutLavidroRoute
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/Konfigurator': typeof KonfiguratorRoute
+  '/aboutLavidro': typeof AboutLavidroRoute
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
@@ -50,20 +66,43 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/Konfigurator': typeof KonfiguratorRoute
+  '/aboutLavidro': typeof AboutLavidroRoute
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/datenschutz' | '/impressum' | '/kontakt'
+  fullPaths:
+    | '/'
+    | '/Konfigurator'
+    | '/aboutLavidro'
+    | '/datenschutz'
+    | '/impressum'
+    | '/kontakt'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/datenschutz' | '/impressum' | '/kontakt'
-  id: '__root__' | '/' | '/datenschutz' | '/impressum' | '/kontakt'
+  to:
+    | '/'
+    | '/Konfigurator'
+    | '/aboutLavidro'
+    | '/datenschutz'
+    | '/impressum'
+    | '/kontakt'
+  id:
+    | '__root__'
+    | '/'
+    | '/Konfigurator'
+    | '/aboutLavidro'
+    | '/datenschutz'
+    | '/impressum'
+    | '/kontakt'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  KonfiguratorRoute: typeof KonfiguratorRoute
+  AboutLavidroRoute: typeof AboutLavidroRoute
   DatenschutzRoute: typeof DatenschutzRoute
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
@@ -92,6 +131,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DatenschutzRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/aboutLavidro': {
+      id: '/aboutLavidro'
+      path: '/aboutLavidro'
+      fullPath: '/aboutLavidro'
+      preLoaderRoute: typeof AboutLavidroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Konfigurator': {
+      id: '/Konfigurator'
+      path: '/Konfigurator'
+      fullPath: '/Konfigurator'
+      preLoaderRoute: typeof KonfiguratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +157,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  KonfiguratorRoute: KonfiguratorRoute,
+  AboutLavidroRoute: AboutLavidroRoute,
   DatenschutzRoute: DatenschutzRoute,
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
@@ -111,13 +166,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
