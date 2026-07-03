@@ -126,52 +126,50 @@ function KonfiguratorPage() {
           subtitle="Mehrfachauswahl möglich."
           active={step2Unlocked}
         >
-          <div className="-mx-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0">
-            <ol className="flex min-w-max items-stretch gap-2">
-              {PROCESS_STEPS.map((s, i) => {
-                const selected = steps.includes(s.id);
-                return (
-                  <li key={s.id} className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => toggleStep(s.id)}
-                      aria-pressed={selected}
-                      className={cn(
-                        "group relative flex h-32 w-40 flex-col items-start justify-between rounded-2xl border bg-card p-4 text-left transition-all hover:border-foreground/40 hover:shadow-sm",
-                        selected
-                          ? "border-foreground ring-2 ring-foreground/80"
-                          : "border-border",
-                      )}
-                    >
-                      <span className="font-display text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="font-display text-sm font-semibold leading-snug">
-                        {s.label}
-                      </span>
-                      <span
-                        className={cn(
-                          "absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border transition-colors",
-                          selected
-                            ? "border-foreground bg-foreground text-background"
-                            : "border-border bg-background",
-                        )}
-                        aria-hidden
-                      >
-                        {selected && <Check className="h-3 w-3" />}
-                      </span>
-                    </button>
-                    {i < PROCESS_STEPS.length - 1 && (
-                      <ChevronRight
-                        className="h-5 w-5 shrink-0 text-foreground/25"
-                        aria-hidden
-                      />
+          <ol className="flex w-full items-stretch gap-1.5 sm:gap-2">
+            {PROCESS_STEPS.map((s, i) => {
+              const selected = steps.includes(s.id);
+              return (
+                <li key={s.id} className="flex min-w-0 flex-1 items-center gap-1 sm:gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => toggleStep(s.id)}
+                    aria-pressed={selected}
+                    className={cn(
+                      "group relative flex h-32 w-full min-w-0 flex-col items-start justify-between rounded-2xl border bg-card p-3 text-left transition-all hover:border-foreground/40 hover:shadow-sm sm:p-4",
+                      selected
+                        ? "border-foreground ring-2 ring-foreground/80"
+                        : "border-border",
                     )}
-                  </li>
-                );
-              })}
-            </ol>
-          </div>
+                  >
+                    <span className="font-display text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="font-display text-xs font-semibold leading-snug sm:text-sm">
+                      {s.label}
+                    </span>
+                    <span
+                      className={cn(
+                        "absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full border transition-colors sm:right-3 sm:top-3",
+                        selected
+                          ? "border-foreground bg-foreground text-background"
+                          : "border-border bg-background",
+                      )}
+                      aria-hidden
+                    >
+                      {selected && <Check className="h-3 w-3" />}
+                    </span>
+                  </button>
+                  {i < PROCESS_STEPS.length - 1 && (
+                    <ChevronRight
+                      className="h-4 w-4 shrink-0 text-foreground/25 sm:h-5 sm:w-5"
+                      aria-hidden
+                    />
+                  )}
+                </li>
+              );
+            })}
+          </ol>
         </ConfigStep>
 
         {/* Step 3 */}
