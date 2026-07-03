@@ -462,13 +462,12 @@ function SolutionResult({
                 <button
                   type="button"
                   key={product.id}
-                  onClick={() => hasCompromise && onAcceptCompromise(product)}
-                  disabled={!hasCompromise}
+                  onClick={() => onSelectProduct(product)}
                   className={cn(
-                    "group rounded-2xl border bg-card p-5 text-left transition-all",
+                    "group rounded-2xl border bg-card p-5 text-left transition-all cursor-pointer",
                     hasCompromise
-                      ? "cursor-pointer border-foreground/40 hover:border-foreground hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
-                      : "cursor-default border-border",
+                      ? "border-foreground/40 hover:border-foreground hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                      : "border-border hover:border-foreground/60 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground",
                   )}
                 >
                   <div className="mb-4 aspect-[16/10] overflow-hidden rounded-lg bg-background">
