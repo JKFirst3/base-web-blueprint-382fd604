@@ -140,7 +140,7 @@ const PRODUCTS: Product[] = [
   },
 ];
 
-const SPACE_MAX: Record<SpaceOption, number> = { "1-3": 3, "3-4": 4, "4+": Infinity };
+const SPACE_MAX: Record<SpaceOption, number> = { "1-3": 2, "3-4": 4, "4+": Infinity };
 
 function formatEuro(v: number) {
   return new Intl.NumberFormat("de-DE", {
