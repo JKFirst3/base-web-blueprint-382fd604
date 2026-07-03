@@ -36,11 +36,6 @@ export function SocialProof() {
           <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
             Stimmen aus unserer Konzeptbefragung
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-foreground/70">
-            Lavidro ist noch nicht als Produkt verfügbar. Diese Rückmeldungen stammen aus
-            Interviews und Umfragen, in denen wir unser Konzept mit potenziellen Nutzer:innen
-            geteilt haben.
-          </p>
         </div>
 
         <div className="mt-14 grid gap-6 md:grid-cols-3">
