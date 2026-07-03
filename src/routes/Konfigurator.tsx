@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Check } from "lucide-react";
+import { Check, ChevronRight } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { cn } from "@/lib/utils";
@@ -126,16 +126,51 @@ function KonfiguratorPage() {
           subtitle="Mehrfachauswahl möglich."
           active={step2Unlocked}
         >
-          <div className="grid gap-3 sm:grid-cols-2">
-            {PROCESS_STEPS.map((s) => (
-              <SelectCard
-                key={s.id}
-                selected={steps.includes(s.id)}
-                onClick={() => toggleStep(s.id)}
-                title={s.label}
-                variant="row"
-              />
-            ))}
+          <div className="-mx-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0">
+            <ol className="flex min-w-max items-stretch gap-2">
+              {PROCESS_STEPS.map((s, i) => {
+                const selected = steps.includes(s.id);
+                return (
+                  <li key={s.id} className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => toggleStep(s.id)}
+                      aria-pressed={selected}
+                      className={cn(
+                        "group relative flex h-32 w-40 flex-col items-start justify-between rounded-2xl border bg-card p-4 text-left transition-all hover:border-foreground/40 hover:shadow-sm",
+                        selected
+                          ? "border-foreground ring-2 ring-foreground/80"
+                          : "border-border",
+                      )}
+                    >
+                      <span className="font-display text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="font-display text-sm font-semibold leading-snug">
+                        {s.label}
+                      </span>
+                      <span
+                        className={cn(
+                          "absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border transition-colors",
+                          selected
+                            ? "border-foreground bg-foreground text-background"
+                            : "border-border bg-background",
+                        )}
+                        aria-hidden
+                      >
+                        {selected && <Check className="h-3 w-3" />}
+                      </span>
+                    </button>
+                    {i < PROCESS_STEPS.length - 1 && (
+                      <ChevronRight
+                        className="h-5 w-5 shrink-0 text-foreground/25"
+                        aria-hidden
+                      />
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
           </div>
         </ConfigStep>
 
