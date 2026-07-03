@@ -150,6 +150,12 @@ function formatEuro(v: number) {
   }).format(v);
 }
 
+function productImage(id: string): string {
+  if (id.startsWith("humanoid")) return humanoidImage.url;
+  if (id.startsWith("wand")) return wandImage.url;
+  return mobilImage.url;
+}
+
 function KonfiguratorPage() {
   const [space, setSpace] = useState<SpaceOption | null>(null);
   const [steps, setSteps] = useState<StepId[]>([]);
