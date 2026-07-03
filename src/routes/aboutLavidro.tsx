@@ -71,7 +71,7 @@ function AboutLavidroPage() {
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { name: "Team-Mitglied", role: "Founder" },
+              { name: "Jonah Blümel", role: "Founder" },
               { name: "Team-Mitglied", role: "Operations" },
               { name: "Team-Mitglied", role: "Produkt & Tech" },
             ].map((m, i) => (
