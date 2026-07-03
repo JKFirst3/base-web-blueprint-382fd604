@@ -332,11 +332,13 @@ function KonfiguratorPage() {
 function SolutionResult({
   space,
   steps,
-  onAcceptCompromise,
+  selectedId,
+  onSelectProduct,
 }: {
   space: SpaceOption | null;
   steps: StepId[];
-  onAcceptCompromise: (product: Product) => void;
+  selectedId: string | null;
+  onSelectProduct: (product: Product) => void;
 }) {
   const maxArea = space ? SPACE_MAX[space] : Infinity;
 
@@ -350,20 +352,21 @@ function SolutionResult({
     .filter((m) => m.fits)
     .sort((a, b) => a.product.priceBuy - b.product.priceBuy);
 
-  const primary = perfect[0] ?? null;
+  const manual = selectedId ? scored.find((s) => s.product.id === selectedId) ?? null : null;
+  const primary = manual ?? perfect[0] ?? null;
 
-  // Alternatives: other perfect matches, or (if none perfect) closest compromises
-  const alternatives = primary
-    ? perfect.slice(1, 4)
-    : scored
-        .slice()
-        .sort(
-          (a, b) =>
-            a.missing.length - b.missing.length ||
-            a.areaOver - b.areaOver ||
-            a.product.priceBuy - b.product.priceBuy,
-        )
-        .slice(0, 3);
+  // Alternatives = everything else, excluding the primary. Prefer perfect matches first,
+  // then closest compromises.
+  const alternatives = scored
+    .filter((s) => s.product.id !== primary?.product.id)
+    .sort(
+      (a, b) =>
+        Number(!a.fits) - Number(!b.fits) ||
+        a.missing.length - b.missing.length ||
+        a.areaOver - b.areaOver ||
+        a.product.priceBuy - b.product.priceBuy,
+    )
+    .slice(0, 3);
 
   const spaceLabel = SPACE_OPTIONS.find((s) => s.id === space)?.label ?? "—";
 
