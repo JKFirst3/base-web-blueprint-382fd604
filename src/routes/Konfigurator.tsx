@@ -31,7 +31,7 @@ export const Route = createFileRoute("/Konfigurator")({
 type SpaceOption = "1-3" | "3-4" | "4+";
 
 const SPACE_OPTIONS: { id: SpaceOption; label: string; hint: string }[] = [
-  { id: "1-3", label: "1 – 3 m²", hint: "Kompakt für kleine Räume" },
+  { id: "1-3", label: "1 – 2 m²", hint: "Kompakt für kleine Räume" },
   { id: "3-4", label: "3 – 4 m²", hint: "Ausgewogen für Familien" },
   { id: "4+", label: "ab 4 m²", hint: "Voller Funktionsumfang" },
 ];
@@ -140,7 +140,7 @@ const PRODUCTS: Product[] = [
   },
 ];
 
-const SPACE_MAX: Record<SpaceOption, number> = { "1-3": 3, "3-4": 4, "4+": Infinity };
+const SPACE_MAX: Record<SpaceOption, number> = { "1-3": 2, "3-4": 4, "4+": Infinity };
 
 function formatEuro(v: number) {
   return new Intl.NumberFormat("de-DE", {
