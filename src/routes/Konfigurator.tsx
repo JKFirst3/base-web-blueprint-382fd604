@@ -310,13 +310,14 @@ function KonfiguratorPage() {
           <SolutionResult
             space={space}
             steps={steps}
-            onAcceptCompromise={(product) => {
-              // Adjust space to the smallest option that fits the product's area
+            selectedId={selectedId}
+            onSelectProduct={(product) => {
+              setSelectedId(product.id);
+              // If the product doesn't fit current filters, adjust them
               const nextSpace = (SPACE_OPTIONS.find((o) => SPACE_MAX[o.id] >= product.area)?.id ??
                 space) as SpaceOption;
-              if (nextSpace !== space) setSpace(nextSpace);
-              // Drop any selected steps this product cannot automate
-              setSteps((prev) => prev.filter((s) => product.steps[s]));
+              if (nextSpace !== space) setSpaceState(nextSpace);
+              setStepsState((prev) => prev.filter((s) => product.steps[s]));
             }}
           />
         </ConfigStep>
