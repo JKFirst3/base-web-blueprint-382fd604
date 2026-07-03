@@ -24,18 +24,18 @@ export function Header() {
         <Link to="/" aria-label="Lavidro Startseite" className="flex items-center">
           <LogoHorizontal className="h-18 w-auto sm:h-20" />
         </Link>
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-2 md:flex">
           <Link
             to="/Konfigurator"
-            className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
-            activeProps={{ className: "text-sm font-medium text-foreground" }}
+            className="group relative rounded-full px-4 py-2 font-display text-[15px] font-semibold uppercase tracking-wide text-foreground transition-all hover:bg-accent hover:text-accent-foreground"
+            activeProps={{ className: "bg-accent text-accent-foreground shadow-sm" }}
           >
             Konfigurator
           </Link>
           <Link
             to="/aboutLavidro"
-            className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
-            activeProps={{ className: "text-sm font-medium text-foreground" }}
+            className="group relative rounded-full px-4 py-2 font-display text-[15px] font-semibold uppercase tracking-wide text-foreground transition-all hover:bg-accent hover:text-accent-foreground"
+            activeProps={{ className: "bg-accent text-accent-foreground shadow-sm" }}
           >
             Über Lavidro
           </Link>
