@@ -4,8 +4,8 @@ import factory33Logo from "@/assets/factory33-logo.png.asset.json";
 export function SocialProof() {
   const quotes = [
     {
-      text: "Die Idee überzeugt sofort — ich würde einen solchen Service ausprobieren, sobald er verfügbar ist.",
-      author: "Anna R.",
+      text: "Wäsche wird im Alltag oft vergessen, da die einzelnen Prozessschritte nicht bündig nacheinander laufen. Ein Roboter löst genau dieses Timing-Problem.",
+      author: "Alena K.",
       role: "Teilnehmerin Konzeptbefragung",
     },
     {
