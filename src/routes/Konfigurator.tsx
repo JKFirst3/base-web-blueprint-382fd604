@@ -157,8 +157,9 @@ function productImage(id: string): string {
 }
 
 function KonfiguratorPage() {
-  const [space, setSpace] = useState<SpaceOption | null>(null);
-  const [steps, setSteps] = useState<StepId[]>([]);
+  const [space, setSpaceState] = useState<SpaceOption | null>(null);
+  const [steps, setStepsState] = useState<StepId[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const step2Ref = useRef<HTMLElement>(null);
   const step3Ref = useRef<HTMLElement>(null);
@@ -168,7 +169,6 @@ function KonfiguratorPage() {
 
   useEffect(() => {
     if (space) {
-      // small delay so layout has expanded before scrolling
       const t = setTimeout(() => {
         step2Ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 120);
@@ -185,8 +185,14 @@ function KonfiguratorPage() {
     }
   }, [steps.length]);
 
+  // Direct user changes to Step 1 / Step 2 clear any manual product override
+  const setSpace = (s: SpaceOption) => {
+    setSelectedId(null);
+    setSpaceState(s);
+  };
   const toggleStep = (id: StepId) => {
-    setSteps((prev) => (prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]));
+    setSelectedId(null);
+    setStepsState((prev) => (prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]));
   };
 
   return (
@@ -304,13 +310,14 @@ function KonfiguratorPage() {
           <SolutionResult
             space={space}
             steps={steps}
-            onAcceptCompromise={(product) => {
-              // Adjust space to the smallest option that fits the product's area
+            selectedId={selectedId}
+            onSelectProduct={(product) => {
+              setSelectedId(product.id);
+              // If the product doesn't fit current filters, adjust them
               const nextSpace = (SPACE_OPTIONS.find((o) => SPACE_MAX[o.id] >= product.area)?.id ??
                 space) as SpaceOption;
-              if (nextSpace !== space) setSpace(nextSpace);
-              // Drop any selected steps this product cannot automate
-              setSteps((prev) => prev.filter((s) => product.steps[s]));
+              if (nextSpace !== space) setSpaceState(nextSpace);
+              setStepsState((prev) => prev.filter((s) => product.steps[s]));
             }}
           />
         </ConfigStep>
@@ -325,11 +332,13 @@ function KonfiguratorPage() {
 function SolutionResult({
   space,
   steps,
-  onAcceptCompromise,
+  selectedId,
+  onSelectProduct,
 }: {
   space: SpaceOption | null;
   steps: StepId[];
-  onAcceptCompromise: (product: Product) => void;
+  selectedId: string | null;
+  onSelectProduct: (product: Product) => void;
 }) {
   const maxArea = space ? SPACE_MAX[space] : Infinity;
 
@@ -343,20 +352,21 @@ function SolutionResult({
     .filter((m) => m.fits)
     .sort((a, b) => a.product.priceBuy - b.product.priceBuy);
 
-  const primary = perfect[0] ?? null;
+  const manual = selectedId ? scored.find((s) => s.product.id === selectedId) ?? null : null;
+  const primary = manual ?? perfect[0] ?? null;
 
-  // Alternatives: other perfect matches, or (if none perfect) closest compromises
-  const alternatives = primary
-    ? perfect.slice(1, 4)
-    : scored
-        .slice()
-        .sort(
-          (a, b) =>
-            a.missing.length - b.missing.length ||
-            a.areaOver - b.areaOver ||
-            a.product.priceBuy - b.product.priceBuy,
-        )
-        .slice(0, 3);
+  // Alternatives = everything else, excluding the primary. Prefer perfect matches first,
+  // then closest compromises.
+  const alternatives = scored
+    .filter((s) => s.product.id !== primary?.product.id)
+    .sort(
+      (a, b) =>
+        Number(!a.fits) - Number(!b.fits) ||
+        a.missing.length - b.missing.length ||
+        a.areaOver - b.areaOver ||
+        a.product.priceBuy - b.product.priceBuy,
+    )
+    .slice(0, 3);
 
   const spaceLabel = SPACE_OPTIONS.find((s) => s.id === space)?.label ?? "—";
 
@@ -452,13 +462,12 @@ function SolutionResult({
                 <button
                   type="button"
                   key={product.id}
-                  onClick={() => hasCompromise && onAcceptCompromise(product)}
-                  disabled={!hasCompromise}
+                  onClick={() => onSelectProduct(product)}
                   className={cn(
-                    "group rounded-2xl border bg-card p-5 text-left transition-all",
+                    "group rounded-2xl border bg-card p-5 text-left transition-all cursor-pointer",
                     hasCompromise
-                      ? "cursor-pointer border-foreground/40 hover:border-foreground hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
-                      : "cursor-default border-border",
+                      ? "border-foreground/40 hover:border-foreground hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                      : "border-border hover:border-foreground/60 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground",
                   )}
                 >
                   <div className="mb-4 aspect-[16/10] overflow-hidden rounded-lg bg-background">
