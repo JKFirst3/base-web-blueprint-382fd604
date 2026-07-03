@@ -21,9 +21,9 @@ export function SocialProof() {
   ];
 
   const partners = [
-    { name: "Miele", note: "Industriepartner" },
-    { name: "Universität Paderborn", note: "Forschungspartner" },
-    { name: "Factory33", note: "Innovationspartner" },
+    { name: "Miele", note: "Industriepartner", logo: mieleLogo.url },
+    { name: "Universität Paderborn", note: "Forschungspartner", logo: uniPaderbornLogo.url },
+    { name: "Factory33", note: "Innovationspartner", logo: factory33Logo.url },
   ];
 
   return (
@@ -74,12 +74,15 @@ export function SocialProof() {
             {partners.map((p) => (
               <div
                 key={p.name}
-                className="flex h-24 flex-col items-center justify-center rounded-2xl border border-border/70 bg-background/70 px-6 text-center transition-colors hover:border-foreground/30"
+                className="flex h-32 flex-col items-center justify-center gap-3 rounded-2xl border border-border/70 bg-background px-6 py-4 text-center transition-colors hover:border-foreground/30"
               >
-                <div className="font-display text-lg font-semibold tracking-tight text-foreground">
-                  {p.name}
-                </div>
-                <div className="mt-1 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                <img
+                  src={p.logo}
+                  alt={`${p.name} Logo`}
+                  loading="lazy"
+                  className="max-h-14 w-auto max-w-[70%] object-contain"
+                />
+                <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                   {p.note}
                 </div>
               </div>
