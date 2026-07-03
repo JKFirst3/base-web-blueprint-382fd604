@@ -4,6 +4,9 @@ import { Check, ChevronRight } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { cn } from "@/lib/utils";
+import mobilImage from "@/assets/konfigurator-mobil.png.asset.json";
+import wandImage from "@/assets/konfigurator-wand.png.asset.json";
+import humanoidImage from "@/assets/konfigurator-humanoid.png.asset.json";
 
 const TITLE = "Konfigurator — Lavidro";
 const DESCRIPTION =
@@ -145,6 +148,12 @@ function formatEuro(v: number) {
     currency: "EUR",
     maximumFractionDigits: 0,
   }).format(v);
+}
+
+function productImage(id: string): string {
+  if (id.startsWith("humanoid")) return humanoidImage.url;
+  if (id.startsWith("wand")) return wandImage.url;
+  return mobilImage.url;
 }
 
 function KonfiguratorPage() {
@@ -389,6 +398,14 @@ function SolutionResult({
             </p>
             {primary ? (
               <>
+                <div className="mt-4 aspect-[16/10] overflow-hidden rounded-xl bg-background">
+                  <img
+                    src={productImage(primary.product.id)}
+                    alt={primary.product.name}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
                 <p className="mt-4 font-display text-2xl font-semibold">{primary.product.name}</p>
                 <p className="mt-2 text-sm text-foreground/70">{primary.product.description}</p>
                 <dl className="mt-5 grid grid-cols-2 gap-4 text-sm">
@@ -444,6 +461,14 @@ function SolutionResult({
                       : "cursor-default border-border",
                   )}
                 >
+                  <div className="mb-4 aspect-[16/10] overflow-hidden rounded-lg bg-background">
+                    <img
+                      src={productImage(product.id)}
+                      alt={product.name}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
                   <p className="font-display text-base font-semibold leading-tight">
                     {product.name}
                   </p>
