@@ -145,7 +145,7 @@ function KonfiguratorPage() {
                     <span className="font-display text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="font-display text-xs font-semibold leading-snug sm:text-sm">
+                    <span className="hyphens-auto break-words font-display text-[11px] font-semibold leading-tight sm:text-xs lg:text-[13px]" lang="de">
                       {s.label}
                     </span>
                     <span
