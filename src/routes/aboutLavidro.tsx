@@ -73,7 +73,7 @@ function AboutLavidroPage() {
             {[
               { name: "Jonah Blümel", role: "Founder" },
               { name: "Jan-Kevin Ploch", role: "Founder" },
-              { name: "Robin Zach", role: "Produkt & Tech" },
+              { name: "Robin Zach", role: "Founder" },
             ].map((m, i) => (
               <div
                 key={i}
