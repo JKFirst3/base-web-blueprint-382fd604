@@ -157,8 +157,9 @@ function productImage(id: string): string {
 }
 
 function KonfiguratorPage() {
-  const [space, setSpace] = useState<SpaceOption | null>(null);
-  const [steps, setSteps] = useState<StepId[]>([]);
+  const [space, setSpaceState] = useState<SpaceOption | null>(null);
+  const [steps, setStepsState] = useState<StepId[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const step2Ref = useRef<HTMLElement>(null);
   const step3Ref = useRef<HTMLElement>(null);
@@ -168,7 +169,6 @@ function KonfiguratorPage() {
 
   useEffect(() => {
     if (space) {
-      // small delay so layout has expanded before scrolling
       const t = setTimeout(() => {
         step2Ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 120);
@@ -185,8 +185,14 @@ function KonfiguratorPage() {
     }
   }, [steps.length]);
 
+  // Direct user changes to Step 1 / Step 2 clear any manual product override
+  const setSpace = (s: SpaceOption) => {
+    setSelectedId(null);
+    setSpaceState(s);
+  };
   const toggleStep = (id: StepId) => {
-    setSteps((prev) => (prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]));
+    setSelectedId(null);
+    setStepsState((prev) => (prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]));
   };
 
   return (
