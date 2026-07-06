@@ -14,15 +14,16 @@ export function Hero() {
             &nbsp;
           </p>
           <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            Nie wieder Waschen, Sortieren oder Zusammenlegen
+            Wäsche.
+            <br />
+            Einfach.
+            <br />
+            Fertig.
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/75 sm:text-lg">
             Das erste System, das den&nbsp;vollständigen Wäscheprozess&nbsp;nach&nbsp;deinen
             Gewohnheiten, autonom&nbsp;und&nbsp;qualitätssicher übernimmt, damit Wäsche erledigt
             ist,&nbsp;bevor du dran denkst.
-          </p>
-          <p className="mt-4 text-sm font-medium text-muted-foreground">
-            Lavidro — Textile Care Intelligence.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Button
@@ -30,8 +31,9 @@ export function Hero() {
               size="lg"
               className="rounded-full px-7 py-6 text-base transition-all hover:bg-accent hover:text-accent-foreground active:scale-[0.98]"
             >
-              Auf die Warteliste setzen
+              LAVIDRO live erleben
             </Button>
+
             <a
               href="#features"
               className="text-sm font-medium text-foreground/70 underline-offset-4 hover:text-foreground hover:underline"
