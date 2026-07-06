@@ -82,7 +82,7 @@ export function LeadForm() {
             Exklusiver Einblick
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-foreground/75">
-            Vereinbare eine unverbindliche Produktvorstellung. Wir zeigen dir unser System und freuen uns auf dein Feedback.
+            Vereinbare eine unverbindliche Produktvorstellung. Wir zeigen dir unsere automatisierte Wäschelösung und freuen uns auf dein Feedback.
           </p>
         </div>
 
