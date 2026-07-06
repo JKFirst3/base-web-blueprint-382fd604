@@ -1,6 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import garage33Building from "@/assets/garage33-building.png.asset.json";
+import garage33Interior from "@/assets/garage33-interior.png.asset.json";
+import garage33Sign from "@/assets/garage33-sign.png.asset.json";
+
 
 const TITLE = "Über Lavidro — Team & Projekt";
 const DESCRIPTION =
@@ -77,10 +81,38 @@ function AboutLavidroPage() {
               </div>
             ))}
           </div>
-          <p className="mt-10 text-center text-sm text-muted-foreground">
-            Details zu unserem Team folgen in Kürze.
-          </p>
         </section>
+
+        <section className="mx-auto max-w-5xl px-4 pb-20 sm:px-6 md:pb-28 lg:px-8">
+          <div className="text-center">
+            <h2 className="font-display text-2xl font-semibold sm:text-3xl">
+              Unser Arbeitsplatz
+            </h2>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Garage33, Gründungszentrum der Universität Paderborn
+            </p>
+          </div>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { src: garage33Building.url, alt: "Garage33 Gebäude" },
+              { src: garage33Interior.url, alt: "Garage33 Innenbereich" },
+              { src: garage33Sign.url, alt: "Garage33 Start-up Campus OWL Schild" },
+            ].map((img, i) => (
+              <div
+                key={i}
+                className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  className="h-56 w-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+
       </main>
       <Footer />
     </div>
