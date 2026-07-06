@@ -137,7 +137,7 @@ export function LeadForm() {
               onCheckedChange={(v) => setConsent(v === true)}
               className="mt-0.5"
             />
-            <span>Ich stimme zu, Updates von Lavidro zu erhalten.</span>
+            <span>Ich stimme zu, Updates von LAVIDRO zu erhalten.</span>
           </label>
 
           <Button
