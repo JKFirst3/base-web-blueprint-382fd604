@@ -347,25 +347,31 @@ function SolutionResult({
   const manual = selectedId ? scored.find((s) => s.product.id === selectedId) ?? null : null;
   const primary = manual ?? perfect[0] ?? null;
 
-  // Fitting alternatives (no compromise) — shown next to the recommended solution
+  // Fitting alternatives (no compromise) — shown next to the recommended solution.
+  // Max 4 total options (primary + up to 3 alternatives).
   const fittingAlternatives = scored
     .filter((s) => s.fits && s.product.id !== primary?.product.id)
-    .sort((a, b) => a.product.priceBuy - b.product.priceBuy);
-
-  // Compromise alternatives (missing steps or too big) — shown below
-  const compromiseAlternatives = scored
-    .filter((s) => !s.fits && s.product.id !== primary?.product.id)
-    .sort(
-      (a, b) =>
-        a.missing.length - b.missing.length ||
-        a.areaOver - b.areaOver ||
-        a.product.priceBuy - b.product.priceBuy,
-    )
+    .sort((a, b) => a.product.priceBuy - b.product.priceBuy)
     .slice(0, 3);
+
+  const optionCount = (primary ? 1 : 0) + fittingAlternatives.length;
+
+  // Kompromiss-Optionen nur zeigen, wenn keine Lösung passt oder weniger als 3 passende Lösungen angezeigt werden
+  const showCompromises = optionCount < 3;
+  const compromiseAlternatives = showCompromises
+    ? scored
+        .filter((s) => !s.fits && s.product.id !== primary?.product.id)
+        .sort(
+          (a, b) =>
+            a.missing.length - b.missing.length ||
+            a.areaOver - b.areaOver ||
+            a.product.priceBuy - b.product.priceBuy,
+        )
+        .slice(0, 3)
+    : [];
 
   const spaceLabel = SPACE_OPTIONS.find((s) => s.id === space)?.label ?? "—";
 
-  const optionCount = (primary ? 1 : 0) + fittingAlternatives.length;
   const gridCols =
     optionCount >= 4
       ? "md:grid-cols-2 lg:grid-cols-4"
