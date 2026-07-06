@@ -5,7 +5,8 @@ const features = [
     icon: Sparkles,
     title: "Vollständig Autonom",
     body:
-      "Lavidro übernimmt den gesamten Waschprozess: Entladen, Trocknen, Falten und Sortieren ohne dass du eingreifen musst.",
+      "Mit LAVIDRO wird deine Wäsche vom Sortieren bis zur gefalteten Kleidung automatisch erledigt.",
+
   },
   {
     icon: ShieldCheck,
@@ -20,11 +21,12 @@ export function Features() {
     <section id="features" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28 lg:px-8">
       <div className="mb-12 max-w-4xl">
         <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-          Was Lavidro anders macht
+          Warum LAVIDRO?
         </p>
-        <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl sm:whitespace-nowrap">
-          Wäschepflege auf einem neuen Niveau.
+        <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+          Automatisierte Wäschepflege, die deinen Alltag spürbar entlastet.
         </h2>
+
       </div>
       <div className="grid gap-6 md:grid-cols-2">
         {features.map(({ icon: Icon, title, body }) => (
