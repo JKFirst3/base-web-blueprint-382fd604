@@ -36,24 +36,19 @@ function AboutLavidroPage() {
               Das Team von LAVIDRO
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground/75">
-              Gemeinsam für intelligente Wäschepflege
+              Gemeinsam für automatisierte Wäschepflege
             </p>
           </div>
         </section>
 
         <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-12">
-            <h2 className="font-display text-2xl font-semibold sm:text-3xl">Unser Projekt</h2>
+            <h2 className="font-display text-2xl font-semibold sm:text-3xl">Unsere Vision</h2>
             <div className="mt-6 space-y-4 text-foreground/80">
               <p>
-                Lavidro ist ein junges Projekt mit einer klaren Mission: den Aufwand rund um
-                Textilpflege radikal zu reduzieren. Wir verbinden clevere Logistik mit einer
-                digitalen Erfahrung, die sich nahtlos in deinen Alltag einfügt.
-              </p>
-              <p>
-                Vom Abholen über professionelle Reinigung bis zur sortierten Rückgabe — wir denken
-                jeden Schritt vom Ergebnis her: mehr Zeit, weniger Chaos, dieselbe Qualität wie
-                zu Hause, nur ohne die Arbeit.
+                Das Team von LAVIDRO entwickelt das erste System, das den vollständigen
+                Wäscheprozess nach deinen Gewohnheiten, autonom und qualitätssicher übernimmt,
+                damit Wäsche erledigt ist, bevor du dran denkst.
               </p>
             </div>
           </div>
@@ -61,12 +56,10 @@ function AboutLavidroPage() {
 
         <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
           <h2 className="text-center font-display text-2xl font-semibold sm:text-3xl">
-            Unser Team
+            Das Team hinter LAVIDRO
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-center text-foreground/70">
-            Ein kleines, engagiertes Team mit Erfahrung in Produktentwicklung, Logistik und
-            digitalen Diensten.
-          </p>
+
+
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
