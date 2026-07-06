@@ -1,6 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import garage33Building from "@/assets/garage33-building.png.asset.json";
+import garage33Interior from "@/assets/garage33-interior.png.asset.json";
+import garage33Sign from "@/assets/garage33-sign.png.asset.json";
+
 
 const TITLE = "Über Lavidro — Team & Projekt";
 const DESCRIPTION =
