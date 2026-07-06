@@ -194,7 +194,7 @@ function KonfiguratorPage() {
         <section className="mx-auto max-w-5xl px-4 pb-10 pt-16 sm:px-6 md:pt-24 lg:px-8">
           <div className="text-center">
             <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-              Konfigurator
+              Produkt
             </p>
             <h1 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">
               Dein Lavidro nach Mass
