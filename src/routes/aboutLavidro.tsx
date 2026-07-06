@@ -33,11 +33,10 @@ function AboutLavidroPage() {
               Über uns
             </p>
             <h1 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">
-              Über Lavidro
+              Das Team von LAVIDRO
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground/75">
-              Lavidro befreit dich vom Waschen, Sortieren und Zusammenlegen — damit du deine Zeit
-              wieder für das nutzen kannst, was dir wirklich wichtig ist.
+              Gemeinsam für intelligente Wäschepflege
             </p>
           </div>
         </section>
