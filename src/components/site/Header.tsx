@@ -48,7 +48,8 @@ export function Header() {
             onClick={handleWaitlistClick}
             className="rounded-full px-5 transition-all hover:bg-accent hover:text-accent-foreground"
           >
-            Jetzt eintragen
+            LAVIDRO live erleben
+
           </Button>
 
           <Sheet open={open} onOpenChange={setOpen}>
