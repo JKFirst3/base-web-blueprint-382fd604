@@ -4,7 +4,7 @@ import factory33Logo from "@/assets/factory33-logo.png.asset.json";
 export function SocialProof() {
   const quotes = [
     {
-      text: "Wäsche wird im Alltag oft vergessen, da die einzelnen Prozessschritte nicht bündig nacheinander laufen. Ein Roboter löst genau dieses Timing-Problem.",
+      text: "Wäsche wird im Alltag oft vergessen, da die einzelnen Prozessschritte nicht bündig nacheinander laufen. Ein automatisiertes Wäschesystem löst genau diese zeitliche Herausforderung.",
       author: "Alena K.",
       role: "",
     },
