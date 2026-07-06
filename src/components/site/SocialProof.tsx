@@ -1,5 +1,5 @@
 import mieleLogo from "@/assets/miele-logo.png.asset.json";
-import uniPaderbornLogo from "@/assets/uni-paderborn-logo.png.asset.json";
+import garage33Logo from "@/assets/garage33-logo.png.asset.json";
 import factory33Logo from "@/assets/factory33-logo.png.asset.json";
 export function SocialProof() {
   const quotes = [
