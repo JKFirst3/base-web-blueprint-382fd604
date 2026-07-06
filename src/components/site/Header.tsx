@@ -49,6 +49,7 @@ export function Header() {
             className="rounded-full px-5 transition-all hover:bg-accent hover:text-accent-foreground"
           >
             Jetzt eintragen
+
           </Button>
 
           <Sheet open={open} onOpenChange={setOpen}>
