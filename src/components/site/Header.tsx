@@ -36,7 +36,7 @@ export function Header() {
 
         <nav className="hidden items-center gap-2 lg:flex">
           <Link to="/Konfigurator" className={linkClass} activeProps={activeCls}>
-            Konfigurator
+            Produkt
           </Link>
           <Link to="/aboutLavidro" className={linkClass} activeProps={activeCls}>
             Über Lavidro
@@ -71,7 +71,7 @@ export function Header() {
                   className={linkClass}
                   activeProps={activeCls}
                 >
-                  Konfigurator
+                  Produkt
                 </Link>
                 <Link
                   to="/aboutLavidro"
