@@ -76,16 +76,16 @@ export function LeadForm() {
 
         <div className="text-center">
           <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            Warteliste
+            LAVIDRO live erleben
           </p>
           <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
-            Werde Teil der Wäsche-Revolution
+            Exklusiver Einblick
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-foreground/75">
-            Trage dich jetzt ein, um exklusive Einblicke zu erhalten und als einer der Ersten Zugriff
-            auf unser System zu bekommen.
+            Vereinbare eine unverbindliche Produktvorstellung. Wir zeigen dir unser System und freuen uns auf dein Feedback.
           </p>
         </div>
+
 
         <form onSubmit={handleSubmit} className="mt-10 space-y-5">
           <div className="grid gap-5 sm:grid-cols-2">
