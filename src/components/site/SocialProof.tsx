@@ -1,5 +1,5 @@
 import mieleLogo from "@/assets/miele-logo.png.asset.json";
-import uniPaderbornLogo from "@/assets/uni-paderborn-logo.png.asset.json";
+import garage33Logo from "@/assets/garage33-logo.png.asset.json";
 import factory33Logo from "@/assets/factory33-logo.png.asset.json";
 export function SocialProof() {
   const quotes = [
@@ -22,7 +22,7 @@ export function SocialProof() {
 
   const partners = [
     { name: "Miele", note: "Industriepartner", logo: mieleLogo.url },
-    { name: "Universität Paderborn", note: "Forschungspartner", logo: uniPaderbornLogo.url },
+    { name: "Garage33", note: "Gründungspartner", logo: garage33Logo.url },
     { name: "Factory33", note: "Innovationspartner", logo: factory33Logo.url },
   ];
 
