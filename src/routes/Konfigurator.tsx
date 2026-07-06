@@ -190,7 +190,7 @@ function KonfiguratorPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main>
+      <main className="overflow-x-clip">
         <section className="mx-auto max-w-5xl px-4 pb-10 pt-16 sm:px-6 md:pt-24 lg:px-8">
           <div className="text-center">
             <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
@@ -421,13 +421,13 @@ function SolutionResult({
               ? "Empfohlene Lösung & weitere passende Optionen"
               : "Empfohlene Lösung"}
           </p>
-          <div className={cn("mt-4 grid gap-4", gridCols)}>
+          <div className={cn("mt-6 grid gap-4", gridCols)}>
             {/* Empfohlen */}
             <article
-              className="relative flex flex-col rounded-2xl border-2 border-foreground bg-card p-5 shadow-md"
+              className="relative flex w-full min-w-0 flex-col overflow-hidden rounded-2xl border-2 border-foreground bg-card p-4 shadow-md sm:p-5"
               aria-label="Empfohlene Lösung"
             >
-              <span className="absolute -top-3 left-5 rounded-full bg-foreground px-3 py-1 font-display text-[10px] uppercase tracking-[0.2em] text-background">
+              <span className="mb-3 self-start rounded-full bg-foreground px-3 py-1 font-display text-[10px] uppercase tracking-[0.2em] text-background">
                 Empfohlen
               </span>
               <div className="mb-4 aspect-[16/10] overflow-hidden rounded-lg bg-background">
@@ -438,10 +438,10 @@ function SolutionResult({
                   loading="lazy"
                 />
               </div>
-              <p className="font-display text-base font-semibold leading-tight">
+              <p className="break-words font-display text-base font-semibold leading-tight">
                 {primary.product.name}
               </p>
-              <p className="mt-2 text-xs text-foreground/70">{primary.product.description}</p>
+              <p className="mt-2 break-words text-xs text-foreground/70">{primary.product.description}</p>
               <dl className="mt-4 space-y-1 text-xs">
                 <div className="flex justify-between">
                   <dt className="text-muted-foreground">Platz</dt>
@@ -468,7 +468,7 @@ function SolutionResult({
                   type="button"
                   key={product.id}
                   onClick={() => onSelectProduct(product)}
-                  className="group flex flex-col rounded-2xl border border-border bg-card p-5 text-left transition-all cursor-pointer hover:border-foreground/60 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                  className="group flex w-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-card p-4 text-left transition-all cursor-pointer hover:border-foreground/60 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground sm:p-5"
                   aria-label={`Weitere Option: ${product.name}`}
                 >
                   <span className="mb-3 self-start rounded-full border border-border bg-background px-3 py-1 font-display text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
@@ -482,10 +482,10 @@ function SolutionResult({
                       loading="lazy"
                     />
                   </div>
-                  <p className="font-display text-base font-semibold leading-tight">
+                  <p className="break-words font-display text-base font-semibold leading-tight">
                     {product.name}
                   </p>
-                  <p className="mt-2 text-xs text-foreground/60">{product.description}</p>
+                  <p className="mt-2 break-words text-xs text-foreground/60">{product.description}</p>
                   <dl className="mt-4 space-y-1 text-xs">
                     <div className="flex justify-between">
                       <dt className="text-muted-foreground">Platz</dt>
@@ -547,7 +547,7 @@ function SolutionResult({
                 type="button"
                 key={product.id}
                 onClick={() => onSelectProduct(product)}
-                className="group rounded-2xl border border-foreground/40 bg-card p-5 text-left transition-all cursor-pointer hover:border-foreground hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                className="group flex w-full min-w-0 flex-col overflow-hidden rounded-2xl border border-foreground/40 bg-card p-4 text-left transition-all cursor-pointer hover:border-foreground hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground sm:p-5"
               >
                 <div className="mb-4 aspect-[16/10] overflow-hidden rounded-lg bg-background">
                   <img
@@ -557,10 +557,10 @@ function SolutionResult({
                     loading="lazy"
                   />
                 </div>
-                <p className="font-display text-base font-semibold leading-tight">
+                <p className="break-words font-display text-base font-semibold leading-tight">
                   {product.name}
                 </p>
-                <p className="mt-2 text-xs text-foreground/60">{product.description}</p>
+                <p className="mt-2 break-words text-xs text-foreground/60">{product.description}</p>
                 <dl className="mt-4 space-y-1 text-xs">
                   <div className="flex justify-between">
                     <dt className="text-muted-foreground">Platz</dt>
