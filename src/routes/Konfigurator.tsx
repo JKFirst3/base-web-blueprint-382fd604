@@ -232,7 +232,7 @@ function KonfiguratorPage() {
           ref={step2Ref}
           index={2}
           title="Welche Prozessschritte möchtest du automatisieren?"
-          subtitle="Mehrfachauswahl möglich."
+          subtitle="Welche Prozessschritte der Wäscheaufbereitung sind für dich die größte Belastung? Mehrfachauswahl möglich."
           active={step2Unlocked}
         >
           <ol className="flex w-full flex-col items-stretch gap-1.5 md:flex-row md:gap-2">
