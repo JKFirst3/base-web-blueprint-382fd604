@@ -197,12 +197,12 @@ function KonfiguratorPage() {
               Produkt
             </p>
             <h1 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">
-              Dein Lavidro nach Mass
+              Deine passende LAVIDRO-Lösung
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground/75">
-              In drei Schritten zu deinem persönlichen System — wähle deinen verfügbaren Platz,
-              die Prozessschritte, die automatisiert werden sollen, und erhalte deine passende
-              Lösung.
+              Entdecke das automatisierte Wäschesystem, das deinen Alltag einfacher macht. Wähle
+              den verfügbaren Platz und die Funktionen, die du automatisieren möchtest.
+              Anschließend erhältst du die passende Lösung.
             </p>
           </div>
         </section>
