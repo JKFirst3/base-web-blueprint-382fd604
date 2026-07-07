@@ -86,7 +86,7 @@ const PRODUCTS: Product[] = [
     description:
       "Roboterarm im Wandschrank, der zusätzlich sortiert. Wäsche wird selbst in den HWR gebracht und abgeholt.",
     priceBuy: 10500,
-    steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: false, einlagern: false },
+    steps: { einsammeln: false, sortieren: true, waschen: true, falten: false, bereitstellen: false, einlagern: false },
   },
   {
     id: "wand-l",
