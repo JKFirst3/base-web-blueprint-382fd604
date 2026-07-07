@@ -443,10 +443,7 @@ function SolutionResult({
                   <dt className="text-muted-foreground">Kauf</dt>
                   <dd>{formatEuro(primary.product.priceBuy)}</dd>
                 </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Miete</dt>
-                  <dd>{formatEuro(primary.product.priceRent)} / Mon.</dd>
-                </div>
+
               </dl>
             </article>
 
