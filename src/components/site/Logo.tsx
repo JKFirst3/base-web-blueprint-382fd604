@@ -1,4 +1,4 @@
-import horizontal from "@/assets/lavidro-horizontal-slogan.svg.asset.json";
+import horizontal from "@/assets/lavidro-horizontal.svg.asset.json";
 import icon from "@/assets/lavidro-icon.svg.asset.json";
 
 export function LogoHorizontal({ className = "h-10 w-auto" }: { className?: string }) {
