@@ -53,7 +53,6 @@ type Product = {
   description: string;
   area: number;
   priceBuy: number;
-  priceRent: number;
   steps: Record<StepId, boolean>;
 };
 
@@ -64,8 +63,7 @@ const PRODUCTS: Product[] = [
     description:
       "Roboterarm auf einer Schiene zwischen Waschmaschine und Trockner, der be-, um- und entladen kann.",
     area: 2,
-    priceBuy: 1500,
-    priceRent: 75,
+    priceBuy: 6000,
     steps: { einsammeln: false, sortieren: false, waschen: true, falten: false, bereitstellen: false, einlagern: false },
   },
   {
@@ -74,8 +72,7 @@ const PRODUCTS: Product[] = [
     description:
       "Einarmiger Roboter auf einer mobilen Plattform, der zusätzlich sortieren kann.",
     area: 3,
-    priceBuy: 5000,
-    priceRent: 250,
+    priceBuy: 9000,
     steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: false, einlagern: false },
   },
   {
@@ -84,8 +81,7 @@ const PRODUCTS: Product[] = [
     description:
       "Zweiarmiger Roboter auf mobiler Plattform, der zusätzlich sortiert, faltet und die gefaltete Wäsche bereitstellt.",
     area: 4,
-    priceBuy: 7000,
-    priceRent: 350,
+    priceBuy: 12000,
     steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: false },
   },
   {
@@ -94,8 +90,7 @@ const PRODUCTS: Product[] = [
     description:
       "Roboterarm im integrierten Wandschrank auf einer Schiene zwischen Waschmaschine und Trockner. Sortieren und Falten übernimmst du selbst.",
     area: 3,
-    priceBuy: 2250,
-    priceRent: 112,
+    priceBuy: 7500,
     steps: { einsammeln: false, sortieren: false, waschen: true, falten: false, bereitstellen: false, einlagern: false },
   },
   {
@@ -104,8 +99,7 @@ const PRODUCTS: Product[] = [
     description:
       "Roboterarm im Wandschrank, der zusätzlich sortiert. Wäsche wird selbst in den HWR gebracht und abgeholt.",
     area: 4,
-    priceBuy: 6000,
-    priceRent: 300,
+    priceBuy: 10500,
     steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: false, einlagern: false },
   },
   {
@@ -114,8 +108,7 @@ const PRODUCTS: Product[] = [
     description:
       "Zwei Roboterarme im Wandschrank vom Sortieren bis zum Bereitstellen. Wäsche wird selbst in den HWR gebracht und abgeholt.",
     area: 5,
-    priceBuy: 8000,
-    priceRent: 400,
+    priceBuy: 13500,
     steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: false },
   },
   {
@@ -124,8 +117,7 @@ const PRODUCTS: Product[] = [
     description:
       "Humanoider Roboter, der im definierten Bereich vom Sortieren bis zum Falten alles übernimmt. Wäsche wird selbst in den HWR gebracht und abgeholt.",
     area: 5,
-    priceBuy: 10000,
-    priceRent: 500,
+    priceBuy: 22500,
     steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: false },
   },
   {
@@ -134,11 +126,11 @@ const PRODUCTS: Product[] = [
     description:
       "Humanoider Roboter, der die schmutzige Wäsche eigenständig holt, den Waschprozess im HWR durchführt und die gefaltete Wäsche wieder verteilt.",
     area: 5,
-    priceBuy: 15000,
-    priceRent: 750,
+    priceBuy: 30000,
     steps: { einsammeln: true, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: true },
   },
 ];
+
 
 const SPACE_MAX: Record<SpaceOption, number> = { "1-3": 2, "3-4": 5, "4+": Infinity };
 
@@ -451,10 +443,7 @@ function SolutionResult({
                   <dt className="text-muted-foreground">Kauf</dt>
                   <dd>{formatEuro(primary.product.priceBuy)}</dd>
                 </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Miete</dt>
-                  <dd>{formatEuro(primary.product.priceRent)} / Mon.</dd>
-                </div>
+
               </dl>
             </article>
 
@@ -495,10 +484,8 @@ function SolutionResult({
                       <dt className="text-muted-foreground">Kauf</dt>
                       <dd>{formatEuro(product.priceBuy)}</dd>
                     </div>
-                    <div className="flex justify-between">
-                      <dt className="text-muted-foreground">Miete</dt>
-                      <dd>{formatEuro(product.priceRent)} / Mon.</dd>
-                    </div>
+
+
                   </dl>
                   {extras.length > 0 && (
                     <div className="mt-4 space-y-2 rounded-lg border border-foreground/20 bg-secondary/40 p-3">
@@ -572,10 +559,8 @@ function SolutionResult({
                     <dt className="text-muted-foreground">Kauf</dt>
                     <dd>{formatEuro(product.priceBuy)}</dd>
                   </div>
-                  <div className="flex justify-between">
-                    <dt className="text-muted-foreground">Miete</dt>
-                    <dd>{formatEuro(product.priceRent)} / Mon.</dd>
-                  </div>
+
+
                 </dl>
                 <div className="mt-4 space-y-2 rounded-lg border border-foreground/30 bg-background p-3">
                   <p className="font-display text-[10px] uppercase tracking-[0.2em] text-foreground">
