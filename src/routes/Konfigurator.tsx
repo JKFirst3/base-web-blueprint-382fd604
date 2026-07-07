@@ -484,10 +484,8 @@ function SolutionResult({
                       <dt className="text-muted-foreground">Kauf</dt>
                       <dd>{formatEuro(product.priceBuy)}</dd>
                     </div>
-                    <div className="flex justify-between">
-                      <dt className="text-muted-foreground">Miete</dt>
-                      <dd>{formatEuro(product.priceRent)} / Mon.</dd>
-                    </div>
+
+
                   </dl>
                   {extras.length > 0 && (
                     <div className="mt-4 space-y-2 rounded-lg border border-foreground/20 bg-secondary/40 p-3">
