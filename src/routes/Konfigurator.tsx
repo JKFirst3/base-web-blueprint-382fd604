@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Check, ChevronRight } from "lucide-react";
+import { Check, ChevronRight, X } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { cn } from "@/lib/utils";
@@ -10,7 +10,7 @@ import humanoidImage from "@/assets/konfigurator-humanoid.png.asset.json";
 
 const TITLE = "Konfigurator — Lavidro";
 const DESCRIPTION =
-  "Stelle dir dein individuelles Lavidro-System zusammen: Platz wählen, Prozessschritte automatisieren, Lösung erhalten.";
+  "Stelle dir dein individuelles Lavidro-System zusammen: Prozessschritte automatisieren, Lösung erhalten.";
 
 export const Route = createFileRoute("/Konfigurator")({
   head: () => ({
@@ -28,14 +28,6 @@ export const Route = createFileRoute("/Konfigurator")({
   component: KonfiguratorPage,
 });
 
-type SpaceOption = "1-3" | "3-4" | "4+";
-
-const SPACE_OPTIONS: { id: SpaceOption; label: string; hint: string }[] = [
-  { id: "1-3", label: "1 – 2 m²", hint: "Kompakt für kleine Räume" },
-  { id: "3-4", label: "3 – 4 m²", hint: "Ausgewogen für Familien" },
-  { id: "4+", label: "ab 5 m²", hint: "Voller Funktionsumfang" },
-];
-
 const PROCESS_STEPS = [
   { id: "einsammeln", label: "Wäsche im Haus einsammeln" },
   { id: "sortieren", label: "Wäsche sortieren" },
@@ -51,7 +43,6 @@ type Product = {
   id: string;
   name: string;
   description: string;
-  area: number;
   priceBuy: number;
   steps: Record<StepId, boolean>;
 };
@@ -62,7 +53,6 @@ const PRODUCTS: Product[] = [
     name: "Mobiler Roboter — Größe S",
     description:
       "Roboterarm auf einer Schiene zwischen Waschmaschine und Trockner, der be-, um- und entladen kann.",
-    area: 2,
     priceBuy: 6000,
     steps: { einsammeln: false, sortieren: false, waschen: true, falten: false, bereitstellen: false, einlagern: false },
   },
@@ -71,7 +61,6 @@ const PRODUCTS: Product[] = [
     name: "Mobiler Roboter — Größe M",
     description:
       "Einarmiger Roboter auf einer mobilen Plattform, der zusätzlich sortieren kann.",
-    area: 3,
     priceBuy: 9000,
     steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: false, einlagern: false },
   },
@@ -80,7 +69,6 @@ const PRODUCTS: Product[] = [
     name: "Mobiler Roboter — Größe L",
     description:
       "Zweiarmiger Roboter auf mobiler Plattform, der zusätzlich sortiert, faltet und die gefaltete Wäsche bereitstellt.",
-    area: 4,
     priceBuy: 12000,
     steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: false },
   },
@@ -89,7 +77,6 @@ const PRODUCTS: Product[] = [
     name: "Integrierter Wandschrank — Größe S",
     description:
       "Roboterarm im integrierten Wandschrank auf einer Schiene zwischen Waschmaschine und Trockner. Sortieren und Falten übernimmst du selbst.",
-    area: 3,
     priceBuy: 7500,
     steps: { einsammeln: false, sortieren: false, waschen: true, falten: false, bereitstellen: false, einlagern: false },
   },
@@ -98,7 +85,6 @@ const PRODUCTS: Product[] = [
     name: "Integrierter Wandschrank — Größe M",
     description:
       "Roboterarm im Wandschrank, der zusätzlich sortiert. Wäsche wird selbst in den HWR gebracht und abgeholt.",
-    area: 4,
     priceBuy: 10500,
     steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: false, einlagern: false },
   },
@@ -107,7 +93,6 @@ const PRODUCTS: Product[] = [
     name: "Integrierter Wandschrank — Größe L",
     description:
       "Zwei Roboterarme im Wandschrank vom Sortieren bis zum Bereitstellen. Wäsche wird selbst in den HWR gebracht und abgeholt.",
-    area: 5,
     priceBuy: 13500,
     steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: false },
   },
@@ -116,7 +101,6 @@ const PRODUCTS: Product[] = [
     name: "Humanoider Roboter — Größe L",
     description:
       "Humanoider Roboter, der im definierten Bereich vom Sortieren bis zum Falten alles übernimmt. Wäsche wird selbst in den HWR gebracht und abgeholt.",
-    area: 5,
     priceBuy: 22500,
     steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: false },
   },
@@ -125,14 +109,10 @@ const PRODUCTS: Product[] = [
     name: "Humanoider Roboter — Größe XL",
     description:
       "Humanoider Roboter, der die schmutzige Wäsche eigenständig holt, den Waschprozess im HWR durchführt und die gefaltete Wäsche wieder verteilt.",
-    area: 5,
     priceBuy: 30000,
     steps: { einsammeln: true, sortieren: true, waschen: true, falten: true, bereitstellen: true, einlagern: true },
   },
 ];
-
-
-const SPACE_MAX: Record<SpaceOption, number> = { "1-3": 2, "3-4": 5, "4+": Infinity };
 
 function formatEuro(v: number) {
   return new Intl.NumberFormat("de-DE", {
@@ -149,31 +129,22 @@ function productImage(id: string): string {
 }
 
 function KonfiguratorPage() {
-  const [space, setSpaceState] = useState<SpaceOption | null>(null);
   const [steps, setStepsState] = useState<StepId[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const step2Ref = useRef<HTMLElement>(null);
-  const step3Ref = useRef<HTMLElement>(null);
 
-  const step2Unlocked = space !== null;
-  const step3Unlocked = step2Unlocked && steps.length > 0;
+  const step2Unlocked = steps.length > 0;
 
   useEffect(() => {
-    if (space) {
+    if (steps.length === 1) {
       const t = setTimeout(() => {
         step2Ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 120);
       return () => clearTimeout(t);
     }
-  }, [space]);
+  }, [steps.length]);
 
-
-  // Direct user changes to Step 1 / Step 2 clear any manual product override
-  const setSpace = (s: SpaceOption) => {
-    setSelectedId(null);
-    setSpaceState(s);
-  };
   const toggleStep = (id: StepId) => {
     setSelectedId(null);
     setStepsState((prev) => (prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]));
@@ -193,39 +164,18 @@ function KonfiguratorPage() {
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground/75">
               Entdecke das automatisierte Wäschesystem, das deinen Alltag einfacher macht. Wähle
-              den verfügbaren Platz und die Funktionen, die du automatisieren möchtest.
-              Anschließend erhältst du die passende Lösung.
+              die Funktionen, die du automatisieren möchtest — anschließend erhältst du die passende
+              Lösung.
             </p>
           </div>
         </section>
 
-        {/* Step 1 */}
+        {/* Step 1: Prozessschritte */}
         <ConfigStep
           index={1}
-          title="Wie viel Platz möchtest du bereitstellen?"
-          subtitle="Wähle die Fläche, die dir zur Verfügung steht."
-          active
-        >
-          <div className="grid gap-4 sm:grid-cols-3">
-            {SPACE_OPTIONS.map((opt) => (
-              <SelectCard
-                key={opt.id}
-                selected={space === opt.id}
-                onClick={() => setSpace(opt.id)}
-                title={opt.label}
-                subtitle={opt.hint}
-              />
-            ))}
-          </div>
-        </ConfigStep>
-
-        {/* Step 2 */}
-        <ConfigStep
-          ref={step2Ref}
-          index={2}
           title="Welche Prozessschritte möchtest du automatisieren?"
           subtitle="Welche Prozessschritte der Wäscheaufbereitung sind für dich die größte Belastung? Mehrfachauswahl möglich."
-          active={step2Unlocked}
+          active
         >
           <ol className="flex w-full flex-col items-stretch gap-1.5 md:flex-row md:gap-2">
             {PROCESS_STEPS.map((s, i) => {
@@ -282,25 +232,20 @@ function KonfiguratorPage() {
           </ol>
         </ConfigStep>
 
-        {/* Step 3 */}
+        {/* Step 2: Lösung */}
         <ConfigStep
-          ref={step3Ref}
-          index={3}
+          ref={step2Ref}
+          index={2}
           title="Deine Lösung"
           subtitle="Basierend auf deiner Auswahl."
-          active={step3Unlocked}
+          active={step2Unlocked}
           last
         >
           <SolutionResult
-            space={space}
             steps={steps}
             selectedId={selectedId}
             onSelectProduct={(product) => {
               setSelectedId(product.id);
-              // If the product doesn't fit current filters, adjust them
-              const nextSpace = (SPACE_OPTIONS.find((o) => SPACE_MAX[o.id] >= product.area)?.id ??
-                space) as SpaceOption;
-              if (nextSpace !== space) setSpaceState(nextSpace);
               setStepsState(PROCESS_STEPS.map((s) => s.id).filter((id) => product.steps[id]));
             }}
           />
@@ -313,23 +258,46 @@ function KonfiguratorPage() {
   );
 }
 
+function StepChecklist({ product }: { product: Product }) {
+  return (
+    <ul className="mt-4 space-y-1.5">
+      {PROCESS_STEPS.map((s) => {
+        const included = product.steps[s.id];
+        return (
+          <li key={s.id} className="flex items-center gap-2 text-xs">
+            <span
+              className={cn(
+                "flex h-4 w-4 shrink-0 items-center justify-center rounded-full border",
+                included
+                  ? "border-foreground bg-foreground text-background"
+                  : "border-border bg-background text-foreground/50",
+              )}
+              aria-hidden
+            >
+              {included ? <Check className="h-2.5 w-2.5" /> : <X className="h-2.5 w-2.5" />}
+            </span>
+            <span className={cn(included ? "text-foreground/90" : "text-foreground/50")}>
+              {s.label}
+            </span>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
 function SolutionResult({
-  space,
   steps,
   selectedId,
   onSelectProduct,
 }: {
-  space: SpaceOption | null;
   steps: StepId[];
   selectedId: string | null;
   onSelectProduct: (product: Product) => void;
 }) {
-  const maxArea = space ? SPACE_MAX[space] : Infinity;
-
   const scored = PRODUCTS.map((p) => {
     const missing = steps.filter((s) => !p.steps[s]);
-    const areaOver = Math.max(0, p.area - maxArea);
-    return { product: p, missing, areaOver, fits: areaOver === 0 && missing.length === 0 };
+    return { product: p, missing, fits: missing.length === 0 };
   });
 
   const perfect = scored
@@ -339,8 +307,6 @@ function SolutionResult({
   const manual = selectedId ? scored.find((s) => s.product.id === selectedId) ?? null : null;
   const primary = manual ?? perfect[0] ?? null;
 
-  // Fitting alternatives (no compromise) — shown next to the recommended solution.
-  // Max 4 total options (primary + up to 3 alternatives).
   const fittingAlternatives = scored
     .filter((s) => s.fits && s.product.id !== primary?.product.id)
     .sort((a, b) => a.product.priceBuy - b.product.priceBuy)
@@ -348,7 +314,6 @@ function SolutionResult({
 
   const optionCount = (primary ? 1 : 0) + fittingAlternatives.length;
 
-  // Kompromiss-Optionen nur zeigen, wenn keine Lösung passt oder weniger als 3 passende Lösungen angezeigt werden
   const showCompromises = optionCount < 3;
   const compromiseAlternatives = showCompromises
     ? scored
@@ -356,13 +321,10 @@ function SolutionResult({
         .sort(
           (a, b) =>
             a.missing.length - b.missing.length ||
-            a.areaOver - b.areaOver ||
             a.product.priceBuy - b.product.priceBuy,
         )
         .slice(0, 3)
     : [];
-
-  const spaceLabel = SPACE_OPTIONS.find((s) => s.id === space)?.label ?? "—";
 
   const gridCols =
     optionCount >= 4
@@ -380,32 +342,26 @@ function SolutionResult({
         <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
           Deine Auswahl
         </p>
-        <dl className="mt-4 grid gap-6 sm:grid-cols-[auto_1fr] sm:gap-8">
-          <div>
-            <dt className="text-sm text-muted-foreground">Platz</dt>
-            <dd className="mt-1 font-display text-lg">{spaceLabel}</dd>
+        <div className="mt-4">
+          <p className="text-sm text-muted-foreground">Automatisierte Schritte</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {steps.length === 0 && <span className="text-foreground/60">—</span>}
+            {steps.map((id) => {
+              const label = PROCESS_STEPS.find((s) => s.id === id)?.label;
+              return (
+                <span
+                  key={id}
+                  className="rounded-full border border-border bg-background px-3 py-1 text-xs"
+                >
+                  {label}
+                </span>
+              );
+            })}
           </div>
-          <div>
-            <dt className="text-sm text-muted-foreground">Automatisierte Schritte</dt>
-            <dd className="mt-1 flex flex-wrap gap-2">
-              {steps.length === 0 && <span className="text-foreground/60">—</span>}
-              {steps.map((id) => {
-                const label = PROCESS_STEPS.find((s) => s.id === id)?.label;
-                return (
-                  <span
-                    key={id}
-                    className="rounded-full border border-border bg-background px-3 py-1 text-xs"
-                  >
-                    {label}
-                  </span>
-                );
-              })}
-            </dd>
-          </div>
-        </dl>
+        </div>
       </div>
 
-      {/* Empfohlene Lösung + weitere passende Optionen nebeneinander */}
+      {/* Empfohlene Lösung + weitere passende Optionen */}
       {primary ? (
         <div>
           <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
@@ -434,16 +390,12 @@ function SolutionResult({
                 {primary.product.name}
               </p>
               <p className="mt-2 break-words text-xs text-foreground/70">{primary.product.description}</p>
+              <StepChecklist product={primary.product} />
               <dl className="mt-4 space-y-1 text-xs">
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Platz</dt>
-                  <dd>{primary.product.area} m²</dd>
-                </div>
                 <div className="flex justify-between">
                   <dt className="text-muted-foreground">Kauf</dt>
                   <dd>{formatEuro(primary.product.priceBuy)}</dd>
                 </div>
-
               </dl>
             </article>
 
@@ -475,17 +427,12 @@ function SolutionResult({
                     {product.name}
                   </p>
                   <p className="mt-2 break-words text-xs text-foreground/60">{product.description}</p>
+                  <StepChecklist product={product} />
                   <dl className="mt-4 space-y-1 text-xs">
-                    <div className="flex justify-between">
-                      <dt className="text-muted-foreground">Platz</dt>
-                      <dd>{product.area} m²</dd>
-                    </div>
                     <div className="flex justify-between">
                       <dt className="text-muted-foreground">Kauf</dt>
                       <dd>{formatEuro(product.priceBuy)}</dd>
                     </div>
-
-
                   </dl>
                   {extras.length > 0 && (
                     <div className="mt-4 space-y-2 rounded-lg border border-foreground/20 bg-secondary/40 p-3">
@@ -529,7 +476,7 @@ function SolutionResult({
             {primary ? "Optionen mit Kompromissen" : "Alternative Lösungen mit Kompromissen"}
           </p>
           <div className="mt-4 grid gap-4 md:grid-cols-3">
-            {compromiseAlternatives.map(({ product, missing, areaOver }) => (
+            {compromiseAlternatives.map(({ product, missing }) => (
               <button
                 type="button"
                 key={product.id}
@@ -548,30 +495,17 @@ function SolutionResult({
                   {product.name}
                 </p>
                 <p className="mt-2 break-words text-xs text-foreground/60">{product.description}</p>
+                <StepChecklist product={product} />
                 <dl className="mt-4 space-y-1 text-xs">
-                  <div className="flex justify-between">
-                    <dt className="text-muted-foreground">Platz</dt>
-                    <dd className={cn(areaOver > 0 && "font-semibold text-foreground")}>
-                      {product.area} m²
-                    </dd>
-                  </div>
                   <div className="flex justify-between">
                     <dt className="text-muted-foreground">Kauf</dt>
                     <dd>{formatEuro(product.priceBuy)}</dd>
                   </div>
-
-
                 </dl>
                 <div className="mt-4 space-y-2 rounded-lg border border-foreground/30 bg-background p-3">
                   <p className="font-display text-[10px] uppercase tracking-[0.2em] text-foreground">
                     Kompromiss
                   </p>
-                  {areaOver > 0 && (
-                    <p className="text-[11px] text-foreground/80">
-                      Benötigt <span className="font-semibold">{product.area} m²</span> —
-                      das sind {areaOver} m² mehr als dein gewählter Platz ({spaceLabel}).
-                    </p>
-                  )}
                   {missing.length > 0 && (
                     <p className="text-[11px] text-foreground/80">
                       Übernimmt folgende Schritte nicht:{" "}
@@ -634,54 +568,5 @@ function ConfigStep({
         <div className="mt-8">{children}</div>
       </div>
     </section>
-  );
-}
-
-function SelectCard({
-  selected,
-  onClick,
-  title,
-  subtitle,
-  variant = "tile",
-}: {
-  selected: boolean;
-  onClick: () => void;
-  title: string;
-  subtitle?: string;
-  variant?: "tile" | "row";
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={cn(
-        "group relative flex w-full items-start gap-3 rounded-2xl border bg-card p-5 text-left transition-all",
-        "hover:border-foreground/40 hover:shadow-sm",
-        selected
-          ? "border-foreground ring-2 ring-foreground/80"
-          : "border-border",
-        variant === "tile" && "flex-col items-stretch sm:min-h-32",
-      )}
-      aria-pressed={selected}
-    >
-      <div className="flex flex-1 flex-col">
-        <span className="font-display text-lg font-semibold leading-tight">{title}</span>
-        {subtitle && (
-          <span className="mt-1 text-sm text-foreground/60">{subtitle}</span>
-        )}
-      </div>
-      <span
-        className={cn(
-          "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-colors",
-          selected
-            ? "border-foreground bg-foreground text-background"
-            : "border-border bg-background",
-          variant === "tile" && "absolute right-4 top-4",
-        )}
-        aria-hidden
-      >
-        {selected && <Check className="h-3.5 w-3.5" />}
-      </span>
-    </button>
   );
 }
