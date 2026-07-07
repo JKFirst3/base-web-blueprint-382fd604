@@ -561,10 +561,8 @@ function SolutionResult({
                     <dt className="text-muted-foreground">Kauf</dt>
                     <dd>{formatEuro(product.priceBuy)}</dd>
                   </div>
-                  <div className="flex justify-between">
-                    <dt className="text-muted-foreground">Miete</dt>
-                    <dd>{formatEuro(product.priceRent)} / Mon.</dd>
-                  </div>
+
+
                 </dl>
                 <div className="mt-4 space-y-2 rounded-lg border border-foreground/30 bg-background p-3">
                   <p className="font-display text-[10px] uppercase tracking-[0.2em] text-foreground">
