@@ -62,7 +62,7 @@ const PRODUCTS: Product[] = [
     description:
       "Einarmiger Roboter auf einer mobilen Plattform, der zusätzlich sortieren kann.",
     priceBuy: 9000,
-    steps: { einsammeln: false, sortieren: true, waschen: true, falten: true, bereitstellen: false, einlagern: false },
+    steps: { einsammeln: false, sortieren: true, waschen: true, falten: false, bereitstellen: false, einlagern: false },
   },
   {
     id: "mobil-l",
