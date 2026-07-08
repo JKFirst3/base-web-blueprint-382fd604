@@ -399,7 +399,7 @@ function ComparePanel({
   }).filter((x): x is { solution: Solution; variant: Variant } => x !== null);
 
   return (
-    <div className="mt-10 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
+    <div className="rounded-2xl border border-border bg-card p-6 shadow-lg sm:p-8">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <div>
           <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
