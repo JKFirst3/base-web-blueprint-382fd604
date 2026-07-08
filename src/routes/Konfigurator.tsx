@@ -3,9 +3,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Check, X } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { LeadFormCard } from "@/components/site/LeadForm";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import mobilImage from "@/assets/konfigurator-mobil.png.asset.json";
 import wandImage from "@/assets/konfigurator-wand.png.asset.json";
 import humanoidImage from "@/assets/konfigurator-humanoid.png.asset.json";
+
 
 const TITLE = "Lösungen — Lavidro";
 const DESCRIPTION =
