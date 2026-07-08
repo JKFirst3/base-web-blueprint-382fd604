@@ -70,18 +70,21 @@ export function SocialProof() {
             {partners.map((p) => (
               <div
                 key={p.name}
-                className="flex h-32 flex-col items-center justify-center gap-3 rounded-2xl border border-border/70 bg-background px-6 py-4 text-center transition-colors hover:border-foreground/30"
+                className="flex h-32 flex-col items-center justify-between rounded-2xl border border-border/70 bg-background px-6 py-4 text-center transition-colors hover:border-foreground/30"
               >
-                <img
-                  src={p.logo}
-                  alt={`${p.name} Logo`}
-                  loading="lazy"
-                  className="max-h-14 w-auto max-w-[70%] object-contain"
-                />
+                <div className="flex h-16 w-full items-center justify-center">
+                  <img
+                    src={p.logo}
+                    alt={`${p.name} Logo`}
+                    loading="lazy"
+                    className="max-h-14 w-auto max-w-[70%] object-contain"
+                  />
+                </div>
                 <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                   {p.note}
                 </div>
               </div>
+
             ))}
           </div>
         </div>
