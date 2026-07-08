@@ -134,8 +134,8 @@ function KonfiguratorPage() {
               Unsere LAVIDRO-Lösungen
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground/75">
-              Drei Systeme, die deinen Wäschealltag automatisieren. Wähle die Lösung, die zu
-              deinem Zuhause passt.
+              Entdecke unsere Lösungen für automatisierte Wäschepflege. Finde das System, das
+              perfekt zu deinem Zuhause passt.
             </p>
           </div>
         </section>
