@@ -272,7 +272,7 @@ function ExpandedCard({ solution, onClose, onBuy, onCompare }: { solution: Solut
         <div className="absolute inset-0 bg-background/85 backdrop-blur-sm" />
       </div>
 
-      <div className="relative grid gap-8 p-6 sm:p-10 md:grid-cols-2">
+      <div className="relative p-6 sm:p-10">
         <button
           type="button"
           onClick={onClose}
@@ -282,110 +282,105 @@ function ExpandedCard({ solution, onClose, onBuy, onCompare }: { solution: Solut
           <X className="h-4 w-4" />
         </button>
 
-        <div>
-          <h2 className="font-display text-3xl font-semibold leading-tight">{solution.name}</h2>
-          <p className="mt-3 text-sm text-foreground/75">{solution.description}</p>
+        <h2 className="font-display text-3xl font-semibold leading-tight">{solution.name}</h2>
+        <p className="mt-3 max-w-3xl text-sm text-foreground/75">{solution.description}</p>
 
-          <div className="mt-6 flex aspect-[16/9] items-center justify-center rounded-xl border border-dashed border-foreground/25 bg-background/50 text-xs uppercase tracking-[0.25em] text-foreground/40">
-            Bild folgt
-          </div>
-
-          <div className="mt-8">
-            <div className="flex items-baseline justify-between">
-              <div>
-                <p className="font-display text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                  {TIER_LABEL[variant.tier]}
-                </p>
-                <p className="mt-1 text-sm text-foreground/70">{TIER_TAGLINE[variant.tier]}</p>
-              </div>
-              <p className="font-display text-2xl font-semibold">{formatPrice(variant.price)}</p>
-            </div>
-
-            <input
-              type="range"
-              min={0}
-              max={solution.variants.length - 1}
-              step={1}
-              value={index}
-              onChange={(e) => setIndex(Number(e.target.value))}
-              className="mt-6 w-full accent-foreground"
-              aria-label="Ausbaustufe wählen"
-            />
-            <div className="mt-2 flex justify-between text-xs text-foreground/60">
-              {solution.variants.map((v, i) => (
-                <button
-                  key={v.size}
-                  type="button"
-                  onClick={() => setIndex(i)}
-                  className={`font-display uppercase tracking-wider ${
-                    i === index ? "text-foreground" : ""
-                  }`}
-                >
-                  {TIER_LABEL[v.tier]}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8 flex flex-col gap-2 sm:flex-row">
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex-1 rounded-full border border-foreground/30 bg-background/70 px-4 py-2 font-display text-sm font-medium text-foreground hover:bg-foreground/5"
-            >
-              Zurück
-            </button>
-            <button
-              type="button"
-              onClick={() => onCompare(variant.tier)}
-              className="flex-1 rounded-full bg-accent px-4 py-2 font-display text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
-            >
-              Vergleichen
-            </button>
-            <button
-              type="button"
-              onClick={onBuy}
-              className="flex-1 rounded-full bg-foreground px-4 py-2 font-display text-sm font-medium text-background hover:opacity-90"
-            >
-              Kaufen · {formatPrice(variant.price)}
-            </button>
-          </div>
+        <div className="mt-6 flex aspect-[21/9] items-center justify-center rounded-xl border border-dashed border-foreground/25 bg-background/50 text-xs uppercase tracking-[0.25em] text-foreground/40">
+          Bild folgt
         </div>
 
-        <div className="rounded-xl border border-border bg-background/70 p-6 md:col-span-2">
+        <div className="mt-6">
           <h3 className="font-display text-sm uppercase tracking-[0.25em] text-muted-foreground">
             Funktionsumfang
           </h3>
-          <ul className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-6">
+          <ul className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-6">
             {STEPS.map((step) => {
               const included = activeSteps.has(step.id);
               return (
                 <li
                   key={step.id}
-                  className={`flex flex-col items-center gap-2 rounded-lg border p-3 text-center ${
+                  className={`flex flex-col items-center gap-2 rounded-lg border p-2 text-center ${
                     included
                       ? "border-foreground/20 bg-background text-foreground"
                       : "border-dashed border-foreground/15 bg-transparent text-foreground/40"
                   }`}
                 >
                   <span
-                    className={`flex h-7 w-7 flex-none items-center justify-center rounded-full ${
+                    className={`flex h-6 w-6 flex-none items-center justify-center rounded-full ${
                       included ? "bg-foreground text-background" : "bg-foreground/10 text-foreground/40"
                     }`}
                   >
                     {included ? <Check className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}
                   </span>
-                  <span className="text-xs leading-tight">{step.label}</span>
+                  <span className="text-[11px] leading-tight">{step.label}</span>
                 </li>
               );
             })}
           </ul>
+        </div>
 
-          <p className="mt-4 text-xs text-foreground/60">
-            Schiebe den Regler nach rechts, um weitere Prozessschritte freizuschalten.
-          </p>
+        <div className="mt-6">
+          <div className="flex items-baseline justify-between">
+            <div>
+              <p className="font-display text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                {TIER_LABEL[variant.tier]}
+              </p>
+              <p className="mt-1 text-sm text-foreground/70">{TIER_TAGLINE[variant.tier]}</p>
+            </div>
+            <p className="font-display text-2xl font-semibold">{formatPrice(variant.price)}</p>
+          </div>
+
+          <input
+            type="range"
+            min={0}
+            max={solution.variants.length - 1}
+            step={1}
+            value={index}
+            onChange={(e) => setIndex(Number(e.target.value))}
+            className="mt-4 w-full accent-foreground"
+            aria-label="Ausbaustufe wählen"
+          />
+          <div className="mt-2 flex justify-between text-xs text-foreground/60">
+            {solution.variants.map((v, i) => (
+              <button
+                key={v.size}
+                type="button"
+                onClick={() => setIndex(i)}
+                className={`font-display uppercase tracking-wider ${
+                  i === index ? "text-foreground" : ""
+                }`}
+              >
+                {TIER_LABEL[v.tier]}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6 flex flex-col gap-2 sm:flex-row">
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex-1 rounded-full border border-foreground/30 bg-background/70 px-4 py-2 font-display text-sm font-medium text-foreground hover:bg-foreground/5"
+          >
+            Zurück
+          </button>
+          <button
+            type="button"
+            onClick={() => onCompare(variant.tier)}
+            className="flex-1 rounded-full bg-accent px-4 py-2 font-display text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
+          >
+            Vergleichen
+          </button>
+          <button
+            type="button"
+            onClick={onBuy}
+            className="flex-1 rounded-full bg-foreground px-4 py-2 font-display text-sm font-medium text-background hover:opacity-90"
+          >
+            Kaufen · {formatPrice(variant.price)}
+          </button>
         </div>
       </div>
+
     </article>
   );
 }
