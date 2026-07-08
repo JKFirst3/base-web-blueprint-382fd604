@@ -147,7 +147,7 @@ function KonfiguratorPage() {
         </section>
 
         <section className="mx-auto max-w-6xl px-4 pb-24 sm:px-6 lg:px-8">
-          <div className="grid gap-6 md:grid-cols-3 items-start">
+          <div className="grid gap-6 md:grid-cols-3 items-stretch">
             {SOLUTIONS.filter((s) => expandedId === null || expandedId === s.id).map((s) =>
               expandedId === s.id ? (
                 <ExpandedCard
@@ -220,7 +220,7 @@ function KonfiguratorPage() {
 function CompactCard({ solution, onOpen, onBuy }: { solution: Solution; onOpen: () => void; onBuy: () => void }) {
   const cheapest = solution.variants.reduce((a, b) => (a.price < b.price ? a : b));
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
       <div className="aspect-[4/3] overflow-hidden bg-background">
         <img
           src={solution.image}
@@ -231,7 +231,8 @@ function CompactCard({ solution, onOpen, onBuy }: { solution: Solution; onOpen: 
       </div>
       <div className="flex flex-1 flex-col p-6">
         <h2 className="font-display text-lg font-semibold leading-tight whitespace-nowrap">{solution.name}</h2>
-        <p className="mt-3 flex-1 text-sm text-foreground/70">{solution.description}</p>
+        <p className="mt-3 flex-1 text-xs leading-relaxed text-foreground/70">{solution.description}</p>
+
         <p className="mt-3 text-sm text-foreground/60">ab {formatPrice(cheapest.price)}</p>
         <div className="mt-6 flex flex-col gap-2 sm:flex-row">
           <button
