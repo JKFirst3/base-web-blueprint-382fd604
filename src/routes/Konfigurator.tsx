@@ -83,9 +83,9 @@ type Solution = {
 const SOLUTIONS: Solution[] = [
   {
     id: "mobil",
-    name: "Mobiler Wäscheassistent",
+    name: "Mobiler Wäscheroboter",
     description:
-      "Flexible Roboterlösung, die zwischen Waschmaschine und Trockner arbeitet und je nach Ausbaustufe sortiert, faltet und bereitstellt.",
+      "Der mobile Wäscheroboter fügt sich flexibel in bestehende Hauswirtschaftsräume ein und übernimmt den gesamten Ablauf zwischen Waschmaschine und Trockner. Je nach Ausbaustufe sortiert, faltet und stellt er die Wäsche selbstständig bereit, ohne dass die vorhandene Umgebung angepasst werden muss.",
     image: mobilImage.url,
     variants: [
       { size: "S", tier: "core", price: 6000 },
@@ -95,9 +95,9 @@ const SOLUTIONS: Solution[] = [
   },
   {
     id: "wand",
-    name: "Automatisierter Wäscheschrank",
+    name: "Vollautomatischer Waschschrank",
     description:
-      "Ein oder zwei Roboterarme im integrierten Wandschrank übernehmen von der Beladung bis zum Bereitstellen den gesamten Waschprozess.",
+      "Der vollautomatische Waschschrank verbindet intelligente Robotik mit elegantem Möbeldesign. Diskret im Wandschrank verbaut, übernimmt das System den gesamten Wäscheprozess vom Sortieren bis zur Bereitstellung der fertig gefalteten Kleidung.",
     image: wandImage.url,
     variants: [
       { size: "S", tier: "core", price: 7500 },
@@ -107,15 +107,16 @@ const SOLUTIONS: Solution[] = [
   },
   {
     id: "humanoid",
-    name: "Humanoider Wäschehelfer",
+    name: "Humanoider Wäscheautomationsroboter",
     description:
-      "Humanoider Roboter, der die Wäsche eigenständig holt, den kompletten Waschprozess übernimmt und die gefaltete Wäsche wieder verteilt.",
+      "Der autonome Roboter übernimmt eigenständig die komplette Wäscheorganisation. Er erkennt anfallende Wäsche, führt den gesamten Wäscheprozess selbstständig aus und bringt die frische Kleidung wieder an ihren Platz.",
     image: humanoidImage.url,
     variants: [
       { size: "L", tier: "pro", price: 22500 },
       { size: "XL", tier: "ultimate", price: 30000 },
     ],
   },
+
 ];
 
 const formatPrice = (v: number) =>
