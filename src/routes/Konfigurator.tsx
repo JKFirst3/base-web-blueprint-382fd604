@@ -174,7 +174,7 @@ function KonfiguratorPage() {
             <ComparePanel
               tier={compareTier}
               currentId={expandedId}
-              onSelect={(id) => {
+              onSelect={(id: string) => {
                 setExpandedId(id);
                 setCompareTier(null);
               }}
