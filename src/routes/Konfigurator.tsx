@@ -123,6 +123,7 @@ const formatPrice = (v: number) =>
 
 function KonfiguratorPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [buyOpen, setBuyOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -147,12 +148,18 @@ function KonfiguratorPage() {
           <div className="grid gap-6 md:grid-cols-3 items-start">
             {SOLUTIONS.filter((s) => expandedId === null || expandedId === s.id).map((s) =>
               expandedId === s.id ? (
-                <ExpandedCard key={s.id} solution={s} onClose={() => setExpandedId(null)} />
+                <ExpandedCard
+                  key={s.id}
+                  solution={s}
+                  onClose={() => setExpandedId(null)}
+                  onBuy={() => setBuyOpen(true)}
+                />
               ) : (
                 <CompactCard
                   key={s.id}
                   solution={s}
                   onOpen={() => setExpandedId(s.id)}
+                  onBuy={() => setBuyOpen(true)}
                 />
               ),
             )}
@@ -160,9 +167,29 @@ function KonfiguratorPage() {
         </section>
       </main>
       <Footer />
+
+      <Dialog open={buyOpen} onOpenChange={setBuyOpen}>
+        <DialogContent className="max-w-2xl border-none bg-transparent p-0 shadow-none">
+          <LeadFormCard
+            intro={
+              <div className="mb-6 rounded-2xl border border-accent/40 bg-accent/20 p-4 text-center text-sm text-foreground/80">
+                <p className="font-display text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                  In Entwicklung
+                </p>
+                <p className="mt-2">
+                  Unsere Lösungen befinden sich aktuell noch in der Entwicklung und sind noch
+                  nicht käuflich erhältlich. Trag dich unten ein, um als Erste:r Bescheid zu
+                  wissen, sobald es losgeht.
+                </p>
+              </div>
+            }
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
+
 
 function CompactCard({ solution, onOpen }: { solution: Solution; onOpen: () => void }) {
   const cheapest = solution.variants.reduce((a, b) => (a.price < b.price ? a : b));
