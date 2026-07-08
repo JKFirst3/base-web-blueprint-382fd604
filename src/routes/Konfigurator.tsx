@@ -83,7 +83,7 @@ type Solution = {
 const SOLUTIONS: Solution[] = [
   {
     id: "mobil",
-    name: "Mobiler Roboter",
+    name: "Mobiler Wäscheassistent",
     description:
       "Flexible Roboterlösung, die zwischen Waschmaschine und Trockner arbeitet und je nach Ausbaustufe sortiert, faltet und bereitstellt.",
     image: mobilImage.url,
