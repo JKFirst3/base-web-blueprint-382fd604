@@ -124,6 +124,7 @@ const formatPrice = (v: number) =>
 function KonfiguratorPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [buyOpen, setBuyOpen] = useState(false);
+  const [compareTier, setCompareTier] = useState<TierId | null>(null);
 
   return (
     <div className="min-h-screen bg-background">
