@@ -22,11 +22,9 @@ const schema = z.object({
   consent: z.boolean().refine((v) => v === true, "Bitte stimme der Zusendung von Updates zu."),
 });
 
-const painOptions = [
-  "Sortieren",
-  "Waschen",
-  "Bügeln",
-  "Falten",
+const meetingOptions = [
+  "Digital",
+  "Showroom Paderborn",
 ];
 
 export function LeadForm() {
