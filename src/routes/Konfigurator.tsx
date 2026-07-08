@@ -232,7 +232,7 @@ function ExpandedCard({ solution, onClose }: { solution: Solution; onClose: () =
             <div className="flex items-baseline justify-between">
               <div>
                 <p className="font-display text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                  {TIER_LABEL[variant.tier]} · Größe {variant.size}
+                  {TIER_LABEL[variant.tier]}
                 </p>
                 <p className="mt-1 text-sm text-foreground/70">{TIER_TAGLINE[variant.tier]}</p>
               </div>
