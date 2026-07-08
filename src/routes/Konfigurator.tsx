@@ -83,7 +83,7 @@ type Solution = {
 const SOLUTIONS: Solution[] = [
   {
     id: "mobil",
-    name: "Mobiler Wäscheroboter",
+    name: "Mobiler Wäscheassistent",
     description:
       "Der mobile Wäscheroboter fügt sich flexibel in bestehende Hauswirtschaftsräume ein und übernimmt den gesamten Ablauf zwischen Waschmaschine und Trockner. Je nach Ausbaustufe sortiert, faltet und stellt er die Wäsche selbstständig bereit, ohne dass die vorhandene Umgebung angepasst werden muss.",
     image: mobilImage.url,
@@ -95,7 +95,7 @@ const SOLUTIONS: Solution[] = [
   },
   {
     id: "wand",
-    name: "Vollautomatischer Waschschrank",
+    name: "Integrierter Wäscheschrank",
     description:
       "Der vollautomatische Waschschrank verbindet intelligente Robotik mit elegantem Möbeldesign. Diskret im Wandschrank verbaut, übernimmt das System den gesamten Wäscheprozess vom Sortieren bis zur Bereitstellung der fertig gefalteten Kleidung.",
     image: wandImage.url,
@@ -107,7 +107,7 @@ const SOLUTIONS: Solution[] = [
   },
   {
     id: "humanoid",
-    name: "Humanoider Wäscheautomationsroboter",
+    name: "Humanoider Wäschroboter",
     description:
       "Der autonome Roboter übernimmt eigenständig die komplette Wäscheorganisation. Er erkennt anfallende Wäsche, führt den gesamten Wäscheprozess selbstständig aus und bringt die frische Kleidung wieder an ihren Platz.",
     image: humanoidImage.url,
