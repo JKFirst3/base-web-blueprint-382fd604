@@ -83,7 +83,7 @@ type Solution = {
 const SOLUTIONS: Solution[] = [
   {
     id: "mobil",
-    name: "Mobiler Roboter",
+    name: "Mobiler Wäscheassistent",
     description:
       "Flexible Roboterlösung, die zwischen Waschmaschine und Trockner arbeitet und je nach Ausbaustufe sortiert, faltet und bereitstellt.",
     image: mobilImage.url,
@@ -95,7 +95,7 @@ const SOLUTIONS: Solution[] = [
   },
   {
     id: "wand",
-    name: "Integrierter Wandschrank",
+    name: "Automatisierter Wäscheschrank",
     description:
       "Ein oder zwei Roboterarme im integrierten Wandschrank übernehmen von der Beladung bis zum Bereitstellen den gesamten Waschprozess.",
     image: wandImage.url,
@@ -107,7 +107,7 @@ const SOLUTIONS: Solution[] = [
   },
   {
     id: "humanoid",
-    name: "Humanoider Roboter",
+    name: "Humanoider Wäschehelfer",
     description:
       "Humanoider Roboter, der die Wäsche eigenständig holt, den kompletten Waschprozess übernimmt und die gefaltete Wäsche wieder verteilt.",
     image: humanoidImage.url,
