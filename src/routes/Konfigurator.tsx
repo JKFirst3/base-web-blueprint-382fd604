@@ -124,6 +124,7 @@ const formatPrice = (v: number) =>
 function KonfiguratorPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [buyOpen, setBuyOpen] = useState(false);
+  const [compareTier, setCompareTier] = useState<TierId | null>(null);
 
   return (
     <div className="min-h-screen bg-background">
@@ -151,8 +152,12 @@ function KonfiguratorPage() {
                 <ExpandedCard
                   key={s.id}
                   solution={s}
-                  onClose={() => setExpandedId(null)}
+                  onClose={() => {
+                    setExpandedId(null);
+                    setCompareTier(null);
+                  }}
                   onBuy={() => setBuyOpen(true)}
+                  onCompare={(tier) => setCompareTier(tier)}
                 />
               ) : (
                 <CompactCard
@@ -164,6 +169,18 @@ function KonfiguratorPage() {
               ),
             )}
           </div>
+
+          {expandedId && compareTier && (
+            <ComparePanel
+              tier={compareTier}
+              currentId={expandedId}
+              onSelect={(id: string) => {
+                setExpandedId(id);
+                setCompareTier(null);
+              }}
+              onClose={() => setCompareTier(null)}
+            />
+          )}
         </section>
       </main>
       <Footer />
@@ -228,7 +245,7 @@ function CompactCard({ solution, onOpen, onBuy }: { solution: Solution; onOpen: 
   );
 }
 
-function ExpandedCard({ solution, onClose, onBuy }: { solution: Solution; onClose: () => void; onBuy: () => void }) {
+function ExpandedCard({ solution, onClose, onBuy, onCompare }: { solution: Solution; onClose: () => void; onBuy: () => void; onCompare: (tier: TierId) => void }) {
   const [index, setIndex] = useState(0);
   const variant = solution.variants[index];
   const activeSteps = new Set(TIER_STEPS[variant.tier]);
@@ -310,6 +327,7 @@ function ExpandedCard({ solution, onClose, onBuy }: { solution: Solution; onClos
             </button>
             <button
               type="button"
+              onClick={() => onCompare(variant.tier)}
               className="flex-1 rounded-full bg-accent px-4 py-2 font-display text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
             >
               Vergleichen
@@ -353,5 +371,85 @@ function ExpandedCard({ solution, onClose, onBuy }: { solution: Solution; onClos
         </div>
       </div>
     </article>
+  );
+}
+
+function ComparePanel({
+  tier,
+  currentId,
+  onSelect,
+  onClose,
+}: {
+  tier: TierId;
+  currentId: string;
+  onSelect: (id: string) => void;
+  onClose: () => void;
+}) {
+  const matches = SOLUTIONS.map((s) => {
+    const variant = s.variants.find((v) => v.tier === tier);
+    return variant ? { solution: s, variant } : null;
+  }).filter((x): x is { solution: Solution; variant: Variant } => x !== null);
+
+  return (
+    <div className="mt-10 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
+      <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <div>
+          <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
+            Vergleich · {TIER_LABEL[tier]}
+          </p>
+          <h3 className="mt-2 font-display text-2xl font-semibold">
+            Lösungen mit gleicher Grundfunktion
+          </h3>
+          <p className="mt-1 text-sm text-foreground/70">{TIER_TAGLINE[tier]}</p>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          className="rounded-full border border-foreground/30 bg-background px-4 py-2 font-display text-sm font-medium text-foreground hover:bg-foreground/5"
+        >
+          Zurück
+        </button>
+      </div>
+
+      <div className="mt-8 grid gap-6 md:grid-cols-3">
+        {matches.map(({ solution, variant }) => {
+          const isCurrent = solution.id === currentId;
+          return (
+            <article
+              key={solution.id}
+              className={`flex flex-col overflow-hidden rounded-xl border ${
+                isCurrent ? "border-foreground" : "border-border"
+              } bg-background`}
+            >
+              <div className="aspect-[4/3] overflow-hidden bg-background">
+                <img
+                  src={solution.image}
+                  alt={solution.name}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-5">
+                <h4 className="font-display text-base font-semibold leading-tight">
+                  {solution.name}
+                </h4>
+                <p className="mt-2 flex-1 text-sm text-foreground/70">{solution.description}</p>
+                <p className="mt-3 font-display text-lg font-semibold">
+                  {formatPrice(variant.price)}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => onSelect(solution.id)}
+                  disabled={isCurrent}
+                  className="mt-4 rounded-full bg-foreground px-4 py-2 font-display text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  {isCurrent ? "Aktuell ausgewählt" : "Auswählen"}
+                </button>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
   );
 }
