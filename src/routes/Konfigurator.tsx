@@ -3,9 +3,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Check, X } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { LeadFormCard } from "@/components/site/LeadForm";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import mobilImage from "@/assets/konfigurator-mobil.png.asset.json";
 import wandImage from "@/assets/konfigurator-wand.png.asset.json";
 import humanoidImage from "@/assets/konfigurator-humanoid.png.asset.json";
+
 
 const TITLE = "Lösungen — Lavidro";
 const DESCRIPTION =
@@ -120,6 +123,7 @@ const formatPrice = (v: number) =>
 
 function KonfiguratorPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [buyOpen, setBuyOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -144,12 +148,18 @@ function KonfiguratorPage() {
           <div className="grid gap-6 md:grid-cols-3 items-start">
             {SOLUTIONS.filter((s) => expandedId === null || expandedId === s.id).map((s) =>
               expandedId === s.id ? (
-                <ExpandedCard key={s.id} solution={s} onClose={() => setExpandedId(null)} />
+                <ExpandedCard
+                  key={s.id}
+                  solution={s}
+                  onClose={() => setExpandedId(null)}
+                  onBuy={() => setBuyOpen(true)}
+                />
               ) : (
                 <CompactCard
                   key={s.id}
                   solution={s}
                   onOpen={() => setExpandedId(s.id)}
+                  onBuy={() => setBuyOpen(true)}
                 />
               ),
             )}
@@ -157,11 +167,31 @@ function KonfiguratorPage() {
         </section>
       </main>
       <Footer />
+
+      <Dialog open={buyOpen} onOpenChange={setBuyOpen}>
+        <DialogContent className="max-w-2xl border-none bg-transparent p-0 shadow-none">
+          <LeadFormCard
+            intro={
+              <div className="mb-6 rounded-2xl border border-accent/40 bg-accent/20 p-4 text-center text-sm text-foreground/80">
+                <p className="font-display text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                  In Entwicklung
+                </p>
+                <p className="mt-2">
+                  Unsere Lösungen befinden sich aktuell noch in der Entwicklung und sind noch
+                  nicht käuflich erhältlich. Trag dich unten ein, um als Erste:r Bescheid zu
+                  wissen, sobald es losgeht.
+                </p>
+              </div>
+            }
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
 
-function CompactCard({ solution, onOpen }: { solution: Solution; onOpen: () => void }) {
+
+function CompactCard({ solution, onOpen, onBuy }: { solution: Solution; onOpen: () => void; onBuy: () => void }) {
   const cheapest = solution.variants.reduce((a, b) => (a.price < b.price ? a : b));
   return (
     <article className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
@@ -187,6 +217,7 @@ function CompactCard({ solution, onOpen }: { solution: Solution; onOpen: () => v
           </button>
           <button
             type="button"
+            onClick={onBuy}
             className="flex-1 rounded-full bg-foreground px-4 py-2 font-display text-sm font-medium text-background transition-opacity hover:opacity-90"
           >
             Kaufen
@@ -197,7 +228,7 @@ function CompactCard({ solution, onOpen }: { solution: Solution; onOpen: () => v
   );
 }
 
-function ExpandedCard({ solution, onClose }: { solution: Solution; onClose: () => void }) {
+function ExpandedCard({ solution, onClose, onBuy }: { solution: Solution; onClose: () => void; onBuy: () => void }) {
   const [index, setIndex] = useState(0);
   const variant = solution.variants[index];
   const activeSteps = new Set(TIER_STEPS[variant.tier]);
@@ -275,6 +306,7 @@ function ExpandedCard({ solution, onClose }: { solution: Solution; onClose: () =
             </button>
             <button
               type="button"
+              onClick={onBuy}
               className="flex-1 rounded-full bg-foreground px-4 py-2 font-display text-sm font-medium text-background hover:opacity-90"
             >
               Kaufen · {formatPrice(variant.price)}
