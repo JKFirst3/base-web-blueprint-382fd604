@@ -406,7 +406,7 @@ function ComparePanel({
             Vergleich · {TIER_LABEL[tier]}
           </p>
           <h3 className="mt-2 font-display text-2xl font-semibold">
-            Lösungen mit gleicher Grundfunktion
+            Lösungen mit gleichem Funktionsumfang
           </h3>
           <p className="mt-1 text-sm text-foreground/70">{TIER_TAGLINE[tier]}</p>
         </div>
