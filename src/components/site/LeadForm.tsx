@@ -68,7 +68,6 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
   }
 
   return (
-
       <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-12">
         {success && (
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-card/95 backdrop-blur-sm animate-fade-in">
@@ -82,6 +81,8 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
           </div>
         )}
 
+        {intro}
+
         <div className="text-center">
           <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
             LAVIDRO live erleben
@@ -93,6 +94,7 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
             Vereinbare eine unverbindliche Produktvorstellung. Wir zeigen dir unsere automatisierte Wäschelösung und freuen uns auf dein Feedback.
           </p>
         </div>
+
 
 
         <form onSubmit={handleSubmit} className="mt-10 space-y-5">
