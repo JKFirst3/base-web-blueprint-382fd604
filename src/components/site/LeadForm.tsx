@@ -159,6 +159,6 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
           </Button>
         </form>
       </div>
-    </section>
   );
 }
+
