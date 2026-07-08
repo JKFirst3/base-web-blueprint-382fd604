@@ -327,6 +327,7 @@ function ExpandedCard({ solution, onClose, onBuy, onCompare }: { solution: Solut
             </button>
             <button
               type="button"
+              onClick={() => onCompare(variant.tier)}
               className="flex-1 rounded-full bg-accent px-4 py-2 font-display text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
             >
               Vergleichen
