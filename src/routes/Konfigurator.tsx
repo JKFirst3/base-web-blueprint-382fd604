@@ -152,8 +152,12 @@ function KonfiguratorPage() {
                 <ExpandedCard
                   key={s.id}
                   solution={s}
-                  onClose={() => setExpandedId(null)}
+                  onClose={() => {
+                    setExpandedId(null);
+                    setCompareTier(null);
+                  }}
                   onBuy={() => setBuyOpen(true)}
+                  onCompare={(tier) => setCompareTier(tier)}
                 />
               ) : (
                 <CompactCard
@@ -165,6 +169,18 @@ function KonfiguratorPage() {
               ),
             )}
           </div>
+
+          {expandedId && compareTier && (
+            <ComparePanel
+              tier={compareTier}
+              currentId={expandedId}
+              onSelect={(id) => {
+                setExpandedId(id);
+                setCompareTier(null);
+              }}
+              onClose={() => setCompareTier(null)}
+            />
+          )}
         </section>
       </main>
       <Footer />
