@@ -22,8 +22,8 @@ export function SocialProof() {
 
   const partners = [
     { name: "Miele", note: "Industriepartner", logo: mieleLogo.url },
-    { name: "Garage33", note: "Gründungspartner", logo: garage33Logo.url },
-    { name: "Factory33", note: "Innovationspartner", logo: factory33Logo.url },
+    { name: "Garage33", note: "Forschungspartner", logo: garage33Logo.url },
+    { name: "Factory33", note: "Gründungspartner", logo: factory33Logo.url },
   ];
 
   return (
