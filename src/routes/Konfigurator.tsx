@@ -285,9 +285,10 @@ function ExpandedCard({ solution, onClose, onBuy, onCompare }: { solution: Solut
         <h2 className="pr-10 font-display text-2xl font-semibold leading-tight">{solution.name}</h2>
         <p className="mt-2 max-w-3xl text-xs leading-relaxed text-foreground/75">{solution.description}</p>
 
-        <div className="mt-3 flex h-24 items-center justify-center rounded-lg border border-dashed border-foreground/25 bg-background/50 text-[10px] uppercase tracking-[0.25em] text-foreground/40">
+        <div className="mx-auto mt-3 flex aspect-[9/16] h-56 items-center justify-center rounded-lg border border-dashed border-foreground/25 bg-background/50 text-[10px] uppercase tracking-[0.25em] text-foreground/40">
           Bild folgt
         </div>
+
 
         <div className="mt-4">
           <h3 className="font-display text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
