@@ -181,7 +181,7 @@ function CompactCard({ solution, onOpen }: { solution: Solution; onOpen: () => v
           <button
             type="button"
             onClick={onOpen}
-            className="flex-1 rounded-full border border-foreground/30 bg-background px-4 py-2 font-display text-sm font-medium text-foreground transition-colors hover:border-foreground hover:bg-foreground/5"
+            className="flex-1 rounded-full bg-accent px-4 py-2 font-display text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
           >
             Weitere Infos
           </button>
