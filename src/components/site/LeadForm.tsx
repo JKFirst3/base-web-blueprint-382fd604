@@ -22,11 +22,9 @@ const schema = z.object({
   consent: z.boolean().refine((v) => v === true, "Bitte stimme der Zusendung von Updates zu."),
 });
 
-const painOptions = [
-  "Sortieren",
-  "Waschen",
-  "Bügeln",
-  "Falten",
+const meetingOptions = [
+  "Digital",
+  "Showroom Paderborn",
 ];
 
 export function LeadForm() {
@@ -128,13 +126,13 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="pain">Was stört dich an deiner Wäsche am meisten? (optional)</Label>
+            <Label htmlFor="pain">Produktvorstellung (optional)</Label>
             <Select value={pain} onValueChange={setPain}>
               <SelectTrigger id="pain" className="h-11 bg-background">
                 <SelectValue placeholder="Bitte auswählen" />
               </SelectTrigger>
               <SelectContent>
-                {painOptions.map((o) => (
+                {meetingOptions.map((o) => (
                   <SelectItem key={o} value={o}>{o}</SelectItem>
                 ))}
               </SelectContent>
