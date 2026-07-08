@@ -259,6 +259,10 @@ function ExpandedCard({ solution, onClose, onBuy }: { solution: Solution; onClos
           <h2 className="font-display text-3xl font-semibold leading-tight">{solution.name}</h2>
           <p className="mt-3 text-sm text-foreground/75">{solution.description}</p>
 
+          <div className="mt-6 flex aspect-[16/9] items-center justify-center rounded-xl border border-dashed border-foreground/25 bg-background/50 text-xs uppercase tracking-[0.25em] text-foreground/40">
+            Bild folgt
+          </div>
+
           <div className="mt-8">
             <div className="flex items-baseline justify-between">
               <div>
