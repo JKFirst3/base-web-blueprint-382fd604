@@ -310,6 +310,12 @@ function ExpandedCard({ solution, onClose, onBuy }: { solution: Solution; onClos
             </button>
             <button
               type="button"
+              className="flex-1 rounded-full border border-foreground/30 bg-background/70 px-4 py-2 font-display text-sm font-medium text-foreground hover:bg-foreground/5"
+            >
+              Vergleichen
+            </button>
+            <button
+              type="button"
               onClick={onBuy}
               className="flex-1 rounded-full bg-foreground px-4 py-2 font-display text-sm font-medium text-background hover:opacity-90"
             >
