@@ -352,7 +352,7 @@ function ExpandedCard({ solution, onClose, onBuy, onCompare }: { solution: Solut
           </div>
         </div>
 
-        <div className="rounded-xl border border-border bg-background/70 p-6">
+        <div className="rounded-xl border border-border bg-background/70 p-6 md:col-span-2">
           <h3 className="font-display text-sm uppercase tracking-[0.25em] text-muted-foreground">
             Funktionsumfang
           </h3>
