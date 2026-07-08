@@ -170,6 +170,15 @@ function KonfiguratorPage() {
             )}
           </div>
 
+        </section>
+      </main>
+      <Footer />
+
+      <Dialog
+        open={!!(expandedId && compareTier)}
+        onOpenChange={(open) => { if (!open) setCompareTier(null); }}
+      >
+        <DialogContent className="max-w-4xl border-none bg-transparent p-0 shadow-none">
           {expandedId && compareTier && (
             <ComparePanel
               tier={compareTier}
@@ -181,9 +190,8 @@ function KonfiguratorPage() {
               onClose={() => setCompareTier(null)}
             />
           )}
-        </section>
-      </main>
-      <Footer />
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={buyOpen} onOpenChange={setBuyOpen}>
         <DialogContent className="max-w-2xl border-none bg-transparent p-0 shadow-none">
