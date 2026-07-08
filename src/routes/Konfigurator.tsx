@@ -356,25 +356,31 @@ function ExpandedCard({ solution, onClose, onBuy, onCompare }: { solution: Solut
           <h3 className="font-display text-sm uppercase tracking-[0.25em] text-muted-foreground">
             Funktionsumfang
           </h3>
-          <ul className="mt-4 space-y-3">
+          <ul className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-6">
             {STEPS.map((step) => {
               const included = activeSteps.has(step.id);
               return (
-                <li key={step.id} className="flex items-center gap-3">
+                <li
+                  key={step.id}
+                  className={`flex flex-col items-center gap-2 rounded-lg border p-3 text-center ${
+                    included
+                      ? "border-foreground/20 bg-background text-foreground"
+                      : "border-dashed border-foreground/15 bg-transparent text-foreground/40"
+                  }`}
+                >
                   <span
-                    className={`flex h-6 w-6 flex-none items-center justify-center rounded-full ${
+                    className={`flex h-7 w-7 flex-none items-center justify-center rounded-full ${
                       included ? "bg-foreground text-background" : "bg-foreground/10 text-foreground/40"
                     }`}
                   >
                     {included ? <Check className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}
                   </span>
-                  <span className={included ? "text-foreground" : "text-foreground/50"}>
-                    {step.label}
-                  </span>
+                  <span className="text-xs leading-tight">{step.label}</span>
                 </li>
               );
             })}
           </ul>
+
           <p className="mt-4 text-xs text-foreground/60">
             Schiebe den Regler nach rechts, um weitere Prozessschritte freizuschalten.
           </p>
