@@ -142,7 +142,7 @@ function KonfiguratorPage() {
 
         <section className="mx-auto max-w-6xl px-4 pb-24 sm:px-6 lg:px-8">
           <div className="grid gap-6 md:grid-cols-3 items-start">
-            {SOLUTIONS.map((s) =>
+            {SOLUTIONS.filter((s) => expandedId === null || expandedId === s.id).map((s) =>
               expandedId === s.id ? (
                 <ExpandedCard key={s.id} solution={s} onClose={() => setExpandedId(null)} />
               ) : (
