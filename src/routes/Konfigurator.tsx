@@ -107,7 +107,7 @@ const SOLUTIONS: Solution[] = [
   },
   {
     id: "humanoid",
-    name: "Humanoider Roboter",
+    name: "Humanoider Wäschehelfer",
     description:
       "Humanoider Roboter, der die Wäsche eigenständig holt, den kompletten Waschprozess übernimmt und die gefaltete Wäsche wieder verteilt.",
     image: humanoidImage.url,
