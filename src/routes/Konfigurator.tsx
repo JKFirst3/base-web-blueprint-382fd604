@@ -49,7 +49,7 @@ type TierId = "core" | "plus" | "pro" | "ultimate";
 const TIER_STEPS: Record<TierId, StepId[]> = {
   core: ["waschen"],
   plus: ["sortieren", "waschen"],
-  pro: ["sortieren", "waschen", "falten"],
+  pro: ["sortieren", "waschen", "falten", "bereitstellen"],
   ultimate: ["einsammeln", "sortieren", "waschen", "falten", "bereitstellen", "einlagern"],
 };
 
