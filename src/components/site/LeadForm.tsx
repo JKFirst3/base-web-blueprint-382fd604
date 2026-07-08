@@ -30,6 +30,14 @@ const painOptions = [
 ];
 
 export function LeadForm() {
+  return (
+    <section id="waitlist" className="mx-auto max-w-3xl px-4 py-20 sm:px-6 md:py-28 lg:px-8">
+      <LeadFormCard />
+    </section>
+  );
+}
+
+export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pain, setPain] = useState<string | undefined>();
@@ -60,7 +68,7 @@ export function LeadForm() {
   }
 
   return (
-    <section id="waitlist" className="mx-auto max-w-3xl px-4 py-20 sm:px-6 md:py-28 lg:px-8">
+
       <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-12">
         {success && (
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-card/95 backdrop-blur-sm animate-fade-in">
