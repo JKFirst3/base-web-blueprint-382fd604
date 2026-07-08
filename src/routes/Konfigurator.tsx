@@ -95,7 +95,7 @@ const SOLUTIONS: Solution[] = [
   },
   {
     id: "wand",
-    name: "Integrierter Wandschrank",
+    name: "Automatisierter Wäscheschrank",
     description:
       "Ein oder zwei Roboterarme im integrierten Wandschrank übernehmen von der Beladung bis zum Bereitstellen den gesamten Waschprozess.",
     image: wandImage.url,
