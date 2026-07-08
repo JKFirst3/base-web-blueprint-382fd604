@@ -177,9 +177,9 @@ function KonfiguratorPage() {
                   In Entwicklung
                 </p>
                 <p className="mt-2">
-                  Unsere Lösungen befinden sich aktuell noch in der Entwicklung und sind noch
-                  nicht käuflich erhältlich. Trag dich unten ein, um als Erste:r Bescheid zu
-                  wissen, sobald es losgeht.
+                  Vielen Dank für dein Interesse. Unsere Lösungen sind noch in der Entwicklung.
+                  Registriere dich und erhalte exklusive Einblicke in unsere Prototypen, bevor
+                  sie verfügbar sind.
                 </p>
               </div>
             }
