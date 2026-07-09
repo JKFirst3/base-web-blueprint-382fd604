@@ -218,7 +218,7 @@ function KonfiguratorPage() {
 
 
 function CompactCard({ solution, onOpen, onBuy }: { solution: Solution; onOpen: () => void; onBuy: () => void }) {
-  const cheapest = solution.variants.reduce((a, b) => (a.price < b.price ? a : b));
+
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
       <div className="aspect-[4/3] overflow-hidden bg-background">
