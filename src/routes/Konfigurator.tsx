@@ -158,7 +158,7 @@ function KonfiguratorPage() {
                     setExpandedId(null);
                     setCompareTier(null);
                   }}
-                  onBuy={() => setBuyOpen(true)}
+                  onBuy={(variant) => setBuyItem({ solution: s, variant })}
                   onCompare={(tier) => setCompareTier(tier)}
                 />
               ) : (
@@ -166,7 +166,7 @@ function KonfiguratorPage() {
                   key={s.id}
                   solution={s}
                   onOpen={() => setExpandedId(s.id)}
-                  onBuy={() => setBuyOpen(true)}
+                  onBuy={() => setBuyItem({ solution: s, variant: s.variants[0] })}
                 />
               ),
             )}
@@ -195,22 +195,15 @@ function KonfiguratorPage() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={buyOpen} onOpenChange={setBuyOpen}>
-        <DialogContent className="max-w-2xl border-none bg-transparent p-0 shadow-none">
-          <LeadFormCard
-            intro={
-              <div className="mb-6 rounded-2xl border border-accent/40 bg-accent/20 p-4 text-center text-sm text-foreground/80">
-                <p className="font-display text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                  In Entwicklung
-                </p>
-                <p className="mt-2">
-                  Vielen Dank für dein Interesse. Unsere Lösungen sind noch in der Entwicklung.
-                  Registriere dich und erhalte exklusive Einblicke in unsere Prototypen, bevor
-                  sie verfügbar sind.
-                </p>
-              </div>
-            }
-          />
+      <Dialog open={!!buyItem} onOpenChange={(open) => { if (!open) setBuyItem(null); }}>
+        <DialogContent className="max-w-4xl border-none bg-transparent p-0 shadow-none">
+          {buyItem && (
+            <PreorderCard
+              solution={buyItem.solution}
+              variant={buyItem.variant}
+              onClose={() => setBuyItem(null)}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </div>
