@@ -234,7 +234,11 @@ function CompactCard({ solution, onOpen, onBuy }: { solution: Solution; onOpen: 
       </div>
       <div className="flex flex-1 flex-col p-6">
         <h2 className="font-display text-lg font-semibold leading-tight whitespace-nowrap">{solution.name}</h2>
-        <p className="mt-3 flex-1 text-xs leading-relaxed text-foreground/70">{solution.description}</p>
+        <ul className="mt-3 flex-1 list-disc space-y-1 pl-4 text-xs leading-relaxed text-foreground/70">
+          {solution.description.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
 
         
         <div className="mt-6 flex flex-col gap-2 sm:flex-row">
