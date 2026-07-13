@@ -32,7 +32,7 @@ export function SocialProof() {
           {quotes.map((q, i) => (
             <figure
               key={i}
-              className="relative flex h-full flex-col justify-between rounded-3xl border border-border bg-card p-8 shadow-sm transition-transform hover:-translate-y-1"
+              className="relative flex h-full min-h-[260px] flex-col justify-between rounded-3xl border border-border bg-card p-8 shadow-sm transition-transform hover:-translate-y-1"
             >
               <span
                 aria-hidden
@@ -44,12 +44,16 @@ export function SocialProof() {
                 <p className="text-[15px] leading-relaxed">{q.text}</p>
               </blockquote>
               <figcaption className="mt-6 border-t border-border/60 pt-4">
-                <div className="font-display text-sm font-semibold">{q.author}</div>
-                <div className="text-xs text-muted-foreground">{q.role}</div>
+                <div className="font-display text-sm font-semibold">&nbsp;</div>
+                <div className="text-xs text-muted-foreground">&nbsp;</div>
               </figcaption>
             </figure>
           ))}
         </div>
+        <p className="mt-6 text-center text-sm text-muted-foreground">
+          Mehr Informationen in Kürze
+        </p>
+
 
         <div className="mt-20">
           <p className="text-center font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
