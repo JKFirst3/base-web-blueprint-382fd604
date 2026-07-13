@@ -68,6 +68,48 @@ export type Database = {
         }
         Relationships: []
       }
+      preorders: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          monthly_eur: number | null
+          name: string
+          payment_type: string
+          price_eur: number
+          size: string
+          solution_id: string
+          solution_name: string
+          tier: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          monthly_eur?: number | null
+          name: string
+          payment_type: string
+          price_eur: number
+          size: string
+          solution_id: string
+          solution_name: string
+          tier: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          monthly_eur?: number | null
+          name?: string
+          payment_type?: string
+          price_eur?: number
+          size?: string
+          solution_id?: string
+          solution_name?: string
+          tier?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
