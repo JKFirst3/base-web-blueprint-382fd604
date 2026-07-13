@@ -76,7 +76,7 @@ type Variant = { size: string; tier: TierId; price: number };
 type Solution = {
   id: string;
   name: string;
-  description: string;
+  description: string[];
   image: string;
   variants: Variant[];
 };
