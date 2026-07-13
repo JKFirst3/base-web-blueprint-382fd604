@@ -115,8 +115,11 @@ const SOLUTIONS: Solution[] = [
   {
     id: "humanoid",
     name: "Humanoider Wäschroboter",
-    description:
-      "Der autonome Roboter übernimmt eigenständig die komplette Wäscheorganisation. Er erkennt anfallende Wäsche, führt den gesamten Wäscheprozess selbstständig aus und bringt die frische Kleidung wieder an ihren Platz.",
+    description: [
+      "Autonomer Roboter übernimmt die gesamte Wäscheorganisation",
+      "Erkennt anfallende Wäsche eigenständig",
+      "Führt den Wäscheprozess aus und räumt die Kleidung zurück",
+    ],
     image: humanoidImage.url,
     variants: [
       { size: "L", tier: "pro", price: 22500 },
