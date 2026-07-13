@@ -325,6 +325,14 @@ function ExpandedCard({ solution, onClose, onBuy, onCompare }: { solution: Solut
                     {included ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
                   </span>
                   <span className="text-[10px] leading-tight">{step.label}</span>
+                  <button
+                    type="button"
+                    disabled
+                    className="mt-1 w-full rounded-full border border-foreground/20 bg-background/60 px-1.5 py-0.5 text-[9px] font-medium text-foreground/60 hover:bg-background disabled:cursor-not-allowed"
+                    title="Bald verfügbar"
+                  >
+                    Weitere Informationen
+                  </button>
                 </li>
               );
             })}
