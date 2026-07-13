@@ -531,14 +531,6 @@ function PreorderCard({
         />
       </div>
       <div className="p-6 sm:p-8">
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Schließen"
-          className="absolute right-3 top-3 rounded-full border border-foreground/20 bg-background/80 p-1.5 text-foreground/70 hover:text-foreground"
-        >
-          <X className="h-4 w-4" />
-        </button>
 
         {submitted ? (
           <div className="flex h-full min-h-[360px] flex-col justify-center">
