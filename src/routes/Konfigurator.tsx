@@ -85,8 +85,11 @@ const SOLUTIONS: Solution[] = [
   {
     id: "mobil",
     name: "Mobiler Wäscheassistent",
-    description:
-      "Der mobile Wäscheroboter fügt sich flexibel in bestehende Hauswirtschaftsräume ein und übernimmt den gesamten Ablauf zwischen Waschmaschine und Trockner. Je nach Ausbaustufe sortiert, faltet und stellt er die Wäsche selbstständig bereit, ohne dass die vorhandene Umgebung angepasst werden muss.",
+    description: [
+      "Flexibel im Hauswirtschaftsraum einsetzbar, keine Umbauten nötig",
+      "Übernimmt den Ablauf zwischen Waschmaschine und Trockner",
+      "Sortiert, faltet und stellt Wäsche je nach Ausbaustufe bereit",
+    ],
     image: mobilImage.url,
     variants: [
       { size: "S", tier: "core", price: 6000 },
