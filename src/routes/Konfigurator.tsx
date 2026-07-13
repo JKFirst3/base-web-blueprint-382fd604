@@ -457,7 +457,11 @@ function ComparePanel({
                 <h4 className="font-display text-base font-semibold leading-tight">
                   {solution.name}
                 </h4>
-                <p className="mt-2 flex-1 text-sm text-foreground/70">{solution.description}</p>
+                <ul className="mt-2 flex-1 list-disc space-y-1 pl-4 text-sm text-foreground/70">
+                  {solution.description.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
                 <p className="mt-3 font-display text-lg font-semibold">
                   {formatPrice(variant.price)}
                 </p>
