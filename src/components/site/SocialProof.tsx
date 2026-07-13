@@ -3,22 +3,11 @@ import garage33Logo from "@/assets/garage33-logo.png.asset.json";
 import factory33Logo from "@/assets/factory33-logo.png.asset.json";
 export function SocialProof() {
   const quotes = [
-    {
-      text: "Wäsche wird im Alltag oft vergessen, da die einzelnen Prozessschritte nicht bündig nacheinander laufen. Ein automatisiertes Wäschesystem löst genau diese zeitliche Herausforderung.",
-      author: "Alena K.",
-      role: "",
-    },
-    {
-      text: "Eine Haushaltshilfe für die Wäsche kommt für uns aus Gründen der Privatsphäre nicht infrage. Eine automatisierte Schranklösung im Hintergrund ist da die perfekte Alternative.",
-      author: "Eleonora P.",
-      role: "",
-    },
-    {
-      text: "Wir wollen technologisch mit der Zeit gehen. Wenn das Waschergebnis und die Textilschonung absolut zuverlässig sind, investieren wir gerne in eine komplette Systemwand.",
-      author: "Lisa-Marie B.",
-      role: "",
-    },
+    { text: "", author: "", role: "" },
+    { text: "", author: "", role: "" },
+    { text: "", author: "", role: "" },
   ];
+
 
   const partners = [
     { name: "Miele", note: "Industriepartner", logo: mieleLogo.url },
