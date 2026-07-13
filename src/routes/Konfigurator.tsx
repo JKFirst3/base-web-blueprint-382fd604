@@ -125,7 +125,7 @@ const formatPrice = (v: number) =>
 
 function KonfiguratorPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [buyOpen, setBuyOpen] = useState(false);
+  const [buyItem, setBuyItem] = useState<{ solution: Solution; variant: Variant } | null>(null);
   const [compareTier, setCompareTier] = useState<TierId | null>(null);
 
   return (
