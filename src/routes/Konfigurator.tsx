@@ -100,8 +100,11 @@ const SOLUTIONS: Solution[] = [
   {
     id: "wand",
     name: "Integrierter Wäscheschrank",
-    description:
-      "Der vollautomatische Waschschrank verbindet intelligente Robotik mit elegantem Möbeldesign. Diskret im Wandschrank verbaut, übernimmt das System den gesamten Wäscheprozess vom Sortieren bis zur Bereitstellung der fertig gefalteten Kleidung.",
+    description: [
+      "Vollautomatischer Waschschrank mit intelligenter Robotik",
+      "Diskret im Wandschrank verbaut, elegantes Möbeldesign",
+      "Übernimmt Prozess vom Sortieren bis zur gefalteten Kleidung",
+    ],
     image: wandImage.url,
     variants: [
       { size: "S", tier: "core", price: 7500 },
