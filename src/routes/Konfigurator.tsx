@@ -249,7 +249,7 @@ function CompactCard({ solution, onOpen, onBuy }: { solution: Solution; onOpen: 
   );
 }
 
-function ExpandedCard({ solution, onClose, onBuy, onCompare }: { solution: Solution; onClose: () => void; onBuy: () => void; onCompare: (tier: TierId) => void }) {
+function ExpandedCard({ solution, onClose, onBuy, onCompare }: { solution: Solution; onClose: () => void; onBuy: (variant: Variant) => void; onCompare: (tier: TierId) => void }) {
   const [index, setIndex] = useState(0);
   const variant = solution.variants[index];
   const activeSteps = new Set(TIER_STEPS[variant.tier]);
