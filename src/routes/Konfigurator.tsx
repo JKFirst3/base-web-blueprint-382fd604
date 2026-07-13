@@ -76,7 +76,7 @@ type Variant = { size: string; tier: TierId; price: number };
 type Solution = {
   id: string;
   name: string;
-  description: string;
+  description: string[];
   image: string;
   variants: Variant[];
 };
@@ -85,8 +85,11 @@ const SOLUTIONS: Solution[] = [
   {
     id: "mobil",
     name: "Mobiler Wäscheassistent",
-    description:
-      "Der mobile Wäscheroboter fügt sich flexibel in bestehende Hauswirtschaftsräume ein und übernimmt den gesamten Ablauf zwischen Waschmaschine und Trockner. Je nach Ausbaustufe sortiert, faltet und stellt er die Wäsche selbstständig bereit, ohne dass die vorhandene Umgebung angepasst werden muss.",
+    description: [
+      "Flexibel im Hauswirtschaftsraum einsetzbar, keine Umbauten nötig",
+      "Übernimmt den Ablauf zwischen Waschmaschine und Trockner",
+      "Sortiert, faltet und stellt Wäsche je nach Ausbaustufe bereit",
+    ],
     image: mobilImage.url,
     variants: [
       { size: "S", tier: "core", price: 6000 },
@@ -97,8 +100,11 @@ const SOLUTIONS: Solution[] = [
   {
     id: "wand",
     name: "Integrierter Wäscheschrank",
-    description:
-      "Der vollautomatische Waschschrank verbindet intelligente Robotik mit elegantem Möbeldesign. Diskret im Wandschrank verbaut, übernimmt das System den gesamten Wäscheprozess vom Sortieren bis zur Bereitstellung der fertig gefalteten Kleidung.",
+    description: [
+      "Vollautomatischer Waschschrank mit intelligenter Robotik",
+      "Diskret im Wandschrank verbaut, elegantes Möbeldesign",
+      "Übernimmt Prozess vom Sortieren bis zur gefalteten Kleidung",
+    ],
     image: wandImage.url,
     variants: [
       { size: "S", tier: "core", price: 7500 },
@@ -109,8 +115,11 @@ const SOLUTIONS: Solution[] = [
   {
     id: "humanoid",
     name: "Humanoider Wäschroboter",
-    description:
-      "Der autonome Roboter übernimmt eigenständig die komplette Wäscheorganisation. Er erkennt anfallende Wäsche, führt den gesamten Wäscheprozess selbstständig aus und bringt die frische Kleidung wieder an ihren Platz.",
+    description: [
+      "Autonomer Roboter übernimmt die gesamte Wäscheorganisation",
+      "Erkennt anfallende Wäsche eigenständig",
+      "Führt den Wäscheprozess aus und räumt die Kleidung zurück",
+    ],
     image: humanoidImage.url,
     variants: [
       { size: "L", tier: "pro", price: 22500 },
@@ -225,7 +234,11 @@ function CompactCard({ solution, onOpen, onBuy }: { solution: Solution; onOpen: 
       </div>
       <div className="flex flex-1 flex-col p-6">
         <h2 className="font-display text-lg font-semibold leading-tight whitespace-nowrap">{solution.name}</h2>
-        <p className="mt-3 flex-1 text-xs leading-relaxed text-foreground/70">{solution.description}</p>
+        <ul className="mt-3 flex-1 list-disc space-y-1 pl-4 text-xs leading-relaxed text-foreground/70">
+          {solution.description.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
 
         
         <div className="mt-6 flex flex-col gap-2 sm:flex-row">
@@ -277,7 +290,11 @@ function ExpandedCard({ solution, onClose, onBuy, onCompare }: { solution: Solut
         </button>
 
         <h2 className="pr-10 font-display text-2xl font-semibold leading-tight">{solution.name}</h2>
-        <p className="mt-2 max-w-3xl text-xs leading-relaxed text-foreground/75">{solution.description}</p>
+        <ul className="mt-2 max-w-3xl list-disc space-y-1 pl-4 text-xs leading-relaxed text-foreground/75">
+          {solution.description.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
 
         <div className="mx-auto mt-3 flex aspect-[38/16] h-56 items-center justify-center rounded-lg border border-dashed border-foreground/25 bg-background/50 text-[10px] uppercase tracking-[0.25em] text-foreground/40">
           Bild folgt
@@ -440,7 +457,11 @@ function ComparePanel({
                 <h4 className="font-display text-base font-semibold leading-tight">
                   {solution.name}
                 </h4>
-                <p className="mt-2 flex-1 text-sm text-foreground/70">{solution.description}</p>
+                <ul className="mt-2 flex-1 list-disc space-y-1 pl-4 text-sm text-foreground/70">
+                  {solution.description.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
                 <p className="mt-3 font-display text-lg font-semibold">
                   {formatPrice(variant.price)}
                 </p>
