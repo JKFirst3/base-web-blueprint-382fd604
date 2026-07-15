@@ -11,9 +11,9 @@ import wandImage from "@/assets/konfigurator-wand.png.asset.json";
 import humanoidImage from "@/assets/konfigurator-humanoid.png.asset.json";
 
 
-const TITLE = "Lösungen — Lavidro";
+const TITLE = "Produkt — Lavidro";
 const DESCRIPTION =
-  "Entdecke die drei Lavidro-Lösungen für automatisierte Wäscheaufbereitung.";
+  "Entdecke die Lavidro-Produkte für automatisierte Wäscheaufbereitung.";
 
 export const Route = createFileRoute("/Konfigurator")({
   head: () => ({
