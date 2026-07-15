@@ -298,7 +298,7 @@ function ExpandedCard({ solution, onClose, onBuy, onCompare }: { solution: Solut
               ))}
             </ul>
           </div>
-          <div className="aspect-[4/3] w-full overflow-hidden rounded-lg border border-foreground/15 bg-background/50 sm:w-56">
+          <div className="aspect-[4/3] w-full overflow-hidden rounded-lg border border-foreground/15 bg-background/50 sm:w-96">
             <img
               src={solution.image}
               alt={solution.name}
