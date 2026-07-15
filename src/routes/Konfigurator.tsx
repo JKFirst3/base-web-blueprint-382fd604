@@ -296,8 +296,13 @@ function ExpandedCard({ solution, onClose, onBuy, onCompare }: { solution: Solut
           ))}
         </ul>
 
-        <div className="mx-auto mt-3 flex aspect-[38/16] h-56 items-center justify-center rounded-lg border border-dashed border-foreground/25 bg-background/50 text-[10px] uppercase tracking-[0.25em] text-foreground/40">
-          Bild folgt
+        <div className="mx-auto mt-3 flex aspect-[38/16] h-56 items-center justify-center overflow-hidden rounded-lg border border-foreground/15 bg-background/50">
+          <img
+            src={solution.image}
+            alt={solution.name}
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
         </div>
 
 
