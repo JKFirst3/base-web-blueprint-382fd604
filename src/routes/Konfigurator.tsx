@@ -289,20 +289,23 @@ function ExpandedCard({ solution, onClose, onBuy, onCompare }: { solution: Solut
           <X className="h-4 w-4" />
         </button>
 
-        <h2 className="pr-10 font-display text-2xl font-semibold leading-tight">{solution.name}</h2>
-        <ul className="mt-2 max-w-3xl list-disc space-y-1 pl-4 text-xs leading-relaxed text-foreground/75">
-          {solution.description.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-
-        <div className="mx-auto mt-3 flex aspect-[38/16] h-56 items-center justify-center overflow-hidden rounded-lg border border-foreground/15 bg-background/50">
-          <img
-            src={solution.image}
-            alt={solution.name}
-            className="h-full w-full object-cover"
-            loading="lazy"
-          />
+        <div className="grid gap-4 pr-10 sm:grid-cols-[1fr_auto]">
+          <div>
+            <h2 className="font-display text-2xl font-semibold leading-tight">{solution.name}</h2>
+            <ul className="mt-2 max-w-3xl list-disc space-y-1 pl-4 text-xs leading-relaxed text-foreground/75">
+              {solution.description.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="aspect-[4/3] w-full overflow-hidden rounded-lg border border-foreground/15 bg-background/50 sm:w-56">
+            <img
+              src={solution.image}
+              alt={solution.name}
+              className="h-full w-full object-cover"
+              loading="lazy"
+            />
+          </div>
         </div>
 
 
