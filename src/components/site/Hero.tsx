@@ -39,7 +39,7 @@ export function Hero() {
             <Button
               onClick={scrollToWaitlist}
               size="lg"
-              className="rounded-full px-7 py-6 text-base transition-all hover:bg-accent hover:text-accent-foreground active:scale-[0.98]"
+              className="rounded-full bg-accent px-7 py-6 text-base text-accent-foreground transition-all hover:bg-accent/90 active:scale-[0.98]"
             >
               LAVIDRO live erleben
             </Button>
