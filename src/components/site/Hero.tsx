@@ -53,14 +53,8 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Mobile-only image (right column is used by the absolute image on md+) */}
-        <div className="relative animate-fade-in md:hidden">
-          <img
-            src={heroImage.url}
-            alt="Moderne Waschküche mit autonomem Lavidro-Roboterarm"
-            className="h-auto w-full rounded-2xl"
-          />
-        </div>
+
+
       </div>
     </section>
   );
