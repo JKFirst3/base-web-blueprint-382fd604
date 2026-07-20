@@ -8,21 +8,19 @@ function scrollToWaitlist() {
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      {/* Full-height image on the right side of the page */}
-      <div
-        className="pointer-events-none absolute inset-y-0 right-0 hidden md:block md:w-1/2"
-        aria-hidden
-      >
+      {/* Full-bleed background image */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
         <img
           src={heroImage.url}
           alt=""
           className="h-full w-full object-cover"
         />
+        <div className="absolute inset-0 bg-black/30" />
       </div>
 
-      <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 md:items-center md:gap-16 md:py-28 lg:px-8 lg:py-32">
+      <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 md:items-center md:gap-16 md:py-28 lg:px-8 lg:py-32">
         <div className="relative z-10 animate-fade-in-up">
-          <p className="font-display text-xs uppercase tracking-[0.35em] text-muted-foreground">
+          <p className="font-display text-xs uppercase tracking-[0.35em] text-white/70">
             &nbsp;
           </p>
           <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
