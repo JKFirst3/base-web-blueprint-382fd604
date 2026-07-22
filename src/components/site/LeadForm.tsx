@@ -14,6 +14,8 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Check } from "lucide-react";
+import { track } from "@/lib/track";
+
 
 const schema = z.object({
   name: z.string().trim().max(100).optional(),
@@ -51,6 +53,7 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
       return;
     }
     setSubmitting(true);
+    track("lead_form_submit_attempt", { channel: parsed.data.pain_point ?? "unspecified" });
     const { error } = await supabase.from("leads").insert({
       name: parsed.data.name || null,
       email: parsed.data.email,
@@ -62,8 +65,10 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
       toast.error("Etwas ist schiefgelaufen. Bitte versuche es erneut.");
       return;
     }
+    track("lead_form_submit_success", { channel: parsed.data.pain_point ?? "unspecified" });
     setSuccess(true);
   }
+
 
   return (
       <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-12">
