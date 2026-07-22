@@ -140,7 +140,7 @@ function KonfiguratorPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="overflow-x-clip">
+      <main className="overflow-x-clip pt-16">
         <section className="mx-auto max-w-6xl px-4 pb-10 pt-16 sm:px-6 md:pt-24 lg:px-8">
           <div className="text-center">
             <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">

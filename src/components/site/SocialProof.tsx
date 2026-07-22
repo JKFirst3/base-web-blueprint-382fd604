@@ -1,14 +1,8 @@
 import mieleLogo from "@/assets/miele-logo.png.asset.json";
 import garage33Logo from "@/assets/garage33-logo.png.asset.json";
 import factory33Logo from "@/assets/factory33-logo.png.asset.json";
+
 export function SocialProof() {
-  const quotes = [
-    { text: "", author: "", role: "" },
-    { text: "", author: "", role: "" },
-    { text: "", author: "", role: "" },
-  ];
-
-
   const partners = [
     { name: "Miele", note: "Industriepartner", logo: mieleLogo.url },
     { name: "Garage33", note: "Forschungspartner", logo: garage33Logo.url },
@@ -16,70 +10,30 @@ export function SocialProof() {
   ];
 
   return (
-    <section className="border-t border-border/60 bg-secondary/40 py-20 sm:py-28">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            Erste Resonanz
-          </p>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
-            Erfahrungen mit LAVIDRO
-          </h2>
-
-        </div>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {quotes.map((q, i) => (
-            <figure
-              key={i}
-              className="relative flex h-full min-h-[260px] flex-col justify-between rounded-3xl border border-border bg-card p-8 shadow-sm transition-transform hover:-translate-y-1"
-            >
-              <span
-                aria-hidden
-                className="absolute -top-4 left-6 font-display text-6xl leading-none text-accent"
-              >
-                &ldquo;
-              </span>
-              <blockquote className="relative pt-4 text-foreground/85">
-                <p className="text-[15px] leading-relaxed">{q.text}</p>
-              </blockquote>
-              <figcaption className="mt-6 border-t border-border/60 pt-4">
-                <div className="font-display text-sm font-semibold">&nbsp;</div>
-                <div className="text-xs text-muted-foreground">&nbsp;</div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-        <p className="mt-6 text-center text-sm text-muted-foreground">
-          Mehr Informationen in Kürze
+    <section className="bg-white py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <p className="text-center font-display text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+          Unsere Partner
         </p>
-
-
-        <div className="mt-20">
-          <p className="text-center font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            Unsere Partner
-          </p>
-          <div className="mx-auto mt-8 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
-            {partners.map((p) => (
-              <div
-                key={p.name}
-                className="flex h-32 flex-col items-center justify-between rounded-2xl border border-border/70 bg-background px-6 py-4 text-center transition-colors hover:border-foreground/30"
-              >
-                <div className="flex h-16 w-full items-center justify-center">
-                  <img
-                    src={p.logo}
-                    alt={`${p.name} Logo`}
-                    loading="lazy"
-                    className="max-h-14 w-auto max-w-[70%] object-contain"
-                  />
-                </div>
-                <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-                  {p.note}
-                </div>
+        <div className="mt-14 grid grid-cols-1 divide-y divide-[rgba(23,23,23,0.16)] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          {partners.map((p) => (
+            <div
+              key={p.name}
+              className="flex flex-col items-center justify-center gap-4 py-10 sm:py-4"
+            >
+              <div className="flex h-20 w-full items-center justify-center">
+                <img
+                  src={p.logo}
+                  alt={`${p.name} Logo`}
+                  loading="lazy"
+                  className="max-h-16 w-auto max-w-[70%] object-contain"
+                />
               </div>
-
-            ))}
-          </div>
+              <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+                {p.note}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

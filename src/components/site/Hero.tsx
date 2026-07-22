@@ -1,60 +1,93 @@
-import { Button } from "@/components/ui/button";
+import { useEffect, useRef, useState } from "react";
 import heroImage from "@/assets/hero-laundry-room.png.asset.json";
+import { track } from "@/lib/track";
 
 function scrollToWaitlist() {
+  track("cta_live_erleben_click", { source: "hero" });
   document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 export function Hero() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        // clamp to ~18px parallax range
+        setOffset(Math.min(18, Math.max(0, y * 0.08)));
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
-    <section id="top" className="relative overflow-hidden">
-      {/* Full-bleed background image */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
+    <section id="top" ref={ref} className="relative h-screen min-h-[640px] w-full overflow-hidden">
+      <div
+        className="pointer-events-none absolute inset-0 will-change-transform"
+        style={{ transform: `translateY(${offset}px) scale(1.06)` }}
+        aria-hidden
+      >
         <img
           src={heroImage.url}
           alt=""
           className="h-full w-full object-cover"
+          fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-black/30" />
       </div>
+      {/* Dark gradient overlay */}
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(5,5,5,0.15) 0%, rgba(5,5,5,0.25) 40%, rgba(5,5,5,0.6) 100%)",
+        }}
+      />
+      <div aria-hidden className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent to-black/60" />
 
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 md:items-center md:gap-16 md:py-28 lg:px-8 lg:py-32">
-        <div className="relative z-10 animate-fade-in-up">
-          <p className="font-display text-xs uppercase tracking-[0.35em] text-white/70">
-            &nbsp;
-          </p>
-          <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Wäsche.
-            <br />
-            Einfach.
-            <br />
-            Fertig.
-          </h1>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
-            Das erste System, das den&nbsp;vollständigen Wäscheprozess&nbsp;nach&nbsp;deinen
-            Gewohnheiten, autonom&nbsp;und&nbsp;qualitätssicher übernimmt, damit Wäsche erledigt
-            ist,&nbsp;bevor du dran denkst.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Button
-              onClick={scrollToWaitlist}
-              size="lg"
-              className="rounded-full bg-accent px-7 py-6 text-base text-accent-foreground transition-all hover:bg-accent/90 active:scale-[0.98]"
+      <div className="relative z-10 flex h-full flex-col items-center justify-end px-5 pb-24 text-center text-white sm:px-8 sm:pb-28 md:pb-36">
+        <p className="font-display text-[11px] uppercase tracking-[0.32em] text-white/75 animate-fade-in-up">
+          Die Evolution der Wäschepflege
+        </p>
+        <h1 className="mt-5 font-display text-5xl font-bold leading-[0.98] tracking-tight sm:text-6xl md:text-7xl lg:text-[92px] animate-fade-in-up">
+          Wäsche.
+          <br />
+          Einfach.
+          <br />
+          Fertig.
+        </h1>
+        <div className="mt-9 flex items-center gap-3 animate-fade-in-up">
+          <button
+            type="button"
+            onClick={scrollToWaitlist}
+            className="rounded-full bg-white px-6 py-3 text-[13px] font-medium text-[#050505] transition hover:bg-white/90"
+          >
+            LAVIDRO live erleben
+          </button>
+          <a
+            href="#system"
+            onClick={() => track("entdecken_click", {})}
+            className="inline-flex items-center gap-2 rounded-full border border-white/45 px-5 py-3 text-[13px] font-medium text-white transition hover:border-white hover:bg-white/10"
+          >
+            Entdecken
+            <span
+              aria-hidden
+              className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-white/60"
             >
-              LAVIDRO live erleben
-            </Button>
-
-            <a
-              href="#features"
-              className="text-sm font-medium text-white/80 underline-offset-4 hover:text-white hover:underline"
-            >
-              Mehr erfahren ↓
-            </a>
-          </div>
+              ↓
+            </span>
+          </a>
         </div>
-
-
-
       </div>
     </section>
   );

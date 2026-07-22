@@ -40,56 +40,63 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
-  --color-sand: var(--sand);
-  --color-sand-soft: var(--sand-soft);
+  --color-warm: var(--warm);
+  --color-warm-strong: var(--warm-strong);
+  --color-ink: var(--ink);
 
-  --animate-fade-in-up: fade-in-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in-up: fade-in-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-fade-in: fade-in 0.6s ease-out both;
+  --animate-marquee: marquee 60s linear infinite;
 
   @keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
   }
   @keyframes fade-in {
     from { opacity: 0; }
     to { opacity: 1; }
   }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 0.5rem;
 
-  /* Lavidro brand palette */
-  --background: oklch(0.965 0.005 85);          /* #F3F2EE Warm White */
-  --foreground: oklch(0.292 0 0);               /* #323232 Off-Black */
+  /* LAVIDRO neutral premium palette */
+  --background: #F7F5F2;          /* light warm off-white */
+  --foreground: #171717;          /* primary text */
+  --ink: #050505;                 /* deep black */
 
-  --card: oklch(0.927 0.013 85);                /* #EAE4D5 Soft Muted Clay */
-  --card-foreground: oklch(0.292 0 0);
+  --card: #FFFFFF;
+  --card-foreground: #171717;
 
-  --popover: oklch(0.965 0.005 85);
-  --popover-foreground: oklch(0.292 0 0);
+  --popover: #FFFFFF;
+  --popover-foreground: #171717;
 
-  --primary: oklch(0 0 0);                      /* #000 black CTA */
-  --primary-foreground: oklch(1 0 0);
+  --primary: #171717;
+  --primary-foreground: #FFFFFF;
 
-  --secondary: oklch(0.927 0.013 85);
-  --secondary-foreground: oklch(0.292 0 0);
+  --secondary: #EBE6DF;           /* warm gray */
+  --secondary-foreground: #171717;
 
-  --muted: oklch(0.927 0.013 85);
-  --muted-foreground: oklch(0.45 0.01 80);
+  --muted: #EBE6DF;
+  --muted-foreground: #67625E;    /* muted text */
 
-  --accent: oklch(0.81 0.025 85);               /* #CCC2AC sand accent */
-  --accent-foreground: oklch(0.292 0 0);
+  --accent: #EBE6DF;
+  --accent-foreground: #171717;
 
-  --destructive: oklch(0.55 0.2 25);
-  --destructive-foreground: oklch(1 0 0);
+  --destructive: #171717;
+  --destructive-foreground: #FFFFFF;
 
-  --border: oklch(0.81 0.025 85);               /* #CCC2AC */
-  --input: oklch(0.81 0.025 85);
-  --ring: oklch(0.81 0.025 85);
+  --border: rgba(23, 23, 23, 0.16);
+  --input: rgba(23, 23, 23, 0.16);
+  --ring: rgba(23, 23, 23, 0.35);
 
-  --sand: oklch(0.81 0.025 85);
-  --sand-soft: oklch(0.927 0.013 85);
+  --warm: #F7F5F2;
+  --warm-strong: #EBE6DF;
 }
 
 @layer base {
@@ -100,13 +107,28 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
 @utility font-display {
   font-family: var(--font-display);
+}
+
+@utility hairline {
+  border-color: rgba(23, 23, 23, 0.16);
 }
