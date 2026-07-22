@@ -20,7 +20,7 @@ function ImpressumPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-3xl px-4 pt-32 pb-20 sm:px-6 lg:px-8">
         <h1 className="font-display text-4xl font-bold tracking-tight">Impressum</h1>
 
         <section className="mt-10">
