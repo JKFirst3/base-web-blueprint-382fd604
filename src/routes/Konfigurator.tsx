@@ -204,32 +204,42 @@ function PreorderDialog({
 
     setSubmitting(true);
     setMessage("");
-    const { error } = await supabase.from("preorders").insert({
-      name: name.trim(),
-      email: email.trim(),
-      solution_id: selection.productId,
-      solution_name: selection.productName,
-      tier: selection.tier,
-      size: "Standard",
-      payment_type: selection.paymentType,
-      price_eur: selection.price,
-      monthly_eur: selection.paymentType === "monthly" ? selection.monthly : null,
-      consent,
-      source: "configurator",
-    });
-    setSubmitting(false);
+    try {
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 10_000);
+      const response = await fetch("/api/public/preorders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          solution_id: selection.productId,
+          solution_name: selection.productName,
+          tier: selection.tier,
+          size: "Standard",
+          payment_type: selection.paymentType,
+          price_eur: selection.price,
+          monthly_eur: selection.paymentType === "monthly" ? selection.monthly : null,
+          consent,
+          source: "configurator",
+        }),
+        signal: controller.signal,
+      }).finally(() => window.clearTimeout(timeout));
 
-    if (error) {
+      if (!response.ok) throw new Error(`Preorder request failed: ${response.status}`);
+
+      track("preorder_success", {
+        product_id: selection.productId,
+        tier: selection.tier,
+        payment_type: selection.paymentType,
+      });
+      setSuccess(true);
+    } catch (error) {
+      console.error("[preorder-form] Submission failed", error);
       setMessage("Die Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.");
-      return;
+    } finally {
+      setSubmitting(false);
     }
-
-    track("preorder_success", {
-      product_id: selection.productId,
-      tier: selection.tier,
-      payment_type: selection.paymentType,
-    });
-    setSuccess(true);
   }
 
   return (

@@ -17,6 +17,7 @@ import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as ApiPublicCollectAnalyticsRouteImport } from './routes/api/public/collect-analytics'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
+import { Route as ApiPublicPreordersRouteImport } from './routes/api/public/preorders'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -59,6 +60,11 @@ const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
   path: '/api/public/leads',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPreordersRoute = ApiPublicPreordersRouteImport.update({
+  id: '/api/public/preorders',
+  path: '/api/public/preorders',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -69,6 +75,7 @@ export interface FileRoutesByFullPath {
   '/kontakt': typeof KontaktRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
+  '/api/public/preorders': typeof ApiPublicPreordersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -79,6 +86,7 @@ export interface FileRoutesByTo {
   '/kontakt': typeof KontaktRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
+  '/api/public/preorders': typeof ApiPublicPreordersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -90,6 +98,7 @@ export interface FileRoutesById {
   '/kontakt': typeof KontaktRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
+  '/api/public/preorders': typeof ApiPublicPreordersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -102,6 +111,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/api/public/collect-analytics'
     | '/api/public/leads'
+    | '/api/public/preorders'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -112,6 +122,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/api/public/collect-analytics'
     | '/api/public/leads'
+    | '/api/public/preorders'
   id:
     | '__root__'
     | '/'
@@ -122,6 +133,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/api/public/collect-analytics'
     | '/api/public/leads'
+    | '/api/public/preorders'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -133,6 +145,7 @@ export interface RootRouteChildren {
   KontaktRoute: typeof KontaktRoute
   ApiPublicCollectAnalyticsRoute: typeof ApiPublicCollectAnalyticsRoute
   ApiPublicLeadsRoute: typeof ApiPublicLeadsRoute
+  ApiPublicPreordersRoute: typeof ApiPublicPreordersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -193,6 +206,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicLeadsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/preorders': {
+      id: '/api/public/preorders'
+      path: '/api/public/preorders'
+      fullPath: '/api/public/preorders'
+      preLoaderRoute: typeof ApiPublicPreordersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -205,6 +225,7 @@ const rootRouteChildren: RootRouteChildren = {
   KontaktRoute: KontaktRoute,
   ApiPublicCollectAnalyticsRoute: ApiPublicCollectAnalyticsRoute,
   ApiPublicLeadsRoute: ApiPublicLeadsRoute,
+  ApiPublicPreordersRoute: ApiPublicPreordersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
