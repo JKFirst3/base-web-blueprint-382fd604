@@ -356,9 +356,11 @@ function DatenschutzPage() {
             Bestimmungen – insbesondere Aufbewahrungsfristen – bleiben unberührt.
           </p>
 
-          <h3 className="mt-6 font-display text-lg font-semibold">Warteliste</h3>
+          <h3 className="mt-6 font-display text-lg font-semibold">
+            Anmeldung zu „LAVIDRO live erleben“
+          </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
-            Wenn Sie sich in unsere Warteliste eintragen, verarbeiten wir folgende Daten:
+            Wenn Sie sich für „LAVIDRO live erleben“ anmelden, verarbeiten wir folgende Daten:
           </p>
           <ul className="mt-3 list-disc pl-6 text-foreground/80 leading-relaxed space-y-1">
             <li>Name (optional)</li>
@@ -402,16 +404,16 @@ function DatenschutzPage() {
           </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
             Für die Speicherung und Verarbeitung der über die Website erfassten Daten (z. B.
-            Warteliste) nutzen wir „Lovable Cloud“. Anbieter ist die Lovable Labs AB, Regeringsgatan
-            25, 111 53 Stockholm, Schweden. Lovable Cloud stellt uns eine verwaltete
-            Datenbank-Infrastruktur bereit. Im Hintergrund nutzt Lovable für diese Dienste den
-            Infrastruktur-Anbieter Supabase, Inc. (Palo Alto, USA) als Unterauftragsverarbeiter. Die
-            Daten werden auf Servern innerhalb der Europäischen Union gespeichert. Für den Fall,
-            dass Daten in die USA übertragen oder von dort aus eingesehen werden können, haben
-            Lovable bzw. Supabase sich zur Einhaltung der EU-Standardvertragsklauseln verpflichtet,
-            um ein angemessenes Datenschutzniveau zu garantieren. Rechtsgrundlage ist unser
-            berechtigtes Interesse an einer sicheren, skalierbaren und performanten
-            Datenbank-Infrastruktur (Art. 6 Abs. 1 lit. f DSGVO).
+            Anmeldungen zu „LAVIDRO live erleben“) nutzen wir „Lovable Cloud“. Anbieter ist die
+            Lovable Labs AB, Regeringsgatan 25, 111 53 Stockholm, Schweden. Lovable Cloud stellt uns
+            eine verwaltete Datenbank-Infrastruktur bereit. Im Hintergrund nutzt Lovable für diese
+            Dienste den Infrastruktur-Anbieter Supabase, Inc. (Palo Alto, USA) als
+            Unterauftragsverarbeiter. Die Daten werden auf Servern innerhalb der Europäischen Union
+            gespeichert. Für den Fall, dass Daten in die USA übertragen oder von dort aus eingesehen
+            werden können, haben Lovable bzw. Supabase sich zur Einhaltung der
+            EU-Standardvertragsklauseln verpflichtet, um ein angemessenes Datenschutzniveau zu
+            garantieren. Rechtsgrundlage ist unser berechtigtes Interesse an einer sicheren,
+            skalierbaren und performanten Datenbank-Infrastruktur (Art. 6 Abs. 1 lit. f DSGVO).
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">

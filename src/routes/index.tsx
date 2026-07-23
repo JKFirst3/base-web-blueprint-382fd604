@@ -81,7 +81,7 @@ function HomePage() {
       }
 
       form.reset();
-      status.textContent = "Danke. Sie sind auf der LAVIDRO-Warteliste.";
+      status.textContent = "Danke. Wir melden uns, sobald Sie LAVIDRO live erleben können.";
       track("lead_form_submit_success", { channel: painPoint || "unspecified" });
     };
 

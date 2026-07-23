@@ -171,7 +171,7 @@
       return;
     }
 
-    formStatus.textContent = "Danke. Sie sind auf der Lavidro Warteliste.";
+    formStatus.textContent = "Danke. Wir melden uns, sobald Sie LAVIDRO live erleben können.";
     form.reset();
   });
 
