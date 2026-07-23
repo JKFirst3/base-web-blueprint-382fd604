@@ -70,6 +70,7 @@ export type Database = {
       }
       preorders: {
         Row: {
+          consent: boolean
           created_at: string
           email: string
           id: string
@@ -80,9 +81,11 @@ export type Database = {
           size: string
           solution_id: string
           solution_name: string
+          source: string
           tier: string
         }
         Insert: {
+          consent?: boolean
           created_at?: string
           email: string
           id?: string
@@ -93,9 +96,11 @@ export type Database = {
           size: string
           solution_id: string
           solution_name: string
+          source?: string
           tier: string
         }
         Update: {
+          consent?: boolean
           created_at?: string
           email?: string
           id?: string
@@ -106,6 +111,7 @@ export type Database = {
           size?: string
           solution_id?: string
           solution_name?: string
+          source?: string
           tier?: string
         }
         Relationships: []
