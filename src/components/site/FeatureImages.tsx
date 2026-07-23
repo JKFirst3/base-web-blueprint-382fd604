@@ -1,6 +1,5 @@
 import mobilImage from "@/assets/konfigurator-mobil.png.asset.json";
 import hero from "@/assets/hero-laundry-room.png.asset.json";
-import humanoidImage from "@/assets/konfigurator-humanoid.png.asset.json";
 
 const TILES = [
   {
@@ -14,7 +13,7 @@ const TILES = [
     body: "Sensorik, Bewegungssteuerung und autonome Abläufe – zwischen Waschmaschine, Trockner und Ablage.",
   },
   {
-    image: humanoidImage.url,
+    image: "/assets/lavidro-one.webp",
     title: "Qualität, die bleibt",
     body: "Textilschonende Pflege, sichere Griffe und wiederholbare Ergebnisse in jeder Ausbaustufe.",
   },

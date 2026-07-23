@@ -41,7 +41,7 @@
       family: "Integrierter Wäscheschrank",
       description:
         "Vollautomatischer Wäscheschrank mit intelligenter Robotik, diskret integriert und für den Prozess vom Sortieren bis zur bereitgestellten Kleidung konzipiert.",
-      image: "assets/lavidro-cabinet.svg",
+      image: "assets/lavidro-cabinet.webp",
       highlights: [
         "Vollautomatischer Waschschrank mit intelligenter Robotik",
         "Diskret integriert mit elegantem Möbeldesign",
@@ -68,7 +68,7 @@
       family: "Humanoider Wäschroboter",
       description:
         "Autonomer Roboter für die gesamte Wäscheorganisation. Erkennt anfallende Wäsche, führt den Prozess aus und räumt sie in der Ultimate-Stufe zurück.",
-      image: "assets/lavidro-humanoid.svg",
+      image: "assets/lavidro-one.webp",
       highlights: [
         "Übernimmt die gesamte Wäscheorganisation",
         "Erkennt anfallende Wäsche eigenständig",

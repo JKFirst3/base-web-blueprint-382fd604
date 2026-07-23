@@ -1,7 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import mobilImage from "@/assets/konfigurator-mobil.png.asset.json";
-import wandImage from "@/assets/konfigurator-wand.png.asset.json";
-import humanoidImage from "@/assets/konfigurator-humanoid.png.asset.json";
 import { track } from "@/lib/track";
 import { useEffect, useRef } from "react";
 
@@ -26,14 +24,14 @@ const PRODUCTS: Product[] = [
     brand: "LAVIDRO Cabinet",
     name: "Integrierter Wäscheschrank",
     category: "Serie · Cabinet",
-    image: wandImage.url,
+    image: "/assets/lavidro-cabinet.webp",
   },
   {
     id: "humanoid",
     brand: "LAVIDRO One",
     name: "Humanoider Wäschroboter",
     category: "Serie · One",
-    image: humanoidImage.url,
+    image: "/assets/lavidro-one.webp",
   },
 ];
 

@@ -461,12 +461,6 @@ p {
   transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.product-tile:nth-child(2) img,
-.product-tile:nth-child(3) img {
-  object-fit: contain;
-  padding: clamp(22px, 4vw, 48px);
-}
-
 .product-tile:hover img {
   transform: scale(1.025);
 }
