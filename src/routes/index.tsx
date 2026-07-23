@@ -59,7 +59,6 @@ function HomePage() {
         button.textContent = "Wird eingetragen …";
       }
       status.textContent = "";
-      track("lead_form_submit_attempt", { channel: painPoint || "unspecified" });
 
       const { error } = await supabase.from("leads").insert({
         name: name || null,
@@ -76,13 +75,12 @@ function HomePage() {
       if (error) {
         status.textContent =
           "Die Eintragung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.";
-        track("lead_form_submit_error", { code: error.code });
         return;
       }
 
       form.reset();
       status.textContent = "Danke. Wir melden uns, sobald Sie LAVIDRO live erleben können.";
-      track("lead_form_submit_success", { channel: painPoint || "unspecified" });
+      track("live_experience_success");
     };
 
     form.addEventListener("submit", onSubmit, { capture: true });
