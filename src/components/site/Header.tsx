@@ -13,7 +13,7 @@ export function Header() {
         <a href="/aboutLavidro">Über LAVIDRO</a>
       </nav>
       <a className="nav-cta" href="/#warteliste">
-        Warteliste
+        LAVIDRO live erleben
       </a>
     </header>
   );
