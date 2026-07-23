@@ -11,7 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Check } from "lucide-react";
 import { track } from "@/lib/track";
@@ -49,19 +48,31 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
       return;
     }
     setSubmitting(true);
-    const { error } = await supabase.from("leads").insert({
-      name: parsed.data.name || null,
-      email: parsed.data.email,
-      pain_point: parsed.data.pain_point || null,
-      consent: parsed.data.consent,
-    });
-    setSubmitting(false);
-    if (error) {
+    try {
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 10_000);
+      const response = await fetch("/api/public/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: parsed.data.name || null,
+          email: parsed.data.email,
+          pain_point: parsed.data.pain_point || null,
+          consent: parsed.data.consent,
+        }),
+        signal: controller.signal,
+      }).finally(() => window.clearTimeout(timeout));
+
+      if (!response.ok) throw new Error(`Lead request failed: ${response.status}`);
+
+      track("live_experience_success");
+      setSuccess(true);
+    } catch (error) {
+      console.error("[lead-form] Submission failed", error);
       toast.error("Etwas ist schiefgelaufen. Bitte versuche es erneut.");
-      return;
+    } finally {
+      setSubmitting(false);
     }
-    track("live_experience_success");
-    setSuccess(true);
   }
 
   return (
