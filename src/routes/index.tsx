@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import homeHtml from "@/content/home.html?raw";
 import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
-import { supabase } from "@/integrations/supabase/client";
 import { track } from "@/lib/track";
 
 const TITLE = "LAVIDRO — Wäsche. Einfach. Fertig.";
@@ -60,27 +59,36 @@ function HomePage() {
       }
       status.textContent = "";
 
-      const { error } = await supabase.from("leads").insert({
-        name: name || null,
-        email,
-        pain_point: painPoint || null,
-        consent,
-      });
+      try {
+        const controller = new AbortController();
+        const timeout = window.setTimeout(() => controller.abort(), 10_000);
+        const response = await fetch("/api/public/leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: name || null,
+            email,
+            pain_point: painPoint || null,
+            consent,
+          }),
+          signal: controller.signal,
+        }).finally(() => window.clearTimeout(timeout));
 
-      if (button) {
-        button.disabled = false;
-        button.textContent = "Jetzt eintragen";
-      }
+        if (!response.ok) throw new Error(`Lead request failed: ${response.status}`);
 
-      if (error) {
+        form.reset();
+        status.textContent = "Danke. Wir melden uns, sobald Sie LAVIDRO live erleben können.";
+        track("live_experience_success");
+      } catch (error) {
+        console.error("[lead-form] Submission failed", error);
         status.textContent =
           "Die Eintragung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.";
-        return;
+      } finally {
+        if (button) {
+          button.disabled = false;
+          button.textContent = "Jetzt eintragen";
+        }
       }
-
-      form.reset();
-      status.textContent = "Danke. Wir melden uns, sobald Sie LAVIDRO live erleben können.";
-      track("live_experience_success");
     };
 
     form.addEventListener("submit", onSubmit, { capture: true });
