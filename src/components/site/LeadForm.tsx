@@ -49,7 +49,6 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
       return;
     }
     setSubmitting(true);
-    track("lead_form_submit_attempt", { channel: parsed.data.pain_point ?? "unspecified" });
     const { error } = await supabase.from("leads").insert({
       name: parsed.data.name || null,
       email: parsed.data.email,
@@ -61,7 +60,7 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
       toast.error("Etwas ist schiefgelaufen. Bitte versuche es erneut.");
       return;
     }
-    track("lead_form_submit_success", { channel: parsed.data.pain_point ?? "unspecified" });
+    track("live_experience_success");
     setSuccess(true);
   }
 

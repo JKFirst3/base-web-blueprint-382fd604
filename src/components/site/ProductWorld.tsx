@@ -42,7 +42,6 @@ export function ProductWorld() {
   useEffect(() => {
     if (seen.current) return;
     seen.current = true;
-    PRODUCTS.forEach((p) => track("product_card_viewed", { product: p.id }));
   }, []);
 
   return (
@@ -86,7 +85,7 @@ export function ProductWorld() {
                 <Link
                   to="/Konfigurator"
                   hash={p.id}
-                  onClick={() => track("product_view_click", { product: p.id })}
+                  onClick={() => track("product_click", { product_id: p.id, product_name: p.name })}
                   className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-[#050505] px-5 py-2 text-[13px] font-medium text-white transition hover:opacity-90"
                 >
                   Produkt anzeigen

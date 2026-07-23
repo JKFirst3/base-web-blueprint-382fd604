@@ -133,18 +133,17 @@ function ConfiguratorPage() {
 
   useEffect(() => {
     const product = new URLSearchParams(window.location.search).get("product") ?? "arm";
-    track("configurator_view", { product });
+    track("configurator_open", { product_id: product });
 
     const onPreorder = (event: Event) => {
       const detail = (event as CustomEvent<PreorderSelection>).detail;
       const catalogSelection = getCatalogSelection(detail);
       if (!catalogSelection) {
-        track("preorder_error", { code: "invalid_catalog_selection" });
         return;
       }
       setSelection(catalogSelection);
       track("preorder_open", {
-        product: catalogSelection.productId,
+        product_id: catalogSelection.productId,
         tier: catalogSelection.tier,
         payment_type: catalogSelection.paymentType,
       });
@@ -222,15 +221,13 @@ function PreorderDialog({
 
     if (error) {
       setMessage("Die Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.");
-      track("preorder_error", { product: selection.productId, code: error.code });
       return;
     }
 
     track("preorder_success", {
-      product: selection.productId,
+      product_id: selection.productId,
       tier: selection.tier,
       payment_type: selection.paymentType,
-      value: selection.price,
     });
     setSuccess(true);
   }

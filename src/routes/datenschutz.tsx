@@ -444,6 +444,72 @@ function DatenschutzPage() {
           </p>
         </section>
 
+        {/* Cookies und Nutzungsanalyse */}
+        <section className="mt-12">
+          <h2 className="font-display text-2xl font-bold">Cookies und Nutzungsanalyse</h2>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Wir verwenden ausschließlich First-Party-Cookies, die auf dieser Domain gesetzt werden.
+            Es findet keine Weitergabe an externe Analyse- oder Werbedienste (z. B. Google
+            Analytics, Meta Pixel) statt. Optionale Cookies werden erst nach Ihrer ausdrücklichen
+            Einwilligung im Cookie-Hinweis gesetzt (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG).
+            Sie können Ihre Einwilligung jederzeit im Footer unter „Cookie-Einstellungen“
+            widerrufen. Beim Widerruf werden die optionalen Cookies unmittelbar gelöscht.
+          </p>
+
+          <div className="mt-6 overflow-x-auto">
+            <table className="w-full min-w-[520px] border-collapse text-sm">
+              <thead>
+                <tr className="border-b border-foreground/20 text-left">
+                  <th className="py-2 pr-4 font-semibold">Cookie</th>
+                  <th className="py-2 pr-4 font-semibold">Zweck</th>
+                  <th className="py-2 pr-4 font-semibold">Laufzeit</th>
+                  <th className="py-2 font-semibold">Kategorie</th>
+                </tr>
+              </thead>
+              <tbody className="align-top">
+                <tr className="border-b border-foreground/10">
+                  <td className="py-3 pr-4 font-mono text-xs">lavidro_consent</td>
+                  <td className="py-3 pr-4">
+                    Speichert Ihre Cookie-Auswahl (Version, Analytics ja/nein, Zeitstempel).
+                  </td>
+                  <td className="py-3 pr-4">6 Monate</td>
+                  <td className="py-3">Notwendig</td>
+                </tr>
+                <tr className="border-b border-foreground/10">
+                  <td className="py-3 pr-4 font-mono text-xs">lavidro_visitor</td>
+                  <td className="py-3 pr-4">
+                    Zufällige, nicht personenbezogene Kennung zur Wiedererkennung wiederkehrender
+                    Besuche in der Nutzungsanalyse.
+                  </td>
+                  <td className="py-3 pr-4">6 Monate</td>
+                  <td className="py-3">Analyse</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-4 font-mono text-xs">lavidro_session</td>
+                  <td className="py-3 pr-4">
+                    Zufällige Sitzungs-ID zur Gruppierung von Ereignissen innerhalb eines Besuchs
+                    (Ablauf nach 30 Minuten Inaktivität).
+                  </td>
+                  <td className="py-3 pr-4">bis zu 6 Monate</td>
+                  <td className="py-3">Analyse</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className="mt-6 text-foreground/80 leading-relaxed">
+            Über die Analyse-Cookies erheben wir ausschließlich pseudonyme Ereignisse zu
+            Seitenaufrufen sowie Produkt- und Konfigurator-Interaktionen (z. B. geöffnete
+            Produktseite, gewählte Ausstattungsvariante). Es werden keine Namen, E-Mail-Adressen,
+            Formulareingaben, Telefonnummern, vollständigen IP-Adressen oder Fingerprints
+            gespeichert. Die Daten werden auf unseren Servern in der EU verarbeitet.
+          </p>
+          <p className="mt-4 text-xs text-foreground/60 italic">
+            Hinweis: Die konkreten Rechtsgrundlagen, Speicherfristen sowie Angaben zum
+            Auftragsverarbeiter sind vor Veröffentlichung juristisch zu prüfen.
+          </p>
+        </section>
+
         {/* 5. Aktualität */}
         <section className="mt-12">
           <h2 className="font-display text-2xl font-bold">5. Aktualität dieser Erklärung</h2>

@@ -3,7 +3,7 @@ import heroImage from "@/assets/hero-laundry-room.png.asset.json";
 import { track } from "@/lib/track";
 
 function scrollToWaitlist() {
-  track("cta_live_erleben_click", { source: "hero" });
+  track("live_experience_click", { cta_label: "hero_live_erleben" });
   document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
@@ -79,7 +79,7 @@ export function Hero() {
           </button>
           <a
             href="#system"
-            onClick={() => track("entdecken_click", {})}
+            onClick={() => track("cta_click", { cta_label: "hero_entdecken" })}
             className="inline-flex items-center gap-2 rounded-full border border-white/45 px-5 py-3 text-[13px] font-medium text-white transition hover:border-white hover:bg-white/10"
           >
             Entdecken

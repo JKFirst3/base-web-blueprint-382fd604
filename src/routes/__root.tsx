@@ -4,12 +4,16 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
+import { CookieBanner } from "@/components/site/CookieBanner";
+import { track } from "@/lib/track";
 
 function NotFoundComponent() {
   return (
@@ -119,11 +123,17 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  useEffect(() => {
+    track("page_view");
+  }, [pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
       <Toaster />
+      <CookieBanner />
     </QueryClientProvider>
   );
 }
