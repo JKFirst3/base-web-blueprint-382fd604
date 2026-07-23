@@ -862,30 +862,6 @@ p {
   font-size: clamp(1rem, 1.6vw, 1.3rem);
 }
 
-.about-vision {
-  background: var(--white);
-}
-
-.about-vision-grid {
-  display: grid;
-  grid-template-columns: minmax(220px, 0.38fr) minmax(0, 1fr);
-  gap: clamp(32px, 7vw, 100px);
-  align-items: start;
-}
-
-.about-vision-grid h2 {
-  max-width: 840px;
-  margin-bottom: 30px;
-}
-
-.about-vision-grid div > p {
-  max-width: 780px;
-  margin: 0;
-  color: var(--muted);
-  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
-  line-height: 1.65;
-}
-
 .about-team,
 .about-partners {
   background: var(--paper);
@@ -940,6 +916,17 @@ p {
 .partner-card p {
   margin: 0;
   color: var(--muted);
+}
+
+.team-mission {
+  max-width: 980px;
+  margin: clamp(48px, 7vw, 88px) auto 0;
+  padding-top: clamp(36px, 5vw, 62px);
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  font-size: clamp(1.25rem, 2.4vw, 2rem);
+  line-height: 1.4;
+  text-align: center;
 }
 
 .workplace-grid figure {
@@ -1839,13 +1826,11 @@ details p {
   .product-tile-grid,
   .catalog-card,
   .configurator-shell,
-  .about-vision-grid,
   .about-section-heading {
     grid-template-columns: 1fr;
   }
 
-  .about-section-heading,
-  .about-vision-grid {
+  .about-section-heading {
     gap: 18px;
   }
 
