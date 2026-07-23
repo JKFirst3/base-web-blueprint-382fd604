@@ -48,7 +48,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
-            onClick={() => { router.invalidate(); reset(); }}
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
           >
             Erneut versuchen
@@ -71,21 +74,28 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#F3F2EE" },
-      { property: "og:site_name", content: "Lavidro" },
+      { property: "og:site_name", content: "LAVIDRO" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { title: "Lavidro" },
       { property: "og:title", content: "Lavidro" },
       { name: "twitter:title", content: "Lavidro" },
-      { name: "description", content: "LAVIDRO is a lead-generation landing page for textile care intelligence." },
-      { property: "og:description", content: "LAVIDRO is a lead-generation landing page for textile care intelligence." },
-      { name: "twitter:description", content: "LAVIDRO is a lead-generation landing page for textile care intelligence." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/591d2bb9-17de-4fa6-9ec7-392132b0ed44/id-preview-5b5dc4c4--59757f7c-2bbb-4dee-af05-cb24ed7c885b.lovable.app-1781820494167.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/591d2bb9-17de-4fa6-9ec7-392132b0ed44/id-preview-5b5dc4c4--59757f7c-2bbb-4dee-af05-cb24ed7c885b.lovable.app-1781820494167.png" },
+      {
+        name: "description",
+        content: "LAVIDRO automatisiert den vollständigen Wäscheprozess für private Haushalte.",
+      },
+      {
+        property: "og:description",
+        content: "LAVIDRO automatisiert den vollständigen Wäscheprozess für private Haushalte.",
+      },
+      {
+        name: "twitter:description",
+        content: "LAVIDRO automatisiert den vollständigen Wäscheprozess für private Haushalte.",
+      },
+      { property: "og:image", content: "https://lavidro.com/assets/lavidro-hero.png" },
+      { name: "twitter:image", content: "https://lavidro.com/assets/lavidro-hero.png" },
     ],
-    links: [
-      { rel: "stylesheet", href: appCss },
-    ],
+    links: [{ rel: "stylesheet", href: appCss }],
   }),
   shellComponent: RootShell,
   component: RootComponent,

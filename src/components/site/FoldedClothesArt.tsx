@@ -22,7 +22,14 @@ export function FoldedClothesArt({ className = "" }: { className?: string }) {
 
       {/* Stack of three folded clothing rectangles, slightly offset */}
       <g transform="translate(120 320)">
-        <rect width="260" height="44" rx="6" fill="url(#lv-sand)" stroke="#CCC2AC" strokeWidth="1.5" />
+        <rect
+          width="260"
+          height="44"
+          rx="6"
+          fill="url(#lv-sand)"
+          stroke="#CCC2AC"
+          strokeWidth="1.5"
+        />
         <line x1="130" y1="6" x2="130" y2="38" stroke="#CCC2AC" strokeWidth="1" opacity="0.7" />
       </g>
       <g transform="translate(110 258)">
@@ -31,12 +38,26 @@ export function FoldedClothesArt({ className = "" }: { className?: string }) {
         <circle cx="20" cy="25" r="2.5" fill="#CCC2AC" />
       </g>
       <g transform="translate(125 188)">
-        <rect width="250" height="58" rx="8" fill="url(#lv-sand)" stroke="#CCC2AC" strokeWidth="1.5" />
+        <rect
+          width="250"
+          height="58"
+          rx="8"
+          fill="url(#lv-sand)"
+          stroke="#CCC2AC"
+          strokeWidth="1.5"
+        />
         <line x1="125" y1="8" x2="125" y2="50" stroke="#CCC2AC" strokeWidth="1" opacity="0.7" />
       </g>
 
       {/* Hanging shirt silhouette behind */}
-      <g transform="translate(195 70)" stroke="#CCC2AC" strokeWidth="1.6" strokeLinejoin="round" fill="#EAE4D5" opacity="0.95">
+      <g
+        transform="translate(195 70)"
+        stroke="#CCC2AC"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+        fill="#EAE4D5"
+        opacity="0.95"
+      >
         <polygon points="55,0 0,30 0,80 25,75 25,140 85,140 85,75 110,80 110,30" />
         <line x1="55" y1="0" x2="55" y2="12" />
       </g>

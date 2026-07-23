@@ -4,15 +4,12 @@ const features = [
   {
     icon: Sparkles,
     title: "Vollständig Autonom",
-    body:
-      "Mit LAVIDRO wird deine Wäsche vom Sortieren bis zur gefalteten Kleidung automatisch erledigt.",
-
+    body: "Mit LAVIDRO wird deine Wäsche vom Sortieren bis zur gefalteten Kleidung automatisch erledigt.",
   },
   {
     icon: ShieldCheck,
     title: "Textilschonend & Sicher",
-    body:
-      "Präzise Sensorik und intelligente Pflegemuster schützen selbst deine empfindlichsten Kleidungsstücke.",
+    body: "Präzise Sensorik und intelligente Pflegemuster schützen selbst deine empfindlichsten Kleidungsstücke.",
   },
 ];
 
@@ -26,7 +23,6 @@ export function Features() {
         <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
           Automatisierte Wäschepflege, die deinen Alltag spürbar entlastet.
         </h2>
-
       </div>
       <div className="grid gap-6 md:grid-cols-2">
         {features.map(({ icon: Icon, title, body }) => (
