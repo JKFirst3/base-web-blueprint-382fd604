@@ -30,6 +30,8 @@ function ImpressumPage() {
             <br />
             Jonah Blümel
             <br />
+            Jan-Kevin Ploch
+            <br />
             Ausblick 1<br />
             33100 Paderborn
           </address>
