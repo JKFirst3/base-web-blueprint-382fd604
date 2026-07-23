@@ -2,7 +2,7 @@ export function Header() {
   return (
     <header className="site-header is-scrolled" data-header>
       <a className="brand-mark" href="/#top" aria-label="LAVIDRO Startseite">
-        <img src="/assets/lavidro-brand.png" alt="" />
+        <img src="/assets/lavidro-mark-gold.png" alt="" />
         <span>Lavidro</span>
       </a>
       <nav className="desktop-nav" aria-label="Hauptnavigation">
