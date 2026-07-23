@@ -17,6 +17,95 @@ type PreorderSelection = {
   paymentType: "upfront" | "monthly";
 };
 
+type CatalogEntry = Omit<PreorderSelection, "paymentType">;
+
+const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
+  arm: {
+    core: {
+      productId: "arm",
+      productName: "Lavidro Arm",
+      family: "Mobiler Wäscheassistent",
+      tier: "core",
+      tierLabel: "Core",
+      price: 6000,
+      monthly: 167,
+    },
+    plus: {
+      productId: "arm",
+      productName: "Lavidro Arm",
+      family: "Mobiler Wäscheassistent",
+      tier: "plus",
+      tierLabel: "Plus",
+      price: 9000,
+      monthly: 250,
+    },
+    pro: {
+      productId: "arm",
+      productName: "Lavidro Arm",
+      family: "Mobiler Wäscheassistent",
+      tier: "pro",
+      tierLabel: "Pro",
+      price: 12000,
+      monthly: 333,
+    },
+  },
+  cabinet: {
+    core: {
+      productId: "cabinet",
+      productName: "Lavidro Cabinet",
+      family: "Integrierter Wäscheschrank",
+      tier: "core",
+      tierLabel: "Core",
+      price: 7500,
+      monthly: 208,
+    },
+    plus: {
+      productId: "cabinet",
+      productName: "Lavidro Cabinet",
+      family: "Integrierter Wäscheschrank",
+      tier: "plus",
+      tierLabel: "Plus",
+      price: 10500,
+      monthly: 292,
+    },
+    pro: {
+      productId: "cabinet",
+      productName: "Lavidro Cabinet",
+      family: "Integrierter Wäscheschrank",
+      tier: "pro",
+      tierLabel: "Pro",
+      price: 13500,
+      monthly: 375,
+    },
+  },
+  humanoid: {
+    pro: {
+      productId: "humanoid",
+      productName: "Lavidro One",
+      family: "Humanoider Wäschroboter",
+      tier: "pro",
+      tierLabel: "Pro",
+      price: 22500,
+      monthly: 625,
+    },
+    ultimate: {
+      productId: "humanoid",
+      productName: "Lavidro One",
+      family: "Humanoider Wäschroboter",
+      tier: "ultimate",
+      tierLabel: "Ultimate",
+      price: 30000,
+      monthly: 833,
+    },
+  },
+};
+
+function getCatalogSelection(selection: PreorderSelection): PreorderSelection | null {
+  const entry = preorderCatalog[selection.productId]?.[selection.tier];
+  if (!entry || !["upfront", "monthly"].includes(selection.paymentType)) return null;
+  return { ...entry, paymentType: selection.paymentType };
+}
+
 const euro = new Intl.NumberFormat("de-DE", {
   style: "currency",
   currency: "EUR",
@@ -48,11 +137,16 @@ function ConfiguratorPage() {
 
     const onPreorder = (event: Event) => {
       const detail = (event as CustomEvent<PreorderSelection>).detail;
-      setSelection(detail);
+      const catalogSelection = getCatalogSelection(detail);
+      if (!catalogSelection) {
+        track("preorder_error", { code: "invalid_catalog_selection" });
+        return;
+      }
+      setSelection(catalogSelection);
       track("preorder_open", {
-        product: detail.productId,
-        tier: detail.tier,
-        payment_type: detail.paymentType,
+        product: catalogSelection.productId,
+        tier: catalogSelection.tier,
+        payment_type: catalogSelection.paymentType,
       });
     };
 
@@ -111,7 +205,7 @@ function PreorderDialog({
 
     setSubmitting(true);
     setMessage("");
-    const preorder = {
+    const { error } = await supabase.from("preorders").insert({
       name: name.trim(),
       email: email.trim(),
       solution_id: selection.productId,
@@ -121,21 +215,9 @@ function PreorderDialog({
       payment_type: selection.paymentType,
       price_eur: selection.price,
       monthly_eur: selection.paymentType === "monthly" ? selection.monthly : null,
-    };
-
-    let { error } = await supabase.from("preorders").insert({
-      ...preorder,
       consent,
       source: "configurator",
     });
-
-    if (
-      error?.code === "PGRST204" &&
-      (error.message.includes("consent") || error.message.includes("source"))
-    ) {
-      const legacyResult = await supabase.from("preorders").insert(preorder);
-      error = legacyResult.error;
-    }
     setSubmitting(false);
 
     if (error) {
