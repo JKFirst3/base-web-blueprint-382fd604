@@ -94,7 +94,11 @@ export function track(event: string, props?: EventProps) {
   const visitorId = ids?.visitorId ?? readCookie(VISITOR_COOKIE) ?? undefined;
   const sessionId = ids?.sessionId ?? readCookie(SESSION_COOKIE) ?? undefined;
 
-  const merged = { ...readUtm(), device: deviceClass(), ...sanitize(props) };
+  const merged: Record<string, string> = {
+    ...readUtm(),
+    device: deviceClass(),
+    ...sanitize(props),
+  };
   const payload = {
     event_name: event,
     path: window.location.pathname.slice(0, 200),
