@@ -76,7 +76,7 @@ export function FAQ() {
                   onClick={() => {
                     const next = isOpen ? null : i;
                     setOpen(next);
-                    if (next !== null) track("faq_open", { index: i });
+                    if (next !== null) track("faq_open", { faq_id: String(i) });
                   }}
                   aria-expanded={isOpen}
                   className="flex w-full items-center justify-between gap-6 py-6 text-left"
