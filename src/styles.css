@@ -6,6 +6,7 @@
 @import "@fontsource/montserrat/500.css";
 @import "@fontsource/montserrat/600.css";
 @import "@fontsource/montserrat/700.css";
+@import "./codex-site.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -49,16 +50,30 @@
   --animate-marquee: marquee 60s linear infinite;
 
   @keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
 
@@ -66,42 +81,46 @@
   --radius: 0.5rem;
 
   /* LAVIDRO neutral premium palette */
-  --background: #F7F5F2;          /* light warm off-white */
-  --foreground: #171717;          /* primary text */
-  --ink: #050505;                 /* deep black */
+  --background: #f7f5f2; /* light warm off-white */
+  --foreground: #171717; /* primary text */
+  --ink: #050505; /* deep black */
 
-  --card: #FFFFFF;
+  --card: #ffffff;
   --card-foreground: #171717;
 
-  --popover: #FFFFFF;
+  --popover: #ffffff;
   --popover-foreground: #171717;
 
   --primary: #171717;
-  --primary-foreground: #FFFFFF;
+  --primary-foreground: #ffffff;
 
-  --secondary: #EBE6DF;           /* warm gray */
+  --secondary: #ebe6df; /* warm gray */
   --secondary-foreground: #171717;
 
-  --muted: #EBE6DF;
-  --muted-foreground: #67625E;    /* muted text */
+  --muted: #ebe6df;
+  --muted-foreground: #67625e; /* muted text */
 
-  --accent: #EBE6DF;
+  --accent: #ebe6df;
   --accent-foreground: #171717;
 
   --destructive: #171717;
-  --destructive-foreground: #FFFFFF;
+  --destructive-foreground: #ffffff;
 
   --border: rgba(23, 23, 23, 0.16);
   --input: rgba(23, 23, 23, 0.16);
   --ring: rgba(23, 23, 23, 0.35);
 
-  --warm: #F7F5F2;
-  --warm-strong: #EBE6DF;
+  --warm: #f7f5f2;
+  --warm-strong: #ebe6df;
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; }
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -109,7 +128,10 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     letter-spacing: -0.015em;
   }

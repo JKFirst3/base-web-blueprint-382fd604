@@ -4,32 +4,27 @@ const STEPS = [
   {
     n: "01",
     title: "Sortieren",
-    body:
-      "Textilien werden nach Farbe, Material, Pflegebedarf und Haushaltslogik erkannt.",
+    body: "Textilien werden nach Farbe, Material, Pflegebedarf und Haushaltslogik erkannt.",
   },
   {
     n: "02",
     title: "Beladen",
-    body:
-      "Der Roboterarm führt Kleidung präzise in Waschmaschine oder Trockner.",
+    body: "Der Roboterarm führt Kleidung präzise in Waschmaschine oder Trockner.",
   },
   {
     n: "03",
     title: "Entladen",
-    body:
-      "Bewegung, Timing und Griffstärke werden auf empfindliche Textilien abgestimmt.",
+    body: "Bewegung, Timing und Griffstärke werden auf empfindliche Textilien abgestimmt.",
   },
   {
     n: "04",
     title: "Bereitstellen",
-    body:
-      "Die fertige Wäsche wird geordnet übergeben, damit sie direkt griffbereit ist.",
+    body: "Die fertige Wäsche wird geordnet übergeben, damit sie direkt griffbereit ist.",
   },
 ];
 
 // SVG path across a 1000x1000 viewBox – S-curve top-right → bottom-left
-const PATH_D =
-  "M 950 80 C 950 300, 500 260, 500 500 C 500 740, 50 700, 50 920";
+const PATH_D = "M 950 80 C 950 300, 500 260, 500 500 C 500 740, 50 700, 50 920";
 
 // Point positions along the path for milestone markers, approx.
 const MILESTONES = [

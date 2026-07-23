@@ -50,13 +50,12 @@ export function HabitsProgress() {
             Wäschepflege ganz nach deinen Gewohnheiten.
           </h2>
           <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-foreground/75">
-            Das erste System, das den vollständigen Wäscheprozess nach deinen Gewohnheiten,
-            autonom und qualitätssicher übernimmt, damit Wäsche erledigt ist, bevor du dran
-            denkst.
+            Das erste System, das den vollständigen Wäscheprozess nach deinen Gewohnheiten, autonom
+            und qualitätssicher übernimmt, damit Wäsche erledigt ist, bevor du dran denkst.
           </p>
           <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-foreground/70">
-            Individuelle Routinen, Ablageorte, Sortierlogik und Ausbaustufen – LAVIDRO passt sich
-            an dein Zuhause an, nicht umgekehrt.
+            Individuelle Routinen, Ablageorte, Sortierlogik und Ausbaustufen – LAVIDRO passt sich an
+            dein Zuhause an, nicht umgekehrt.
           </p>
         </div>
         <div ref={ref}>

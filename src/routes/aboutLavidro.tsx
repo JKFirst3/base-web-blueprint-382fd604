@@ -1,14 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Header } from "@/components/site/Header";
-import { Footer } from "@/components/site/Footer";
-import garage33Building from "@/assets/garage33-building.png.asset.json";
-import garage33Interior from "@/assets/garage33-interior.png.asset.json";
-import garage33Sign from "@/assets/garage33-sign.png.asset.json";
+import aboutHtml from "@/content/about.html?raw";
+import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
 
-
-const TITLE = "Über Lavidro — Team & Projekt";
-const DESCRIPTION =
-  "Lerne das Team hinter Lavidro kennen und erfahre, wofür wir stehen: intelligente Textilpflege für den modernen Alltag.";
+const TITLE = "Über LAVIDRO — Team, Vision und Partner";
+const DESCRIPTION = "Lernen Sie das Team, die Vision und die Partner hinter LAVIDRO kennen.";
 
 export const Route = createFileRoute("/aboutLavidro")({
   head: () => ({
@@ -18,103 +13,13 @@ export const Route = createFileRoute("/aboutLavidro")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:url", content: "https://lavidro.com/aboutLavidro" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
     ],
     links: [{ rel: "canonical", href: "https://lavidro.com/aboutLavidro" }],
   }),
-  component: AboutLavidroPage,
+  component: AboutPage,
 });
 
-function AboutLavidroPage() {
-  return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main className="pt-16">
-        <section className="mx-auto max-w-4xl px-4 py-20 sm:px-6 md:py-28 lg:px-8">
-          <div className="text-center">
-            <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-              Über uns
-            </p>
-            <h1 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">
-              Das Team von LAVIDRO
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground/75">
-              Gemeinsam für automatisierte Wäschepflege
-            </p>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-12">
-            <h2 className="font-display text-2xl font-semibold sm:text-3xl">Unsere Vision</h2>
-            <div className="mt-6 space-y-4 text-foreground/80">
-              <p>
-                Das Team von LAVIDRO entwickelt das erste System, das den vollständigen
-                Wäscheprozess nach deinen Gewohnheiten, autonom und qualitätssicher übernimmt,
-                damit Wäsche erledigt ist, bevor du dran denkst.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
-          <h2 className="text-center font-display text-2xl font-semibold sm:text-3xl">
-            Das Team hinter LAVIDRO
-          </h2>
-
-
-
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { name: "Jonah Blümel", role: "Founder" },
-              { name: "Jan-Kevin Ploch", role: "Founder" },
-              { name: "Robin Zach", role: "Founder" },
-            ].map((m, i) => (
-              <div
-                key={i}
-                className="rounded-2xl border border-border bg-card p-6 text-center shadow-sm"
-              >
-                <div className="mx-auto h-24 w-24 rounded-full bg-secondary" aria-hidden />
-                <h3 className="mt-5 font-display text-lg font-semibold">{m.name}</h3>
-                <p className="mt-1 text-sm text-foreground/70">{m.role}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-5xl px-4 pb-20 sm:px-6 md:pb-28 lg:px-8">
-          <div className="text-center">
-            <h2 className="font-display text-2xl font-semibold sm:text-3xl">
-              Unser Arbeitsplatz
-            </h2>
-            <p className="mt-3 text-sm text-muted-foreground">
-              Garage33, Gründungszentrum der Universität Paderborn
-            </p>
-          </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { src: garage33Building.url, alt: "Garage33 Gebäude" },
-              { src: garage33Interior.url, alt: "Garage33 Innenbereich" },
-              { src: garage33Sign.url, alt: "Garage33 Start-up Campus OWL Schild" },
-            ].map((img, i) => (
-              <div
-                key={i}
-                className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
-              >
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  loading="lazy"
-                  className="h-56 w-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
-        </section>
-
-      </main>
-      <Footer />
-    </div>
-  );
+function AboutPage() {
+  useCodexRuntime("/codex-runtime/home.js");
+  return <CodexMarkup html={aboutHtml} className="about-page" />;
 }

@@ -53,7 +53,10 @@ export function Hero() {
             "linear-gradient(180deg, rgba(5,5,5,0.15) 0%, rgba(5,5,5,0.25) 40%, rgba(5,5,5,0.6) 100%)",
         }}
       />
-      <div aria-hidden className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent to-black/60" />
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent to-black/60"
+      />
 
       <div className="relative z-10 flex h-full flex-col items-center justify-end px-5 pb-24 text-center text-white sm:px-8 sm:pb-28 md:pb-36">
         <p className="font-display text-[11px] uppercase tracking-[0.32em] text-white/75 animate-fade-in-up">

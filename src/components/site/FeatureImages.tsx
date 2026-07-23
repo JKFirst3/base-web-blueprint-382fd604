@@ -6,20 +6,17 @@ const TILES = [
   {
     image: mobilImage.url,
     title: "Design, das sich einfügt",
-    body:
-      "Flexible Installation im Hauswirtschaftsraum – ohne Umbauten. Möbeldesign, das sich diskret einordnet.",
+    body: "Flexible Installation im Hauswirtschaftsraum – ohne Umbauten. Möbeldesign, das sich diskret einordnet.",
   },
   {
     image: hero.url,
     title: "Präzision, die übernimmt",
-    body:
-      "Sensorik, Bewegungssteuerung und autonome Abläufe – zwischen Waschmaschine, Trockner und Ablage.",
+    body: "Sensorik, Bewegungssteuerung und autonome Abläufe – zwischen Waschmaschine, Trockner und Ablage.",
   },
   {
     image: humanoidImage.url,
     title: "Qualität, die bleibt",
-    body:
-      "Textilschonende Pflege, sichere Griffe und wiederholbare Ergebnisse in jeder Ausbaustufe.",
+    body: "Textilschonende Pflege, sichere Griffe und wiederholbare Ergebnisse in jeder Ausbaustufe.",
   },
 ];
 

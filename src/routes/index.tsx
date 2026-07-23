@@ -1,21 +1,13 @@
+import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Header } from "@/components/site/Header";
-import { Hero } from "@/components/site/Hero";
-import { QuoteTicker } from "@/components/site/QuoteTicker";
-import { ProductWorld } from "@/components/site/ProductWorld";
-import { FeatureImages } from "@/components/site/FeatureImages";
-import { HabitsProgress } from "@/components/site/HabitsProgress";
-import { ProcessPath } from "@/components/site/ProcessPath";
-import { AutonomySection } from "@/components/site/AutonomySection";
-import { QualityArguments } from "@/components/site/QualityArguments";
-import { FAQ } from "@/components/site/FAQ";
-import { SocialProof } from "@/components/site/SocialProof";
-import { LeadForm } from "@/components/site/LeadForm";
-import { Footer } from "@/components/site/Footer";
+import homeHtml from "@/content/home.html?raw";
+import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
+import { supabase } from "@/integrations/supabase/client";
+import { track } from "@/lib/track";
 
 const TITLE = "LAVIDRO — Wäsche. Einfach. Fertig.";
 const DESCRIPTION =
-  "Das erste System, das den vollständigen Wäscheprozess autonom und qualitätssicher übernimmt. Erlebe LAVIDRO live.";
+  "Das erste System, das den vollständigen Wäscheprozess autonom und qualitätssicher übernimmt.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,32 +19,75 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://lavidro.com/" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
     ],
     links: [{ rel: "canonical", href: "https://lavidro.com/" }],
   }),
-  component: Index,
+  component: HomePage,
 });
 
-function Index() {
-  return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        <Hero />
-        <QuoteTicker />
-        <ProductWorld />
-        <FeatureImages />
-        <HabitsProgress />
-        <ProcessPath />
-        <AutonomySection />
-        <QualityArguments />
-        <SocialProof />
-        <FAQ />
-        <LeadForm />
-      </main>
-      <Footer />
-    </div>
-  );
+function HomePage() {
+  useCodexRuntime("/codex-runtime/home.js");
+
+  useEffect(() => {
+    const form = document.querySelector<HTMLFormElement>("[data-form]");
+    const status = document.querySelector<HTMLElement>("[data-form-status]");
+    if (!form || !status) return;
+
+    const onSubmit = async (event: SubmitEvent) => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      const data = new FormData(form);
+      const name = String(data.get("name") ?? "").trim();
+      const email = String(data.get("email") ?? "").trim();
+      const painPoint = String(data.get("pain") ?? "").trim();
+      const consent =
+        form.querySelector<HTMLInputElement>('input[type="checkbox"]')?.checked === true;
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+      if (!email || !email.includes("@")) {
+        status.textContent = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+        return;
+      }
+      if (!consent) {
+        status.textContent = "Bitte stimmen Sie der Zusendung von Updates zu.";
+        return;
+      }
+
+      if (button) {
+        button.disabled = true;
+        button.textContent = "Wird eingetragen …";
+      }
+      status.textContent = "";
+      track("lead_form_submit_attempt", { channel: painPoint || "unspecified" });
+
+      const { error } = await supabase.from("leads").insert({
+        name: name || null,
+        email,
+        pain_point: painPoint || null,
+        consent,
+      });
+
+      if (button) {
+        button.disabled = false;
+        button.textContent = "Jetzt eintragen";
+      }
+
+      if (error) {
+        status.textContent =
+          "Die Eintragung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.";
+        track("lead_form_submit_error", { code: error.code });
+        return;
+      }
+
+      form.reset();
+      status.textContent = "Danke. Sie sind auf der LAVIDRO-Warteliste.";
+      track("lead_form_submit_success", { channel: painPoint || "unspecified" });
+    };
+
+    form.addEventListener("submit", onSubmit, { capture: true });
+    return () => form.removeEventListener("submit", onSubmit, { capture: true });
+  }, []);
+
+  return <CodexMarkup html={homeHtml} />;
 }

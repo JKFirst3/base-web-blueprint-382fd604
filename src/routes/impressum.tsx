@@ -26,8 +26,10 @@ function ImpressumPage() {
         <section className="mt-10">
           <h2 className="font-display text-xl font-semibold">Angaben gemäß&nbsp;§ 5 des DDG</h2>
           <address className="mt-4 not-italic text-foreground/80 leading-relaxed">
-            Robin Zach<br />
-            Jonah Blümel<br />
+            Robin Zach
+            <br />
+            Jonah Blümel
+            <br />
             Ausblick 1<br />
             33100 Paderborn
           </address>

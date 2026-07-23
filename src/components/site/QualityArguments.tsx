@@ -1,23 +1,19 @@
 const ITEMS = [
   {
     title: "Herausragende Innovation",
-    body:
-      "Robotik, Sensorik und Software greifen als ein System ineinander – entwickelt für den realen Haushalt.",
+    body: "Robotik, Sensorik und Software greifen als ein System ineinander – entwickelt für den realen Haushalt.",
   },
   {
     title: "Schonende Textilpflege",
-    body:
-      "Griffkraft, Bewegung und Programme sind auf empfindliche Textilien abgestimmt und wiederholbar sicher.",
+    body: "Griffkraft, Bewegung und Programme sind auf empfindliche Textilien abgestimmt und wiederholbar sicher.",
   },
   {
     title: "Smart-Home-Funktionen",
-    body:
-      "Integration in bestehende Wohnräume und digitale Routinen – weitere Funktionen sind geplant.",
+    body: "Integration in bestehende Wohnräume und digitale Routinen – weitere Funktionen sind geplant.",
   },
   {
     title: "Persönliche Beratung",
-    body:
-      "Unverbindliche Produktvorstellung digital oder im Showroom Paderborn – inklusive Feedbackgespräch.",
+    body: "Unverbindliche Produktvorstellung digital oder im Showroom Paderborn – inklusive Feedbackgespräch.",
   },
 ];
 

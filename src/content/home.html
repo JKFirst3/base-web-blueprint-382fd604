@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Lavidro automatisiert den kompletten Wäscheprozess mit Robotik, Sensorik und Textile Care Intelligence."
+    />
+    <title>Lavidro - Textile Care Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=16" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header" data-header>
+        <a class="brand-mark" href="#top" aria-label="Lavidro Startseite">
+          <img src="assets/lavidro-brand.png" alt="" />
+          <span>Lavidro</span>
+        </a>
+        <nav class="desktop-nav" aria-label="Hauptnavigation">
+          <a href="#module">System</a>
+          <a href="#produkt-teaser">Produkte</a>
+          <a href="#qualitaet">Qualität</a>
+          <a href="#faq">FAQ</a>
+          <a href="/aboutLavidro">Über LAVIDRO</a>
+        </nav>
+        <a class="nav-cta" href="#warteliste">Warteliste</a>
+      </header>
+
+      <main id="top">
+        <section class="hero" aria-labelledby="hero-title">
+          <img
+            class="hero-image"
+            src="assets/lavidro-hero.png"
+            alt="Moderne Waschküche mit Lavidro Roboterarm"
+          />
+          <div class="hero-shade" aria-hidden="true"></div>
+          <div class="hero-content">
+            <p class="kicker reveal">Die Evolution der Wäschepflege</p>
+            <h1 id="hero-title" class="hero-title reveal">
+              <span>Wäsche.</span>
+              <span>Einfach.</span>
+              <span>Fertig.</span>
+            </h1>
+            <a
+              class="video-link reveal"
+              href="#produkt-teaser"
+              aria-label="Lavidro Produkte entdecken"
+            >
+              Entdecken
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+        </section>
+
+        <section class="testimonials" aria-label="Stimmen zu Lavidro">
+          <div class="quote-marquee">
+            <div class="quote-track">
+              <div class="quote-set">
+                <figure class="quote-card">
+                  <blockquote>
+                    "Das erste System, bei dem Robotik nicht nach Labor aussieht, sondern wie ein
+                    Teil des Zuhauses."
+                  </blockquote>
+                  <figcaption>
+                    <strong>Clara Weiss</strong>
+                    <span>Interior Designerin</span>
+                  </figcaption>
+                </figure>
+                <figure class="quote-card">
+                  <blockquote>
+                    "Wenn Lavidro Sortieren und Bereitstellen wirklich übernimmt, ist das für
+                    Familien ein echter Zeitgewinn."
+                  </blockquote>
+                  <figcaption>
+                    <strong>Jonas Berger</strong>
+                    <span>Smart-Home-Berater</span>
+                  </figcaption>
+                </figure>
+                <figure class="quote-card">
+                  <blockquote>
+                    "Die Idee fühlt sich an wie der nächste logische Schritt nach Waschmaschine und
+                    Trockner."
+                  </blockquote>
+                  <figcaption>
+                    <strong>Amelie Kranz</strong>
+                    <span>Pilotkundin</span>
+                  </figcaption>
+                </figure>
+              </div>
+              <div class="quote-set" aria-hidden="true">
+                <figure class="quote-card">
+                  <blockquote>
+                    "Das erste System, bei dem Robotik nicht nach Labor aussieht, sondern wie ein
+                    Teil des Zuhauses."
+                  </blockquote>
+                  <figcaption>
+                    <strong>Clara Weiss</strong>
+                    <span>Interior Designerin</span>
+                  </figcaption>
+                </figure>
+                <figure class="quote-card">
+                  <blockquote>
+                    "Wenn Lavidro Sortieren und Bereitstellen wirklich übernimmt, ist das für
+                    Familien ein echter Zeitgewinn."
+                  </blockquote>
+                  <figcaption>
+                    <strong>Jonas Berger</strong>
+                    <span>Smart-Home-Berater</span>
+                  </figcaption>
+                </figure>
+                <figure class="quote-card">
+                  <blockquote>
+                    "Die Idee fühlt sich an wie der nächste logische Schritt nach Waschmaschine und
+                    Trockner."
+                  </blockquote>
+                  <figcaption>
+                    <strong>Amelie Kranz</strong>
+                    <span>Pilotkundin</span>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="product-teaser section-pad"
+          id="produkt-teaser"
+          aria-labelledby="product-teaser-title"
+        >
+          <div class="split-heading reveal">
+            <p class="kicker">Lavidro Produktwelt</p>
+            <h2 id="product-teaser-title">
+              Drei Systeme für einen vollständig autonomen Wäschealltag.
+            </h2>
+          </div>
+          <div class="product-tile-grid">
+            <article class="product-tile reveal">
+              <a
+                class="product-tile-image"
+                href="/Konfigurator?product=arm"
+                aria-label="Lavidro Arm anzeigen"
+              >
+                <img
+                  src="assets/lavidro-portrait.png"
+                  alt="Lavidro Roboterarm im Hauswirtschaftsraum"
+                />
+              </a>
+              <div class="product-tile-content">
+                <div>
+                  <p>Roboterarm</p>
+                  <h3>Lavidro Arm</h3>
+                  <span class="product-price">Ab 6.000 € oder 167 € / Monat</span>
+                </div>
+                <a class="dark-link" href="/Konfigurator?product=arm">Produkt anzeigen</a>
+              </div>
+            </article>
+            <article class="product-tile reveal">
+              <a
+                class="product-tile-image"
+                href="/Konfigurator?product=cabinet"
+                aria-label="Lavidro Cabinet anzeigen"
+              >
+                <img src="assets/lavidro-cabinet.svg" alt="Lavidro Wäscheschrank" />
+              </a>
+              <div class="product-tile-content">
+                <div>
+                  <p>Wäscheschrank</p>
+                  <h3>Lavidro Cabinet</h3>
+                  <span class="product-price">Ab 7.500 € oder 208 € / Monat</span>
+                </div>
+                <a class="dark-link" href="/Konfigurator?product=cabinet">Produkt anzeigen</a>
+              </div>
+            </article>
+            <article class="product-tile reveal">
+              <a
+                class="product-tile-image"
+                href="/Konfigurator?product=humanoid"
+                aria-label="Lavidro One anzeigen"
+              >
+                <img src="assets/lavidro-humanoid.svg" alt="Humanoider Lavidro Roboter" />
+              </a>
+              <div class="product-tile-content">
+                <div>
+                  <p>Humanoider Roboter</p>
+                  <h3>Lavidro One</h3>
+                  <span class="product-price">Ab 22.500 € oder 625 € / Monat</span>
+                </div>
+                <a class="dark-link" href="/Konfigurator?product=humanoid">Produkt anzeigen</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="image-panels" aria-label="Lavidro Vorteile">
+          <article class="image-panel reveal">
+            <img
+              src="assets/lavidro-portrait.png"
+              alt="Roboterarm in einer warm beleuchteten Waschküche"
+            />
+            <div>
+              <h3>Design, das sich einfügt</h3>
+              <p>
+                Eine ruhige Installation für moderne Wohnräume: präzise Technik, hochwertige
+                Materialien und eine klare, wohnliche Formensprache.
+              </p>
+            </div>
+          </article>
+          <article class="image-panel reveal">
+            <img src="assets/lavidro-hero.png" alt="Lavidro System in einer privaten Waschküche" />
+            <div>
+              <h3>Präzision, die übernimmt</h3>
+              <p>
+                Sensorik und Robotik erkennen, greifen und bewegen Textilien mit abgestimmten
+                Pflegeprofilen für den Alltag.
+              </p>
+            </div>
+          </article>
+          <article class="image-panel reveal">
+            <img src="assets/lavidro-brand.png" alt="Lavidro Markenbild mit Prozesssymbolen" />
+            <div>
+              <h3>Qualität, die bleibt</h3>
+              <p>
+                Sortieren, Beladen, Entladen und Bereitstellen werden zu einem verlässlichen,
+                wiederholbaren Kreislauf.
+              </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="configuration section-pad" aria-labelledby="configuration-title">
+          <div class="section-label reveal">Individuelle Konfiguration</div>
+          <div class="config-grid">
+            <div class="config-copy reveal">
+              <h2 id="configuration-title">Wäschepflege ganz nach Ihren Gewohnheiten.</h2>
+              <p>
+                Lavidro lernt, wie Ihr Haushalt Wäsche organisiert: welche Textilien besondere
+                Pflege brauchen, welche Ablageorte wichtig sind und welche Routinen automatisch
+                ablaufen sollen.
+              </p>
+            </div>
+            <div class="progress-card reveal" aria-label="Zeitersparnis durch Lavidro">
+              <span>Automatisierungspotenzial</span>
+              <strong><span data-counter>0%</span> weniger Zeitaufwand</strong>
+              <div class="progress-track">
+                <div class="progress-bar"></div>
+              </div>
+              <a href="#warteliste">Details anzeigen</a>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="modules process-section"
+          id="module"
+          aria-labelledby="modules-title"
+          data-process
+        >
+          <div class="process-sticky">
+            <div class="process-heading reveal">
+              <p class="kicker">Module für Lavidro</p>
+              <h2 id="modules-title">Ein System. Vier Schritte. Ein Versprechen: freie Zeit.</h2>
+            </div>
+
+            <div class="process-canvas">
+              <svg
+                class="process-route process-route-desktop"
+                viewBox="0 0 1200 600"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path
+                  class="process-route-base"
+                  d="M 8 72 C 235 100 265 410 450 455 C 630 500 645 285 830 285 C 1010 285 1020 555 1192 555"
+                />
+                <path
+                  class="process-route-line"
+                  d="M 8 72 C 235 100 265 410 450 455 C 630 500 645 285 830 285 C 1010 285 1020 555 1192 555"
+                />
+              </svg>
+              <svg
+                class="process-route process-route-mobile"
+                viewBox="0 0 360 820"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path
+                  class="process-route-base"
+                  d="M 18 30 C 40 120 10 300 145 320 C 315 345 338 495 215 555 C 80 620 105 765 342 790"
+                />
+                <path
+                  class="process-route-line"
+                  d="M 18 30 C 40 120 10 300 145 320 C 315 345 338 495 215 555 C 80 620 105 765 342 790"
+                />
+              </svg>
+
+              <article class="process-step process-step-1">
+                <span class="process-number">01</span>
+                <h3>Sortieren</h3>
+                <p>
+                  Textilien werden nach Farbe, Material, Pflegebedarf und Haushaltslogik erkannt.
+                </p>
+              </article>
+              <article class="process-step process-step-2">
+                <span class="process-number">02</span>
+                <h3>Beladen</h3>
+                <p>Der Roboterarm führt Kleidung präzise in Waschmaschine oder Trockner.</p>
+              </article>
+              <article class="process-step process-step-3">
+                <span class="process-number">03</span>
+                <h3>Entladen</h3>
+                <p>
+                  Bewegung, Timing und Griffstärke werden auf empfindliche Textilien abgestimmt.
+                </p>
+              </article>
+              <article class="process-step process-step-4">
+                <span class="process-number">04</span>
+                <h3>Bereitstellen</h3>
+                <p>Die fertige Wäsche wird geordnet übergeben, damit sie direkt griffbereit ist.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="feature-story" aria-labelledby="story-title">
+          <img src="assets/lavidro-hero.png" alt="Lavidro Roboterarm im Einsatz" />
+          <div class="story-copy reveal">
+            <p class="kicker">Textile Care Intelligence</p>
+            <h2 id="story-title">Autonomie, die im Hintergrund arbeitet.</h2>
+            <p>
+              Lavidro verbindet mechanische Präzision mit intelligenten Pflegeentscheidungen. So
+              wird aus einer wiederkehrenden Aufgabe ein ruhiger, automatisierter Ablauf.
+            </p>
+          </div>
+        </section>
+
+        <section class="quality section-pad" id="qualitaet" aria-labelledby="quality-title">
+          <div class="split-heading reveal">
+            <p class="kicker">Einmal Lavidro, immer Lavidro</p>
+            <h2 id="quality-title">Gute Gründe für ein autonomes Wäschesystem.</h2>
+          </div>
+          <div class="quality-list">
+            <article class="reveal">
+              <h3>Herausragende Innovation</h3>
+              <p>Robotik, Sensorik und Software arbeiten als ein geschlossenes Pflegesystem.</p>
+            </article>
+            <article class="reveal">
+              <h3>Schonende Textilpflege</h3>
+              <p>
+                Adaptive Profile schützen empfindliche Kleidung und sorgen für wiederholbare
+                Ergebnisse.
+              </p>
+            </article>
+            <article class="reveal">
+              <h3>Smart-Home-Funktionen</h3>
+              <p>
+                Routinen, Status und Pflegevorgaben lassen sich perspektivisch digital begleiten.
+              </p>
+            </article>
+            <article class="reveal">
+              <h3>Persönliche Beratung</h3>
+              <p>
+                Die frühe Warteliste hilft, reale Haushaltsanforderungen in die Entwicklung
+                einzubeziehen.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="waitlist section-pad" id="warteliste" aria-labelledby="waitlist-title">
+          <div class="waitlist-copy reveal">
+            <p class="kicker">Warteliste</p>
+            <h2 id="waitlist-title">Lassen Sie sich vormerken.</h2>
+            <p>
+              Erhalten Sie Einblicke in die Entwicklung und sichern Sie sich frühen Zugang, sobald
+              Lavidro für erste Haushalte verfügbar wird.
+            </p>
+          </div>
+          <form class="waitlist-form reveal" data-form>
+            <label>
+              <span>Name</span>
+              <input type="text" name="name" autocomplete="name" placeholder="Ihr Name" />
+            </label>
+            <label>
+              <span>E-Mail-Adresse</span>
+              <input
+                type="email"
+                name="email"
+                autocomplete="email"
+                placeholder="name@beispiel.de"
+                required
+              />
+            </label>
+            <label>
+              <span>Was soll Lavidro zuerst für Sie übernehmen?</span>
+              <select name="pain">
+                <option value="">Bitte auswählen</option>
+                <option>Sortieren</option>
+                <option>Waschen und Trocknen</option>
+                <option>Zusammenlegen</option>
+                <option>Den gesamten Prozess</option>
+              </select>
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" required />
+              <span>Ich stimme zu, Updates von Lavidro zu erhalten.</span>
+            </label>
+            <button class="primary-button" type="submit">Jetzt eintragen</button>
+            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="faq section-pad" id="faq" aria-labelledby="faq-title">
+          <h2 id="faq-title" class="reveal">Häufig gestellte Fragen</h2>
+          <div class="faq-list">
+            <details class="reveal">
+              <summary>Welche Aufgaben übernimmt Lavidro?</summary>
+              <p>
+                Lavidro ist als System für Sortieren, Beladen, Entladen und Bereitstellen von Wäsche
+                gedacht.
+              </p>
+            </details>
+            <details class="reveal">
+              <summary>Ist Lavidro für private Haushalte vorgesehen?</summary>
+              <p>
+                Ja. Die Bildsprache und Systemidee zielen auf hochwertige Hauswirtschaftsräume in
+                privaten Haushalten.
+              </p>
+            </details>
+            <details class="reveal">
+              <summary>Wann wird Lavidro verfügbar?</summary>
+              <p>
+                Die Warteliste informiert zuerst über Entwicklungsfortschritte, Pilotphasen und
+                Verfügbarkeit.
+              </p>
+            </details>
+            <details class="reveal">
+              <summary>Benötigt Lavidro spezielle Waschmaschinen oder Trockner?</summary>
+              <p>
+                Das System ist für die Zusammenarbeit mit vielen gängigen Frontladern geplant. Die
+                konkrete Kompatibilität wird vor der Installation geprüft.
+              </p>
+            </details>
+            <details class="reveal">
+              <summary>Wie sicher ist das System im Haushalt?</summary>
+              <p>
+                Sensoren überwachen Arbeitsbereich, Bewegung und Kontakt. Bei einer unerwarteten
+                Situation stoppt das System automatisch.
+              </p>
+            </details>
+            <details class="reveal">
+              <summary>Wie behandelt Lavidro empfindliche Textilien?</summary>
+              <p>
+                Pflegeprofile berücksichtigen Material, Griffstärke und Bewegungsablauf, damit
+                sensible Kleidungsstücke besonders schonend gehandhabt werden.
+              </p>
+            </details>
+            <details class="reveal">
+              <summary>
+                Kann Lavidro in einem bestehenden Hauswirtschaftsraum nachgerüstet werden?
+              </summary>
+              <p>
+                Eine Nachrüstung ist grundsätzlich vorgesehen. Platz, Anschlüsse und
+                Bewegungsbereich werden vorab individuell geprüft.
+              </p>
+            </details>
+            <details class="reveal">
+              <summary>Welche Wartung ist erforderlich?</summary>
+              <p>
+                Regelmäßige Systemdiagnosen laufen automatisch. Mechanische Komponenten werden im
+                Rahmen eines planbaren Serviceintervalls geprüft.
+              </p>
+            </details>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span>© 2026 Lavidro. Alle Rechte vorbehalten.</span>
+        <div>
+          <a href="/impressum">Impressum</a>
+          <a href="/datenschutz">Datenschutz</a>
+          <a href="/kontakt">Kontakt</a>
+        </div>
+      </footer>
+    </div>
+
+    <script src="script.js?v=13"></script>
+  </body>
+</html>

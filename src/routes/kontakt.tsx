@@ -12,8 +12,7 @@ import { toast } from "sonner";
 import { Check } from "lucide-react";
 
 const TITLE = "Kontakt — Lavidro";
-const DESCRIPTION =
-  "Nimm Kontakt mit dem Lavidro-Team auf. Wir freuen uns auf deine Nachricht.";
+const DESCRIPTION = "Nimm Kontakt mit dem Lavidro-Team auf. Wir freuen uns auf deine Nachricht.";
 
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
