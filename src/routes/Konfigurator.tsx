@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { X } from "lucide-react";
 import configuratorHtml from "@/content/configurator.html?raw";
 import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
-import { supabase } from "@/integrations/supabase/client";
+
 import { track } from "@/lib/track";
 
 type PreorderSelection = {
