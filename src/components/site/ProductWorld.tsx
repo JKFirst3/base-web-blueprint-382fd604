@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import mobilImage from "@/assets/konfigurator-mobil.png.asset.json";
 import { track } from "@/lib/track";
 import { useEffect, useRef } from "react";
 
@@ -13,14 +12,14 @@ type Product = {
 
 const PRODUCTS: Product[] = [
   {
-    id: "mobil",
-    brand: "LAVIDRO Arm",
+    id: "mobile",
+    brand: "LAVIDRO Mobile",
     name: "Mobiler Wäscheassistent",
-    category: "Serie · Arm",
-    image: mobilImage.url,
+    category: "Serie · Mobile",
+    image: "/assets/lavidro-portrait.png",
   },
   {
-    id: "wand",
+    id: "cabinet",
     brand: "LAVIDRO Cabinet",
     name: "Integrierter Wäscheschrank",
     category: "Serie · Cabinet",

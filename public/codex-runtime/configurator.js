@@ -9,29 +9,28 @@
   ];
 
   const products = {
-    arm: {
-      title: "Lavidro Arm",
+    mobile: {
+      title: "LAVIDRO Mobile",
       family: "Mobiler Wäscheassistent",
       description:
-        "Flexibel im Hauswirtschaftsraum einsetzbar, ohne Umbauten. Übernimmt den Ablauf zwischen Waschmaschine und Trockner und erweitert ihn je nach Ausbaustufe.",
+        "Ein mobiler Roboterarm auf fahrbarer Basis für automatisierte Wäschepflege. Er wird flexibel im Hauswirtschaftsraum positioniert und verbindet die Stationen des Wäschealltags.",
       image: "assets/lavidro-portrait.png",
       highlights: [
-        "Flexibel einsetzbar, keine Umbauten nötig",
-        "Automatisiert den Ablauf zwischen Waschmaschine und Trockner",
-        "Sortiert, faltet und stellt Wäsche je nach Ausbaustufe bereit",
+        "Roboterarm auf fahrbarer Basis statt fest montierter Lösung",
+        "Flexibel im Hauswirtschaftsraum positionierbar",
+        "Automatisiert den Ablauf zwischen Wäsche, Maschinen und Ablage",
       ],
       levels: {
-        core: { label: "Core", note: "Grundfunktionen", price: 6000, features: ["wash"] },
-        plus: {
-          label: "Plus",
-          note: "Zusätzliche Funktionen",
+        basic: {
+          label: "Basic",
+          note: "Der flexible Einstieg in die automatisierte Wäschepflege",
           price: 9000,
           features: ["sort", "wash"],
         },
-        pro: {
-          label: "Pro",
-          note: "Umfangreiche Funktionen",
-          price: 12000,
+        premium: {
+          label: "Premium",
+          note: "Mehr Automatisierung für den vollständigen Ablauf",
+          price: 14000,
           features: ["sort", "wash", "fold", "provide"],
         },
       },
@@ -43,31 +42,30 @@
         "Vollautomatischer Wäscheschrank mit intelligenter Robotik, diskret integriert und für den Prozess vom Sortieren bis zur bereitgestellten Kleidung konzipiert.",
       image: "assets/lavidro-cabinet.webp",
       highlights: [
-        "Vollautomatischer Waschschrank mit intelligenter Robotik",
+        "Integrierter Wäscheschrank mit intelligenter Robotik",
         "Diskret integriert mit elegantem Möbeldesign",
-        "Vom Sortieren bis zur bereitgestellten Kleidung",
+        "Planungsrichtwert: ab 3 m² bis 5 m² Fläche",
       ],
       levels: {
-        core: { label: "Core", note: "Grundfunktionen", price: 7500, features: ["wash"] },
-        plus: {
-          label: "Plus",
-          note: "Zusätzliche Funktionen",
-          price: 10500,
+        basic: {
+          label: "Basic",
+          note: "Planungsrichtwert ab 3 m² Fläche",
+          price: 12500,
           features: ["sort", "wash"],
         },
-        pro: {
-          label: "Pro",
-          note: "Umfangreiche Funktionen",
-          price: 13500,
+        premium: {
+          label: "Premium",
+          note: "Planungsrichtwert ab 5 m² Fläche",
+          price: 21500,
           features: ["sort", "wash", "fold", "provide"],
         },
       },
     },
     humanoid: {
-      title: "Lavidro One",
+      title: "LAVIDRO One",
       family: "Humanoider Wäschroboter",
       description:
-        "Autonomer Roboter für die gesamte Wäscheorganisation. Erkennt anfallende Wäsche, führt den Prozess aus und räumt sie in der Ultimate-Stufe zurück.",
+        "Die umfassende Lösung für die vollständige Wäscheorganisation – vom Erkennen über die Pflege bis zum Bereitstellen der Kleidung.",
       image: "assets/lavidro-one.webp",
       highlights: [
         "Übernimmt die gesamte Wäscheorganisation",
@@ -92,7 +90,7 @@
   };
 
   const params = new URLSearchParams(window.location.search);
-  const selectedKey = products[params.get("product")] ? params.get("product") : "arm";
+  const selectedKey = products[params.get("product")] ? params.get("product") : "mobile";
   const selectedProduct = products[selectedKey];
   let selectedLevelKey = Object.keys(selectedProduct.levels)[0];
 
@@ -114,7 +112,7 @@
   const closeCompareButton = document.querySelector("[data-close-compare]");
 
   const formatPrice = (amount) => `${amount.toLocaleString("de-DE")} €`;
-  const monthlyRate = (amount) => Math.round(amount / 36);
+  const monthlyRate = (amount) => Math.round((amount / 36) * 1.08);
 
   const selectedFinance = () => new FormData(form).get("finance") || "monthly";
 
@@ -161,9 +159,9 @@
       return;
     }
 
-    priceLabel.textContent = "Monatliche Rate";
+    priceLabel.textContent = "Abo pro Monat";
     price.textContent = `${monthlyRate(level.price).toLocaleString("de-DE")} € / Monat`;
-    priceNote.textContent = `36 Monate · Gesamtpreis ${formatPrice(level.price)}`;
+    priceNote.textContent = `36 Monate · inkl. 8 % Abo-Aufschlag · Kaufpreis ${formatPrice(level.price)}`;
   };
 
   const renderCompare = () => {

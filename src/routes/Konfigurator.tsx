@@ -20,82 +20,64 @@ type PreorderSelection = {
 type CatalogEntry = Omit<PreorderSelection, "paymentType">;
 
 const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
-  arm: {
-    core: {
-      productId: "arm",
-      productName: "Lavidro Arm",
+  mobile: {
+    basic: {
+      productId: "mobile",
+      productName: "LAVIDRO Mobile",
       family: "Mobiler Wäscheassistent",
-      tier: "core",
-      tierLabel: "Core",
-      price: 6000,
-      monthly: 167,
-    },
-    plus: {
-      productId: "arm",
-      productName: "Lavidro Arm",
-      family: "Mobiler Wäscheassistent",
-      tier: "plus",
-      tierLabel: "Plus",
+      tier: "basic",
+      tierLabel: "Basic",
       price: 9000,
-      monthly: 250,
+      monthly: 270,
     },
-    pro: {
-      productId: "arm",
-      productName: "Lavidro Arm",
+    premium: {
+      productId: "mobile",
+      productName: "LAVIDRO Mobile",
       family: "Mobiler Wäscheassistent",
-      tier: "pro",
-      tierLabel: "Pro",
-      price: 12000,
-      monthly: 333,
+      tier: "premium",
+      tierLabel: "Premium",
+      price: 14000,
+      monthly: 420,
     },
   },
   cabinet: {
-    core: {
+    basic: {
       productId: "cabinet",
       productName: "Lavidro Cabinet",
       family: "Integrierter Wäscheschrank",
-      tier: "core",
-      tierLabel: "Core",
-      price: 7500,
-      monthly: 208,
-    },
-    plus: {
-      productId: "cabinet",
-      productName: "Lavidro Cabinet",
-      family: "Integrierter Wäscheschrank",
-      tier: "plus",
-      tierLabel: "Plus",
-      price: 10500,
-      monthly: 292,
-    },
-    pro: {
-      productId: "cabinet",
-      productName: "Lavidro Cabinet",
-      family: "Integrierter Wäscheschrank",
-      tier: "pro",
-      tierLabel: "Pro",
-      price: 13500,
+      tier: "basic",
+      tierLabel: "Basic",
+      price: 12500,
       monthly: 375,
+    },
+    premium: {
+      productId: "cabinet",
+      productName: "Lavidro Cabinet",
+      family: "Integrierter Wäscheschrank",
+      tier: "premium",
+      tierLabel: "Premium",
+      price: 21500,
+      monthly: 645,
     },
   },
   humanoid: {
     pro: {
       productId: "humanoid",
-      productName: "Lavidro One",
+      productName: "LAVIDRO One",
       family: "Humanoider Wäschroboter",
       tier: "pro",
       tierLabel: "Pro",
       price: 22500,
-      monthly: 625,
+      monthly: 675,
     },
     ultimate: {
       productId: "humanoid",
-      productName: "Lavidro One",
+      productName: "LAVIDRO One",
       family: "Humanoider Wäschroboter",
       tier: "ultimate",
       tierLabel: "Ultimate",
       price: 30000,
-      monthly: 833,
+      monthly: 900,
     },
   },
 };
@@ -132,7 +114,7 @@ function ConfiguratorPage() {
   useCodexRuntime("/codex-runtime/configurator.js");
 
   useEffect(() => {
-    const product = new URLSearchParams(window.location.search).get("product") ?? "arm";
+    const product = new URLSearchParams(window.location.search).get("product") ?? "mobile";
     track("configurator_open", { product_id: product });
 
     const onPreorder = (event: Event) => {
@@ -263,11 +245,10 @@ function PreorderDialog({
         {success ? (
           <div className="preorder-success">
             <span aria-hidden="true">✓</span>
-            <p className="kicker">Anfrage gespeichert</p>
-            <h2 id="preorder-title">Vielen Dank.</h2>
-            <p>
-              Wir melden uns persönlich bei Ihnen, sobald die nächsten Bestellschritte möglich sind.
-            </p>
+            <p className="kicker">Vorbestellung eingegangen</p>
+            <h2 id="preorder-title">Heute ist Ihre Vorbestellung bei uns eingegangen.</h2>
+            <p>Wir begleiten Sie transparent auf dem Weg zu Ihrem LAVIDRO System.</p>
+            <PreorderJourney confirmed />
             <button className="primary-button" type="button" onClick={onClose}>
               Schließen
             </button>
@@ -287,10 +268,12 @@ function PreorderDialog({
               </strong>
               <small>
                 {selection.paymentType === "monthly"
-                  ? `36 Monate · Gesamtpreis ${euro.format(selection.price)}`
+                  ? `36 Monate · Abo mit 8 % Aufschlag · Kaufpreis ${euro.format(selection.price)}`
                   : "Einmalzahlung"}
               </small>
             </div>
+
+            <PreorderJourney />
 
             <form className="preorder-form" onSubmit={submit}>
               <label>
@@ -337,5 +320,33 @@ function PreorderDialog({
         )}
       </section>
     </div>
+  );
+}
+
+function PreorderJourney({ confirmed = false }: { confirmed?: boolean }) {
+  return (
+    <ol className="preorder-journey" aria-label="Ihr weiterer Weg mit LAVIDRO">
+      <li>
+        <span>Heute</span>
+        <strong>{confirmed ? "Vorbestellung bestätigt" : "Vorbestellung absenden"}</strong>
+        <small>
+          {confirmed
+            ? "Wir prüfen Ihre Angaben und melden uns persönlich."
+            : "Mit Ihren Angaben sichern Sie sich den aktuellen Vorbestellungsstatus."}
+        </small>
+      </li>
+      <li>
+        <span>In etwa 3 Monaten</span>
+        <strong>Weitere Produktinformationen</strong>
+        <small>
+          Wir teilen den aktuellen Entwicklungsstand und die nächsten Schritte mit Ihnen.
+        </small>
+      </li>
+      <li>
+        <span>In etwa 6 Monaten</span>
+        <strong>Auslieferung und Installation</strong>
+        <small>Sie erhalten ein konkretes Update zum voraussichtlichen Liefertermin.</small>
+      </li>
+    </ol>
   );
 }
