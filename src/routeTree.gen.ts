@@ -9,34 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as KonfiguratorRouteImport } from './routes/Konfigurator'
-import { Route as AboutLavidroRouteImport } from './routes/aboutLavidro'
-import { Route as DatenschutzRouteImport } from './routes/datenschutz'
-import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
-import { Route as ApiPublicCollectAnalyticsRouteImport } from './routes/api/public/collect-analytics'
-import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
+import { Route as ImpressumRouteImport } from './routes/impressum'
+import { Route as DatenschutzRouteImport } from './routes/datenschutz'
+import { Route as AboutLavidroRouteImport } from './routes/aboutLavidro'
+import { Route as KonfiguratorRouteImport } from './routes/Konfigurator'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicPreordersRouteImport } from './routes/api/public/preorders'
+import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
+import { Route as ApiPublicCollectAnalyticsRouteImport } from './routes/api/public/collect-analytics'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KonfiguratorRoute = KonfiguratorRouteImport.update({
-  id: '/Konfigurator',
-  path: '/Konfigurator',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutLavidroRoute = AboutLavidroRouteImport.update({
-  id: '/aboutLavidro',
-  path: '/aboutLavidro',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DatenschutzRoute = DatenschutzRouteImport.update({
-  id: '/datenschutz',
-  path: '/datenschutz',
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImpressumRoute = ImpressumRouteImport.update({
@@ -44,9 +29,34 @@ const ImpressumRoute = ImpressumRouteImport.update({
   path: '/impressum',
   getParentRoute: () => rootRouteImport,
 } as any)
-const KontaktRoute = KontaktRouteImport.update({
-  id: '/kontakt',
-  path: '/kontakt',
+const DatenschutzRoute = DatenschutzRouteImport.update({
+  id: '/datenschutz',
+  path: '/datenschutz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutLavidroRoute = AboutLavidroRouteImport.update({
+  id: '/aboutLavidro',
+  path: '/aboutLavidro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KonfiguratorRoute = KonfiguratorRouteImport.update({
+  id: '/Konfigurator',
+  path: '/Konfigurator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicPreordersRoute = ApiPublicPreordersRouteImport.update({
+  id: '/api/public/preorders',
+  path: '/api/public/preorders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
+  id: '/api/public/leads',
+  path: '/api/public/leads',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicCollectAnalyticsRoute =
@@ -55,16 +65,6 @@ const ApiPublicCollectAnalyticsRoute =
     path: '/api/public/collect-analytics',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
-  id: '/api/public/leads',
-  path: '/api/public/leads',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicPreordersRoute = ApiPublicPreordersRouteImport.update({
-  id: '/api/public/preorders',
-  path: '/api/public/preorders',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -150,32 +150,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Konfigurator': {
-      id: '/Konfigurator'
-      path: '/Konfigurator'
-      fullPath: '/Konfigurator'
-      preLoaderRoute: typeof KonfiguratorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/aboutLavidro': {
-      id: '/aboutLavidro'
-      path: '/aboutLavidro'
-      fullPath: '/aboutLavidro'
-      preLoaderRoute: typeof AboutLavidroRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/datenschutz': {
-      id: '/datenschutz'
-      path: '/datenschutz'
-      fullPath: '/datenschutz'
-      preLoaderRoute: typeof DatenschutzRouteImport
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/impressum': {
@@ -185,18 +164,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ImpressumRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/kontakt': {
-      id: '/kontakt'
-      path: '/kontakt'
-      fullPath: '/kontakt'
-      preLoaderRoute: typeof KontaktRouteImport
+    '/datenschutz': {
+      id: '/datenschutz'
+      path: '/datenschutz'
+      fullPath: '/datenschutz'
+      preLoaderRoute: typeof DatenschutzRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/collect-analytics': {
-      id: '/api/public/collect-analytics'
-      path: '/api/public/collect-analytics'
-      fullPath: '/api/public/collect-analytics'
-      preLoaderRoute: typeof ApiPublicCollectAnalyticsRouteImport
+    '/aboutLavidro': {
+      id: '/aboutLavidro'
+      path: '/aboutLavidro'
+      fullPath: '/aboutLavidro'
+      preLoaderRoute: typeof AboutLavidroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Konfigurator': {
+      id: '/Konfigurator'
+      path: '/Konfigurator'
+      fullPath: '/Konfigurator'
+      preLoaderRoute: typeof KonfiguratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/preorders': {
+      id: '/api/public/preorders'
+      path: '/api/public/preorders'
+      fullPath: '/api/public/preorders'
+      preLoaderRoute: typeof ApiPublicPreordersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/leads': {
@@ -206,11 +206,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicLeadsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/preorders': {
-      id: '/api/public/preorders'
-      path: '/api/public/preorders'
-      fullPath: '/api/public/preorders'
-      preLoaderRoute: typeof ApiPublicPreordersRouteImport
+    '/api/public/collect-analytics': {
+      id: '/api/public/collect-analytics'
+      path: '/api/public/collect-analytics'
+      fullPath: '/api/public/collect-analytics'
+      preLoaderRoute: typeof ApiPublicCollectAnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
