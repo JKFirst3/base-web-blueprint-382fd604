@@ -17,9 +17,9 @@ const ALLOWED_EVENTS = new Set([
   "cta_click",
 ]);
 
-const ALLOWED_PRODUCTS = new Set(["arm", "cabinet", "one"]);
-const ALLOWED_TIERS = new Set(["core", "plus", "pro", "ultimate"]);
-const ALLOWED_PAYMENT = new Set(["upfront", "subscription"]);
+const ALLOWED_PRODUCTS = new Set(["mobile", "cabinet", "humanoid"]);
+const ALLOWED_TIERS = new Set(["basic", "premium", "pro", "ultimate"]);
+const ALLOWED_PAYMENT = new Set(["upfront", "monthly"]);
 
 const ALLOWED_KEYS = new Set([
   "path",
@@ -49,7 +49,8 @@ function isAllowedOrigin(origin: string | null): boolean {
   if (ALLOWED_ORIGINS.includes(origin)) return true;
   try {
     const u = new URL(origin);
-    if (u.hostname.endsWith(".lovable.app") || u.hostname.endsWith(".lovableproject.com")) return true;
+    if (u.hostname.endsWith(".lovable.app") || u.hostname.endsWith(".lovableproject.com"))
+      return true;
   } catch {
     /* ignore */
   }

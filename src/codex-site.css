@@ -1550,6 +1550,54 @@ legend {
   color: var(--muted);
 }
 
+.preorder-journey {
+  width: 100%;
+  display: grid;
+  gap: 16px;
+  margin: 24px 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.preorder-journey li {
+  position: relative;
+  display: grid;
+  gap: 3px;
+  padding: 0 0 0 22px;
+}
+
+.preorder-journey li::before {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--miele-red);
+  content: "";
+}
+
+.preorder-journey li:not(:last-child)::after {
+  position: absolute;
+  left: 4px;
+  top: 17px;
+  width: 2px;
+  height: calc(100% + 6px);
+  background: var(--line);
+  content: "";
+}
+
+.preorder-journey span,
+.preorder-journey small {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.preorder-journey strong {
+  font-size: 0.96rem;
+}
+
 .compare-dialog-shell {
   max-height: calc(100svh - 32px);
   overflow-y: auto;

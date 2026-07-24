@@ -9,7 +9,7 @@ const ITEMS: { q: string; a: string }[] = [
   },
   {
     q: "Welche der drei Produktlösungen passt zu welchem Haushalt?",
-    a: "LAVIDRO Arm ist flexibel und benötigt keine Umbauten. LAVIDRO Cabinet integriert sich diskret in einen Wandschrank. LAVIDRO One arbeitet als humanoider Roboter über den gesamten Wäscheprozess hinweg.",
+    a: "LAVIDRO Mobile ist ein mobiler Roboterarm auf fahrbarer Basis. LAVIDRO Cabinet integriert sich diskret in einen geplanten Wäscheschrank. LAVIDRO One ist die humanoide Gesamtlösung.",
   },
   {
     q: "Ist LAVIDRO für private Haushalte vorgesehen?",
@@ -33,19 +33,19 @@ const ITEMS: { q: string; a: string }[] = [
   },
   {
     q: "Kann LAVIDRO nachgerüstet werden?",
-    a: "LAVIDRO Arm lässt sich ohne Umbauten in einen bestehenden Hauswirtschaftsraum integrieren. LAVIDRO Cabinet und One erfordern eine individuelle Planung.",
+    a: "LAVIDRO Mobile ist für eine flexible Positionierung im bestehenden Hauswirtschaftsraum ausgelegt. LAVIDRO Cabinet und One erfordern eine individuelle Planung.",
   },
   {
     q: "Welche Umbauten sind erforderlich?",
-    a: "Für Arm keine. Für Cabinet die Integration in einen Wandschrank. Für One eine passende Fläche im Hauswirtschaftsraum.",
+    a: "LAVIDRO Mobile benötigt eine geeignete Stellfläche. Für LAVIDRO Cabinet planen wir die Integration in einen Wandschrank – je nach Variante ab etwa 3 m² beziehungsweise 5 m² Fläche. LAVIDRO One benötigt eine passende Fläche im Hauswirtschaftsraum.",
   },
   {
     q: "Welche Wartung benötigt das System?",
     a: "Details zu Wartungsintervallen und -umfang stellen wir mit dem Marktstart bereit.",
   },
   {
-    q: "Was unterscheidet Arm, Cabinet und One?",
-    a: "Arm ist mobil und flexibel, Cabinet ist möbelintegriert und diskret, One ist humanoid und übernimmt den gesamten Ablauf autonom.",
+    q: "Was unterscheidet Mobile, Cabinet und One?",
+    a: "Mobile ist ein mobiler Roboterarm für flexible Abläufe. Cabinet ist eine diskret integrierte Lösung für einen dauerhaft geplanten Hauswirtschaftsraum. One ist die humanoide Gesamtlösung.",
   },
   {
     q: "Wie kann eine Produktvorstellung vereinbart werden?",
