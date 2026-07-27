@@ -3,6 +3,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
@@ -20,6 +21,9 @@ const schema = z.object({
   email: z.string().trim().email("Bitte gib eine gültige E-Mail-Adresse ein.").max(255),
   pain_point: z.string().max(100).optional(),
   consent: z.boolean().refine((v) => v === true, "Bitte stimme der Zusendung von Updates zu."),
+  request_type: z.enum(["termin", "interview"]),
+  phone: z.string().trim().max(40).optional(),
+  availability: z.string().trim().max(500).optional(),
 });
 
 const meetingOptions = ["Digital", "Showroom Paderborn"];
@@ -33,18 +37,33 @@ export function LeadForm() {
 }
 
 export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
+  const [mode, setMode] = useState<"termin" | "interview">("termin");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pain, setPain] = useState<string | undefined>();
+  const [phone, setPhone] = useState("");
+  const [availability, setAvailability] = useState("");
   const [consent, setConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const parsed = schema.safeParse({ name, email, pain_point: pain, consent });
+    const parsed = schema.safeParse({
+      name,
+      email,
+      pain_point: mode === "termin" ? pain : undefined,
+      consent,
+      request_type: mode,
+      phone,
+      availability,
+    });
     if (!parsed.success) {
       toast.error(parsed.error.issues[0].message);
+      return;
+    }
+    if (mode === "interview" && !parsed.data.phone) {
+      toast.error("Bitte gib eine Telefonnummer für das Interview an.");
       return;
     }
     setSubmitting(true);
@@ -59,6 +78,9 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
           email: parsed.data.email,
           pain_point: parsed.data.pain_point || null,
           consent: parsed.data.consent,
+          request_type: parsed.data.request_type,
+          phone: parsed.data.phone || null,
+          availability: parsed.data.availability || null,
         }),
         signal: controller.signal,
       }).finally(() => window.clearTimeout(timeout));
@@ -74,6 +96,7 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
       setSubmitting(false);
     }
   }
+
 
   return (
     <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-12">
@@ -99,12 +122,36 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
           Exklusiver Einblick
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-foreground/75">
-          Vereinbare eine unverbindliche Produktvorstellung. Wir zeigen dir unsere automatisierte
-          Wäschelösung und freuen uns auf dein Feedback.
+          {mode === "termin"
+            ? "Vereinbare eine unverbindliche Produktvorstellung. Wir zeigen dir unsere automatisierte Wäschelösung und freuen uns auf dein Feedback."
+            : "Sprich mit uns im persönlichen Interview. Wir rufen dich an und möchten verstehen, wie Wäsche in deinem Alltag funktioniert."}
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="mt-10 space-y-5">
+      <div className="mx-auto mt-8 grid max-w-md grid-cols-2 gap-1 rounded-full border border-border bg-background p-1">
+        {(
+          [
+            { id: "termin", label: "Termin vormerken" },
+            { id: "interview", label: "Interview / Telefonat" },
+          ] as const
+        ).map((o) => (
+          <button
+            key={o.id}
+            type="button"
+            onClick={() => setMode(o.id)}
+            aria-pressed={mode === o.id}
+            className={`rounded-full px-4 py-2 text-[13px] font-medium transition ${
+              mode === o.id
+                ? "bg-foreground text-background"
+                : "text-foreground/70 hover:text-foreground"
+            }`}
+          >
+            {o.label}
+          </button>
+        ))}
+      </div>
+
+      <form onSubmit={handleSubmit} className="mt-8 space-y-5">
         <div className="grid gap-5 sm:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
@@ -134,21 +181,55 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
           </div>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="pain">Produktvorstellung (optional)</Label>
-          <Select value={pain} onValueChange={setPain}>
-            <SelectTrigger id="pain" className="h-11 bg-background">
-              <SelectValue placeholder="Bitte auswählen" />
-            </SelectTrigger>
-            <SelectContent>
-              {meetingOptions.map((o) => (
-                <SelectItem key={o} value={o}>
-                  {o}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        {mode === "termin" ? (
+          <div className="space-y-2">
+            <Label htmlFor="pain">Produktvorstellung (optional)</Label>
+            <Select value={pain} onValueChange={setPain}>
+              <SelectTrigger id="pain" className="h-11 bg-background">
+                <SelectValue placeholder="Bitte auswählen" />
+              </SelectTrigger>
+              <SelectContent>
+                {meetingOptions.map((o) => (
+                  <SelectItem key={o} value={o}>
+                    {o}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        ) : (
+          <>
+            <div className="space-y-2">
+              <Label htmlFor="phone">
+                Telefonnummer <span className="text-foreground/50">*</span>
+              </Label>
+              <Input
+                id="phone"
+                type="tel"
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                maxLength={40}
+                autoComplete="tel"
+                placeholder="+49 …"
+                className="h-11 bg-background"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="availability">Wann passt es dir zeitlich am besten?</Label>
+              <Textarea
+                id="availability"
+                value={availability}
+                onChange={(e) => setAvailability(e.target.value)}
+                maxLength={500}
+                rows={3}
+                placeholder="z. B. werktags ab 18 Uhr oder samstags vormittags"
+                className="bg-background"
+              />
+            </div>
+          </>
+        )}
+
 
         <label className="flex items-start gap-3 pt-1 text-sm text-foreground/80">
           <Checkbox

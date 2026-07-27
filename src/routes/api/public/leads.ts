@@ -72,7 +72,13 @@ export const Route = createFileRoute("/api/public/leads")({
         const name = cleanOptionalText(body.name, 100);
         const email = cleanOptionalText(body.email, 255)?.toLowerCase() ?? "";
         const painPoint = cleanOptionalText(body.pain_point, 100);
+        const requestType = body.request_type === "interview" ? "interview" : "termin";
+        const phone = cleanOptionalText(body.phone, 40);
+        const availability = cleanOptionalText(body.availability, 500);
         if (!email || !email.includes("@") || body.consent !== true) {
+          return Response.json({ error: "Invalid lead" }, { status: 400 });
+        }
+        if (requestType === "interview" && !phone) {
           return Response.json({ error: "Invalid lead" }, { status: 400 });
         }
 
@@ -91,6 +97,9 @@ export const Route = createFileRoute("/api/public/leads")({
           email,
           pain_point: painPoint,
           consent: true,
+          request_type: requestType,
+          phone,
+          availability,
         });
 
         if (error) {

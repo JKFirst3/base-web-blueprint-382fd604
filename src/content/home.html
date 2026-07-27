@@ -396,6 +396,14 @@
             </p>
           </div>
           <form class="waitlist-form reveal" data-form>
+            <div class="form-modes" role="group" aria-label="Art der Anfrage">
+              <button type="button" class="form-mode is-active" data-mode="termin">
+                Termin vormerken
+              </button>
+              <button type="button" class="form-mode" data-mode="interview">
+                Interview / Telefonat
+              </button>
+            </div>
             <label>
               <span>Name</span>
               <input type="text" name="name" autocomplete="name" placeholder="Ihr Name" />
@@ -410,7 +418,7 @@
                 required
               />
             </label>
-            <label>
+            <label data-mode-field="termin">
               <span>Was soll Lavidro zuerst für Sie übernehmen?</span>
               <select name="pain">
                 <option value="">Bitte auswählen</option>
@@ -420,6 +428,19 @@
                 <option>Den gesamten Prozess</option>
               </select>
             </label>
+            <label data-mode-field="interview" hidden>
+              <span>Telefonnummer</span>
+              <input type="tel" name="phone" autocomplete="tel" placeholder="+49 …" />
+            </label>
+            <label data-mode-field="interview" hidden>
+              <span>Wann passt es Ihnen zeitlich am besten?</span>
+              <textarea
+                name="availability"
+                rows="3"
+                placeholder="z. B. werktags ab 18 Uhr oder samstags vormittags"
+              ></textarea>
+            </label>
+
             <label class="checkbox">
               <input type="checkbox" required />
               <span>Ich stimme zu, Updates von Lavidro zu erhalten.</span>
