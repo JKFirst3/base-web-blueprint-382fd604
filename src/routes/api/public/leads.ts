@@ -97,6 +97,9 @@ export const Route = createFileRoute("/api/public/leads")({
           email,
           pain_point: painPoint,
           consent: true,
+          request_type: requestType,
+          phone,
+          availability,
         });
 
         if (error) {
