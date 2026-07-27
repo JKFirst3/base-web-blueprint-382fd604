@@ -82,28 +82,37 @@ export type Database = {
       }
       leads: {
         Row: {
+          availability: string | null
           consent: boolean
           created_at: string
           email: string
           id: string
           name: string | null
           pain_point: string | null
+          phone: string | null
+          request_type: string
         }
         Insert: {
+          availability?: string | null
           consent?: boolean
           created_at?: string
           email: string
           id?: string
           name?: string | null
           pain_point?: string | null
+          phone?: string | null
+          request_type?: string
         }
         Update: {
+          availability?: string | null
           consent?: boolean
           created_at?: string
           email?: string
           id?: string
           name?: string | null
           pain_point?: string | null
+          phone?: string | null
+          request_type?: string
         }
         Relationships: []
       }
