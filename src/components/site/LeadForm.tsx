@@ -121,12 +121,36 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
           Exklusiver Einblick
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-foreground/75">
-          Vereinbare eine unverbindliche Produktvorstellung. Wir zeigen dir unsere automatisierte
-          Wäschelösung und freuen uns auf dein Feedback.
+          {mode === "termin"
+            ? "Vereinbare eine unverbindliche Produktvorstellung. Wir zeigen dir unsere automatisierte Wäschelösung und freuen uns auf dein Feedback."
+            : "Sprich mit uns im persönlichen Interview. Wir rufen dich an und möchten verstehen, wie Wäsche in deinem Alltag funktioniert."}
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="mt-10 space-y-5">
+      <div className="mx-auto mt-8 grid max-w-md grid-cols-2 gap-1 rounded-full border border-border bg-background p-1">
+        {(
+          [
+            { id: "termin", label: "Termin vormerken" },
+            { id: "interview", label: "Interview / Telefonat" },
+          ] as const
+        ).map((o) => (
+          <button
+            key={o.id}
+            type="button"
+            onClick={() => setMode(o.id)}
+            aria-pressed={mode === o.id}
+            className={`rounded-full px-4 py-2 text-[13px] font-medium transition ${
+              mode === o.id
+                ? "bg-foreground text-background"
+                : "text-foreground/70 hover:text-foreground"
+            }`}
+          >
+            {o.label}
+          </button>
+        ))}
+      </div>
+
+      <form onSubmit={handleSubmit} className="mt-8 space-y-5">
         <div className="grid gap-5 sm:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
@@ -156,21 +180,55 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
           </div>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="pain">Produktvorstellung (optional)</Label>
-          <Select value={pain} onValueChange={setPain}>
-            <SelectTrigger id="pain" className="h-11 bg-background">
-              <SelectValue placeholder="Bitte auswählen" />
-            </SelectTrigger>
-            <SelectContent>
-              {meetingOptions.map((o) => (
-                <SelectItem key={o} value={o}>
-                  {o}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        {mode === "termin" ? (
+          <div className="space-y-2">
+            <Label htmlFor="pain">Produktvorstellung (optional)</Label>
+            <Select value={pain} onValueChange={setPain}>
+              <SelectTrigger id="pain" className="h-11 bg-background">
+                <SelectValue placeholder="Bitte auswählen" />
+              </SelectTrigger>
+              <SelectContent>
+                {meetingOptions.map((o) => (
+                  <SelectItem key={o} value={o}>
+                    {o}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        ) : (
+          <>
+            <div className="space-y-2">
+              <Label htmlFor="phone">
+                Telefonnummer <span className="text-foreground/50">*</span>
+              </Label>
+              <Input
+                id="phone"
+                type="tel"
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                maxLength={40}
+                autoComplete="tel"
+                placeholder="+49 …"
+                className="h-11 bg-background"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="availability">Wann passt es dir zeitlich am besten?</Label>
+              <Textarea
+                id="availability"
+                value={availability}
+                onChange={(e) => setAvailability(e.target.value)}
+                maxLength={500}
+                rows={3}
+                placeholder="z. B. werktags ab 18 Uhr oder samstags vormittags"
+                className="bg-background"
+              />
+            </div>
+          </>
+        )}
+
 
         <label className="flex items-start gap-3 pt-1 text-sm text-foreground/80">
           <Checkbox
