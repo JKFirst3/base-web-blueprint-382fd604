@@ -2187,3 +2187,50 @@ details p {
     transform: none;
   }
 }
+
+.form-modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #faf9f7;
+}
+
+.form-mode {
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.form-mode.is-active {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.waitlist-form textarea {
+  width: 100%;
+  min-height: 96px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 14px 18px;
+  background: #faf9f7;
+  color: var(--ink);
+  font: inherit;
+  outline: none;
+  resize: vertical;
+}
+
+.waitlist-form textarea:focus {
+  border-color: var(--miele-red);
+  box-shadow: 0 0 0 3px rgba(140, 0, 20, 0.1);
+}
