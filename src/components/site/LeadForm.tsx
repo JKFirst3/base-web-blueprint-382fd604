@@ -20,6 +20,9 @@ const schema = z.object({
   email: z.string().trim().email("Bitte gib eine gültige E-Mail-Adresse ein.").max(255),
   pain_point: z.string().max(100).optional(),
   consent: z.boolean().refine((v) => v === true, "Bitte stimme der Zusendung von Updates zu."),
+  request_type: z.enum(["termin", "interview"]),
+  phone: z.string().trim().max(40).optional(),
+  availability: z.string().trim().max(500).optional(),
 });
 
 const meetingOptions = ["Digital", "Showroom Paderborn"];
@@ -33,18 +36,33 @@ export function LeadForm() {
 }
 
 export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
+  const [mode, setMode] = useState<"termin" | "interview">("termin");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pain, setPain] = useState<string | undefined>();
+  const [phone, setPhone] = useState("");
+  const [availability, setAvailability] = useState("");
   const [consent, setConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const parsed = schema.safeParse({ name, email, pain_point: pain, consent });
+    const parsed = schema.safeParse({
+      name,
+      email,
+      pain_point: mode === "termin" ? pain : undefined,
+      consent,
+      request_type: mode,
+      phone,
+      availability,
+    });
     if (!parsed.success) {
       toast.error(parsed.error.issues[0].message);
+      return;
+    }
+    if (mode === "interview" && !parsed.data.phone) {
+      toast.error("Bitte gib eine Telefonnummer für das Interview an.");
       return;
     }
     setSubmitting(true);
@@ -59,6 +77,9 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
           email: parsed.data.email,
           pain_point: parsed.data.pain_point || null,
           consent: parsed.data.consent,
+          request_type: parsed.data.request_type,
+          phone: parsed.data.phone || null,
+          availability: parsed.data.availability || null,
         }),
         signal: controller.signal,
       }).finally(() => window.clearTimeout(timeout));
@@ -74,6 +95,7 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
       setSubmitting(false);
     }
   }
+
 
   return (
     <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-12">
