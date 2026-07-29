@@ -113,14 +113,13 @@ select {
 .brand-mark {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
   font-weight: 700;
   letter-spacing: 0;
 }
 
 .brand-mark img {
-  width: 40px;
-  height: 40px;
+  width: 150px;
+  height: auto;
   object-fit: contain;
 }
 
@@ -422,7 +421,7 @@ p {
 }
 
 .progress-card.is-loaded .progress-bar {
-  transform: scaleX(0.6);
+  transform: scaleX(1);
 }
 
 .progress-card a {
@@ -584,13 +583,20 @@ p {
 }
 
 .process-route-base {
+  opacity: 0;
   stroke: rgba(23, 23, 23, 0.12);
   stroke-width: 2;
 }
 
 .process-route-line {
+  opacity: 0;
   stroke: var(--miele-red);
   stroke-width: 4;
+  transition: opacity 120ms linear;
+}
+
+.process-section.is-drawing .process-route-line {
+  opacity: 1;
 }
 
 .process-step {
@@ -1155,8 +1161,8 @@ p {
 
 .configurator-brand img {
   position: static;
-  width: 32px;
-  height: 32px;
+  width: 116px;
+  height: auto;
   object-fit: contain;
 }
 
@@ -1835,6 +1841,18 @@ details p {
   gap: 22px;
 }
 
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-brand img {
+  width: 38px;
+  height: auto;
+  flex: 0 0 auto;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(34px);
@@ -1848,16 +1866,120 @@ details p {
   transform: translateY(0);
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1180px) {
   .site-header {
-    grid-template-columns: 1fr auto;
-    height: 64px;
+    grid-template-columns: 148px minmax(0, 1fr) auto;
+    gap: 16px;
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .brand-mark img {
+    width: 132px;
   }
 
   .desktop-nav {
+    gap: clamp(14px, 2vw, 26px);
+    font-size: 0.86rem;
+  }
+
+  .desktop-nav .nav-optional {
     display: none;
   }
 
+  .nav-cta {
+    padding-right: 16px;
+    padding-left: 16px;
+    font-size: 0.86rem;
+  }
+}
+
+@media (max-width: 1100px) {
+  .process-section {
+    height: 360svh;
+  }
+
+  .process-sticky {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: clamp(18px, 3svh, 30px);
+    min-height: 560px;
+    padding: 82px max(24px, 4vw) 22px;
+  }
+
+  .process-heading {
+    grid-template-columns: minmax(130px, 0.28fr) minmax(0, 1fr);
+    gap: clamp(20px, 5vw, 54px);
+  }
+
+  .process-heading h2 {
+    max-width: 620px;
+    font-size: clamp(1.8rem, 4.4vw, 2.8rem);
+    line-height: 1.05;
+  }
+
+  .process-canvas {
+    position: relative;
+    inset: auto;
+    min-height: 0;
+  }
+
+  .process-route-desktop {
+    display: none;
+  }
+
+  .process-route-mobile {
+    display: block;
+  }
+
+  .process-step {
+    width: min(210px, 34vw);
+    padding: 8px 10px 10px;
+  }
+
+  .process-number {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 9px;
+    font-size: 0.72rem;
+  }
+
+  .process-step h3 {
+    margin-bottom: 5px;
+    font-size: 1.08rem;
+  }
+
+  .process-step p {
+    font-size: 0.78rem;
+    line-height: 1.36;
+  }
+
+  .process-step-1 {
+    left: 1%;
+    right: auto;
+    top: 0;
+  }
+
+  .process-step-2 {
+    left: auto;
+    right: 1%;
+    top: 25%;
+  }
+
+  .process-step-3 {
+    left: 1%;
+    right: auto;
+    top: 49%;
+  }
+
+  .process-step-4 {
+    left: auto;
+    right: 1%;
+    top: 70%;
+  }
+}
+
+@media (max-width: 980px) {
   .image-panels,
   .config-grid,
   .split-heading,
@@ -1885,86 +2007,6 @@ details p {
 
   .image-panel {
     min-height: 620px;
-  }
-
-  .process-heading {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .process-section {
-    height: 340svh;
-  }
-
-  .process-sticky {
-    min-height: 620px;
-    padding: 82px 22px 18px;
-  }
-
-  .process-heading h2 {
-    max-width: 520px;
-    font-size: clamp(2rem, 7vw, 3rem);
-  }
-
-  .process-canvas {
-    left: 22px;
-    right: 22px;
-    top: 36%;
-    bottom: 1%;
-  }
-
-  .process-route-desktop {
-    display: none;
-  }
-
-  .process-route-mobile {
-    display: block;
-  }
-
-  .process-step {
-    width: min(168px, 48vw);
-    padding: 10px;
-  }
-
-  .process-number {
-    width: 32px;
-    height: 32px;
-    margin-bottom: 10px;
-    font-size: 0.72rem;
-  }
-
-  .process-step h3 {
-    margin-bottom: 5px;
-    font-size: 1.08rem;
-  }
-
-  .process-step p {
-    font-size: 0.78rem;
-    line-height: 1.36;
-  }
-
-  .process-step-1 {
-    left: 0;
-    right: auto;
-    top: 0;
-  }
-
-  .process-step-2 {
-    left: auto;
-    right: 0;
-    top: 25%;
-  }
-
-  .process-step-3 {
-    left: 0;
-    right: auto;
-    top: 49%;
-  }
-
-  .process-step-4 {
-    left: auto;
-    right: 0;
-    top: 70%;
   }
 
   .quality-list {
@@ -2047,20 +2089,52 @@ details p {
   }
 }
 
+@media (max-width: 720px) {
+  .site-header {
+    grid-template-columns: 1fr auto;
+    height: 64px;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .process-sticky {
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 16px;
+    padding: 74px 18px 18px;
+  }
+
+  .process-heading {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .process-heading h2 {
+    max-width: 520px;
+    font-size: clamp(1.65rem, 7vw, 2.15rem);
+  }
+
+  .process-step {
+    width: min(160px, 43vw);
+    padding: 7px 8px 9px;
+  }
+}
+
 @media (max-width: 620px) {
   .site-header {
     padding: 0 18px;
   }
 
   .brand-mark img {
-    width: 34px;
-    height: 34px;
+    width: 118px;
+    height: auto;
   }
 
   .nav-cta {
     min-height: 34px;
-    padding: 0 10px;
-    font-size: 0.78rem;
+    padding: 0 9px;
+    font-size: 0.72rem;
   }
 
   .hero-content {
@@ -2121,8 +2195,8 @@ details p {
   }
 
   .configurator-brand img {
-    width: 29px;
-    height: 23px;
+    width: 92px;
+    height: auto;
   }
 
   .configurator-image-nav {
@@ -2160,6 +2234,18 @@ details p {
   .site-footer {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .site-footer div {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 24px;
+  }
+
+  .site-footer div button {
+    grid-column: 1 / -1;
+    justify-self: start;
   }
 }
 

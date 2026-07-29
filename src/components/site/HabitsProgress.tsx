@@ -11,7 +11,7 @@ export function HabitsProgress() {
     if (!el) return;
     const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     if (reduced) {
-      setValue(60);
+      setValue(100);
       setPlayed(true);
       return;
     }
@@ -25,7 +25,7 @@ export function HabitsProgress() {
             const tick = (t: number) => {
               const p = Math.min(1, (t - start) / dur);
               const eased = 1 - Math.pow(1 - p, 3);
-              setValue(Math.round(eased * 60));
+              setValue(Math.round(eased * 100));
               if (p < 1) requestAnimationFrame(tick);
             };
             requestAnimationFrame(tick);
@@ -66,7 +66,7 @@ export function HabitsProgress() {
             {value}
             <span className="text-3xl font-medium text-foreground/60">%</span>
           </p>
-          <p className="mt-2 text-sm text-foreground/70">weniger Zeitaufwand</p>
+          <p className="mt-2 text-sm text-foreground/70">bis zu 100 % weniger Zeitaufwand</p>
           <div
             className="mt-6 h-[2px] w-full overflow-hidden bg-[rgba(23,23,23,0.12)]"
             role="progressbar"

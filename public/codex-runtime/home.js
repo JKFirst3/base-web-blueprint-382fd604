@@ -55,16 +55,44 @@
   if (processSection) {
     const processPaths = processSection.querySelectorAll(".process-route-line");
     const processSteps = processSection.querySelectorAll(".process-step");
-    const stepThresholds = [0.035, 0.34, 0.62, 0.9];
+    const stepThresholds = [0.05, 0.43, 0.73, 0.94];
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let processTicking = false;
 
+    const renderProcessPath = (path, progress) => {
+      const geometry = path.previousElementSibling;
+      if (!geometry?.matches(".process-route-base")) return;
+
+      const length = Number(path.dataset.length || geometry.getTotalLength());
+      const visibleLength = length * progress;
+      const start = geometry.getPointAtLength(0);
+
+      if (visibleLength <= 0.01) {
+        path.setAttribute("d", `M ${start.x} ${start.y}`);
+        return;
+      }
+
+      const segments = Math.max(1, Math.ceil(visibleLength / 6));
+      let partialPath = `M ${start.x.toFixed(2)} ${start.y.toFixed(2)}`;
+
+      for (let index = 1; index <= segments; index += 1) {
+        const point = geometry.getPointAtLength((visibleLength * index) / segments);
+        partialPath += ` L ${point.x.toFixed(2)} ${point.y.toFixed(2)}`;
+      }
+
+      path.setAttribute("d", partialPath);
+    };
+
     const prepareProcessPaths = () => {
       processPaths.forEach((path) => {
-        const length = path.getTotalLength();
+        const geometry = path.previousElementSibling;
+        if (!geometry?.matches(".process-route-base")) return;
+
+        const length = geometry.getTotalLength();
         path.dataset.length = String(length);
-        path.style.strokeDasharray = String(length);
-        path.style.strokeDashoffset = String(length);
+        path.style.strokeDasharray = "none";
+        path.style.strokeDashoffset = "0";
+        renderProcessPath(path, 0);
       });
     };
 
@@ -72,14 +100,18 @@
       const rect = processSection.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       const stickyDistance = Math.max(processSection.offsetHeight - viewportHeight, 1);
-      const entryProgress = (1 - rect.top / viewportHeight) * 0.08;
-      const stickyProgress = 0.08 + (-rect.top / stickyDistance) * 0.92;
-      const rawProgress = rect.top > 0 ? entryProgress : stickyProgress;
-      const progress = reduceMotion.matches ? 1 : Math.min(Math.max(rawProgress, 0), 1);
+      const rawProgress = -rect.top / stickyDistance;
+      const progress =
+        rect.top >= 0
+          ? 0
+          : reduceMotion.matches
+            ? 1
+            : Math.min(Math.max(rawProgress, 0), 1);
+
+      processSection.classList.toggle("is-drawing", progress > 0.001);
 
       processPaths.forEach((path) => {
-        const length = Number(path.dataset.length || path.getTotalLength());
-        path.style.strokeDashoffset = String(length * (1 - progress));
+        renderProcessPath(path, progress);
       });
 
       processSteps.forEach((step, index) => {
@@ -131,7 +163,7 @@
       progressCard.classList.add("is-loaded");
 
       if (reduceMotion) {
-        counter.textContent = "60%";
+        counter.textContent = "100 %";
         return;
       }
 
@@ -141,7 +173,7 @@
       const updateCounter = (now) => {
         const progress = Math.min((now - start) / duration, 1);
         const easedProgress = 1 - Math.pow(1 - progress, 3);
-        counter.textContent = `${Math.round(easedProgress * 60)}%`;
+        counter.textContent = `${Math.round(easedProgress * 100)} %`;
 
         if (progress < 1) window.requestAnimationFrame(updateCounter);
       };

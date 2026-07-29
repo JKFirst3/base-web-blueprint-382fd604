@@ -3,8 +3,12 @@ import { openConsentSettings } from "@/lib/consent";
 export function Footer() {
   return (
     <footer className="site-footer">
-      <span>© 2026 Lavidro. Alle Rechte vorbehalten.</span>
+      <span className="footer-brand">
+        <img src="/assets/lavidro-icon.svg" alt="" />
+        <span>© 2026 Lavidro. Alle Rechte vorbehalten.</span>
+      </span>
       <div>
+        <a href="/aboutLavidro">Über LAVIDRO</a>
         <a href="/impressum">Impressum</a>
         <a href="/datenschutz">Datenschutz</a>
         <a href="/kontakt">Kontakt</a>
