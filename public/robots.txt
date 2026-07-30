@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /api/
+Disallow: /lovable/
+
+Sitemap: https://lavidro.com/sitemap.xml

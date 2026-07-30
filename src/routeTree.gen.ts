@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
@@ -28,6 +29,11 @@ import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/e
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
   id: '/unsubscribe',
   path: '/unsubscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KontaktRoute = KontaktRouteImport.update({
@@ -112,6 +118,7 @@ export interface FileRoutesByFullPath {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
@@ -129,6 +136,7 @@ export interface FileRoutesByTo {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
@@ -147,6 +155,7 @@ export interface FileRoutesById {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
@@ -166,6 +175,7 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
+    | '/sitemap.xml'
     | '/unsubscribe'
     | '/email/unsubscribe'
     | '/api/public/collect-analytics'
@@ -183,6 +193,7 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
+    | '/sitemap.xml'
     | '/unsubscribe'
     | '/email/unsubscribe'
     | '/api/public/collect-analytics'
@@ -200,6 +211,7 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
+    | '/sitemap.xml'
     | '/unsubscribe'
     | '/email/unsubscribe'
     | '/api/public/collect-analytics'
@@ -218,6 +230,7 @@ export interface RootRouteChildren {
   DatenschutzRoute: typeof DatenschutzRoute
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   ApiPublicCollectAnalyticsRoute: typeof ApiPublicCollectAnalyticsRoute
@@ -236,6 +249,13 @@ declare module '@tanstack/react-router' {
       path: '/unsubscribe'
       fullPath: '/unsubscribe'
       preLoaderRoute: typeof UnsubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kontakt': {
@@ -346,6 +366,7 @@ const rootRouteChildren: RootRouteChildren = {
   DatenschutzRoute: DatenschutzRoute,
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   UnsubscribeRoute: UnsubscribeRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   ApiPublicCollectAnalyticsRoute: ApiPublicCollectAnalyticsRoute,
