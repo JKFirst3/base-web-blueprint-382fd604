@@ -9,35 +9,30 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as KonfiguratorRouteImport } from './routes/Konfigurator'
-import { Route as AboutLavidroRouteImport } from './routes/aboutLavidro'
-import { Route as DatenschutzRouteImport } from './routes/datenschutz'
-import { Route as ImpressumRouteImport } from './routes/impressum'
+import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as KontaktRouteImport } from './routes/kontakt'
-import { Route as ApiPublicCollectAnalyticsRouteImport } from './routes/api/public/collect-analytics'
-import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
+import { Route as ImpressumRouteImport } from './routes/impressum'
+import { Route as DatenschutzRouteImport } from './routes/datenschutz'
+import { Route as AboutLavidroRouteImport } from './routes/aboutLavidro'
+import { Route as KonfiguratorRouteImport } from './routes/Konfigurator'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
+import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicPreordersRouteImport } from './routes/api/public/preorders'
+import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
+import { Route as ApiPublicCollectAnalyticsRouteImport } from './routes/api/public/collect-analytics'
+import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
+import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const UnsubscribeRoute = UnsubscribeRouteImport.update({
+  id: '/unsubscribe',
+  path: '/unsubscribe',
   getParentRoute: () => rootRouteImport,
 } as any)
-const KonfiguratorRoute = KonfiguratorRouteImport.update({
-  id: '/Konfigurator',
-  path: '/Konfigurator',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutLavidroRoute = AboutLavidroRouteImport.update({
-  id: '/aboutLavidro',
-  path: '/aboutLavidro',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DatenschutzRoute = DatenschutzRouteImport.update({
-  id: '/datenschutz',
-  path: '/datenschutz',
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImpressumRoute = ImpressumRouteImport.update({
@@ -45,9 +40,44 @@ const ImpressumRoute = ImpressumRouteImport.update({
   path: '/impressum',
   getParentRoute: () => rootRouteImport,
 } as any)
-const KontaktRoute = KontaktRouteImport.update({
-  id: '/kontakt',
-  path: '/kontakt',
+const DatenschutzRoute = DatenschutzRouteImport.update({
+  id: '/datenschutz',
+  path: '/datenschutz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutLavidroRoute = AboutLavidroRouteImport.update({
+  id: '/aboutLavidro',
+  path: '/aboutLavidro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KonfiguratorRoute = KonfiguratorRouteImport.update({
+  id: '/Konfigurator',
+  path: '/Konfigurator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
+  id: '/email/unsubscribe',
+  path: '/email/unsubscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
+  id: '/lovable/email/suppression',
+  path: '/lovable/email/suppression',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicPreordersRoute = ApiPublicPreordersRouteImport.update({
+  id: '/api/public/preorders',
+  path: '/api/public/preorders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
+  id: '/api/public/leads',
+  path: '/api/public/leads',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicCollectAnalyticsRoute =
@@ -56,16 +86,18 @@ const ApiPublicCollectAnalyticsRoute =
     path: '/api/public/collect-analytics',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
-  id: '/api/public/leads',
-  path: '/api/public/leads',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicPreordersRoute = ApiPublicPreordersRouteImport.update({
-  id: '/api/public/preorders',
-  path: '/api/public/preorders',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const LovableEmailTransactionalSendRoute =
+  LovableEmailTransactionalSendRouteImport.update({
+    id: '/lovable/email/transactional/send',
+    path: '/lovable/email/transactional/send',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LovableEmailTransactionalPreviewRoute =
+  LovableEmailTransactionalPreviewRouteImport.update({
+    id: '/lovable/email/transactional/preview',
+    path: '/lovable/email/transactional/preview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LovableEmailQueueProcessRoute =
   LovableEmailQueueProcessRouteImport.update({
     id: '/lovable/email/queue/process',
@@ -80,10 +112,15 @@ export interface FileRoutesByFullPath {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/unsubscribe': typeof UnsubscribeRoute
+  '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
+  '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
+  '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -92,10 +129,15 @@ export interface FileRoutesByTo {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/unsubscribe': typeof UnsubscribeRoute
+  '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
+  '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
+  '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -105,10 +147,15 @@ export interface FileRoutesById {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/unsubscribe': typeof UnsubscribeRoute
+  '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
+  '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
+  '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -119,10 +166,15 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
+    | '/unsubscribe'
+    | '/email/unsubscribe'
     | '/api/public/collect-analytics'
     | '/api/public/leads'
     | '/api/public/preorders'
+    | '/lovable/email/suppression'
     | '/lovable/email/queue/process'
+    | '/lovable/email/transactional/preview'
+    | '/lovable/email/transactional/send'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -131,10 +183,15 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
+    | '/unsubscribe'
+    | '/email/unsubscribe'
     | '/api/public/collect-analytics'
     | '/api/public/leads'
     | '/api/public/preorders'
+    | '/lovable/email/suppression'
     | '/lovable/email/queue/process'
+    | '/lovable/email/transactional/preview'
+    | '/lovable/email/transactional/send'
   id:
     | '__root__'
     | '/'
@@ -143,10 +200,15 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
+    | '/unsubscribe'
+    | '/email/unsubscribe'
     | '/api/public/collect-analytics'
     | '/api/public/leads'
     | '/api/public/preorders'
+    | '/lovable/email/suppression'
     | '/lovable/email/queue/process'
+    | '/lovable/email/transactional/preview'
+    | '/lovable/email/transactional/send'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -156,47 +218,24 @@ export interface RootRouteChildren {
   DatenschutzRoute: typeof DatenschutzRoute
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
+  UnsubscribeRoute: typeof UnsubscribeRoute
+  EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   ApiPublicCollectAnalyticsRoute: typeof ApiPublicCollectAnalyticsRoute
   ApiPublicLeadsRoute: typeof ApiPublicLeadsRoute
   ApiPublicPreordersRoute: typeof ApiPublicPreordersRoute
+  LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
+  LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
+  LovableEmailTransactionalSendRoute: typeof LovableEmailTransactionalSendRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Konfigurator': {
-      id: '/Konfigurator'
-      path: '/Konfigurator'
-      fullPath: '/Konfigurator'
-      preLoaderRoute: typeof KonfiguratorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/aboutLavidro': {
-      id: '/aboutLavidro'
-      path: '/aboutLavidro'
-      fullPath: '/aboutLavidro'
-      preLoaderRoute: typeof AboutLavidroRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/datenschutz': {
-      id: '/datenschutz'
-      path: '/datenschutz'
-      fullPath: '/datenschutz'
-      preLoaderRoute: typeof DatenschutzRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/impressum': {
-      id: '/impressum'
-      path: '/impressum'
-      fullPath: '/impressum'
-      preLoaderRoute: typeof ImpressumRouteImport
+    '/unsubscribe': {
+      id: '/unsubscribe'
+      path: '/unsubscribe'
+      fullPath: '/unsubscribe'
+      preLoaderRoute: typeof UnsubscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kontakt': {
@@ -206,11 +245,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KontaktRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/collect-analytics': {
-      id: '/api/public/collect-analytics'
-      path: '/api/public/collect-analytics'
-      fullPath: '/api/public/collect-analytics'
-      preLoaderRoute: typeof ApiPublicCollectAnalyticsRouteImport
+    '/impressum': {
+      id: '/impressum'
+      path: '/impressum'
+      fullPath: '/impressum'
+      preLoaderRoute: typeof ImpressumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/datenschutz': {
+      id: '/datenschutz'
+      path: '/datenschutz'
+      fullPath: '/datenschutz'
+      preLoaderRoute: typeof DatenschutzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/aboutLavidro': {
+      id: '/aboutLavidro'
+      path: '/aboutLavidro'
+      fullPath: '/aboutLavidro'
+      preLoaderRoute: typeof AboutLavidroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Konfigurator': {
+      id: '/Konfigurator'
+      path: '/Konfigurator'
+      fullPath: '/Konfigurator'
+      preLoaderRoute: typeof KonfiguratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/email/unsubscribe': {
+      id: '/email/unsubscribe'
+      path: '/email/unsubscribe'
+      fullPath: '/email/unsubscribe'
+      preLoaderRoute: typeof EmailUnsubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/suppression': {
+      id: '/lovable/email/suppression'
+      path: '/lovable/email/suppression'
+      fullPath: '/lovable/email/suppression'
+      preLoaderRoute: typeof LovableEmailSuppressionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/preorders': {
+      id: '/api/public/preorders'
+      path: '/api/public/preorders'
+      fullPath: '/api/public/preorders'
+      preLoaderRoute: typeof ApiPublicPreordersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/leads': {
@@ -220,11 +308,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicLeadsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/preorders': {
-      id: '/api/public/preorders'
-      path: '/api/public/preorders'
-      fullPath: '/api/public/preorders'
-      preLoaderRoute: typeof ApiPublicPreordersRouteImport
+    '/api/public/collect-analytics': {
+      id: '/api/public/collect-analytics'
+      path: '/api/public/collect-analytics'
+      fullPath: '/api/public/collect-analytics'
+      preLoaderRoute: typeof ApiPublicCollectAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/transactional/send': {
+      id: '/lovable/email/transactional/send'
+      path: '/lovable/email/transactional/send'
+      fullPath: '/lovable/email/transactional/send'
+      preLoaderRoute: typeof LovableEmailTransactionalSendRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/transactional/preview': {
+      id: '/lovable/email/transactional/preview'
+      path: '/lovable/email/transactional/preview'
+      fullPath: '/lovable/email/transactional/preview'
+      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lovable/email/queue/process': {
@@ -244,10 +346,15 @@ const rootRouteChildren: RootRouteChildren = {
   DatenschutzRoute: DatenschutzRoute,
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
+  UnsubscribeRoute: UnsubscribeRoute,
+  EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   ApiPublicCollectAnalyticsRoute: ApiPublicCollectAnalyticsRoute,
   ApiPublicLeadsRoute: ApiPublicLeadsRoute,
   ApiPublicPreordersRoute: ApiPublicPreordersRoute,
+  LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
+  LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
+  LovableEmailTransactionalSendRoute: LovableEmailTransactionalSendRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
