@@ -1126,7 +1126,7 @@ p {
   object-fit: cover;
 }
 
-.configurator-visual img[src$=".svg"] {
+.configurator-visual > img[src$=".svg"] {
   object-fit: contain;
   padding: clamp(42px, 8vw, 120px);
   background: #e8e1d8;
@@ -2204,7 +2204,7 @@ details p {
     font-size: 0.66rem;
   }
 
-  .configurator-visual img[src$=".svg"] {
+  .configurator-visual > img[src$=".svg"] {
     padding: 26px 52px 66px;
   }
 
