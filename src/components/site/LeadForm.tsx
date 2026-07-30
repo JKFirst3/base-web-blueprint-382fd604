@@ -131,8 +131,8 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
       <div className="mx-auto mt-8 grid max-w-md grid-cols-2 gap-1 rounded-full border border-border bg-background p-1">
         {(
           [
-            { id: "termin", label: "Termin vormerken" },
-            { id: "interview", label: "Interview / Telefonat" },
+            { id: "termin", label: "Newsletter anmelden" },
+            { id: "interview", label: "Teil der Entwicklung werden" },
           ] as const
         ).map((o) => (
           <button
@@ -150,6 +150,14 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
           </button>
         ))}
       </div>
+
+      {mode === "interview" && (
+        <p className="mx-auto mt-4 max-w-md text-center text-sm text-foreground/70">
+          Wir würden dich gerne zu einem unverbindlichen Interview remote oder vor Ort in Paderborn
+          einladen.
+        </p>
+      )}
+
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-5">
         <div className="grid gap-5 sm:grid-cols-2">
