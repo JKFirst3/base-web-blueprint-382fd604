@@ -43,7 +43,7 @@ function HomePage() {
         f.hidden = !visible;
       });
       const phone = form.querySelector<HTMLInputElement>('input[name="phone"]');
-      if (phone) phone.required = mode === "interview";
+      if (phone) phone.required = false;
     };
 
     const onModeClick = (event: Event) => {
@@ -71,10 +71,6 @@ function HomePage() {
 
       if (!email || !email.includes("@")) {
         status.textContent = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
-        return;
-      }
-      if (mode === "interview" && !phone) {
-        status.textContent = "Bitte geben Sie eine Telefonnummer für das Interview an.";
         return;
       }
       if (!consent) {
