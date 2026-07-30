@@ -6,9 +6,9 @@ export const Route = createFileRoute("/datenschutz")({
   head: () => ({
     meta: [
       { title: "Datenschutz — Lavidro" },
-      { name: "description", content: "Datenschutzerklärung von Lavidro." },
+      { name: "description", content: "Datenschutzerklärung von LAVIDRO: Welche Daten wir bei Anfragen, Vorbestellungen und der Nutzungsanalyse verarbeiten und welche Rechte du hast." },
       { property: "og:title", content: "Datenschutz — Lavidro" },
-      { property: "og:description", content: "Datenschutzerklärung von Lavidro." },
+      { property: "og:description", content: "Datenschutzerklärung von LAVIDRO: Welche Daten wir bei Anfragen, Vorbestellungen und der Nutzungsanalyse verarbeiten und welche Rechte du hast." },
       { property: "og:url", content: "https://lavidro.com/datenschutz" },
     ],
     links: [{ rel: "canonical", href: "https://lavidro.com/datenschutz" }],
