@@ -62,10 +62,6 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
       toast.error(parsed.error.issues[0].message);
       return;
     }
-    if (mode === "interview" && !parsed.data.phone) {
-      toast.error("Bitte gib eine Telefonnummer für das Interview an.");
-      return;
-    }
     setSubmitting(true);
     try {
       const controller = new AbortController();
@@ -209,12 +205,11 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
           <>
             <div className="space-y-2">
               <Label htmlFor="phone">
-                Telefonnummer <span className="text-foreground/50">*</span>
+Telefonnummer (optional)
               </Label>
               <Input
                 id="phone"
                 type="tel"
-                required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 maxLength={40}

@@ -78,9 +78,6 @@ export const Route = createFileRoute("/api/public/leads")({
         if (!email || !email.includes("@") || body.consent !== true) {
           return Response.json({ error: "Invalid lead" }, { status: 400 });
         }
-        if (requestType === "interview" && !phone) {
-          return Response.json({ error: "Invalid lead" }, { status: 400 });
-        }
 
         const url = process.env.SUPABASE_URL;
         const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
