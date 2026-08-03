@@ -8,6 +8,41 @@ const TITLE = "LAVIDRO — Wäsche. Einfach. Fertig.";
 const DESCRIPTION =
   "Das erste System, das den vollständigen Wäscheprozess autonom und qualitätssicher übernimmt.";
 
+const FAQ: { q: string; a: string }[] = [
+  {
+    q: "Welche Aufgaben übernimmt Lavidro?",
+    a: "Lavidro ist als System für Sortieren, Beladen, Entladen und Bereitstellen von Wäsche gedacht.",
+  },
+  {
+    q: "Ist Lavidro für private Haushalte vorgesehen?",
+    a: "Ja. Die Bildsprache und Systemidee zielen auf hochwertige Hauswirtschaftsräume in privaten Haushalten.",
+  },
+  {
+    q: "Wann wird Lavidro verfügbar?",
+    a: "Mit Ihrer Anmeldung erfahren Sie zuerst von Entwicklungsfortschritten, Pilotphasen und Möglichkeiten, LAVIDRO live zu erleben.",
+  },
+  {
+    q: "Benötigt Lavidro spezielle Waschmaschinen oder Trockner?",
+    a: "Das System ist für die Zusammenarbeit mit vielen gängigen Frontladern geplant. Die konkrete Kompatibilität wird vor der Installation geprüft.",
+  },
+  {
+    q: "Wie sicher ist das System im Haushalt?",
+    a: "Sensoren überwachen Arbeitsbereich, Bewegung und Kontakt. Bei einer unerwarteten Situation stoppt das System automatisch.",
+  },
+  {
+    q: "Wie behandelt Lavidro empfindliche Textilien?",
+    a: "Pflegeprofile berücksichtigen Material, Griffstärke und Bewegungsablauf, damit sensible Kleidungsstücke besonders schonend gehandhabt werden.",
+  },
+  {
+    q: "Kann Lavidro in einem bestehenden Hauswirtschaftsraum nachgerüstet werden?",
+    a: "Eine Nachrüstung ist grundsätzlich vorgesehen. Platz, Anschlüsse und Bewegungsbereich werden vorab individuell geprüft.",
+  },
+  {
+    q: "Welche Wartung ist erforderlich?",
+    a: "Regelmäßige Systemdiagnosen laufen automatisch. Mechanische Komponenten werden im Rahmen eines planbaren Serviceintervalls geprüft.",
+  },
+];
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -19,10 +54,33 @@ export const Route = createFileRoute("/")({
       { property: "og:url", content: "https://lavidro.com/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://lavidro.com/" }],
+    links: [
+      { rel: "canonical", href: "https://lavidro.com/" },
+      {
+        rel: "preload",
+        as: "image",
+        href: "/assets/lavidro-hero.png",
+        fetchpriority: "high",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQ.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: { "@type": "Answer", text: item.a },
+          })),
+        }),
+      },
+    ],
   }),
   component: HomePage,
 });
+
 
 function HomePage() {
   useCodexRuntime("/codex-runtime/home.js");
@@ -43,7 +101,7 @@ function HomePage() {
         f.hidden = !visible;
       });
       const phone = form.querySelector<HTMLInputElement>('input[name="phone"]');
-      if (phone) phone.required = mode === "interview";
+      if (phone) phone.required = false;
     };
 
     const onModeClick = (event: Event) => {
@@ -71,10 +129,6 @@ function HomePage() {
 
       if (!email || !email.includes("@")) {
         status.textContent = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
-        return;
-      }
-      if (mode === "interview" && !phone) {
-        status.textContent = "Bitte geben Sie eine Telefonnummer für das Interview an.";
         return;
       }
       if (!consent) {

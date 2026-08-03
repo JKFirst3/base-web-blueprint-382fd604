@@ -81,26 +81,62 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "LAVIDRO" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "Lavidro" },
-      { property: "og:title", content: "Lavidro" },
-      { name: "twitter:title", content: "Lavidro" },
+      { title: "Lavidro — Wäsche. Einfach. Fertig." },
+      { property: "og:title", content: "Lavidro — Wäsche. Einfach. Fertig." },
+      { name: "twitter:title", content: "Lavidro — Wäsche. Einfach. Fertig." },
       {
         name: "description",
-        content: "LAVIDRO automatisiert den vollständigen Wäscheprozess für private Haushalte.",
+        content:
+          "LAVIDRO automatisiert den kompletten Wäscheprozess im Haushalt: sortieren, waschen, trocknen und zusammenlegen — vollständig und qualitätssicher.",
       },
       {
         property: "og:description",
-        content: "LAVIDRO automatisiert den vollständigen Wäscheprozess für private Haushalte.",
+        content:
+          "LAVIDRO automatisiert den kompletten Wäscheprozess im Haushalt: sortieren, waschen, trocknen und zusammenlegen — vollständig und qualitätssicher.",
       },
       {
         name: "twitter:description",
-        content: "LAVIDRO automatisiert den vollständigen Wäscheprozess für private Haushalte.",
+        content:
+          "LAVIDRO automatisiert den kompletten Wäscheprozess im Haushalt: sortieren, waschen, trocknen und zusammenlegen — vollständig und qualitätssicher.",
       },
       { property: "og:image", content: "https://lavidro.com/assets/lavidro-hero.png" },
       { name: "twitter:image", content: "https://lavidro.com/assets/lavidro-hero.png" },
     ],
     links: [{ rel: "stylesheet", href: appCss }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              name: "LAVIDRO",
+              url: "https://lavidro.com/",
+              logo: "https://lavidro.com/assets/lavidro-icon.svg",
+              description:
+                "LAVIDRO entwickelt Systeme, die den vollständigen Wäscheprozess im privaten Haushalt automatisieren.",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Ausblick 13",
+                postalCode: "33100",
+                addressLocality: "Paderborn",
+                addressCountry: "DE",
+              },
+              email: "lavidro@gmx.net",
+            },
+            {
+              "@type": "WebSite",
+              name: "LAVIDRO",
+              url: "https://lavidro.com/",
+              inLanguage: "de-DE",
+            },
+          ],
+        }),
+      },
+    ],
   }),
+
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,

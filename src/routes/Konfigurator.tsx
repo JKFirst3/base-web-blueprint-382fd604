@@ -88,18 +88,68 @@ function getCatalogSelection(selection: PreorderSelection): PreorderSelection | 
   return { ...entry, paymentType: selection.paymentType };
 }
 
+const KONFIGURATOR_TITLE = "Produkt — LAVIDRO Wäschesysteme im Vergleich";
+const KONFIGURATOR_DESCRIPTION =
+  "Vergleiche die drei LAVIDRO Lösungen: Mobiler Wäscheassistent, Integrierter Wäscheschrank und Humanoider Wäscheroboter — mit Ausstattungsstufen und Vorbestellung.";
 export const Route = createFileRoute("/Konfigurator")({
   head: () => ({
     meta: [
-      { title: "LAVIDRO Konfigurator" },
-      {
-        name: "description",
-        content: "Konfigurieren und vergleichen Sie die LAVIDRO-Systeme.",
-      },
+      { title: KONFIGURATOR_TITLE },
+      { name: "description", content: KONFIGURATOR_DESCRIPTION },
+      { property: "og:title", content: KONFIGURATOR_TITLE },
+      { property: "og:description", content: KONFIGURATOR_DESCRIPTION },
+      { property: "og:type", content: "website" },
       { property: "og:url", content: "https://lavidro.com/Konfigurator" },
     ],
     links: [{ rel: "canonical", href: "https://lavidro.com/Konfigurator" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          itemListElement: [
+            {
+              name: "Mobiler Wäscheassistent",
+              description:
+                "Mobiler LAVIDRO Wäscheassistent, der Wäsche im Haushalt sortiert, ein- und ausräumt.",
+              price: 9000,
+            },
+            {
+              name: "Integrierter Wäscheschrank",
+              description:
+                "In den Hauswirtschaftsraum integrierter LAVIDRO Wäscheschrank für einen automatisierten Wäscheprozess im Hintergrund.",
+              price: 12500,
+            },
+            {
+              name: "Humanoider Wäscheroboter",
+              description:
+                "Humanoider LAVIDRO Wäscheroboter, der den vollständigen Wäscheprozess vom Sortieren bis zum Zusammenlegen übernimmt.",
+              price: 22500,
+            },
+          ].map((p, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            item: {
+              "@type": "Product",
+              name: p.name,
+              description: p.description,
+              brand: { "@type": "Brand", name: "LAVIDRO" },
+              image: "https://lavidro.com/assets/lavidro-one.webp",
+              offers: {
+                "@type": "Offer",
+                price: p.price,
+                priceCurrency: "EUR",
+                availability: "https://schema.org/PreOrder",
+                url: "https://lavidro.com/Konfigurator",
+              },
+            },
+          })),
+        }),
+      },
+    ],
   }),
+
   component: ConfiguratorPage,
 });
 

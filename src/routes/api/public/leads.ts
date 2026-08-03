@@ -78,9 +78,6 @@ export const Route = createFileRoute("/api/public/leads")({
         if (!email || !email.includes("@") || body.consent !== true) {
           return Response.json({ error: "Invalid lead" }, { status: 400 });
         }
-        if (requestType === "interview" && !phone) {
-          return Response.json({ error: "Invalid lead" }, { status: 400 });
-        }
 
         const url = process.env.SUPABASE_URL;
         const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
@@ -107,7 +104,26 @@ export const Route = createFileRoute("/api/public/leads")({
           return Response.json({ error: "Could not save lead" }, { status: 500 });
         }
 
+        try {
+          const { enqueueTransactionalEmail } = await import("@/lib/email/enqueue.server");
+          await enqueueTransactionalEmail({
+            templateName: "lead-confirmation",
+            recipientEmail: email,
+            idempotencyKey: `lead-${requestType}-${email}-${new Date().toISOString().slice(0, 10)}`,
+            templateData: {
+              name: name ?? undefined,
+              email,
+              requestType,
+              phone: phone ?? undefined,
+              availability: availability ?? undefined,
+            },
+          });
+        } catch (mailError) {
+          console.error("[leads] Confirmation email failed", mailError);
+        }
+
         return new Response(null, { status: 204 });
+
       },
     },
   },

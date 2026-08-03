@@ -37,6 +37,10 @@
           <img
             class="hero-image"
             src="assets/lavidro-hero.png"
+            width="1920"
+            height="1080"
+            fetchpriority="high"
+            decoding="async"
             alt="Moderne Waschküche mit Lavidro Roboterarm"
           />
           <div class="hero-shade" aria-hidden="true"></div>
@@ -394,12 +398,17 @@
           <form class="waitlist-form reveal" data-form>
             <div class="form-modes" role="group" aria-label="Art der Anfrage">
               <button type="button" class="form-mode is-active" data-mode="termin">
-                Termin vormerken
+                Newsletter anmelden
               </button>
               <button type="button" class="form-mode" data-mode="interview">
-                Interview / Telefonat
+                Teil der Entwicklung werden
               </button>
             </div>
+            <p data-mode-field="interview" hidden style="margin: 0; font-size: 0.9rem; opacity: 0.75">
+              Wir würden dich gerne zu einem unverbindlichen Interview remote oder vor Ort in
+              Paderborn einladen.
+            </p>
+
             <label>
               <span>Name</span>
               <input type="text" name="name" autocomplete="name" placeholder="Ihr Name" />

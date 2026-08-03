@@ -121,7 +121,30 @@ export const Route = createFileRoute("/api/public/preorders")({
           return Response.json({ error: "Could not save preorder" }, { status: 500 });
         }
 
+        try {
+          const { enqueueTransactionalEmail } = await import("@/lib/email/enqueue.server");
+          await enqueueTransactionalEmail({
+            templateName: "preorder-confirmation",
+            recipientEmail: email,
+            idempotencyKey: `preorder-${email}-${solution_id}-${tier}-${payment_type}`,
+            templateData: {
+              name,
+              email,
+              product: solution_name,
+              tier,
+              paymentMode: payment_type === "monthly" ? "Monatliche Zahlung" : "Einmalzahlung",
+              price:
+                payment_type === "monthly" && monthly_eur
+                  ? `${monthly_eur.toLocaleString("de-DE")} € / Monat`
+                  : `${price_eur.toLocaleString("de-DE")} €`,
+            },
+          });
+        } catch (mailError) {
+          console.error("[preorders] Confirmation email failed", mailError);
+        }
+
         return new Response(null, { status: 204 });
+
       },
     },
   },
