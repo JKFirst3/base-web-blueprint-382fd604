@@ -88,12 +88,6 @@ function getCatalogSelection(selection: PreorderSelection): PreorderSelection | 
   return { ...entry, paymentType: selection.paymentType };
 }
 
-const euro = new Intl.NumberFormat("de-DE", {
-  style: "currency",
-  currency: "EUR",
-  maximumFractionDigits: 0,
-});
-
 export const Route = createFileRoute("/Konfigurator")({
   head: () => ({
     meta: [
@@ -261,16 +255,6 @@ function PreorderDialog({
               <span>
                 {selection.family} · {selection.tierLabel}
               </span>
-              <strong>
-                {selection.paymentType === "monthly"
-                  ? `${selection.monthly.toLocaleString("de-DE")} € / Monat`
-                  : euro.format(selection.price)}
-              </strong>
-              <small>
-                {selection.paymentType === "monthly"
-                  ? `36 Monate · Abo mit 8 % Aufschlag · Kaufpreis ${euro.format(selection.price)}`
-                  : "Einmalzahlung"}
-              </small>
             </div>
 
             <PreorderJourney />

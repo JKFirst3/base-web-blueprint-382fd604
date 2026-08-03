@@ -101,9 +101,6 @@
   const description = document.querySelector("[data-product-description]");
   const levelOptions = document.querySelector("[data-level-options]");
   const featureList = document.querySelector("[data-feature-list]");
-  const priceLabel = document.querySelector("[data-price-label]");
-  const price = document.querySelector("[data-price]");
-  const priceNote = document.querySelector("[data-price-note]");
   const form = document.querySelector("[data-config-form]");
   const buyButton = document.querySelector("[data-buy-button]");
   const compareTable = document.querySelector("[data-compare-table]");
@@ -111,7 +108,6 @@
   const openCompareButtons = document.querySelectorAll("[data-open-compare]");
   const closeCompareButton = document.querySelector("[data-close-compare]");
 
-  const formatPrice = (amount) => `${amount.toLocaleString("de-DE")} €`;
   const monthlyRate = (amount) => Math.round((amount / 36) * 1.08);
 
   const selectedFinance = () => new FormData(form).get("finance") || "monthly";
@@ -126,7 +122,6 @@
             <strong>${level.label}</strong>
             <small>${level.note}</small>
           </span>
-          <em>${formatPrice(level.price)}</em>
         </label>
       `,
       )
@@ -148,22 +143,6 @@
       .join("");
   };
 
-  const renderPrice = () => {
-    const level = selectedProduct.levels[selectedLevelKey];
-    const finance = selectedFinance();
-
-    if (finance === "cash") {
-      priceLabel.textContent = "Einmalzahlung";
-      price.textContent = formatPrice(level.price);
-      priceNote.textContent = `${level.label} · ${level.note}`;
-      return;
-    }
-
-    priceLabel.textContent = "Abo pro Monat";
-    price.textContent = `${monthlyRate(level.price).toLocaleString("de-DE")} € / Monat`;
-    priceNote.textContent = `36 Monate · inkl. 8 % Abo-Aufschlag · Kaufpreis ${formatPrice(level.price)}`;
-  };
-
   const renderCompare = () => {
     const comparableProducts = Object.entries(products).filter(
       ([, product]) => product.levels[selectedLevelKey],
@@ -177,7 +156,7 @@
           <img src="${product.image}" alt="${product.title}">
           <p class="kicker">${product.family}</p>
           <h3>${product.title}</h3>
-          <strong>${level.label} · ${formatPrice(level.price)}</strong>
+          <strong>${level.label}</strong>
           <p>${level.note}</p>
           <ul>
             ${product.highlights.map((highlight) => `<li>${highlight}</li>`).join("")}
@@ -198,7 +177,6 @@
     description.textContent = selectedProduct.description;
     renderLevels();
     renderFeatures();
-    renderPrice();
     renderCompare();
   };
 
@@ -208,7 +186,6 @@
       renderFeatures();
       renderCompare();
     }
-    renderPrice();
   });
 
   buyButton?.addEventListener("click", () => {
