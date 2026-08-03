@@ -81,7 +81,6 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-
 function HomePage() {
   useCodexRuntime("/codex-runtime/home.js");
 
@@ -90,7 +89,7 @@ function HomePage() {
     const status = document.querySelector<HTMLElement>("[data-form-status]");
     if (!form || !status) return;
 
-    let mode: "termin" | "interview" = "termin";
+    let mode: "termin" | "interview" = "interview";
     const modeButtons = Array.from(form.querySelectorAll<HTMLButtonElement>("[data-mode]"));
     const modeFields = Array.from(form.querySelectorAll<HTMLElement>("[data-mode-field]"));
 
@@ -166,8 +165,8 @@ function HomePage() {
         applyMode();
         status.textContent =
           mode === "interview"
-            ? "Danke. Wir melden uns telefonisch für das Interview."
-            : "Danke. Wir melden uns, sobald Sie LAVIDRO live erleben können.";
+            ? "Danke. Wir melden uns, um Ihre LAVIDRO-Produktvorstellung abzustimmen."
+            : "Danke. Sie erhalten künftig Neuigkeiten von LAVIDRO.";
         track("live_experience_success");
       } catch (error) {
         console.error("[lead-form] Submission failed", error);
@@ -187,7 +186,6 @@ function HomePage() {
       modeButtons.forEach((b) => b.removeEventListener("click", onModeClick));
     };
   }, []);
-
 
   return <CodexMarkup html={homeHtml} />;
 }

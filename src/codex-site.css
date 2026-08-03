@@ -917,6 +917,10 @@ p {
   background: var(--paper);
 }
 
+[data-partner-block][hidden] {
+  display: none !important;
+}
+
 .about-workplace {
   background: var(--white);
 }
