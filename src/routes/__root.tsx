@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
 import { CookieBanner } from "@/components/site/CookieBanner";
 import { track } from "@/lib/track";
+import { LanguageProvider, LanguageSlot } from "@/lib/i18n";
 
 function NotFoundComponent() {
   return (
@@ -166,10 +167,13 @@ function RootComponent() {
   }, [pathname]);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Outlet />
-      <Toaster />
-      <CookieBanner />
-    </QueryClientProvider>
+    <LanguageProvider>
+      <QueryClientProvider client={queryClient}>
+        <Outlet />
+        <LanguageSlot key={pathname} />
+        <Toaster />
+        <CookieBanner />
+      </QueryClientProvider>
+    </LanguageProvider>
   );
 }

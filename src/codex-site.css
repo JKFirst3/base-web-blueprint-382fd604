@@ -170,6 +170,57 @@ select {
   color: white;
 }
 
+.header-actions {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-actions .nav-cta {
+  justify-self: auto;
+}
+
+.language-switcher {
+  min-width: 42px;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 10px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: currentColor;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.language-switcher:hover {
+  border-color: var(--miele-red);
+  background: var(--miele-red);
+  color: white;
+}
+
+.configurator-image-header [data-language-slot] {
+  flex: 0 0 auto;
+}
+
+.configurator-image-header .language-switcher {
+  min-width: 36px;
+  min-height: 30px;
+  padding: 0 8px;
+  font-size: 0.68rem;
+}
+
 .hero {
   position: relative;
   min-height: 100svh;
@@ -2135,6 +2186,17 @@ details p {
     min-height: 34px;
     padding: 0 9px;
     font-size: 0.72rem;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+
+  .header-actions .language-switcher {
+    min-width: 34px;
+    min-height: 34px;
+    padding: 0 7px;
+    font-size: 0.68rem;
   }
 
   .hero-content {

@@ -1,3 +1,5 @@
+import { LanguageSwitcher } from "@/lib/i18n";
+
 export function Header() {
   return (
     <header className="site-header is-scrolled" data-header>
@@ -15,9 +17,12 @@ export function Header() {
         <a href="/#faq">FAQ</a>
         <a href="/aboutLavidro">Über LAVIDRO</a>
       </nav>
-      <a className="nav-cta" href="/#warteliste">
-        LAVIDRO live erleben
-      </a>
+      <div className="header-actions">
+        <LanguageSwitcher />
+        <a className="nav-cta" href="/#warteliste">
+          LAVIDRO live erleben
+        </a>
+      </div>
     </header>
   );
 }

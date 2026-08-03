@@ -60,7 +60,7 @@ export const Route = createFileRoute("/")({
         rel: "preload",
         as: "image",
         href: "/assets/lavidro-hero.png",
-        fetchpriority: "high",
+        fetchPriority: "high",
       },
     ],
     scripts: [
