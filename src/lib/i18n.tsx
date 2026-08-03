@@ -58,11 +58,17 @@ const english: Record<string, string> = {
   "Textilien werden nach Farbe, Material, Pflegebedarf und Haushaltslogik erkannt.":
     "Textiles are recognised by colour, material, care requirements and household routines.",
   Beladen: "Load",
+  "Be- & Entladen": "Load & unload",
   "Der Roboterarm führt Kleidung präzise in Waschmaschine oder Trockner.":
     "The robotic arm precisely places garments into the washing machine or dryer.",
+  "Der Roboterarm führt Kleidung präzise in und aus Waschmaschine oder Trockner.":
+    "The robotic arm precisely loads and unloads the washing machine or dryer.",
   Entladen: "Unload",
+  Falten: "Fold",
   "Bewegung, Timing und Griffstärke werden auf empfindliche Textilien abgestimmt.":
     "Movement, timing and grip strength are adapted to delicate textiles.",
+  "Bewegung, Timing und Griffstärke werden auf empfindliche Textilien abgestimmt um die Wäsche präzise zu Falten":
+    "Movement, timing and grip strength are adapted to fold laundry precisely while protecting delicate textiles.",
   Bereitstellen: "Make available",
   "Die fertige Wäsche wird geordnet übergeben, damit sie direkt griffbereit ist.":
     "Finished laundry is handed over in order, ready whenever you need it.",
@@ -77,18 +83,19 @@ const english: Record<string, string> = {
   "Schonende Textilpflege": "Gentle textile care",
   "Adaptive Profile schützen empfindliche Kleidung und sorgen für wiederholbare Ergebnisse.":
     "Adaptive profiles protect delicate garments and ensure repeatable results.",
-  "Smart-Home-Funktionen": "Smart-home features",
-  "Routinen, Status und Pflegevorgaben lassen sich perspektivisch digital begleiten.":
-    "Routines, status and care preferences can be supported digitally over time.",
-  "Persönliche Beratung": "Personal consultation",
-  "Die frühe Anmeldung hilft, reale Haushaltsanforderungen in die Entwicklung einzubeziehen.":
-    "An early sign-up helps us incorporate real household requirements into development.",
+  "Spürbare Zeitersparnis": "Noticeable time savings",
+  "Automatisierte Routinen reduzieren wiederkehrende Handgriffe und schaffen Freiraum im Alltag.":
+    "Automated routines reduce repetitive tasks and free up time in everyday life.",
+  "Zuverlässige Abläufe": "Reliable processes",
+  "Sensorik, Timing und abgestimmte Prozesse sorgen bei jedem Durchlauf für konsistente Ergebnisse.":
+    "Sensors, timing and coordinated processes ensure consistent results with every cycle.",
   "Erleben Sie LAVIDRO live.": "Experience LAVIDRO live.",
   "Erhalten Sie Einblicke in die Entwicklung und sichern Sie sich frühen Zugang, sobald Lavidro für erste Haushalte verfügbar wird.":
     "Get insights into our development and secure early access when LAVIDRO becomes available for first households.",
   "Art der Anfrage": "Request type",
   "Newsletter anmelden": "Join newsletter",
-  "Teil der Entwicklung werden": "Help shape development",
+  "Erleben Sie LAVIDRO bei einer unverbindlichen Produktvorstellung digital oder vor Ort in Paderborn.":
+    "Experience LAVIDRO in a non-binding product presentation, digitally or on site in Paderborn.",
   "Wir würden dich gerne zu einem unverbindlichen Interview remote oder vor Ort in Paderborn einladen.":
     "We would like to invite you to a non-binding interview, remotely or in Paderborn.",
   Name: "Name",
@@ -240,10 +247,10 @@ const english: Record<string, string> = {
   "Bitte geben Sie eine gültige E-Mail-Adresse ein.": "Please enter a valid email address.",
   "Bitte stimmen Sie der Zusendung von Updates zu.": "Please agree to receive updates.",
   "Wird eingetragen …": "Signing up...",
-  "Danke. Wir melden uns telefonisch für das Interview.":
-    "Thank you. We will contact you by phone for the interview.",
-  "Danke. Wir melden uns, sobald Sie LAVIDRO live erleben können.":
-    "Thank you. We will be in touch when you can experience LAVIDRO live.",
+  "Danke. Wir melden uns, um Ihre LAVIDRO-Produktvorstellung abzustimmen.":
+    "Thank you. We will contact you to arrange your LAVIDRO product presentation.",
+  "Danke. Sie erhalten künftig Neuigkeiten von LAVIDRO.":
+    "Thank you. You will now receive news from LAVIDRO.",
   "Die Eintragung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.":
     "Your sign-up could not be saved. Please try again.",
   "Schreib uns": "Write to us",
