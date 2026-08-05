@@ -203,7 +203,7 @@
       return;
     }
 
-    formStatus.textContent = "Danke. Wir melden uns, sobald Sie LAVIDRO live erleben können.";
+    formStatus.textContent = "Danke. Wir melden uns, sobald Sie Lavidro live erleben können.";
     form.reset();
   });
 

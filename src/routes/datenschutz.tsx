@@ -6,9 +6,9 @@ export const Route = createFileRoute("/datenschutz")({
   head: () => ({
     meta: [
       { title: "Datenschutz — Lavidro" },
-      { name: "description", content: "Datenschutzerklärung von LAVIDRO: Welche Daten wir bei Anfragen, Vorbestellungen und der Nutzungsanalyse verarbeiten und welche Rechte du hast." },
+      { name: "description", content: "Datenschutzerklärung von Lavidro: Welche Daten wir bei Anfragen, Vorbestellungen und der Nutzungsanalyse verarbeiten und welche Rechte du hast." },
       { property: "og:title", content: "Datenschutz — Lavidro" },
-      { property: "og:description", content: "Datenschutzerklärung von LAVIDRO: Welche Daten wir bei Anfragen, Vorbestellungen und der Nutzungsanalyse verarbeiten und welche Rechte du hast." },
+      { property: "og:description", content: "Datenschutzerklärung von Lavidro: Welche Daten wir bei Anfragen, Vorbestellungen und der Nutzungsanalyse verarbeiten und welche Rechte du hast." },
       { property: "og:url", content: "https://lavidro.com/datenschutz" },
     ],
     links: [{ rel: "canonical", href: "https://lavidro.com/datenschutz" }],
@@ -360,10 +360,10 @@ function DatenschutzPage() {
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">
-            Anmeldung zu „LAVIDRO live erleben“
+            Anmeldung zu „Lavidro live erleben“
           </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
-            Wenn Sie sich für „LAVIDRO live erleben“ anmelden, verarbeiten wir folgende Daten:
+            Wenn Sie sich für „Lavidro live erleben“ anmelden, verarbeiten wir folgende Daten:
           </p>
           <ul className="mt-3 list-disc pl-6 text-foreground/80 leading-relaxed space-y-1">
             <li>Name (optional)</li>
@@ -407,7 +407,7 @@ function DatenschutzPage() {
           </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
             Für die Speicherung und Verarbeitung der über die Website erfassten Daten (z. B.
-            Anmeldungen zu „LAVIDRO live erleben“) nutzen wir „Lovable Cloud“. Anbieter ist die
+            Anmeldungen zu „Lavidro live erleben“) nutzen wir „Lovable Cloud“. Anbieter ist die
             Lovable Labs AB, Regeringsgatan 25, 111 53 Stockholm, Schweden. Lovable Cloud stellt uns
             eine verwaltete Datenbank-Infrastruktur bereit. Im Hintergrund nutzt Lovable für diese
             Dienste den Infrastruktur-Anbieter Supabase, Inc. (Palo Alto, USA) als

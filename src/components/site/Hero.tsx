@@ -75,7 +75,7 @@ export function Hero() {
             onClick={scrollToWaitlist}
             className="rounded-full bg-white px-6 py-3 text-[13px] font-medium text-[#050505] transition hover:bg-white/90"
           >
-            LAVIDRO live erleben
+            Lavidro live erleben
           </button>
           <a
             href="#system"

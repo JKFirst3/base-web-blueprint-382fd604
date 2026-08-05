@@ -5,10 +5,10 @@ export const Route = createFileRoute("/unsubscribe")({
   component: UnsubscribePage,
   head: () => ({
     meta: [
-      { title: "Newsletter abmelden – LAVIDRO" },
-      { name: "description", content: "Melde dich von E-Mails von LAVIDRO ab." },
-      { property: "og:title", content: "Newsletter abmelden – LAVIDRO" },
-      { property: "og:description", content: "Melde dich von E-Mails von LAVIDRO ab." },
+      { title: "Newsletter abmelden – Lavidro" },
+      { name: "description", content: "Melde dich von E-Mails von Lavidro ab." },
+      { property: "og:title", content: "Newsletter abmelden – Lavidro" },
+      { property: "og:description", content: "Melde dich von E-Mails von Lavidro ab." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
@@ -68,7 +68,7 @@ function UnsubscribePage() {
         {state === "valid" && (
           <>
             <p className="mt-4 text-muted-foreground">
-              Möchtest du keine E-Mails mehr von LAVIDRO erhalten?
+              Möchtest du keine E-Mails mehr von Lavidro erhalten?
             </p>
             <button
               type="button"

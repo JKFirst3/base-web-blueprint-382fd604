@@ -78,7 +78,7 @@ export function ProcessPath() {
         <div className="mx-auto grid w-full max-w-7xl gap-8 px-5 sm:px-8 md:grid-cols-12">
           <div className="md:col-span-4">
             <p className="font-display text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
-              Module für LAVIDRO
+              Module für Lavidro
             </p>
             <h2 className="mt-4 font-display text-2xl font-semibold leading-tight tracking-tight sm:text-3xl md:text-4xl">
               Ein System. Vier Schritte. Ein Versprechen: freie Zeit.

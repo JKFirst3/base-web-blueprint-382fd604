@@ -8,7 +8,7 @@ export function Footer() {
         <span>© 2026 Lavidro. Alle Rechte vorbehalten.</span>
       </span>
       <div>
-        <a href="/aboutLavidro">Über LAVIDRO</a>
+        <a href="/aboutLavidro">Über Lavidro</a>
         <a href="/impressum">Impressum</a>
         <a href="/datenschutz">Datenschutz</a>
         <a href="/kontakt">Kontakt</a>

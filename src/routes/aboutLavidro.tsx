@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import aboutHtml from "@/content/about.html?raw";
 import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
 
-const TITLE = "Über LAVIDRO — Gründer, Mission und Partner";
+const TITLE = "Über Lavidro — Gründer, Mission und Partner";
 const DESCRIPTION =
-  "Lernen Sie die Gründer, die gemeinsame Mission und die Partner hinter LAVIDRO kennen.";
+  "Lernen Sie die Gründer, die gemeinsame Mission und die Partner hinter Lavidro kennen.";
 
 export const Route = createFileRoute("/aboutLavidro")({
   head: () => ({

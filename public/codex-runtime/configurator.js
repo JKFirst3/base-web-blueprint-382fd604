@@ -10,7 +10,7 @@
 
   const products = {
     mobile: {
-      title: "LAVIDRO Mobile",
+      title: "Lavidro Mobile",
       family: "Mobiler Wäscheassistent",
       description:
         "Ein mobiler Roboterarm auf fahrbarer Basis für automatisierte Wäschepflege. Er wird flexibel im Hauswirtschaftsraum positioniert und verbindet die Stationen des Wäschealltags.",
@@ -62,7 +62,7 @@
       },
     },
     humanoid: {
-      title: "LAVIDRO One",
+      title: "Lavidro One",
       family: "Humanoider Wäschroboter",
       description:
         "Die umfassende Lösung für die vollständige Wäscheorganisation – vom Erkennen über die Pflege bis zum Bereitstellen der Kleidung.",

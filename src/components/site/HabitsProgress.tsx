@@ -54,7 +54,7 @@ export function HabitsProgress() {
             und qualitätssicher übernimmt, damit Wäsche erledigt ist, bevor du dran denkst.
           </p>
           <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-foreground/70">
-            Individuelle Routinen, Ablageorte, Sortierlogik und Ausbaustufen – LAVIDRO passt sich an
+            Individuelle Routinen, Ablageorte, Sortierlogik und Ausbaustufen – Lavidro passt sich an
             dein Zuhause an, nicht umgekehrt.
           </p>
         </div>

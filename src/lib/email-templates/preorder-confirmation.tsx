@@ -40,7 +40,7 @@ const Row = ({ title, content }: { title: string; content?: string }) =>
 const Email = ({ name, email, product, tier, paymentMode, price }: Props) => (
   <Html lang="de" dir="ltr">
     <Head />
-    <Preview>Deine Vorbestellung bei LAVIDRO ist eingegangen</Preview>
+    <Preview>Deine Vorbestellung bei Lavidro ist eingegangen</Preview>
     <Body style={main}>
       <Container style={container}>
         <Heading style={heading}>Deine Vorbestellung ist eingegangen</Heading>
@@ -61,7 +61,7 @@ const Email = ({ name, email, product, tier, paymentMode, price }: Props) => (
         <Text style={paragraph}>
           Diese Vorbestellung ist unverbindlich — es entstehen dir aktuell keine Kosten.
         </Text>
-        <Text style={{ ...paragraph, color: '#6b6b6b' }}>Dein LAVIDRO Team</Text>
+        <Text style={{ ...paragraph, color: '#6b6b6b' }}>Dein Lavidro Team</Text>
       </Container>
     </Body>
   </Html>
@@ -69,7 +69,7 @@ const Email = ({ name, email, product, tier, paymentMode, price }: Props) => (
 
 export const template = {
   component: Email,
-  subject: 'Deine Vorbestellung bei LAVIDRO',
+  subject: 'Deine Vorbestellung bei Lavidro',
   displayName: 'Vorbestellungs-Bestätigung',
   previewData: {
     name: 'Max Muster',

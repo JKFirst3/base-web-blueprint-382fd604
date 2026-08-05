@@ -278,7 +278,7 @@ export const Route = createFileRoute("/lovable/email/transactional/send")({
           payload: {
             message_id: messageId,
             to: effectiveRecipient,
-            from: `LAVIDRO <hallo@${FROM_DOMAIN}>`,
+            from: `Lavidro <hallo@${FROM_DOMAIN}>`,
             sender_domain: SENDER_DOMAIN,
             subject: resolvedSubject,
             html,
