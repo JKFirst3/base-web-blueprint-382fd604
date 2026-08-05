@@ -13,21 +13,21 @@ type Product = {
 const PRODUCTS: Product[] = [
   {
     id: "mobile",
-    brand: "LAVIDRO Mobile",
+    brand: "Lavidro Mobile",
     name: "Mobiler Wäscheassistent",
     category: "Serie · Mobile",
     image: "/assets/lavidro-portrait.png",
   },
   {
     id: "cabinet",
-    brand: "LAVIDRO Cabinet",
+    brand: "Lavidro Cabinet",
     name: "Integrierter Wäscheschrank",
     category: "Serie · Cabinet",
     image: "/assets/lavidro-cabinet.webp",
   },
   {
     id: "humanoid",
-    brand: "LAVIDRO One",
+    brand: "Lavidro One",
     name: "Humanoider Wäschroboter",
     category: "Serie · One",
     image: "/assets/lavidro-one.webp",
@@ -47,7 +47,7 @@ export function ProductWorld() {
         <div className="grid gap-8 md:grid-cols-12 md:items-end">
           <div className="md:col-span-4">
             <p className="font-display text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
-              LAVIDRO Produktwelt
+              Lavidro Produktwelt
             </p>
           </div>
           <div className="md:col-span-8">

@@ -4,40 +4,40 @@ import { track } from "@/lib/track";
 
 const ITEMS: { q: string; a: string }[] = [
   {
-    q: "Welche Aufgaben übernimmt LAVIDRO?",
-    a: "LAVIDRO übernimmt je nach Ausbaustufe das Sortieren, das Umladen zwischen Waschmaschine und Trockner, das Falten sowie das Bereitstellen bzw. Einsortieren der Wäsche.",
+    q: "Welche Aufgaben übernimmt Lavidro?",
+    a: "Lavidro übernimmt je nach Ausbaustufe das Sortieren, das Umladen zwischen Waschmaschine und Trockner, das Falten sowie das Bereitstellen bzw. Einsortieren der Wäsche.",
   },
   {
     q: "Welche der drei Produktlösungen passt zu welchem Haushalt?",
-    a: "LAVIDRO Mobile ist ein mobiler Roboterarm auf fahrbarer Basis. LAVIDRO Cabinet integriert sich diskret in einen geplanten Wäscheschrank. LAVIDRO One ist die humanoide Gesamtlösung.",
+    a: "Lavidro Mobile ist ein mobiler Roboterarm auf fahrbarer Basis. Lavidro Cabinet integriert sich diskret in einen geplanten Wäscheschrank. Lavidro One ist die humanoide Gesamtlösung.",
   },
   {
-    q: "Ist LAVIDRO für private Haushalte vorgesehen?",
-    a: "Ja. LAVIDRO ist als System für den privaten Haushalt konzipiert und integriert sich in bestehende Hauswirtschaftsräume.",
+    q: "Ist Lavidro für private Haushalte vorgesehen?",
+    a: "Ja. Lavidro ist als System für den privaten Haushalt konzipiert und integriert sich in bestehende Hauswirtschaftsräume.",
   },
   {
-    q: "Wann wird LAVIDRO verfügbar?",
+    q: "Wann wird Lavidro verfügbar?",
     a: "Die Lösungen befinden sich aktuell in der Entwicklung. Über eine Vorbestellung erhältst du exklusive Einblicke, bevor sie verfügbar sind.",
   },
   {
-    q: "Benötigt LAVIDRO spezielle Waschmaschinen oder Trockner?",
-    a: "LAVIDRO arbeitet mit gängigen Geräten zusammen. Details zu unterstützten Modellen klären wir in der persönlichen Produktvorstellung.",
+    q: "Benötigt Lavidro spezielle Waschmaschinen oder Trockner?",
+    a: "Lavidro arbeitet mit gängigen Geräten zusammen. Details zu unterstützten Modellen klären wir in der persönlichen Produktvorstellung.",
   },
   {
     q: "Wie sicher ist das System im Haushalt?",
     a: "Sensorik, Bewegungssteuerung und definierte Arbeitsbereiche sind auf sicheren Betrieb im Haushalt ausgelegt. Konkrete Zertifikate folgen mit der Marktreife.",
   },
   {
-    q: "Wie behandelt LAVIDRO empfindliche Textilien?",
+    q: "Wie behandelt Lavidro empfindliche Textilien?",
     a: "Griffkraft, Timing und Programme sind auf empfindliche Textilien abgestimmt, damit Pflegemuster qualitätssicher wiederholbar bleiben.",
   },
   {
-    q: "Kann LAVIDRO nachgerüstet werden?",
-    a: "LAVIDRO Mobile ist für eine flexible Positionierung im bestehenden Hauswirtschaftsraum ausgelegt. LAVIDRO Cabinet und One erfordern eine individuelle Planung.",
+    q: "Kann Lavidro nachgerüstet werden?",
+    a: "Lavidro Mobile ist für eine flexible Positionierung im bestehenden Hauswirtschaftsraum ausgelegt. Lavidro Cabinet und One erfordern eine individuelle Planung.",
   },
   {
     q: "Welche Umbauten sind erforderlich?",
-    a: "LAVIDRO Mobile benötigt eine geeignete Stellfläche. Für LAVIDRO Cabinet planen wir die Integration in einen Wandschrank – je nach Variante ab etwa 3 m² beziehungsweise 5 m² Fläche. LAVIDRO One benötigt eine passende Fläche im Hauswirtschaftsraum.",
+    a: "Lavidro Mobile benötigt eine geeignete Stellfläche. Für Lavidro Cabinet planen wir die Integration in einen Wandschrank – je nach Variante ab etwa 3 m² beziehungsweise 5 m² Fläche. Lavidro One benötigt eine passende Fläche im Hauswirtschaftsraum.",
   },
   {
     q: "Welche Wartung benötigt das System?",
@@ -49,7 +49,7 @@ const ITEMS: { q: string; a: string }[] = [
   },
   {
     q: "Wie kann eine Produktvorstellung vereinbart werden?",
-    a: "Über den Bereich „LAVIDRO live erleben“ – digital oder im Showroom in Paderborn.",
+    a: "Über den Bereich „Lavidro live erleben“ – digital oder im Showroom in Paderborn.",
   },
 ];
 

@@ -4,7 +4,7 @@ const features = [
   {
     icon: Sparkles,
     title: "Vollständig Autonom",
-    body: "Mit LAVIDRO wird deine Wäsche vom Sortieren bis zur gefalteten Kleidung automatisch erledigt.",
+    body: "Mit Lavidro wird deine Wäsche vom Sortieren bis zur gefalteten Kleidung automatisch erledigt.",
   },
   {
     icon: ShieldCheck,
@@ -18,7 +18,7 @@ export function Features() {
     <section id="features" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28 lg:px-8">
       <div className="mb-12 max-w-4xl">
         <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-          Warum LAVIDRO?
+          Warum Lavidro?
         </p>
         <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
           Automatisierte Wäschepflege, die deinen Alltag spürbar entlastet.

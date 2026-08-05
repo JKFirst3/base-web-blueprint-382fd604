@@ -7,8 +7,8 @@ export type Locale = "de" | "en";
 const STORAGE_KEY = "lavidro-locale";
 
 const english: Record<string, string> = {
-  "LAVIDRO live erleben": "Experience LAVIDRO live",
-  "Über LAVIDRO": "About LAVIDRO",
+  "Lavidro live erleben": "Experience Lavidro live",
+  "Über Lavidro": "About Lavidro",
   Produkte: "Products",
   Qualität: "Quality",
   Entdecken: "Discover",
@@ -20,12 +20,12 @@ const english: Record<string, string> = {
     "The first system where robotics does not look like a laboratory, but like part of the home.",
   "Interior Designerin": "Interior designer",
   "Wenn Lavidro Sortieren und Bereitstellen wirklich übernimmt, ist das für Familien ein echter Zeitgewinn.":
-    "If LAVIDRO really takes over sorting and making laundry available, it gives families back valuable time.",
+    "If Lavidro really takes over sorting and making laundry available, it gives families back valuable time.",
   "Smart-Home-Berater": "Smart home consultant",
   "Die Idee fühlt sich an wie der nächste logische Schritt nach Waschmaschine und Trockner.":
     "The idea feels like the next logical step after the washing machine and dryer.",
   Pilotkundin: "Pilot customer",
-  "Lavidro Produktwelt": "The LAVIDRO product range",
+  "Lavidro Produktwelt": "The Lavidro product range",
   "Drei Systeme für einen vollständig autonomen Wäschealltag.":
     "Three systems for a fully autonomous laundry routine.",
   "Mobiler Wäscheassistent": "Mobile laundry assistant",
@@ -45,13 +45,13 @@ const english: Record<string, string> = {
   "Individuelle Konfiguration": "Individual configuration",
   "Wäschepflege ganz nach Ihren Gewohnheiten.": "Laundry care tailored to your habits.",
   "Lavidro lernt, wie Ihr Haushalt Wäsche organisiert: welche Textilien besondere Pflege brauchen, welche Ablageorte wichtig sind und welche Routinen automatisch ablaufen sollen.":
-    "LAVIDRO learns how your household organises laundry: which textiles need special care, which storage locations matter and which routines should run automatically.",
-  "Zeitersparnis durch Lavidro": "Time savings with LAVIDRO",
+    "Lavidro learns how your household organises laundry: which textiles need special care, which storage locations matter and which routines should run automatically.",
+  "Zeitersparnis durch Lavidro": "Time savings with Lavidro",
   Automatisierungspotenzial: "Automation potential",
   "Bis zu": "Up to",
   "weniger Zeitaufwand": "less time spent",
   "Details anzeigen": "View details",
-  "Module für Lavidro": "LAVIDRO modules",
+  "Module für Lavidro": "Lavidro modules",
   "Ein System. Vier Schritte. Ein Versprechen: freie Zeit.":
     "One system. Four steps. One promise: more free time.",
   Sortieren: "Sort",
@@ -74,8 +74,8 @@ const english: Record<string, string> = {
     "Finished laundry is handed over in order, ready whenever you need it.",
   "Autonomie, die im Hintergrund arbeitet.": "Autonomy that works in the background.",
   "Lavidro verbindet mechanische Präzision mit intelligenten Pflegeentscheidungen. So wird aus einer wiederkehrenden Aufgabe ein ruhiger, automatisierter Ablauf.":
-    "LAVIDRO combines mechanical precision with intelligent care decisions. A recurring chore becomes a calm, automated process.",
-  "Einmal Lavidro, immer Lavidro": "Once LAVIDRO, always LAVIDRO",
+    "Lavidro combines mechanical precision with intelligent care decisions. A recurring chore becomes a calm, automated process.",
+  "Einmal Lavidro, immer Lavidro": "Once Lavidro, always Lavidro",
   "Gute Gründe für ein autonomes Wäschesystem.": "Good reasons for an autonomous laundry system.",
   "Herausragende Innovation": "Outstanding innovation",
   "Robotik, Sensorik und Software arbeiten als ein geschlossenes Pflegesystem.":
@@ -89,19 +89,19 @@ const english: Record<string, string> = {
   "Zuverlässige Abläufe": "Reliable processes",
   "Sensorik, Timing und abgestimmte Prozesse sorgen bei jedem Durchlauf für konsistente Ergebnisse.":
     "Sensors, timing and coordinated processes ensure consistent results with every cycle.",
-  "Erleben Sie LAVIDRO live.": "Experience LAVIDRO live.",
+  "Erleben Sie Lavidro live.": "Experience Lavidro live.",
   "Erhalten Sie Einblicke in die Entwicklung und sichern Sie sich frühen Zugang, sobald Lavidro für erste Haushalte verfügbar wird.":
-    "Get insights into our development and secure early access when LAVIDRO becomes available for first households.",
+    "Get insights into our development and secure early access when Lavidro becomes available for first households.",
   "Art der Anfrage": "Request type",
   "Newsletter anmelden": "Join newsletter",
-  "Erleben Sie LAVIDRO bei einer unverbindlichen Produktvorstellung digital oder vor Ort in Paderborn.":
-    "Experience LAVIDRO in a non-binding product presentation, digitally or on site in Paderborn.",
+  "Erleben Sie Lavidro bei einer unverbindlichen Produktvorstellung digital oder vor Ort in Paderborn.":
+    "Experience Lavidro in a non-binding product presentation, digitally or on site in Paderborn.",
   "Wir würden dich gerne zu einem unverbindlichen Interview remote oder vor Ort in Paderborn einladen.":
     "We would like to invite you to a non-binding interview, remotely or in Paderborn.",
   Name: "Name",
   "Ihr Name": "Your name",
   "E-Mail-Adresse": "Email address",
-  "Was soll Lavidro zuerst für Sie übernehmen?": "What should LAVIDRO take over first?",
+  "Was soll Lavidro zuerst für Sie übernehmen?": "What should Lavidro take over first?",
   "Bitte auswählen": "Please select",
   "Waschen und Trocknen": "Wash and dry",
   Zusammenlegen: "Fold laundry",
@@ -110,30 +110,30 @@ const english: Record<string, string> = {
   "Wann passt es Ihnen zeitlich am besten?": "What time works best for you?",
   "z. B. werktags ab 18 Uhr oder samstags vormittags":
     "e.g. weekdays after 6 pm or Saturday mornings",
-  "Ich stimme zu, Updates von Lavidro zu erhalten.": "I agree to receive updates from LAVIDRO.",
+  "Ich stimme zu, Updates von Lavidro zu erhalten.": "I agree to receive updates from Lavidro.",
   "Jetzt eintragen": "Sign up now",
   "Häufig gestellte Fragen": "Frequently asked questions",
-  "Welche Aufgaben übernimmt Lavidro?": "What tasks does LAVIDRO take over?",
+  "Welche Aufgaben übernimmt Lavidro?": "What tasks does Lavidro take over?",
   "Lavidro ist als System für Sortieren, Beladen, Entladen und Bereitstellen von Wäsche gedacht.":
-    "LAVIDRO is designed as a system for sorting, loading, unloading and making laundry available.",
-  "Ist Lavidro für private Haushalte vorgesehen?": "Is LAVIDRO designed for private households?",
+    "Lavidro is designed as a system for sorting, loading, unloading and making laundry available.",
+  "Ist Lavidro für private Haushalte vorgesehen?": "Is Lavidro designed for private households?",
   "Ja. Die Bildsprache und Systemidee zielen auf hochwertige Hauswirtschaftsräume in privaten Haushalten.":
     "Yes. The concept is aimed at premium utility rooms in private households.",
-  "Wann wird Lavidro verfügbar?": "When will LAVIDRO be available?",
-  "Mit Ihrer Anmeldung erfahren Sie zuerst von Entwicklungsfortschritten, Pilotphasen und Möglichkeiten, LAVIDRO live zu erleben.":
-    "By signing up, you will be among the first to hear about development progress, pilot phases and opportunities to experience LAVIDRO live.",
+  "Wann wird Lavidro verfügbar?": "When will Lavidro be available?",
+  "Mit Ihrer Anmeldung erfahren Sie zuerst von Entwicklungsfortschritten, Pilotphasen und Möglichkeiten, Lavidro live zu erleben.":
+    "By signing up, you will be among the first to hear about development progress, pilot phases and opportunities to experience Lavidro live.",
   "Benötigt Lavidro spezielle Waschmaschinen oder Trockner?":
-    "Does LAVIDRO require special washing machines or dryers?",
+    "Does Lavidro require special washing machines or dryers?",
   "Das System ist für die Zusammenarbeit mit vielen gängigen Frontladern geplant. Die konkrete Kompatibilität wird vor der Installation geprüft.":
     "The system is planned to work with many common front-loading appliances. Specific compatibility is checked before installation.",
   "Wie sicher ist das System im Haushalt?": "How safe is the system at home?",
   "Sensoren überwachen Arbeitsbereich, Bewegung und Kontakt. Bei einer unerwarteten Situation stoppt das System automatisch.":
     "Sensors monitor the work area, movement and contact. The system stops automatically in an unexpected situation.",
-  "Wie behandelt Lavidro empfindliche Textilien?": "How does LAVIDRO handle delicate textiles?",
+  "Wie behandelt Lavidro empfindliche Textilien?": "How does Lavidro handle delicate textiles?",
   "Pflegeprofile berücksichtigen Material, Griffstärke und Bewegungsablauf, damit sensible Kleidungsstücke besonders schonend gehandhabt werden.":
     "Care profiles consider material, grip strength and movement so delicate garments are handled especially gently.",
   "Kann Lavidro in einem bestehenden Hauswirtschaftsraum nachgerüstet werden?":
-    "Can LAVIDRO be retrofitted into an existing utility room?",
+    "Can Lavidro be retrofitted into an existing utility room?",
   "Eine Nachrüstung ist grundsätzlich vorgesehen. Platz, Anschlüsse und Bewegungsbereich werden vorab individuell geprüft.":
     "Retrofitting is generally planned. Space, connections and the movement area are assessed individually in advance.",
   "Welche Wartung ist erforderlich?": "What maintenance is required?",
@@ -146,13 +146,13 @@ const english: Record<string, string> = {
   Kontakt: "Contact",
   "Cookie-Einstellungen": "Cookie settings",
   "Über uns": "About us",
-  "Das Team von LAVIDRO": "The LAVIDRO team",
+  "Das Team von Lavidro": "The Lavidro team",
   "Gemeinsam für automatisierte Wäschepflege.": "Together for automated laundry care.",
-  "Das Team hinter LAVIDRO": "The team behind LAVIDRO",
+  "Das Team hinter Lavidro": "The team behind Lavidro",
   "Drei Gründer. Eine gemeinsame Mission.": "Three founders. One shared mission.",
   Gründer: "Founder",
-  "Das Team von LAVIDRO entwickelt das erste System, das den vollständigen Wäscheprozess nach Ihren Gewohnheiten autonom und qualitätssicher übernimmt.":
-    "The LAVIDRO team is developing the first system that autonomously and reliably handles the complete laundry process according to your habits.",
+  "Das Team von Lavidro entwickelt das erste System, das den vollständigen Wäscheprozess nach Ihren Gewohnheiten autonom und qualitätssicher übernimmt.":
+    "The Lavidro team is developing the first system that autonomously and reliably handles the complete laundry process according to your habits.",
   "Unser Arbeitsplatz": "Our workplace",
   "Garage33, Gründungszentrum der Universität Paderborn.":
     "Garage33, the University of Paderborn's start-up centre.",
@@ -160,15 +160,15 @@ const english: Record<string, string> = {
   "Raum für Entwicklung und Austausch": "Space for development and exchange",
   "Garage33, Universität Paderborn": "Garage33, University of Paderborn",
   "Unsere Partner": "Our partners",
-  "Gemeinsam bringen wir LAVIDRO voran.": "Together, we move LAVIDRO forward.",
+  "Gemeinsam bringen wir Lavidro voran.": "Together, we move Lavidro forward.",
   Industriepartner: "Industry partner",
   Forschungspartner: "Research partner",
   Gründungspartner: "Founding partner",
   Produktvorschau: "Product preview",
   "Zurück zu den Produkten": "Back to products",
-  "LAVIDRO Mobile konfigurieren": "Configure LAVIDRO Mobile",
+  "Lavidro Mobile konfigurieren": "Configure Lavidro Mobile",
   "Lavidro Cabinet konfigurieren": "Configure Lavidro Cabinet",
-  "LAVIDRO One konfigurieren": "Configure LAVIDRO One",
+  "Lavidro One konfigurieren": "Configure Lavidro One",
   konfigurieren: "configure",
   Konfigurieren: "Configure",
   Variante: "Variant",
@@ -176,7 +176,7 @@ const english: Record<string, string> = {
   Vorbestellen: "Pre-order",
   Vergleichen: "Compare",
   Vergleich: "Comparison",
-  "Welche Lavidro Lösung passt zu Ihnen?": "Which LAVIDRO solution is right for you?",
+  "Welche Lavidro Lösung passt zu Ihnen?": "Which Lavidro solution is right for you?",
   "Vergleich schließen": "Close comparison",
   "Wäsche im Haus einsammeln": "Collect laundry in the home",
   "Wäsche sortieren": "Sort laundry",
@@ -214,8 +214,8 @@ const english: Record<string, string> = {
   "Vorbestellung eingegangen": "Pre-order received",
   "Heute ist Ihre Vorbestellung bei uns eingegangen.": "We have received your pre-order today.",
   "Vorbestellung bestätigt": "Pre-order confirmed",
-  "Wir begleiten Sie transparent auf dem Weg zu Ihrem LAVIDRO System.":
-    "We will guide you transparently on the way to your LAVIDRO system.",
+  "Wir begleiten Sie transparent auf dem Weg zu Ihrem Lavidro System.":
+    "We will guide you transparently on the way to your Lavidro system.",
   Schließen: "Close",
   vormerken: "reserve",
   "Vorbestellung absenden": "Submit pre-order",
@@ -230,8 +230,8 @@ const english: Record<string, string> = {
   "Sie erhalten ein konkretes Update zum voraussichtlichen Liefertermin.":
     "You will receive a specific update on the expected delivery date.",
   "Wir verwenden Cookies": "We use cookies",
-  "Notwendige Cookies sorgen dafür, dass diese Website zuverlässig funktioniert. Mit Ihrer Zustimmung verwenden wir außerdem First-Party-Analytics, um zu verstehen, welche LAVIDRO-Produkte und Konfigurationen besonders relevant sind.":
-    "Necessary cookies ensure that this website works reliably. With your consent, we also use first-party analytics to understand which LAVIDRO products and configurations are most relevant.",
+  "Notwendige Cookies sorgen dafür, dass diese Website zuverlässig funktioniert. Mit Ihrer Zustimmung verwenden wir außerdem First-Party-Analytics, um zu verstehen, welche Lavidro-Produkte und Konfigurationen besonders relevant sind.":
+    "Necessary cookies ensure that this website works reliably. With your consent, we also use first-party analytics to understand which Lavidro products and configurations are most relevant.",
   Einstellungen: "Settings",
   "Nur notwendige": "Necessary only",
   "Alle akzeptieren": "Accept all",
@@ -247,10 +247,10 @@ const english: Record<string, string> = {
   "Bitte geben Sie eine gültige E-Mail-Adresse ein.": "Please enter a valid email address.",
   "Bitte stimmen Sie der Zusendung von Updates zu.": "Please agree to receive updates.",
   "Wird eingetragen …": "Signing up...",
-  "Danke. Wir melden uns, um Ihre LAVIDRO-Produktvorstellung abzustimmen.":
-    "Thank you. We will contact you to arrange your LAVIDRO product presentation.",
-  "Danke. Sie erhalten künftig Neuigkeiten von LAVIDRO.":
-    "Thank you. You will now receive news from LAVIDRO.",
+  "Danke. Wir melden uns, um Ihre Lavidro-Produktvorstellung abzustimmen.":
+    "Thank you. We will contact you to arrange your Lavidro product presentation.",
+  "Danke. Sie erhalten künftig Neuigkeiten von Lavidro.":
+    "Thank you. You will now receive news from Lavidro.",
   "Die Eintragung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.":
     "Your sign-up could not be saved. Please try again.",
   "Schreib uns": "Write to us",
@@ -267,28 +267,28 @@ const english: Record<string, string> = {
   "Die gesuchte Seite existiert nicht oder wurde verschoben.":
     "The page you requested does not exist or has been moved.",
   "Zur Startseite": "Back to home",
-  "Lavidro Startseite": "LAVIDRO home",
+  "Lavidro Startseite": "Lavidro home",
   Hauptnavigation: "Main navigation",
-  "Lavidro Produkte entdecken": "Discover LAVIDRO products",
-  "Stimmen zu Lavidro": "Voices on LAVIDRO",
-  "Lavidro Vorteile": "LAVIDRO benefits",
-  "LAVIDRO Mobile anzeigen": "View LAVIDRO Mobile",
+  "Lavidro Produkte entdecken": "Discover Lavidro products",
+  "Stimmen zu Lavidro": "Voices on Lavidro",
+  "Lavidro Vorteile": "Lavidro benefits",
+  "Lavidro Mobile anzeigen": "View Lavidro Mobile",
   "Lavidro Cabinet anzeigen": "View Lavidro Cabinet",
-  "LAVIDRO One anzeigen": "View LAVIDRO One",
-  "LAVIDRO Mobile als Roboterarm auf fahrbarer Basis":
-    "LAVIDRO Mobile as a robotic arm on a mobile base",
+  "Lavidro One anzeigen": "View Lavidro One",
+  "Lavidro Mobile als Roboterarm auf fahrbarer Basis":
+    "Lavidro Mobile as a robotic arm on a mobile base",
   "Integrierter Lavidro Wäscheschrank im Hauswirtschaftsraum":
-    "Integrated LAVIDRO laundry cabinet in a utility room",
-  "Humanoider LAVIDRO Roboter im Hauswirtschaftsraum": "Humanoid LAVIDRO robot in a utility room",
-  "Lavidro System in einer wohnlichen Waschküche": "LAVIDRO system in a homely laundry room",
+    "Integrated Lavidro laundry cabinet in a utility room",
+  "Humanoider Lavidro Roboter im Hauswirtschaftsraum": "Humanoid Lavidro robot in a utility room",
+  "Lavidro System in einer wohnlichen Waschküche": "Lavidro system in a homely laundry room",
   "Roboterarm bei der sorgfältigen Wäschepflege": "Robotic arm performing careful laundry care",
   "Roboterarm beim Beladen einer Waschmaschine": "Robotic arm loading a washing machine",
-  "Lavidro Roboterarm im Einsatz": "LAVIDRO robotic arm in action",
+  "Lavidro Roboterarm im Einsatz": "Lavidro robotic arm in action",
   "Garage33 Start-up Campus in Paderborn": "Garage33 start-up campus in Paderborn",
   "Außenansicht des Garage33 Start-up Campus": "Exterior view of the Garage33 start-up campus",
   "Innenbereich der Garage33": "Inside Garage33",
   "Garage33 Start-up Campus OWL Schild": "Garage33 start-up campus OWL sign",
-  "LAVIDRO Produktvorschau": "LAVIDRO product preview",
+  "Lavidro Produktvorschau": "Lavidro product preview",
   Konfiguration: "Configuration",
 };
 

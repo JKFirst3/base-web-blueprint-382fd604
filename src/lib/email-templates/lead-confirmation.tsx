@@ -43,10 +43,10 @@ const Email = ({ name, email, requestType, phone, availability }: Props) => {
   return (
     <Html lang="de" dir="ltr">
       <Head />
-      <Preview>Deine Anfrage bei LAVIDRO ist eingegangen</Preview>
+      <Preview>Deine Anfrage bei Lavidro ist eingegangen</Preview>
       <Body style={main}>
         <Container style={container}>
-          <Heading style={heading}>Danke für dein Interesse an LAVIDRO</Heading>
+          <Heading style={heading}>Danke für dein Interesse an Lavidro</Heading>
           <Text style={paragraph}>
             {name ? `Hallo ${name},` : 'Hallo,'} wir haben deine Anfrage erhalten und melden uns
             zeitnah persönlich bei dir.
@@ -64,7 +64,7 @@ const Email = ({ name, email, requestType, phone, availability }: Props) => {
           <Text style={paragraph}>
             Falls sich Angaben ändern, antworte einfach auf diese E-Mail.
           </Text>
-          <Text style={{ ...paragraph, color: '#6b6b6b' }}>Dein LAVIDRO Team</Text>
+          <Text style={{ ...paragraph, color: '#6b6b6b' }}>Dein Lavidro Team</Text>
         </Container>
       </Body>
     </Html>
@@ -75,8 +75,8 @@ export const template = {
   component: Email,
   subject: (data: Record<string, any>) =>
     data?.requestType === 'interview'
-      ? 'Deine Interview-Anfrage bei LAVIDRO'
-      : 'Deine Termin-Vormerkung bei LAVIDRO',
+      ? 'Deine Interview-Anfrage bei Lavidro'
+      : 'Deine Termin-Vormerkung bei Lavidro',
   displayName: 'Lead-Bestätigung',
   previewData: {
     name: 'Lisa Muster',

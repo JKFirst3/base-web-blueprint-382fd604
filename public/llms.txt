@@ -1,12 +1,12 @@
-# LAVIDRO
+# Lavidro
 
-> LAVIDRO entwickelt ein System, das den vollständigen Wäscheprozess im privaten Haushalt automatisiert — vom Sortieren über Waschen und Trocknen bis zur gefalteten Kleidung.
+> Lavidro entwickelt ein System, das den vollständigen Wäscheprozess im privaten Haushalt automatisiert — vom Sortieren über Waschen und Trocknen bis zur gefalteten Kleidung.
 
 ## Pages
 
-- [Startseite](/): Überblick über LAVIDRO, Funktionsweise, Prozessschritte und FAQ.
-- [Produkt](/Konfigurator): Die drei LAVIDRO Lösungen — Mobiler Wäscheassistent, Integrierter Wäscheschrank und Humanoider Wäscheroboter — inklusive Ausstattungsstufen und Vorbestellung.
-- [Über LAVIDRO](/aboutLavidro): Team, Hintergrund und Arbeitsplatz im Gründungszentrum Garage33 der Universität Paderborn.
+- [Startseite](/): Überblick über Lavidro, Funktionsweise, Prozessschritte und FAQ.
+- [Produkt](/Konfigurator): Die drei Lavidro Lösungen — Mobiler Wäscheassistent, Integrierter Wäscheschrank und Humanoider Wäscheroboter — inklusive Ausstattungsstufen und Vorbestellung.
+- [Über Lavidro](/aboutLavidro): Team, Hintergrund und Arbeitsplatz im Gründungszentrum Garage33 der Universität Paderborn.
 - [Kontakt](/kontakt): Kontaktmöglichkeiten und Anfragen.
 
 ## Optional

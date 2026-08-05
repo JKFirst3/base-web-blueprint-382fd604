@@ -3,7 +3,7 @@ import { render } from '@react-email/render'
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { TEMPLATES } from '@/lib/email-templates/registry'
 
-const SITE_NAME = 'LAVIDRO'
+const SITE_NAME = 'Lavidro'
 const SENDER_DOMAIN = 'notify.lavidro.com'
 const FROM_DOMAIN = 'lavidro.com'
 

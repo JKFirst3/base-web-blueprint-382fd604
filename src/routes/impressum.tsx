@@ -6,9 +6,9 @@ export const Route = createFileRoute("/impressum")({
   head: () => ({
     meta: [
       { title: "Impressum — Lavidro" },
-      { name: "description", content: "Impressum von LAVIDRO: Anbieterkennzeichnung, Anschrift, Kontaktdaten und Verantwortliche für die Inhalte dieser Website." },
+      { name: "description", content: "Impressum von Lavidro: Anbieterkennzeichnung, Anschrift, Kontaktdaten und Verantwortliche für die Inhalte dieser Website." },
       { property: "og:title", content: "Impressum — Lavidro" },
-      { property: "og:description", content: "Impressum von LAVIDRO: Anbieterkennzeichnung, Anschrift, Kontaktdaten und Verantwortliche für die Inhalte dieser Website." },
+      { property: "og:description", content: "Impressum von Lavidro: Anbieterkennzeichnung, Anschrift, Kontaktdaten und Verantwortliche für die Inhalte dieser Website." },
       { property: "og:url", content: "https://lavidro.com/impressum" },
     ],
     links: [{ rel: "canonical", href: "https://lavidro.com/impressum" }],

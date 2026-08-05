@@ -66,7 +66,7 @@ export function CookieBanner() {
             <p className="mt-2 text-sm leading-relaxed text-black/80">
               Notwendige Cookies sorgen dafür, dass diese Website zuverlässig funktioniert. Mit
               Ihrer Zustimmung verwenden wir außerdem First-Party-Analytics, um zu verstehen, welche
-              LAVIDRO-Produkte und Konfigurationen besonders relevant sind.
+              Lavidro-Produkte und Konfigurationen besonders relevant sind.
             </p>
             <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:justify-end">
               <button

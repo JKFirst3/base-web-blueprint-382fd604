@@ -4,7 +4,7 @@ import homeHtml from "@/content/home.html?raw";
 import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
 import { track } from "@/lib/track";
 
-const TITLE = "LAVIDRO — Wäsche. Einfach. Fertig.";
+const TITLE = "Lavidro — Wäsche. Einfach. Fertig.";
 const DESCRIPTION =
   "Das erste System, das den vollständigen Wäscheprozess autonom und qualitätssicher übernimmt.";
 
@@ -19,7 +19,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Wann wird Lavidro verfügbar?",
-    a: "Mit Ihrer Anmeldung erfahren Sie zuerst von Entwicklungsfortschritten, Pilotphasen und Möglichkeiten, LAVIDRO live zu erleben.",
+    a: "Mit Ihrer Anmeldung erfahren Sie zuerst von Entwicklungsfortschritten, Pilotphasen und Möglichkeiten, Lavidro live zu erleben.",
   },
   {
     q: "Benötigt Lavidro spezielle Waschmaschinen oder Trockner?",
@@ -165,8 +165,8 @@ function HomePage() {
         applyMode();
         status.textContent =
           mode === "interview"
-            ? "Danke. Wir melden uns, um Ihre LAVIDRO-Produktvorstellung abzustimmen."
-            : "Danke. Sie erhalten künftig Neuigkeiten von LAVIDRO.";
+            ? "Danke. Wir melden uns, um Ihre Lavidro-Produktvorstellung abzustimmen."
+            : "Danke. Sie erhalten künftig Neuigkeiten von Lavidro.";
         track("live_experience_success");
       } catch (error) {
         console.error("[lead-form] Submission failed", error);

@@ -1,4 +1,4 @@
-// Consent + first-party cookie helpers for LAVIDRO analytics.
+// Consent + first-party cookie helpers for Lavidro analytics.
 // Zero PII. All cookies are first-party.
 
 export const CONSENT_VERSION = 1;

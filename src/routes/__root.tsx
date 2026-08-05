@@ -79,7 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#F3F2EE" },
-      { property: "og:site_name", content: "LAVIDRO" },
+      { property: "og:site_name", content: "Lavidro" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { title: "Lavidro — Wäsche. Einfach. Fertig." },
@@ -88,17 +88,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "LAVIDRO automatisiert den kompletten Wäscheprozess im Haushalt: sortieren, waschen, trocknen und zusammenlegen — vollständig und qualitätssicher.",
+          "Lavidro automatisiert den kompletten Wäscheprozess im Haushalt: sortieren, waschen, trocknen und zusammenlegen — vollständig und qualitätssicher.",
       },
       {
         property: "og:description",
         content:
-          "LAVIDRO automatisiert den kompletten Wäscheprozess im Haushalt: sortieren, waschen, trocknen und zusammenlegen — vollständig und qualitätssicher.",
+          "Lavidro automatisiert den kompletten Wäscheprozess im Haushalt: sortieren, waschen, trocknen und zusammenlegen — vollständig und qualitätssicher.",
       },
       {
         name: "twitter:description",
         content:
-          "LAVIDRO automatisiert den kompletten Wäscheprozess im Haushalt: sortieren, waschen, trocknen und zusammenlegen — vollständig und qualitätssicher.",
+          "Lavidro automatisiert den kompletten Wäscheprozess im Haushalt: sortieren, waschen, trocknen und zusammenlegen — vollständig und qualitätssicher.",
       },
       { property: "og:image", content: "https://lavidro.com/assets/lavidro-hero.png" },
       { name: "twitter:image", content: "https://lavidro.com/assets/lavidro-hero.png" },
@@ -112,11 +112,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@graph": [
             {
               "@type": "Organization",
-              name: "LAVIDRO",
+              name: "Lavidro",
               url: "https://lavidro.com/",
               logo: "https://lavidro.com/assets/lavidro-icon.svg",
               description:
-                "LAVIDRO entwickelt Systeme, die den vollständigen Wäscheprozess im privaten Haushalt automatisieren.",
+                "Lavidro entwickelt Systeme, die den vollständigen Wäscheprozess im privaten Haushalt automatisieren.",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Ausblick 13",
@@ -128,7 +128,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             },
             {
               "@type": "WebSite",
-              name: "LAVIDRO",
+              name: "Lavidro",
               url: "https://lavidro.com/",
               inLanguage: "de-DE",
             },

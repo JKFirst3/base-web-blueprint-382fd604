@@ -23,7 +23,7 @@ const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
   mobile: {
     basic: {
       productId: "mobile",
-      productName: "LAVIDRO Mobile",
+      productName: "Lavidro Mobile",
       family: "Mobiler Wäscheassistent",
       tier: "basic",
       tierLabel: "Basic",
@@ -32,7 +32,7 @@ const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
     },
     premium: {
       productId: "mobile",
-      productName: "LAVIDRO Mobile",
+      productName: "Lavidro Mobile",
       family: "Mobiler Wäscheassistent",
       tier: "premium",
       tierLabel: "Premium",
@@ -63,7 +63,7 @@ const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
   humanoid: {
     pro: {
       productId: "humanoid",
-      productName: "LAVIDRO One",
+      productName: "Lavidro One",
       family: "Humanoider Wäschroboter",
       tier: "pro",
       tierLabel: "Pro",
@@ -72,7 +72,7 @@ const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
     },
     ultimate: {
       productId: "humanoid",
-      productName: "LAVIDRO One",
+      productName: "Lavidro One",
       family: "Humanoider Wäschroboter",
       tier: "ultimate",
       tierLabel: "Ultimate",
@@ -88,9 +88,9 @@ function getCatalogSelection(selection: PreorderSelection): PreorderSelection | 
   return { ...entry, paymentType: selection.paymentType };
 }
 
-const KONFIGURATOR_TITLE = "Produkt — LAVIDRO Wäschesysteme im Vergleich";
+const KONFIGURATOR_TITLE = "Produkt — Lavidro Wäschesysteme im Vergleich";
 const KONFIGURATOR_DESCRIPTION =
-  "Vergleiche die drei LAVIDRO Lösungen: Mobiler Wäscheassistent, Integrierter Wäscheschrank und Humanoider Wäscheroboter — mit Ausstattungsstufen und Vorbestellung.";
+  "Vergleiche die drei Lavidro Lösungen: Mobiler Wäscheassistent, Integrierter Wäscheschrank und Humanoider Wäscheroboter — mit Ausstattungsstufen und Vorbestellung.";
 export const Route = createFileRoute("/Konfigurator")({
   head: () => ({
     meta: [
@@ -112,19 +112,19 @@ export const Route = createFileRoute("/Konfigurator")({
             {
               name: "Mobiler Wäscheassistent",
               description:
-                "Mobiler LAVIDRO Wäscheassistent, der Wäsche im Haushalt sortiert, ein- und ausräumt.",
+                "Mobiler Lavidro Wäscheassistent, der Wäsche im Haushalt sortiert, ein- und ausräumt.",
               price: 9000,
             },
             {
               name: "Integrierter Wäscheschrank",
               description:
-                "In den Hauswirtschaftsraum integrierter LAVIDRO Wäscheschrank für einen automatisierten Wäscheprozess im Hintergrund.",
+                "In den Hauswirtschaftsraum integrierter Lavidro Wäscheschrank für einen automatisierten Wäscheprozess im Hintergrund.",
               price: 12500,
             },
             {
               name: "Humanoider Wäscheroboter",
               description:
-                "Humanoider LAVIDRO Wäscheroboter, der den vollständigen Wäscheprozess vom Sortieren bis zum Zusammenlegen übernimmt.",
+                "Humanoider Lavidro Wäscheroboter, der den vollständigen Wäscheprozess vom Sortieren bis zum Zusammenlegen übernimmt.",
               price: 22500,
             },
           ].map((p, index) => ({
@@ -134,7 +134,7 @@ export const Route = createFileRoute("/Konfigurator")({
               "@type": "Product",
               name: p.name,
               description: p.description,
-              brand: { "@type": "Brand", name: "LAVIDRO" },
+              brand: { "@type": "Brand", name: "Lavidro" },
               image: "https://lavidro.com/assets/lavidro-one.webp",
               offers: {
                 "@type": "Offer",
@@ -291,7 +291,7 @@ function PreorderDialog({
             <span aria-hidden="true">✓</span>
             <p className="kicker">Vorbestellung eingegangen</p>
             <h2 id="preorder-title">Heute ist Ihre Vorbestellung bei uns eingegangen.</h2>
-            <p>Wir begleiten Sie transparent auf dem Weg zu Ihrem LAVIDRO System.</p>
+            <p>Wir begleiten Sie transparent auf dem Weg zu Ihrem Lavidro System.</p>
             <PreorderJourney confirmed />
             <button className="primary-button" type="button" onClick={onClose}>
               Schließen
@@ -359,7 +359,7 @@ function PreorderDialog({
 
 function PreorderJourney({ confirmed = false }: { confirmed?: boolean }) {
   return (
-    <ol className="preorder-journey" aria-label="Ihr weiterer Weg mit LAVIDRO">
+    <ol className="preorder-journey" aria-label="Ihr weiterer Weg mit Lavidro">
       <li>
         <span>Heute</span>
         <strong>{confirmed ? "Vorbestellung bestätigt" : "Vorbestellung absenden"}</strong>

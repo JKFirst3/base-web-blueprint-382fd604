@@ -24,7 +24,7 @@ export function QualityArguments() {
         <div className="grid gap-8 md:grid-cols-12 md:items-end">
           <div className="md:col-span-4">
             <p className="font-display text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
-              Einmal LAVIDRO, immer LAVIDRO
+              Einmal Lavidro, immer Lavidro
             </p>
           </div>
           <div className="md:col-span-8">

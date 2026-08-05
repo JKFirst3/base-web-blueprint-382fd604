@@ -112,7 +112,7 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
 
       <div className="text-center">
         <p className="font-display text-xs uppercase tracking-[0.3em] text-muted-foreground">
-          LAVIDRO live erleben
+          Lavidro live erleben
         </p>
         <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
           Exklusiver Einblick
@@ -240,7 +240,7 @@ Telefonnummer (optional)
             onCheckedChange={(v) => setConsent(v === true)}
             className="mt-0.5"
           />
-          <span>Ich stimme zu, Updates von LAVIDRO zu erhalten.</span>
+          <span>Ich stimme zu, Updates von Lavidro zu erhalten.</span>
         </label>
 
         <Button

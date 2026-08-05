@@ -27,7 +27,7 @@ export function AutonomySection() {
             Autonomie, die im Hintergrund arbeitet.
           </h2>
           <p className="mt-8 max-w-xl text-[15px] leading-relaxed text-white/85">
-            LAVIDRO verbindet mechanische Präzision mit intelligenten Pflegeentscheidungen. So wird
+            Lavidro verbindet mechanische Präzision mit intelligenten Pflegeentscheidungen. So wird
             aus einer wiederkehrenden Aufgabe ein ruhiger, automatisierter Ablauf.
           </p>
           <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-white/75">
