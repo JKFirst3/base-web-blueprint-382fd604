@@ -37,6 +37,7 @@ const english: Record<string, string> = {
   "Mobiler Wäscheassistent": "Mobile laundry assistant",
   "Integrierter Wäscheschrank": "Integrated laundry cabinet",
   Wäscheschrank: "Laundry cabinet",
+  "Autonomer Wäscheschrank": "Autonomous laundry cabinet",
   "Humanoider Wäschroboter": "Humanoid laundry robot",
   "Produkt anzeigen": "View product",
   "Design, das sich einfügt": "Design that fits in",
