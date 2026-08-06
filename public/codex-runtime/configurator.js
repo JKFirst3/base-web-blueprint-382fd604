@@ -4,7 +4,7 @@
     { key: "sort", label: "Wäsche sortieren" },
     { key: "wash", label: "Wäsche waschen & trocknen" },
     { key: "fold", label: "Wäsche falten" },
-    { key: "provide", label: "Wäsche bereitstellen" },
+    { key: "provide", label: "Wäsche nach Personen bereitstellen" },
     { key: "store", label: "Wäsche in den Schrank bringen" },
   ];
 

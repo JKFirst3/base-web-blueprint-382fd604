@@ -189,7 +189,7 @@ const english: Record<string, string> = {
   "Wäsche sortieren": "Sort laundry",
   "Wäsche waschen & trocknen": "Wash & dry laundry",
   "Wäsche falten": "Fold laundry",
-  "Wäsche bereitstellen": "Make laundry available",
+  "Wäsche nach Personen bereitstellen": "Provide laundry per person",
   "Wäsche in den Schrank bringen": "Put laundry away",
   "Der flexible Einstieg in die automatisierte Wäschepflege":
     "A flexible entry into automated laundry care",
