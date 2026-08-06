@@ -16,14 +16,20 @@ const english: Record<string, string> = {
   "Wäsche.": "Laundry.",
   "Einfach.": "Simply.",
   "Fertig.": "Done.",
-  "Das erste System, bei dem Robotik nicht nach Labor aussieht, sondern wie ein Teil des Zuhauses.":
-    "The first system where robotics does not look like a laboratory, but like part of the home.",
-  "Interior Designerin": "Interior designer",
-  "Wenn Lavidro Sortieren und Bereitstellen wirklich übernimmt, ist das für Familien ein echter Zeitgewinn.":
-    "If Lavidro really takes over sorting and making laundry available, it gives families back valuable time.",
-  "Smart-Home-Berater": "Smart home consultant",
-  "Die Idee fühlt sich an wie der nächste logische Schritt nach Waschmaschine und Trockner.":
-    "The idea feels like the next logical step after the washing machine and dryer.",
+  '"Es ist ein unglaubliches Gefühl, dass ich mich um die Wäsche einfach nicht mehr kümmern muss. Lavidro erledigt alles im Hintergrund, während ich mich den Dingen widme, die mir wirklich wichtig sind."':
+    '"It is an incredible feeling not having to worry about the laundry anymore. Lavidro takes care of everything in the background while I focus on the things that truly matter to me."',
+  '"Besonders gefällt mir das elegante Design des Wäscheschranks. Außerdem muss ich mir keine Sorgen um meine Kinder oder unsere Katze machen, da sich keine Maschine durch das Haus bewegt."':
+    '"I especially love the elegant design of the laundry cabinet. I also do not have to worry about my children or our cat because no machine moves through the house."',
+  "Mutter und Katzenhalterin": "Mother and cat owner",
+  '"Seit wir Lavidro nutzen, hat sich unser Alltag spürbar verändert. Ich spare jede Woche viele Stunden und kann diese Zeit endlich mit meiner Familie verbringen, statt mich um die Wäsche zu kümmern."':
+    '"Since we started using Lavidro, our everyday life has changed noticeably. I save many hours every week and can finally spend that time with my family instead of taking care of the laundry."',
+  Familienvater: "Father",
+  '"Dank Lavidro kann meine Mutter deutlich länger selbstständig in ihrem Zuhause leben. Das gibt ihr und unserer ganzen Familie ein gutes Gefühl."':
+    '"Thanks to Lavidro, my mother can continue living independently in her own home for much longer. That gives her and our entire family peace of mind."',
+  Angehörige: "Family member",
+  '"Für uns kommt eine Haushaltshilfe nicht infrage. Ein automatisiertes Wäschesystem wie Lavidro ist die ideale Alternative, weil es uns zuverlässig im Alltag entlastet und gleichzeitig unsere Privatsphäre bewahrt."':
+    '"Hiring domestic help is not an option for us. An automated laundry system like Lavidro is the ideal alternative because it reliably makes everyday life easier while preserving our privacy."',
+  Unternehmerin: "Entrepreneur",
   Pilotkundin: "Pilot customer",
   "Lavidro Produktwelt": "The Lavidro product range",
   "Drei Systeme für einen vollständig autonomen Wäschealltag.":
