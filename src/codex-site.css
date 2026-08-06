@@ -808,7 +808,7 @@ p {
 .quote-track {
   width: max-content;
   display: flex;
-  animation: quote-marquee 58s linear infinite;
+  animation: quote-marquee 96s linear infinite;
   will-change: transform;
   backface-visibility: hidden;
 }
