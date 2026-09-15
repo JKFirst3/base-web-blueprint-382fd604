@@ -131,7 +131,8 @@ function ConfiguratorPage() {
   useCodexRuntime("/codex-runtime/configurator.js");
 
   useEffect(() => {
-    const product = new URLSearchParams(window.location.search).get("product") ?? "mobile";
+    const requestedProduct = new URLSearchParams(window.location.search).get("product");
+    const product = requestedProduct && requestedProduct in preorderCatalog ? requestedProduct : "mobile";
     track("configurator_open", { product_id: product });
 
     const onPreorder = (event: Event) => {

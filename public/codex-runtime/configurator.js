@@ -65,6 +65,10 @@
 
   const params = new URLSearchParams(window.location.search);
   const selectedKey = products[params.get("product")] ? params.get("product") : "mobile";
+  if (params.get("product") && !products[params.get("product")]) {
+    params.set("product", selectedKey);
+    window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
+  }
   const selectedProduct = products[selectedKey];
   let selectedLevelKey = Object.keys(selectedProduct.levels)[0];
 
