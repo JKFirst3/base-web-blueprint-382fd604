@@ -17,7 +17,7 @@ const ALLOWED_EVENTS = new Set([
   "cta_click",
 ]);
 
-const ALLOWED_PRODUCTS = new Set(["mobile", "cabinet"]);
+const ALLOWED_PRODUCTS = new Set(["mobile", "cabinet", "one"]);
 const ALLOWED_TIERS = new Set(["basic", "premium", "pro", "ultimate"]);
 const ALLOWED_PAYMENT = new Set(["upfront", "monthly"]);
 

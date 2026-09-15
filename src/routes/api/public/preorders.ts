@@ -22,6 +22,9 @@ const PREORDER_CATALOG = {
     basic: { name: "Lavidro Cabinet", price: 12500, monthly: 375 },
     premium: { name: "Lavidro Cabinet", price: 21500, monthly: 645 },
   },
+  one: {
+    standard: { name: "Lavidro One", price: 10000, monthly: 300 },
+  },
 } as const;
 
 function isAllowedOrigin(origin: string | null): boolean {

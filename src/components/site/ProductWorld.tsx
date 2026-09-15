@@ -25,6 +25,13 @@ const PRODUCTS: Product[] = [
     category: "Serie · Cabinet",
     image: "/assets/lavidro-cabinet.webp",
   },
+  {
+    id: "one",
+    brand: "Lavidro One",
+    name: "Einzelteilbehandlung im Schrank",
+    category: "Serie · One",
+    image: "/assets/lavidro-one.png",
+  },
 ];
 
 export function ProductWorld() {
@@ -45,12 +52,12 @@ export function ProductWorld() {
           </div>
           <div className="md:col-span-8">
             <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl md:text-5xl">
-              Zwei Systeme für einen vollständig autonomen Wäschealltag.
+              Drei Systeme für einen vollständig autonomen Wäschealltag.
             </h2>
           </div>
         </div>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-2">
+        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {PRODUCTS.map((p) => (
             <article
               key={p.id}
