@@ -6,6 +6,8 @@
     { key: "fold", label: "Wäsche falten" },
     { key: "provide", label: "Wäsche nach Personen bereitstellen" },
     { key: "store", label: "Wäsche in den Schrank bringen" },
+    { key: "stain", label: "Flecken gezielt behandeln" },
+    { key: "refresh", label: "Kleidungsstücke auffrischen" },
   ];
 
   const products = {
@@ -58,6 +60,26 @@
           note: "Planungsrichtwert ab 5 m² Fläche",
           price: 21500,
           features: ["sort", "wash", "fold", "provide"],
+        },
+      },
+    },
+    one: {
+      title: "Lavidro One",
+      family: "Einzelteilbehandlung im Schrank",
+      description:
+        "Ein Roboterarm im Schrank, der einzelne Kleidungsstücke behandelt: Flecken gezielt vorbehandeln und Textilien zwischendurch auffrischen – ohne komplette Waschladung.",
+      image: "assets/lavidro-one.png",
+      highlights: [
+        "Roboterarm im Schrank für die Behandlung einzelner Kleidungsstücke",
+        "Gezielte Fleckenbehandlung statt kompletter Waschladung",
+        "Auffrischen von Textilien zwischen zwei Tragen",
+      ],
+      levels: {
+        standard: {
+          label: "Standard",
+          note: "Fleckenbehandlung und Auffrischen einzelner Kleidungsstücke",
+          price: 10000,
+          features: ["refresh", "stain"],
         },
       },
     },
