@@ -13,6 +13,17 @@ const ALLOWED_ORIGINS = new Set([
 
 const RATE_LIMIT = new Map<string, { count: number; resetsAt: number }>();
 
+const PREORDER_CATALOG = {
+  mobile: {
+    basic: { name: "Lavidro Mobile", price: 9000, monthly: 270 },
+    premium: { name: "Lavidro Mobile", price: 14000, monthly: 420 },
+  },
+  cabinet: {
+    basic: { name: "Lavidro Cabinet", price: 12500, monthly: 375 },
+    premium: { name: "Lavidro Cabinet", price: 21500, monthly: 645 },
+  },
+} as const;
+
 function isAllowedOrigin(origin: string | null): boolean {
   if (!origin || ALLOWED_ORIGINS.has(origin)) return true;
   try {
@@ -68,28 +79,39 @@ export const Route = createFileRoute("/api/public/preorders")({
 
         const name = cleanText(body.name, 100);
         const email = cleanText(body.email, 255)?.toLowerCase() ?? "";
-        const solution_id = cleanText(body.solution_id, 100);
-        const solution_name = cleanText(body.solution_name, 200);
-        const tier = cleanText(body.tier, 50);
+        const requestedSolutionId = cleanText(body.solution_id, 100);
+        const requestedTier = cleanText(body.tier, 50);
         const size = cleanText(body.size, 50) ?? "Standard";
         const payment_type = cleanText(body.payment_type, 20);
-        const price_eur = typeof body.price_eur === "number" ? body.price_eur : null;
-        const monthly_eur = typeof body.monthly_eur === "number" ? body.monthly_eur : null;
         const source = cleanText(body.source, 50) ?? "configurator";
+
+        const product =
+          requestedSolutionId && requestedSolutionId in PREORDER_CATALOG
+            ? PREORDER_CATALOG[requestedSolutionId as keyof typeof PREORDER_CATALOG]
+            : null;
+        const catalogEntry =
+          product && requestedTier && requestedTier in product
+            ? product[requestedTier as keyof typeof product]
+            : null;
 
         if (
           !name ||
           !email ||
           !email.includes("@") ||
-          !solution_id ||
-          !solution_name ||
-          !tier ||
-          !payment_type ||
-          price_eur === null ||
+          !requestedSolutionId ||
+          !requestedTier ||
+          !catalogEntry ||
+          !["upfront", "monthly"].includes(payment_type ?? "") ||
           body.consent !== true
         ) {
           return Response.json({ error: "Invalid preorder" }, { status: 400 });
         }
+
+        const solution_id = requestedSolutionId;
+        const solution_name = catalogEntry.name;
+        const tier = requestedTier;
+        const price_eur = catalogEntry.price;
+        const monthly_eur = payment_type === "monthly" ? catalogEntry.monthly : null;
 
         const url = process.env.SUPABASE_URL;
         const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
