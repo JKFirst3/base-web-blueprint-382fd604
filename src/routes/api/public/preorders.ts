@@ -107,11 +107,12 @@ export const Route = createFileRoute("/api/public/preorders")({
           return Response.json({ error: "Invalid preorder" }, { status: 400 });
         }
 
+        const normalizedPaymentType = payment_type === "monthly" ? "monthly" : "upfront";
         const solution_id = requestedSolutionId;
         const solution_name = catalogEntry.name;
         const tier = requestedTier;
         const price_eur = catalogEntry.price;
-        const monthly_eur = payment_type === "monthly" ? catalogEntry.monthly : null;
+        const monthly_eur = normalizedPaymentType === "monthly" ? catalogEntry.monthly : null;
 
         const url = process.env.SUPABASE_URL;
         const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
@@ -131,7 +132,7 @@ export const Route = createFileRoute("/api/public/preorders")({
           solution_name,
           tier,
           size,
-          payment_type,
+          payment_type: normalizedPaymentType,
           price_eur,
           monthly_eur,
           consent: true,
@@ -148,15 +149,16 @@ export const Route = createFileRoute("/api/public/preorders")({
           await enqueueTransactionalEmail({
             templateName: "preorder-confirmation",
             recipientEmail: email,
-            idempotencyKey: `preorder-${email}-${solution_id}-${tier}-${payment_type}`,
+            idempotencyKey: `preorder-${email}-${solution_id}-${tier}-${normalizedPaymentType}`,
             templateData: {
               name,
               email,
               product: solution_name,
               tier,
-              paymentMode: payment_type === "monthly" ? "Monatliche Zahlung" : "Einmalzahlung",
+              paymentMode:
+                normalizedPaymentType === "monthly" ? "Monatliche Zahlung" : "Einmalzahlung",
               price:
-                payment_type === "monthly" && monthly_eur
+                normalizedPaymentType === "monthly" && monthly_eur
                   ? `${monthly_eur.toLocaleString("de-DE")} € / Monat`
                   : `${price_eur.toLocaleString("de-DE")} €`,
             },
