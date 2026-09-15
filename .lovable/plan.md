@@ -1,15 +1,17 @@
-# Partnerbereich wieder einblenden
-
-## Ziel
-Der Bereich „Gemeinsam bringen wir Lavidro voran." (Miele, Garage33, Factory33) soll auf der Startseite und auf „Über Lavidro" wieder sichtbar sein.
-
-## Aktueller Stand
-- `src/content/home.html`: Partnerblock existiert **zweimal** (Zeile 301 vor dem Prozessbereich, Zeile 499 nach dem Live-erleben-Formular), beide mit `hidden`. Beide nutzen dieselbe Überschrift-ID `home-partners-title` — doppelte ID ist ungültig.
-- `src/content/about.html` (Zeile 107): Partnerblock ebenfalls mit `hidden`.
+# Lavidro One vollständig entfernen
 
 ## Umsetzung
-1. `src/content/home.html`: den oberen, duplizierten Block (Zeile 301–325) entfernen; beim unteren Block (zwischen „Lavidro live erleben" und FAQ) das `hidden`-Attribut entfernen.
-2. `src/content/about.html`: `hidden` am Partnerblock entfernen.
-3. Beide Seiten in der Vorschau prüfen: Logos laden, Abstände und mobile Darstellung stimmen.
 
-Keine Änderungen an Logik, Styles oder Daten nötig.
+- Die Produktkarte „Lavidro One“ einschließlich Bild, Link und humanoider Produktbeschreibung von der Startseite entfernen.
+- Das Produkt aus der Produktseite entfernen: Produktdaten, Varianten, Preise, Funktionsumfang, Vergleichsansicht und Vorbestell-Auswahl.
+- Direkte Aufrufe wie `/Konfigurator?product=humanoid` sicher auf ein verbleibendes Produkt zurückfallen lassen.
+- Alle weiteren Website-Verweise auf „Lavidro One“ beziehungsweise die humanoide Lösung bereinigen, insbesondere FAQ-Texte, Produktübersichten, Übersetzungen, Metadaten, strukturierte Suchmaschinendaten und `llms.txt`.
+- Die Produktdarstellung sprachlich von drei auf zwei Lösungen anpassen.
+- Die humanoide Kennung aus dem erlaubten Produkt-Tracking entfernen, damit keine neuen Ereignisse mehr dafür angenommen werden.
+- Nicht mehr verwendete Lavidro-One-Bilddateien nur aus dem aktuellen Projekt entfernen, sofern nach der Bereinigung keine Referenz mehr besteht; bestehende historische Vorbestellungen bleiben unverändert erhalten.
+
+## Prüfung
+
+- Startseite und Produktseite auf Desktop und Mobilgerät prüfen.
+- Produktvergleich, Variantenwahl und Vorbestellung für Lavidro Mobile und Lavidro Cabinet testen.
+- Abschließend projektweit prüfen, dass keine sichtbaren oder technischen Verweise auf „Lavidro One“, „humanoid“ oder „Humanoider Wäscheroboter“ verbleiben.
