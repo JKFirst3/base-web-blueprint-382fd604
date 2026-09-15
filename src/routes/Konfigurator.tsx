@@ -60,26 +60,6 @@ const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
       monthly: 645,
     },
   },
-  humanoid: {
-    pro: {
-      productId: "humanoid",
-      productName: "Lavidro One",
-      family: "Humanoider Wäschroboter",
-      tier: "pro",
-      tierLabel: "Pro",
-      price: 22500,
-      monthly: 675,
-    },
-    ultimate: {
-      productId: "humanoid",
-      productName: "Lavidro One",
-      family: "Humanoider Wäschroboter",
-      tier: "ultimate",
-      tierLabel: "Ultimate",
-      price: 30000,
-      monthly: 900,
-    },
-  },
 };
 
 function getCatalogSelection(selection: PreorderSelection): PreorderSelection | null {
@@ -90,7 +70,7 @@ function getCatalogSelection(selection: PreorderSelection): PreorderSelection | 
 
 const KONFIGURATOR_TITLE = "Produkt — Lavidro Wäschesysteme im Vergleich";
 const KONFIGURATOR_DESCRIPTION =
-  "Vergleiche die drei Lavidro Lösungen: Mobiler Wäscheassistent, Integrierter Wäscheschrank und Humanoider Wäscheroboter — mit Ausstattungsstufen und Vorbestellung.";
+  "Vergleiche die zwei Lavidro Lösungen: Mobiler Wäscheassistent und Integrierter Wäscheschrank — mit Ausstattungsstufen und Vorbestellung.";
 export const Route = createFileRoute("/Konfigurator")({
   head: () => ({
     meta: [
@@ -121,12 +101,6 @@ export const Route = createFileRoute("/Konfigurator")({
                 "In den Hauswirtschaftsraum integrierter Lavidro Wäscheschrank für einen automatisierten Wäscheprozess im Hintergrund.",
               price: 12500,
             },
-            {
-              name: "Humanoider Wäscheroboter",
-              description:
-                "Humanoider Lavidro Wäscheroboter, der den vollständigen Wäscheprozess vom Sortieren bis zum Zusammenlegen übernimmt.",
-              price: 22500,
-            },
           ].map((p, index) => ({
             "@type": "ListItem",
             position: index + 1,
@@ -135,7 +109,6 @@ export const Route = createFileRoute("/Konfigurator")({
               name: p.name,
               description: p.description,
               brand: { "@type": "Brand", name: "Lavidro" },
-              image: "https://lavidro.com/assets/lavidro-one.webp",
               offers: {
                 "@type": "Offer",
                 price: p.price,
@@ -158,7 +131,8 @@ function ConfiguratorPage() {
   useCodexRuntime("/codex-runtime/configurator.js");
 
   useEffect(() => {
-    const product = new URLSearchParams(window.location.search).get("product") ?? "mobile";
+    const requestedProduct = new URLSearchParams(window.location.search).get("product");
+    const product = requestedProduct && requestedProduct in preorderCatalog ? requestedProduct : "mobile";
     track("configurator_open", { product_id: product });
 
     const onPreorder = (event: Event) => {

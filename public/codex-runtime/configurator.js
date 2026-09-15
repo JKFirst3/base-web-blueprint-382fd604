@@ -61,36 +61,14 @@
         },
       },
     },
-    humanoid: {
-      title: "Lavidro One",
-      family: "Humanoider Wäschroboter",
-      description:
-        "Die umfassende Lösung für die vollständige Wäscheorganisation – vom Erkennen über die Pflege bis zum Bereitstellen der Kleidung.",
-      image: "assets/lavidro-one.webp",
-      highlights: [
-        "Übernimmt die gesamte Wäscheorganisation",
-        "Erkennt anfallende Wäsche eigenständig",
-        "Führt den Prozess aus und räumt Kleidung zurück",
-      ],
-      levels: {
-        pro: {
-          label: "Pro",
-          note: "Umfangreiche Funktionen",
-          price: 22500,
-          features: ["sort", "wash", "fold", "provide"],
-        },
-        ultimate: {
-          label: "Ultimate",
-          note: "Voller Funktionsumfang",
-          price: 30000,
-          features: ["collect", "sort", "wash", "fold", "provide", "store"],
-        },
-      },
-    },
   };
 
   const params = new URLSearchParams(window.location.search);
   const selectedKey = products[params.get("product")] ? params.get("product") : "mobile";
+  if (params.get("product") && !products[params.get("product")]) {
+    params.set("product", selectedKey);
+    window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
+  }
   const selectedProduct = products[selectedKey];
   let selectedLevelKey = Object.keys(selectedProduct.levels)[0];
 

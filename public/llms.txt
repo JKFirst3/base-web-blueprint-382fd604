@@ -5,7 +5,7 @@
 ## Pages
 
 - [Startseite](/): Überblick über Lavidro, Funktionsweise, Prozessschritte und FAQ.
-- [Produkt](/Konfigurator): Die drei Lavidro Lösungen — Mobiler Wäscheassistent, Integrierter Wäscheschrank und Humanoider Wäscheroboter — inklusive Ausstattungsstufen und Vorbestellung.
+- [Produkt](/Konfigurator): Die zwei Lavidro Lösungen — Mobiler Wäscheassistent und Integrierter Wäscheschrank — inklusive Ausstattungsstufen und Vorbestellung.
 - [Über Lavidro](/aboutLavidro): Team, Hintergrund und Arbeitsplatz im Gründungszentrum Garage33 der Universität Paderborn.
 - [Kontakt](/kontakt): Kontaktmöglichkeiten und Anfragen.
 
