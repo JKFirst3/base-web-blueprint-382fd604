@@ -8,8 +8,8 @@ const ITEMS: { q: string; a: string }[] = [
     a: "Lavidro übernimmt je nach Ausbaustufe das Sortieren, das Umladen zwischen Waschmaschine und Trockner, das Falten sowie das Bereitstellen bzw. Einsortieren der Wäsche.",
   },
   {
-    q: "Welche der drei Produktlösungen passt zu welchem Haushalt?",
-    a: "Lavidro Mobile ist ein mobiler Roboterarm auf fahrbarer Basis. Lavidro Cabinet integriert sich diskret in einen geplanten Wäscheschrank. Lavidro One ist die humanoide Gesamtlösung.",
+    q: "Welche der beiden Produktlösungen passt zu welchem Haushalt?",
+    a: "Lavidro Mobile ist ein mobiler Roboterarm auf fahrbarer Basis. Lavidro Cabinet integriert sich diskret in einen geplanten Wäscheschrank.",
   },
   {
     q: "Ist Lavidro für private Haushalte vorgesehen?",
@@ -33,19 +33,19 @@ const ITEMS: { q: string; a: string }[] = [
   },
   {
     q: "Kann Lavidro nachgerüstet werden?",
-    a: "Lavidro Mobile ist für eine flexible Positionierung im bestehenden Hauswirtschaftsraum ausgelegt. Lavidro Cabinet und One erfordern eine individuelle Planung.",
+    a: "Lavidro Mobile ist für eine flexible Positionierung im bestehenden Hauswirtschaftsraum ausgelegt. Lavidro Cabinet erfordert eine individuelle Planung.",
   },
   {
     q: "Welche Umbauten sind erforderlich?",
-    a: "Lavidro Mobile benötigt eine geeignete Stellfläche. Für Lavidro Cabinet planen wir die Integration in einen Wandschrank – je nach Variante ab etwa 3 m² beziehungsweise 5 m² Fläche. Lavidro One benötigt eine passende Fläche im Hauswirtschaftsraum.",
+    a: "Lavidro Mobile benötigt eine geeignete Stellfläche. Für Lavidro Cabinet planen wir die Integration in einen Wandschrank – je nach Variante ab etwa 3 m² beziehungsweise 5 m² Fläche.",
   },
   {
     q: "Welche Wartung benötigt das System?",
     a: "Details zu Wartungsintervallen und -umfang stellen wir mit dem Marktstart bereit.",
   },
   {
-    q: "Was unterscheidet Mobile, Cabinet und One?",
-    a: "Mobile ist ein mobiler Roboterarm für flexible Abläufe. Cabinet ist eine diskret integrierte Lösung für einen dauerhaft geplanten Hauswirtschaftsraum. One ist die humanoide Gesamtlösung.",
+    q: "Was unterscheidet Mobile und Cabinet?",
+    a: "Mobile ist ein mobiler Roboterarm für flexible Abläufe. Cabinet ist eine diskret integrierte Lösung für einen dauerhaft geplanten Hauswirtschaftsraum.",
   },
   {
     q: "Wie kann eine Produktvorstellung vereinbart werden?",

@@ -13,7 +13,7 @@ const TILES = [
     body: "Sensorik, Bewegungssteuerung und autonome Abläufe – zwischen Waschmaschine, Trockner und Ablage.",
   },
   {
-    image: "/assets/lavidro-one.webp",
+    image: "/assets/lavidro-cabinet.webp",
     title: "Qualität, die bleibt",
     body: "Textilschonende Pflege, sichere Griffe und wiederholbare Ergebnisse in jeder Ausbaustufe.",
   },

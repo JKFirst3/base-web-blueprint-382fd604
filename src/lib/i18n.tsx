@@ -32,13 +32,12 @@ const english: Record<string, string> = {
   Unternehmerin: "Entrepreneur",
   Pilotkundin: "Pilot customer",
   "Lavidro Produktwelt": "The Lavidro product range",
-  "Drei Systeme für einen vollständig autonomen Wäschealltag.":
-    "Three systems for a fully autonomous laundry routine.",
+  "Zwei Systeme für einen vollständig autonomen Wäschealltag.":
+    "Two systems for a fully autonomous laundry routine.",
   "Mobiler Wäscheassistent": "Mobile laundry assistant",
   "Integrierter Wäscheschrank": "Integrated laundry cabinet",
   Wäscheschrank: "Laundry cabinet",
   "Autonomer Wäscheschrank": "Autonomous laundry cabinet",
-  "Humanoider Wäschroboter": "Humanoid laundry robot",
   "Produkt anzeigen": "View product",
   "Design, das sich einfügt": "Design that fits in",
   "Eine ruhige Installation für moderne Wohnräume: präzise Technik, hochwertige Materialien und eine klare, wohnliche Formensprache.":
@@ -175,7 +174,6 @@ const english: Record<string, string> = {
   "Zurück zu den Produkten": "Back to products",
   "Lavidro Mobile konfigurieren": "Configure Lavidro Mobile",
   "Lavidro Cabinet konfigurieren": "Configure Lavidro Cabinet",
-  "Lavidro One konfigurieren": "Configure Lavidro One",
   konfigurieren: "configure",
   Konfigurieren: "Configure",
   Variante: "Variant",
@@ -208,16 +206,10 @@ const english: Record<string, string> = {
   "Diskret integriert mit elegantem Möbeldesign":
     "Discreetly integrated with elegant furniture design",
   "Planungsrichtwert: ab 3 m² bis 5 m² Fläche": "Planning guideline: from 3 m² to 5 m² of space",
-  "Übernimmt die gesamte Wäscheorganisation": "Handles the entire laundry organisation",
-  "Erkennt anfallende Wäsche eigenständig": "Independently detects laundry that needs attention",
-  "Führt den Prozess aus und räumt Kleidung zurück":
-    "Carries out the process and puts garments away",
   "Ein mobiler Roboterarm auf fahrbarer Basis für automatisierte Wäschepflege. Er wird flexibel im Hauswirtschaftsraum positioniert und verbindet die Stationen des Wäschealltags.":
     "A mobile robotic arm on a wheeled base for automated laundry care. It can be positioned flexibly in the utility room and connects the stations of the laundry routine.",
   "Vollautomatischer Wäscheschrank mit intelligenter Robotik, diskret integriert und für den Prozess vom Sortieren bis zur bereitgestellten Kleidung konzipiert.":
     "A fully automated laundry cabinet with intelligent robotics, discreetly integrated and designed for the process from sorting to ready-to-wear clothing.",
-  "Die umfassende Lösung für die vollständige Wäscheorganisation – vom Erkennen über die Pflege bis zum Bereitstellen der Kleidung.":
-    "The comprehensive solution for complete laundry organisation – from recognising laundry to care and making garments available.",
   "Vorbestellung eingegangen": "Pre-order received",
   "Heute ist Ihre Vorbestellung bei uns eingegangen.": "We have received your pre-order today.",
   "Vorbestellung bestätigt": "Pre-order confirmed",
@@ -281,12 +273,10 @@ const english: Record<string, string> = {
   "Lavidro Vorteile": "Lavidro benefits",
   "Lavidro Mobile anzeigen": "View Lavidro Mobile",
   "Lavidro Cabinet anzeigen": "View Lavidro Cabinet",
-  "Lavidro One anzeigen": "View Lavidro One",
   "Lavidro Mobile als Roboterarm auf fahrbarer Basis":
     "Lavidro Mobile as a robotic arm on a mobile base",
   "Integrierter Lavidro Wäscheschrank im Hauswirtschaftsraum":
     "Integrated Lavidro laundry cabinet in a utility room",
-  "Humanoider Lavidro Roboter im Hauswirtschaftsraum": "Humanoid Lavidro robot in a utility room",
   "Lavidro System in einer wohnlichen Waschküche": "Lavidro system in a homely laundry room",
   "Roboterarm bei der sorgfältigen Wäschepflege": "Robotic arm performing careful laundry care",
   "Roboterarm beim Beladen einer Waschmaschine": "Robotic arm loading a washing machine",
