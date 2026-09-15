@@ -13,7 +13,9 @@ const ALLOWED_ORIGINS = new Set([
 
 const RATE_LIMIT = new Map<string, { count: number; resetsAt: number }>();
 
-const PREORDER_CATALOG = {
+type CatalogEntry = { name: string; price: number; monthly: number };
+
+const PREORDER_CATALOG: Record<string, Record<string, CatalogEntry>> = {
   mobile: {
     basic: { name: "Lavidro Mobile", price: 9000, monthly: 270 },
     premium: { name: "Lavidro Mobile", price: 14000, monthly: 420 },
@@ -21,6 +23,9 @@ const PREORDER_CATALOG = {
   cabinet: {
     basic: { name: "Lavidro Cabinet", price: 12500, monthly: 375 },
     premium: { name: "Lavidro Cabinet", price: 21500, monthly: 645 },
+  },
+  one: {
+    standard: { name: "Lavidro One", price: 10000, monthly: 300 },
   },
 } as const;
 

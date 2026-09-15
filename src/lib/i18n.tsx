@@ -32,9 +32,15 @@ const english: Record<string, string> = {
   Unternehmerin: "Entrepreneur",
   Pilotkundin: "Pilot customer",
   "Lavidro Produktwelt": "The Lavidro product range",
-  "Zwei Systeme für einen vollständig autonomen Wäschealltag.":
-    "Two systems for a fully autonomous laundry routine.",
+  "Drei Systeme für einen vollständig autonomen Wäschealltag.":
+    "Three systems for a fully autonomous laundry routine.",
   "Mobiler Wäscheassistent": "Mobile laundry assistant",
+  "Einzelteilbehandlung im Schrank": "Single-garment care inside the cabinet",
+  "Lavidro One anzeigen": "View Lavidro One",
+  "Lavidro One mit Roboterarm zur Fleckenbehandlung im Schrank":
+    "Lavidro One with a robotic arm treating stains inside the cabinet",
+  "Flecken gezielt behandeln": "Targeted stain treatment",
+  "Kleidungsstücke auffrischen": "Refresh garments",
   "Integrierter Wäscheschrank": "Integrated laundry cabinet",
   Wäscheschrank: "Laundry cabinet",
   "Autonomer Wäscheschrank": "Autonomous laundry cabinet",

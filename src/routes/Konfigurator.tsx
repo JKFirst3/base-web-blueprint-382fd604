@@ -60,6 +60,17 @@ const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
       monthly: 645,
     },
   },
+  one: {
+    standard: {
+      productId: "one",
+      productName: "Lavidro One",
+      family: "Einzelteilbehandlung im Schrank",
+      tier: "standard",
+      tierLabel: "Standard",
+      price: 10000,
+      monthly: 300,
+    },
+  },
 };
 
 function getCatalogSelection(selection: PreorderSelection): PreorderSelection | null {
@@ -70,7 +81,7 @@ function getCatalogSelection(selection: PreorderSelection): PreorderSelection | 
 
 const KONFIGURATOR_TITLE = "Produkt — Lavidro Wäschesysteme im Vergleich";
 const KONFIGURATOR_DESCRIPTION =
-  "Vergleiche die zwei Lavidro Lösungen: Mobiler Wäscheassistent und Integrierter Wäscheschrank — mit Ausstattungsstufen und Vorbestellung.";
+  "Vergleiche die drei Lavidro Lösungen: Mobiler Wäscheassistent, Integrierter Wäscheschrank und Einzelteilbehandlung im Schrank — mit Ausstattungsstufen und Vorbestellung.";
 export const Route = createFileRoute("/Konfigurator")({
   head: () => ({
     meta: [
@@ -100,6 +111,12 @@ export const Route = createFileRoute("/Konfigurator")({
               description:
                 "In den Hauswirtschaftsraum integrierter Lavidro Wäscheschrank für einen automatisierten Wäscheprozess im Hintergrund.",
               price: 12500,
+            },
+            {
+              name: "Einzelteilbehandlung im Schrank",
+              description:
+                "Lavidro One behandelt einzelne Kleidungsstücke mit einem Roboterarm im Schrank: gezielte Fleckenbehandlung und Auffrischen von Textilien.",
+              price: 10000,
             },
           ].map((p, index) => ({
             "@type": "ListItem",
