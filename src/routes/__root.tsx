@@ -100,8 +100,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "Lavidro automatisiert den kompletten Wäscheprozess im Haushalt: sortieren, waschen, trocknen und zusammenlegen — vollständig und qualitätssicher.",
       },
-      { property: "og:image", content: "https://lavidro.com/assets/lavidro-hero.png" },
-      { name: "twitter:image", content: "https://lavidro.com/assets/lavidro-hero.png" },
+      {
+        property: "og:image",
+        content: "https://lavidro.com/assets/lavidro-hero-humanoid-v4-6k.png",
+      },
+      {
+        name: "twitter:image",
+        content: "https://lavidro.com/assets/lavidro-hero-humanoid-v4-6k.png",
+      },
     ],
     links: [{ rel: "stylesheet", href: appCss }],
     scripts: [

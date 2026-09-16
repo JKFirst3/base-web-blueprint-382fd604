@@ -1053,7 +1053,7 @@ p {
   padding: 140px max(24px, calc((100vw - 1240px) / 2)) 78px;
   background:
     linear-gradient(90deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.08)),
-    url("/assets/lavidro-hero.png") center / cover;
+    url("/assets/lavidro-hero-humanoid-v4-6k.png") center / cover;
   color: white;
 }
 
