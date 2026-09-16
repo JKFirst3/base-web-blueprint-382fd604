@@ -36,17 +36,39 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
+  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
     setError(null);
-    const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
-    setBusy(false);
-    if (signInError) {
-      setError("Anmeldung fehlgeschlagen. Bitte E-Mail und Passwort prüfen.");
-      return;
+    setNotice(null);
+
+    if (mode === "signup") {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { emailRedirectTo: `${window.location.origin}/login` },
+      });
+      setBusy(false);
+      if (signUpError) {
+        setError(signUpError.message);
+        return;
+      }
+      if (!data.session) {
+        setNotice("Konto angelegt. Bitte bestätige zuerst die E-Mail und melde dich danach an.");
+        setMode("signin");
+        return;
+      }
+    } else {
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      setBusy(false);
+      if (signInError) {
+        setError("Anmeldung fehlgeschlagen. Bitte E-Mail und Passwort prüfen.");
+        return;
+      }
     }
     const target = safeNext(next);
     if (target.startsWith("/.lovable/")) {
