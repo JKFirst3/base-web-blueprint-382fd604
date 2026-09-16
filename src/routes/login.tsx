@@ -84,7 +84,9 @@ function LoginPage() {
         onSubmit={onSubmit}
         className="w-full max-w-sm rounded-lg border border-border bg-card p-6 shadow-sm"
       >
-        <h1 className="text-xl font-semibold text-foreground">Anmelden</h1>
+        <h1 className="text-xl font-semibold text-foreground">
+          {mode === "signup" ? "Konto anlegen" : "Anmelden"}
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Interner Zugang für das Lavidro Team.
         </p>
