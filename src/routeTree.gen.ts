@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as ImpressumRouteImport } from './routes/impressum'
@@ -19,6 +20,7 @@ import { Route as AboutLavidroRouteImport } from './routes/aboutLavidro'
 import { Route as KonfiguratorRouteImport } from './routes/Konfigurator'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicPreordersRouteImport } from './routes/api/public/preorders'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
@@ -36,6 +38,11 @@ const UnsubscribeRoute = UnsubscribeRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -78,6 +85,12 @@ const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   path: '/email/unsubscribe',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   id: '/lovable/email/suppression',
   path: '/lovable/email/suppression',
@@ -131,8 +144,10 @@ export interface FileRoutesByFullPath {
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
@@ -151,8 +166,10 @@ export interface FileRoutesByTo {
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
@@ -172,8 +189,10 @@ export interface FileRoutesById {
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
@@ -194,8 +213,10 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kontakt'
     | '/login'
+    | '/mcp'
     | '/sitemap.xml'
     | '/unsubscribe'
+    | '/.well-known/oauth-protected-resource'
     | '/email/unsubscribe'
     | '/.lovable/oauth/consent'
     | '/api/public/collect-analytics'
@@ -214,8 +235,10 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kontakt'
     | '/login'
+    | '/mcp'
     | '/sitemap.xml'
     | '/unsubscribe'
+    | '/.well-known/oauth-protected-resource'
     | '/email/unsubscribe'
     | '/.lovable/oauth/consent'
     | '/api/public/collect-analytics'
@@ -234,8 +257,10 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kontakt'
     | '/login'
+    | '/mcp'
     | '/sitemap.xml'
     | '/unsubscribe'
+    | '/.well-known/oauth-protected-resource'
     | '/email/unsubscribe'
     | '/.lovable/oauth/consent'
     | '/api/public/collect-analytics'
@@ -255,8 +280,10 @@ export interface RootRouteChildren {
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
   LoginRoute: typeof LoginRoute
+  McpRoute: typeof McpRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   ApiPublicCollectAnalyticsRoute: typeof ApiPublicCollectAnalyticsRoute
@@ -282,6 +309,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -338,6 +372,13 @@ declare module '@tanstack/react-router' {
       path: '/email/unsubscribe'
       fullPath: '/email/unsubscribe'
       preLoaderRoute: typeof EmailUnsubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lovable/email/suppression': {
@@ -407,8 +448,11 @@ const rootRouteChildren: RootRouteChildren = {
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
   LoginRoute: LoginRoute,
+  McpRoute: McpRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   UnsubscribeRoute: UnsubscribeRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   ApiPublicCollectAnalyticsRoute: ApiPublicCollectAnalyticsRoute,
