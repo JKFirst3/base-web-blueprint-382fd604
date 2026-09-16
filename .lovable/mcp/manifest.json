@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "sdk_version": "2.2.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://jivspkdqrrayrmnctvbi.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "lavidro",
+      "version": "0.1.0",
+      "title": "LAVIDRO"
+    },
+    "tools": [
+      {
+        "name": "get_product_catalog",
+        "title": "Produktkatalog abrufen",
+        "description": "Liefert die Lavidro Lösungen mit Varianten, Kaufpreisen und monatlichen Raten in Euro.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_leads",
+        "title": "Kontaktanfragen auflisten",
+        "description": "Listet die neuesten Kontakt- und Interessensanfragen von der Lavidro Website. Erfordert die Admin-Rolle.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991,
+              "description": "Maximale Anzahl der Einträge (Standard 20, max. 100)"
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_preorders",
+        "title": "Vorbestellungen auflisten",
+        "description": "Listet die neuesten Vorbestellungen inklusive Lösung, Variante, Preis und Zahlungsart. Erfordert die Admin-Rolle.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991,
+              "description": "Maximale Anzahl der Einträge (Standard 20, max. 100)"
+            },
+            "solution_id": {
+              "type": "string",
+              "description": "Optional auf eine Lösung filtern: mobile, cabinet oder one"
+            }
+          }
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
