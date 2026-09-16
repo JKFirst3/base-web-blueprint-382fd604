@@ -279,8 +279,7 @@ const english: Record<string, string> = {
   "Lavidro Vorteile": "Lavidro benefits",
   "Lavidro Mobile anzeigen": "View Lavidro Mobile",
   "Lavidro Cabinet anzeigen": "View Lavidro Cabinet",
-  "Lavidro Mobile als Roboterarm auf fahrbarer Basis":
-    "Lavidro Mobile as a robotic arm on a mobile base",
+  "Lavidro Mobile als humanoider Wäscheroboter": "Lavidro Mobile as a humanoid laundry robot",
   "Integrierter Lavidro Wäscheschrank im Hauswirtschaftsraum":
     "Integrated Lavidro laundry cabinet in a utility room",
   "Lavidro System in einer wohnlichen Waschküche": "Lavidro system in a homely laundry room",

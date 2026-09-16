@@ -16,7 +16,7 @@ const PRODUCTS: Product[] = [
     brand: "Lavidro Mobile",
     name: "Mobiler Wäscheassistent",
     category: "Serie · Mobile",
-    image: "/assets/lavidro-portrait.png",
+    image: "/assets/lavidro-hero-humanoid-v4.png",
   },
   {
     id: "cabinet",

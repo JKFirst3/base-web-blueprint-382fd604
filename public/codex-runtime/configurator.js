@@ -16,7 +16,7 @@
       family: "Mobiler Wäscheassistent",
       description:
         "Ein mobiler Roboterarm auf fahrbarer Basis für automatisierte Wäschepflege. Er wird flexibel im Hauswirtschaftsraum positioniert und verbindet die Stationen des Wäschealltags.",
-      image: "assets/lavidro-portrait.png",
+      image: "assets/lavidro-hero-humanoid-v4.png",
       highlights: [
         "Roboterarm auf fahrbarer Basis statt fest montierter Lösung",
         "Flexibel im Hauswirtschaftsraum positionierbar",
