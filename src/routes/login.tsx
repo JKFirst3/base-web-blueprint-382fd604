@@ -117,6 +117,7 @@ function LoginPage() {
           className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground"
         />
 
+        {notice && <p className="mt-4 text-sm text-muted-foreground">{notice}</p>}
         {error && (
           <p role="alert" className="mt-4 text-sm text-destructive">
             {error}
@@ -128,7 +129,19 @@ function LoginPage() {
           disabled={busy}
           className="mt-6 w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-60"
         >
-          {busy ? "Anmelden…" : "Anmelden"}
+          {busy ? "Bitte warten…" : mode === "signup" ? "Konto anlegen" : "Anmelden"}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => {
+            setMode(mode === "signup" ? "signin" : "signup");
+            setError(null);
+            setNotice(null);
+          }}
+          className="mt-3 w-full text-center text-sm text-muted-foreground underline-offset-4 hover:underline"
+        >
+          {mode === "signup" ? "Ich habe schon ein Konto" : "Neues Konto anlegen"}
         </button>
       </form>
     </main>
