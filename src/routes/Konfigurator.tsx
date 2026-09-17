@@ -296,6 +296,15 @@ function PreorderDialog({
               <span>
                 {selection.family} · {selection.tierLabel}
               </span>
+              <strong>
+                {selection.paymentType === "monthly"
+                  ? `${selection.monthly.toLocaleString("de-DE")} € / Monat`
+                  : `${selection.price.toLocaleString("de-DE")} €`}
+              </strong>
+              <small>
+                Unverbindliche Preisindikation, inkl. 19 % MwSt. und Versand. Der Preis kann sich bis
+                zum verbindlichen Angebot ändern.
+              </small>
             </div>
 
             <PreorderJourney />
@@ -330,7 +339,7 @@ function PreorderDialog({
                   required
                 />
                 <span>
-                  Ich stimme der Verarbeitung meiner Anfrage gemäß der{" "}
+                   Ich stimme der Verarbeitung meiner unverbindlichen Vorbestellung gemäß der{" "}
                   <a href="/datenschutz">Datenschutzerklärung</a> zu.
                 </span>
               </label>
@@ -357,7 +366,7 @@ function PreorderJourney({ confirmed = false }: { confirmed?: boolean }) {
         <small>
           {confirmed
             ? "Wir prüfen Ihre Angaben und melden uns persönlich."
-            : "Mit Ihren Angaben sichern Sie sich den aktuellen Vorbestellungsstatus."}
+            : "Ihre Vormerkung ist unverbindlich und löst keine Zahlungspflicht aus."}
         </small>
       </li>
       <li>

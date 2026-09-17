@@ -26,15 +26,17 @@ function ImpressumPage() {
         <section className="mt-10">
           <h2 className="font-display text-xl font-semibold">Angaben gemäß&nbsp;§ 5 des DDG</h2>
           <address className="mt-4 not-italic text-foreground/80 leading-relaxed">
-            Robin Zach
-            <br />
-            Jonah Blümel
-            <br />
-            Jan-Kevin Ploch
+            Factory33 Ecosystem GmbH
             <br />
             Ausblick 1<br />
             33100 Paderborn
           </address>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Lavidro ist ein Projekt der Factory33 Ecosystem GmbH.
+          </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: DE455405858
+          </p>
         </section>
 
         <section className="mt-10">

@@ -164,8 +164,8 @@ export const Route = createFileRoute("/api/public/preorders")({
                 normalizedPaymentType === "monthly" ? "Monatliche Zahlung" : "Einmalzahlung",
               price:
                 normalizedPaymentType === "monthly" && monthly_eur
-                  ? `${monthly_eur.toLocaleString("de-DE")} € / Monat`
-                  : `${price_eur.toLocaleString("de-DE")} €`,
+                   ? `${monthly_eur.toLocaleString("de-DE")} € / Monat, inkl. 19 % MwSt. und Versand`
+                   : `${price_eur.toLocaleString("de-DE")} €, inkl. 19 % MwSt. und Versand`,
             },
           });
         } catch (mailError) {

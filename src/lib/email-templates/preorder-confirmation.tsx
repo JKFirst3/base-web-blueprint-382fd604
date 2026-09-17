@@ -59,7 +59,9 @@ const Email = ({ name, email, product, tier, paymentMode, price }: Props) => (
 
         <Hr style={{ borderColor: '#EAE4D5', margin: '24px 0' }} />
         <Text style={paragraph}>
-          Diese Vorbestellung ist unverbindlich — es entstehen dir aktuell keine Kosten.
+          Diese Vorbestellung ist unverbindlich — es entstehen dir aktuell keine Kosten und kein
+          Kaufvertrag. Die angezeigte Preisindikation enthält 19 % MwSt. und Versand, kann sich aber
+          bis zu einem späteren verbindlichen Angebot noch ändern.
         </Text>
         <Text style={{ ...paragraph, color: '#6b6b6b' }}>Dein Lavidro Team</Text>
       </Container>
