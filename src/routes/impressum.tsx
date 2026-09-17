@@ -9,7 +9,9 @@ export const Route = createFileRoute("/impressum")({
       { name: "description", content: "Impressum von Lavidro: Anbieterkennzeichnung, Anschrift, Kontaktdaten und Verantwortliche für die Inhalte dieser Website." },
       { property: "og:title", content: "Impressum — Lavidro" },
       { property: "og:description", content: "Impressum von Lavidro: Anbieterkennzeichnung, Anschrift, Kontaktdaten und Verantwortliche für die Inhalte dieser Website." },
+      { property: "og:type", content: "website" },
       { property: "og:url", content: "https://lavidro.com/impressum" },
+      { name: "twitter:card", content: "summary" },
     ],
     links: [{ rel: "canonical", href: "https://lavidro.com/impressum" }],
   }),
@@ -32,7 +34,7 @@ function ImpressumPage() {
             33100 Paderborn
           </address>
           <p className="mt-4 text-foreground/80 leading-relaxed">
-            Lavidro ist ein Projekt der Factory33 Ecosystem GmbH.
+            Lavidro ist ein Angebot der Factory33 Ecosystem GmbH.
           </p>
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: DE455405858
