@@ -30,7 +30,7 @@ function ImpressumPage() {
           <address className="mt-4 not-italic text-foreground/80 leading-relaxed">
             Factory33 Ecosystem GmbH
             <br />
-            Ausblick 1<br />
+            Ausblick 1D<br />
             33100 Paderborn
           </address>
           <p className="mt-4 text-foreground/80 leading-relaxed">

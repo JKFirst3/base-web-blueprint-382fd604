@@ -163,7 +163,7 @@ function DatenschutzPage() {
           <address className="mt-4 not-italic text-foreground/80 leading-relaxed">
             Factory33 Ecosystem GmbH
             <br />
-            Ausblick 1
+            Ausblick 1D
             <br />
             33100 Paderborn
             <br />
