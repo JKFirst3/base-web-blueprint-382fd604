@@ -9,7 +9,9 @@ export const Route = createFileRoute("/datenschutz")({
       { name: "description", content: "Datenschutzerklärung von Lavidro: Welche Daten wir bei Anfragen, Vorbestellungen und der Nutzungsanalyse verarbeiten und welche Rechte du hast." },
       { property: "og:title", content: "Datenschutz — Lavidro" },
       { property: "og:description", content: "Datenschutzerklärung von Lavidro: Welche Daten wir bei Anfragen, Vorbestellungen und der Nutzungsanalyse verarbeiten und welche Rechte du hast." },
+      { property: "og:type", content: "website" },
       { property: "og:url", content: "https://lavidro.com/datenschutz" },
+      { name: "twitter:card", content: "summary" },
     ],
     links: [{ rel: "canonical", href: "https://lavidro.com/datenschutz" }],
   }),
@@ -22,7 +24,7 @@ function DatenschutzPage() {
       <Header />
       <main className="mx-auto max-w-3xl px-4 pt-32 pb-20 sm:px-6 lg:px-8">
         <h1 className="font-display text-4xl font-bold tracking-tight">Datenschutzerklärung</h1>
-        <p className="mt-4 text-sm text-foreground/60">Stand: Juni 2026</p>
+        <p className="mt-4 text-sm text-foreground/60">Stand: September 2026</p>
 
         {/* 1. Datenschutz auf einen Blick */}
         <section className="mt-12">
@@ -159,13 +161,9 @@ function DatenschutzPage() {
             Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:
           </p>
           <address className="mt-4 not-italic text-foreground/80 leading-relaxed">
-            Robin Zach
+            Factory33 Ecosystem GmbH
             <br />
-            Jonah Blümel
-            <br />
-            Jan-Kevin Ploch
-            <br />
-            Ausblick 1
+            Ausblick 1D
             <br />
             33100 Paderborn
             <br />
@@ -368,20 +366,51 @@ function DatenschutzPage() {
           <ul className="mt-3 list-disc pl-6 text-foreground/80 leading-relaxed space-y-1">
             <li>Name (optional)</li>
             <li>E-Mail-Adresse</li>
-            <li>Optionale Angabe zum „Pain Point"</li>
+            <li>Gewünschte Kontaktart</li>
+            <li>Telefonnummer und gewünschtes Zeitfenster (jeweils optional)</li>
+            <li>Optionale Angabe zur persönlichen Herausforderung im Wäschealltag</li>
             <li>Einwilligungsstatus</li>
             <li>Zeitpunkt der Eintragung</li>
           </ul>
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Zweck der Verarbeitung ist die Information über den Produktstart von Lavidro sowie die
             Anbahnung einer Geschäftsbeziehung. Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1
-            lit. a DSGVO)). Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft per
+            lit. a DSGVO). Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft per
             E-Mail an{" "}
             <a href="mailto:lavidro@gmx.net" className="underline underline-offset-4">
               lavidro@gmx.net
             </a>{" "}
             widerrufen. Wir speichern die Daten bis zum Widerruf bzw. bis sie für den genannten
             Zweck nicht mehr erforderlich sind.
+          </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">Unverbindliche Vorbestellungen</h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Wenn Sie ein Lavidro System unverbindlich vorbestellen, verarbeiten wir Ihren Namen, Ihre
+            E-Mail-Adresse, die ausgewählte Lösung und Ausstattungsvariante, die gewählte Zahlungsart,
+            die zum Zeitpunkt der Anfrage angezeigte Preisindikation, den Einwilligungsstatus sowie
+            den Zeitpunkt und die Quelle der Anfrage. Die Vorbestellung ist unverbindlich und führt
+            weder zu einem Kaufvertrag noch zu einer Zahlungspflicht. Die angezeigten Preise sind
+            vorläufig und können sich bis zu einem späteren verbindlichen Angebot ändern.
+          </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Die Verarbeitung erfolgt zur Bearbeitung Ihrer Anfrage und zur Anbahnung eines möglichen
+            Vertragsverhältnisses auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO sowie, soweit eine
+            Einwilligung abgefragt wird, auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO. Die Daten
+            verbleiben bei uns, bis die Anfrage abgeschlossen ist, Sie Ihre Einwilligung widerrufen
+            oder Sie uns zur Löschung auffordern, sofern keine gesetzlichen Aufbewahrungspflichten
+            entgegenstehen.
+          </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">Bestätigungs-E-Mails</h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Nach einer Anmeldung oder unverbindlichen Vorbestellung senden wir eine Bestätigungs-E-Mail
+            mit einer Zusammenfassung der übermittelten Angaben. Hierfür verarbeiten wir insbesondere
+            Ihre E-Mail-Adresse, Ihren Namen und die jeweiligen Anfrage- oder Produktdaten. Der Versand
+            dient der Bearbeitung Ihrer Anfrage beziehungsweise der Durchführung vorvertraglicher
+            Maßnahmen gemäß Art. 6 Abs. 1 lit. b DSGVO. Versandstatus und technische Protokolldaten
+            werden zur Gewährleistung eines sicheren und zuverlässigen Versands auf Grundlage unseres
+            berechtigten Interesses gemäß Art. 6 Abs. 1 lit. f DSGVO gespeichert.
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">Anfrage per E-Mail</h3>
@@ -407,7 +436,8 @@ function DatenschutzPage() {
           </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
             Für die Speicherung und Verarbeitung der über die Website erfassten Daten (z. B.
-            Anmeldungen zu „Lavidro live erleben“) nutzen wir „Lovable Cloud“. Anbieter ist die
+            Anmeldungen zu „Lavidro live erleben“ und unverbindliche Vorbestellungen) nutzen wir
+            „Lovable Cloud“. Anbieter ist die
             Lovable Labs AB, Regeringsgatan 25, 111 53 Stockholm, Schweden. Lovable Cloud stellt uns
             eine verwaltete Datenbank-Infrastruktur bereit. Im Hintergrund nutzt Lovable für diese
             Dienste den Infrastruktur-Anbieter Supabase, Inc. (Palo Alto, USA) als
@@ -503,10 +533,6 @@ function DatenschutzPage() {
             Produktseite, gewählte Ausstattungsvariante). Es werden keine Namen, E-Mail-Adressen,
             Formulareingaben, Telefonnummern, vollständigen IP-Adressen oder Fingerprints
             gespeichert. Die Daten werden auf unseren Servern in der EU verarbeitet.
-          </p>
-          <p className="mt-4 text-xs text-foreground/60 italic">
-            Hinweis: Die konkreten Rechtsgrundlagen, Speicherfristen sowie Angaben zum
-            Auftragsverarbeiter sind vor Veröffentlichung juristisch zu prüfen.
           </p>
         </section>
 

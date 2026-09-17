@@ -9,7 +9,9 @@ export const Route = createFileRoute("/impressum")({
       { name: "description", content: "Impressum von Lavidro: Anbieterkennzeichnung, Anschrift, Kontaktdaten und Verantwortliche für die Inhalte dieser Website." },
       { property: "og:title", content: "Impressum — Lavidro" },
       { property: "og:description", content: "Impressum von Lavidro: Anbieterkennzeichnung, Anschrift, Kontaktdaten und Verantwortliche für die Inhalte dieser Website." },
+      { property: "og:type", content: "website" },
       { property: "og:url", content: "https://lavidro.com/impressum" },
+      { name: "twitter:card", content: "summary" },
     ],
     links: [{ rel: "canonical", href: "https://lavidro.com/impressum" }],
   }),
@@ -26,15 +28,17 @@ function ImpressumPage() {
         <section className="mt-10">
           <h2 className="font-display text-xl font-semibold">Angaben gemäß&nbsp;§ 5 des DDG</h2>
           <address className="mt-4 not-italic text-foreground/80 leading-relaxed">
-            Robin Zach
+            Factory33 Ecosystem GmbH
             <br />
-            Jonah Blümel
-            <br />
-            Jan-Kevin Ploch
-            <br />
-            Ausblick 1<br />
+            Ausblick 1D<br />
             33100 Paderborn
           </address>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Lavidro ist ein Angebot der Factory33 Ecosystem GmbH.
+          </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: DE455405858
+          </p>
         </section>
 
         <section className="mt-10">
