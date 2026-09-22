@@ -390,8 +390,10 @@ function DatenschutzPage() {
           <p className="mt-3 text-foreground/80 leading-relaxed">
             Wenn Sie ein Lavidro System unverbindlich vorbestellen, verarbeiten wir Ihren Namen, Ihre
             E-Mail-Adresse, die ausgewählte Lösung und Ausstattungsvariante, die gewählte Zahlungsart,
-            die zum Zeitpunkt der Anfrage angezeigte Preisindikation, den Einwilligungsstatus sowie
-            den Zeitpunkt und die Quelle der Anfrage. Die Vorbestellung ist unverbindlich und führt
+            die zum Zeitpunkt der Anfrage angezeigte Preisindikation, den Status der notwendigen
+            Datenverarbeitungsbestätigung, gegebenenfalls Ihre freiwillige Einwilligung in
+            zusätzliche Produktinformationen sowie den Zeitpunkt und die Quelle der Anfrage. Die
+            Vorbestellung ist unverbindlich und führt
             weder zu einem Kaufvertrag noch zu einer Zahlungspflicht. Die angezeigten Preise sind
             vorläufig und können sich bis zu einem späteren verbindlichen Angebot ändern.
           </p>
@@ -402,6 +404,23 @@ function DatenschutzPage() {
             verbleiben bei uns, bis die Anfrage abgeschlossen ist, Sie Ihre Einwilligung widerrufen
             oder Sie uns zur Löschung auffordern, sofern keine gesetzlichen Aufbewahrungspflichten
             entgegenstehen.
+          </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">
+            Freiwillige Produktinformationen per E-Mail
+          </h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Wenn Sie im Vormerkformular gesondert einwilligen, dürfen wir Ihre E-Mail-Adresse nutzen,
+            um Sie zusätzlich über die Produktentwicklung, Verfügbarkeit und Angebote von Lavidro zu
+            informieren. Diese Einwilligung ist freiwillig, nicht vorausgewählt und keine Voraussetzung
+            für die Bearbeitung Ihrer Vormerkung. Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO. Sie
+            können die Einwilligung jederzeit mit Wirkung für die Zukunft per E-Mail an{" "}
+            <a href="mailto:lavidro@gmx.net" className="underline underline-offset-4">
+              lavidro@gmx.net
+            </a>{" "}
+            widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung bleibt
+            unberührt. Wir speichern den Einwilligungsstatus und den Zeitpunkt der Einwilligung zum
+            Nachweis; nach einem Widerruf verwenden wir Ihre Kontaktdaten nicht mehr für diesen Zweck.
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">Bestätigungs-E-Mails</h3>

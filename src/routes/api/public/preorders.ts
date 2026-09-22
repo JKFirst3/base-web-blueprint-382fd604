@@ -107,7 +107,8 @@ export const Route = createFileRoute("/api/public/preorders")({
           !requestedTier ||
           !catalogEntry ||
           !["upfront", "monthly"].includes(payment_type ?? "") ||
-          body.consent !== true
+          body.consent !== true ||
+          typeof body.marketing_consent !== "boolean"
         ) {
           return Response.json({ error: "Invalid preorder" }, { status: 400 });
         }
@@ -141,6 +142,8 @@ export const Route = createFileRoute("/api/public/preorders")({
           price_eur,
           monthly_eur,
           consent: true,
+           marketing_consent: body.marketing_consent,
+           marketing_consent_at: body.marketing_consent ? new Date().toISOString() : null,
           source,
         });
 

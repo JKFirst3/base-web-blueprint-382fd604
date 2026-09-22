@@ -23,7 +23,7 @@ const PRODUCTS: Product[] = [
     brand: "Lavidro Cabinet",
     name: "Integrierter Wäscheschrank",
     category: "Serie · Cabinet",
-    image: "/assets/lavidro-cabinet.webp",
+    image: "/__l5e/assets-v1/951a43fb-a953-4e09-b964-5ae22977e862/lavidro-cabinet.png",
   },
   {
     id: "one",

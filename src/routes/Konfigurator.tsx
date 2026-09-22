@@ -188,6 +188,7 @@ function PreorderDialog({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
+  const [marketingConsent, setMarketingConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
@@ -238,6 +239,7 @@ function PreorderDialog({
           price_eur: selection.price,
           monthly_eur: selection.paymentType === "monthly" ? selection.monthly : null,
           consent,
+           marketing_consent: marketingConsent,
           source: "configurator",
         }),
         signal: controller.signal,
@@ -339,8 +341,21 @@ function PreorderDialog({
                   required
                 />
                 <span>
-                   Ich stimme der Verarbeitung meiner unverbindlichen Vorbestellung gemäß der{" "}
+                  Ich stimme der Verarbeitung meiner Daten zur Bearbeitung der unverbindlichen
+                  Vormerkung gemäß der{" "}
                   <a href="/datenschutz">Datenschutzerklärung</a> zu.
+                </span>
+              </label>
+              <label className="checkbox">
+                <input
+                  type="checkbox"
+                  checked={marketingConsent}
+                  onChange={(event) => setMarketingConsent(event.target.checked)}
+                />
+                <span>
+                  Ich möchte zusätzlich per E-Mail über die Produktentwicklung, Verfügbarkeit und
+                  Angebote von Lavidro informiert werden. Diese Einwilligung ist freiwillig und
+                  jederzeit widerrufbar.
                 </span>
               </label>
               <button className="primary-button" type="submit" disabled={submitting}>
