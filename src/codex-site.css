@@ -1575,6 +1575,9 @@ legend {
 }
 
 .preorder-form .checkbox {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 12px;
   align-items: flex-start;
 }
 

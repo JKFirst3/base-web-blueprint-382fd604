@@ -209,6 +209,8 @@ export type Database = {
           created_at: string
           email: string
           id: string
+          marketing_consent: boolean
+          marketing_consent_at: string | null
           monthly_eur: number | null
           name: string
           payment_type: string
@@ -224,6 +226,8 @@ export type Database = {
           created_at?: string
           email: string
           id?: string
+          marketing_consent?: boolean
+          marketing_consent_at?: string | null
           monthly_eur?: number | null
           name: string
           payment_type: string
@@ -239,6 +243,8 @@ export type Database = {
           created_at?: string
           email?: string
           id?: string
+          marketing_consent?: boolean
+          marketing_consent_at?: string | null
           monthly_eur?: number | null
           name?: string
           payment_type?: string

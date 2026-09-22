@@ -18,7 +18,7 @@ export default defineTool({
     const take = Math.min(Math.max(Math.trunc(limit ?? 20), 1), 100);
     let query = guard.supabase
       .from("preorders")
-      .select("id, created_at, name, email, solution_id, solution_name, tier, payment_type, price_eur, monthly_eur, source")
+      .select("id, created_at, name, email, solution_id, solution_name, tier, payment_type, price_eur, monthly_eur, marketing_consent, marketing_consent_at, source")
       .order("created_at", { ascending: false })
       .limit(take);
     if (solution_id) query = query.eq("solution_id", solution_id.trim().toLowerCase());
