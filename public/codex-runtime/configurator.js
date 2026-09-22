@@ -153,7 +153,7 @@
         const level = product.levels[selectedLevelKey];
         return `
         <article class="compare-card">
-          <img src="${product.image}" alt="${product.title}">
+          <img src="${product.image}" alt="Produktansicht: ${product.title}">
           <p class="kicker">${product.family}</p>
           <h3>${product.title}</h3>
           <strong>${level.label}</strong>
