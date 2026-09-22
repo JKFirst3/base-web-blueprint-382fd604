@@ -341,9 +341,9 @@ function PreorderDialog({
                   required
                 />
                 <span>
-                  Ich stimme der Verarbeitung meiner Daten zur Bearbeitung der unverbindlichen
-                  Vormerkung gemäß der{" "}
-                  <a href="/datenschutz">Datenschutzerklärung</a> zu.
+                  Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> zur Kenntnis genommen
+                  und weiß, dass meine Daten zur Bearbeitung der unverbindlichen Vormerkung verarbeitet
+                  werden.
                 </span>
               </label>
               <label className="checkbox">
