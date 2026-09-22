@@ -1,5 +1,5 @@
 import mobilImage from "@/assets/konfigurator-mobil.png.asset.json";
-import hero from "@/assets/hero-laundry-room.png.asset.json";
+import praezision from "@/assets/praezision-uebernimmt.png.asset.json";
 
 const TILES = [
   {
@@ -8,7 +8,7 @@ const TILES = [
     body: "Flexible Installation im Hauswirtschaftsraum – ohne Umbauten. Möbeldesign, das sich diskret einordnet.",
   },
   {
-    image: hero.url,
+    image: praezision.url,
     title: "Präzision, die übernimmt",
     body: "Sensorik, Bewegungssteuerung und autonome Abläufe – zwischen Waschmaschine, Trockner und Ablage.",
   },
