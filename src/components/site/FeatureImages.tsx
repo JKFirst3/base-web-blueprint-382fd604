@@ -1,6 +1,6 @@
 import mobilImage from "@/assets/konfigurator-mobil.png.asset.json";
 import praezision from "@/assets/praezision-uebernimmt.png.asset.json";
-import cabinetImage from "@/assets/lavidro-cabinet.png.asset.json";
+import qualitaet from "@/assets/qualitaet-bleibt.png.asset.json";
 
 const TILES = [
   {
@@ -14,7 +14,7 @@ const TILES = [
     body: "Sensorik, Bewegungssteuerung und autonome Abläufe – zwischen Waschmaschine, Trockner und Ablage.",
   },
   {
-    image: cabinetImage.url,
+    image: qualitaet.url,
     title: "Qualität, die bleibt",
     body: "Textilschonende Pflege, sichere Griffe und wiederholbare Ergebnisse in jeder Ausbaustufe.",
   },
