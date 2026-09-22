@@ -161,7 +161,9 @@ function DatenschutzPage() {
             Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:
           </p>
           <address className="mt-4 not-italic text-foreground/80 leading-relaxed">
-            Factory33 Ecosystem GmbH
+            Lavidro
+            <br />
+            Jonah Blümel, Jan-Kevin Ploch, Robin Zach
             <br />
             Ausblick 1D
             <br />
