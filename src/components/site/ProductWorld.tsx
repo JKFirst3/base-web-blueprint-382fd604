@@ -30,7 +30,7 @@ const PRODUCTS: Product[] = [
     brand: "Lavidro One",
     name: "Einzelteilbehandlung im Schrank",
     category: "Serie · One",
-    image: "/assets/lavidro-one.png",
+    image: "/__l5e/assets-v1/ba44f8c0-b665-4574-9d54-1c8f84f362a8/lavidro-one.png",
   },
 ];
 

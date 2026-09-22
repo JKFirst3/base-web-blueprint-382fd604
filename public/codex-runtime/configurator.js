@@ -68,7 +68,7 @@
       family: "Einzelteilbehandlung im Schrank",
       description:
         "Ein Roboterarm im Schrank, der einzelne Kleidungsstücke behandelt: Flecken gezielt vorbehandeln und Textilien zwischendurch auffrischen – ohne komplette Waschladung.",
-      image: "assets/lavidro-one.png",
+      image: "/__l5e/assets-v1/ba44f8c0-b665-4574-9d54-1c8f84f362a8/lavidro-one.png",
       highlights: [
         "Roboterarm im Schrank für die Behandlung einzelner Kleidungsstücke",
         "Gezielte Fleckenbehandlung statt kompletter Waschladung",
