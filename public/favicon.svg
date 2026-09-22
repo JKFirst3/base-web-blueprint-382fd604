@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="-4 -17.12 85.94 85.94">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #cdc2ac;
+      }
+
+      .cls-2 {
+        fill: #f3f2ee;
+        stroke: #cdc2ac;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.52px;
+      }
+    </style>
+  </defs>
+  <g>
+    <polygon class="cls-2" points="18.18 1 .87 12.77 .87 50.85 38.95 26.62 18.18 1"/>
+    <polygon class="cls-2" points="59.72 1 77.03 12.77 77.03 50.85 38.95 26.62 59.72 1"/>
+    <polygon class="cls-2" points=".87 50.85 38.95 26.62 38.95 50.85 .87 50.85"/>
+    <polygon class="cls-2" points="77.03 50.85 38.95 26.62 38.95 50.85 77.03 50.85"/>
+    <polygon class="cls-2" points="18.18 1 38.95 26.62 59.72 1 18.18 1"/>
+    <polygon class="cls-2" points="18.18 1 14.72 20.39 38.95 26.62 18.18 1"/>
+    <polygon class="cls-2" points="59.72 1 63.18 20.39 38.95 26.62 59.72 1"/>
+  </g>
+  <ellipse class="cls-1" cx="38.95" cy="39.47" rx="2.79" ry="2.79"/>
+</svg>
