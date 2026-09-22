@@ -1,5 +1,5 @@
 import mobilImage from "@/assets/konfigurator-mobil.png.asset.json";
-import hero from "@/assets/hero-laundry-room.png.asset.json";
+import praezision from "@/assets/praezision-uebernimmt.png.asset.json";
 
 const TILES = [
   {
