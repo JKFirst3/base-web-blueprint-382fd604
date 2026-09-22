@@ -8,7 +8,7 @@ const TILES = [
     body: "Flexible Installation im Hauswirtschaftsraum – ohne Umbauten. Möbeldesign, das sich diskret einordnet.",
   },
   {
-    image: hero.url,
+    image: praezision.url,
     title: "Präzision, die übernimmt",
     body: "Sensorik, Bewegungssteuerung und autonome Abläufe – zwischen Waschmaschine, Trockner und Ablage.",
   },
