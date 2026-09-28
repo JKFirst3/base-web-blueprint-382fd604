@@ -303,7 +303,7 @@ const PRODUCT_IDS = new Set(["mobile", "cabinet", "one"]);
 const FLUSH_EVERY_MS = 30_000; // periodic flush of visible time
 const MAX_TICK_GAP_MS = 2_000; // ignore gaps (sleep, throttling) beyond one tick
 
-type Engagement = { path: string; product?: string; ms: number; periodic: number; last: number };
+type Engagement = { path: string; product?: string; ms: number; last: number };
 let engagement: Engagement | null = null;
 let engagementTimer: number | null = null;
 
@@ -345,18 +345,17 @@ function tickEngagement() {
   const now = Date.now();
   const page = currentPage();
   if (!engagement) {
-    engagement = { ...page, ms: 0, periodic: 0, last: now };
+    engagement = { ...page, ms: 0, last: now };
     return;
   }
   if (page.path !== engagement.path || page.product !== engagement.product) {
     accumulate(now); // SPA route change: close the previous page view
     flushEngagement();
-    engagement = { ...page, ms: 0, periodic: 0, last: now };
+    engagement = { ...page, ms: 0, last: now };
     return;
   }
   accumulate(now);
   if (engagement.ms >= FLUSH_EVERY_MS) {
-    engagement.periodic++;
     flushEngagement();
   }
 }
