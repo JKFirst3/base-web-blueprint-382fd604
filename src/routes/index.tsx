@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import homeHtml from "@/content/home.html?raw";
 import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
 import { track } from "@/lib/track";
+import { captureFunnel } from "@/lib/analytics";
 
 const TITLE = "Lavidro — Wäsche. Einfach. Fertig.";
 const DESCRIPTION =
@@ -83,6 +84,34 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   useCodexRuntime("/codex-runtime/home.js");
+
+  // Stage 2 (scroll): product teaser becomes visible. Deduped per visit in captureFunnel.
+  useEffect(() => {
+    let io: IntersectionObserver | null = null;
+    let tries = 0;
+    const attach = () => {
+      const el = document.getElementById("produkt-teaser");
+      if (!el) {
+        if (tries++ < 40) timer = window.setTimeout(attach, 150);
+        return;
+      }
+      io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            void captureFunnel("product_area_viewed", { entry_type: "scroll" });
+            io?.disconnect();
+          }
+        },
+        { threshold: 0.25 },
+      );
+      io.observe(el);
+    };
+    let timer = window.setTimeout(attach, 0);
+    return () => {
+      window.clearTimeout(timer);
+      io?.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     const form = document.querySelector<HTMLFormElement>("[data-form]");
