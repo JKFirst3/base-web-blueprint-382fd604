@@ -158,8 +158,8 @@ export function CookieBanner() {
                   </label>
                 </div>
                 <p className="mt-2 text-sm text-black/70">
-                  Hilft uns zu verstehen, welche Seiten, Produkte und Konfigurationen genutzt
-                  werden.
+                  Anonyme Nutzungsanalyse mit PostHog (EU-Server): wenige Ereignisse zu Produktinteresse und
+                  Vormerkung. Kein Session Replay, keine Formularinhalte. Jederzeit widerrufbar.
                 </p>
               </div>
             </div>
