@@ -1321,6 +1321,35 @@ legend {
   font-weight: 600;
 }
 
+.feature-details summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.feature-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.feature-details summary::after {
+  content: "+";
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.feature-details[open] summary::after {
+  content: "\2212";
+}
+
+.option-form .config-price {
+  margin-top: 0;
+}
+
 .option-row {
   display: grid;
   grid-template-columns: 22px 1fr auto;
