@@ -231,9 +231,9 @@ const english: Record<string, string> = {
   vormerken: "reserve",
   "Vormerkung absenden": "Submit registration of interest",
   "Während der Entwicklung": "During development",
-  "Weitere Produktinformationen": "Further product information",
-  "Wir teilen den aktuellen Entwicklungsstand und die nächsten Schritte mit Ihnen.":
-    "We will share the current development status and next steps with you.",
+  "Bearbeitung der Vormerkung": "Processing of your registration of interest",
+  "Wir informieren Sie bei Bedarf über die nächsten Schritte Ihrer Vormerkung.":
+    "We will inform you as needed about the next steps of your registration of interest.",
   Ausblick: "Outlook",
   "Marktstart geplant 2027": "Market launch planned for 2027",
   "Ein verbindliches Angebot oder ein Liefertermin ist damit nicht verbunden.":

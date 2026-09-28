@@ -385,9 +385,9 @@ function PreorderJourney({ confirmed = false }: { confirmed?: boolean }) {
       </li>
       <li>
         <span>Während der Entwicklung</span>
-        <strong>Weitere Produktinformationen</strong>
+        <strong>Bearbeitung der Vormerkung</strong>
         <small>
-          Wir teilen den aktuellen Entwicklungsstand und die nächsten Schritte mit Ihnen.
+          Wir informieren Sie bei Bedarf über die nächsten Schritte Ihrer Vormerkung.
         </small>
       </li>
       <li>
