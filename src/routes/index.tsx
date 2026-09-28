@@ -153,7 +153,7 @@ function HomePage() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           // Newsletter only: email + required consent. Not part of the purchase funnel.
-          body: JSON.stringify({ email, consent, request_type: "termin" }),
+          body: JSON.stringify({ email, consent, request_type: "termin", form_mode: "newsletter" }),
           signal: controller.signal,
         }).finally(() => window.clearTimeout(timeout));
 
