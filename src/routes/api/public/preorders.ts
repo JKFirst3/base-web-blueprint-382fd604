@@ -88,7 +88,12 @@ export const Route = createFileRoute("/api/public/preorders")({
         const requestedTier = cleanText(body.tier, 50);
         const size = cleanText(body.size, 50) ?? "Standard";
         const payment_type = cleanText(body.payment_type, 20);
-        const source = cleanText(body.source, 50) ?? "configurator";
+        // Only the two known sources are accepted; anything else is rejected.
+        const rawSource = body.source === undefined || body.source === null ? "configurator" : body.source;
+        if (rawSource !== "configurator" && rawSource !== "smoke_google_v1") {
+          return Response.json({ error: "Invalid preorder" }, { status: 400 });
+        }
+        const source: "configurator" | "smoke_google_v1" = rawSource;
 
         const product =
           requestedSolutionId && requestedSolutionId in PREORDER_CATALOG

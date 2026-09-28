@@ -133,6 +133,9 @@ async function load(): Promise<PostHog | null> {
       advanced_disable_flags: true,
       person_profiles: "identified_only",
       mask_personal_data_properties: true,
+      // Also mask the campaign tag in URLs PostHog keeps in its local persistence.
+      custom_personal_data_properties: ["lv_campaign"],
+      disable_capture_url_hashes: true,
       save_referrer: false,
       request_batching: false,
       persistence: "localStorage+cookie",
