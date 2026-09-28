@@ -103,17 +103,16 @@
   const renderLevels = () => {
     const level = selectedProduct.levels[selectedLevelKey];
     const options = [
-      ["cash", "Kaufpreis", `Einmalig ${level.price.toLocaleString("de-DE")} €`],
-      ["monthly", "Monatlicher Beitrag (Abo)", `${monthlyRate(level.price).toLocaleString("de-DE")} € / Monat im Abonnement`],
+      ["cash", "Kaufpreis"],
+      ["monthly", "Monatlicher Beitrag (Abo)"],
     ];
     levelOptions.innerHTML = options
       .map(
-        ([key, label, note]) => `
+        ([key, label]) => `
         <label class="option-row">
           <input type="radio" name="finance" value="${key}" />
           <span>
             <strong>${label}</strong>
-            <small>${note}</small>
           </span>
         </label>
       `,
