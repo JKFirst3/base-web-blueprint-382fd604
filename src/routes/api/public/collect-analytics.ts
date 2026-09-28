@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+const LEGACY_COLLECTOR_DISABLED = true;
 // Allowed catalog. Keep in sync with src/routes/Konfigurator.tsx.
 const ALLOWED_EVENTS = new Set([
   "page_view",
@@ -99,6 +100,9 @@ export const Route = createFileRoute("/api/public/collect-analytics")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        // Legacy collector disabled: funnel analytics run only via consent-gated PostHog.
+        // No new rows are written; historical data stays untouched.
+        if (LEGACY_COLLECTOR_DISABLED) return new Response("Gone", { status: 410 });
         const origin = request.headers.get("origin");
         if (!isAllowedOrigin(origin)) {
           return new Response("Forbidden", { status: 403 });
