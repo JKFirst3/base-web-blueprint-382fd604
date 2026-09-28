@@ -379,7 +379,7 @@ function PreorderDialog({
                 </span>
               </label>
               <button className="primary-button" type="submit" disabled={submitting}>
-                {submitting ? "Wird gespeichert …" : "Unverbindlich vormerken"}
+                {submitting ? "Wird gespeichert …" : "Unverbindlich anfragen"}
               </button>
               <p className="form-status" role="status" aria-live="polite">
                 {message}
