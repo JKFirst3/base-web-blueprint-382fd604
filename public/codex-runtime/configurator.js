@@ -162,8 +162,8 @@
         return `
         <article class="compare-card">
           <img src="${product.image}" alt="Produktansicht: ${product.title}">
-          <p class="kicker">${product.family}</p>
-          <h3>${product.title}</h3>
+          <p class="kicker">${product.title}</p>
+          <h3>${product.family}</h3>
           <p>${level.price.toLocaleString("de-DE")} € oder ${monthlyRate(level.price).toLocaleString("de-DE")} € / Monat im Abo</p>
           <ul>
             ${product.highlights.map((highlight) => `<li>${highlight}</li>`).join("")}
@@ -178,8 +178,8 @@
   const renderProduct = () => {
     productImage.src = selectedProduct.image;
     productImage.alt = `${selectedProduct.title} Produktvorschau`;
-    productTitle.textContent = selectedProduct.title;
-    productFamily.textContent = selectedProduct.family;
+    productTitle.textContent = selectedProduct.family;
+    productFamily.textContent = selectedProduct.title;
     panelTitle.textContent = `${selectedProduct.title} konfigurieren`;
     description.textContent = selectedProduct.description;
     renderLevels();
