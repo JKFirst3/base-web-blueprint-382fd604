@@ -230,8 +230,6 @@ const english: Record<string, string> = {
   Schließen: "Close",
   vormerken: "reserve",
   "Vormerkung absenden": "Submit registration of interest",
-  "Mit Ihren Angaben sichern Sie sich den aktuellen Vorbestellungsstatus.":
-    "With your details, you secure the current pre-order status.",
   "Während der Entwicklung": "During development",
   "Weitere Produktinformationen": "Further product information",
   "Wir teilen den aktuellen Entwicklungsstand und die nächsten Schritte mit Ihnen.":
