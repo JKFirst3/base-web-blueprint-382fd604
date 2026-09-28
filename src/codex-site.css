@@ -1528,9 +1528,6 @@ legend {
   margin-top: 20px;
 }
 
-.mobile-action-label {
-  display: none;
-}
 
 .config-actions .primary-button,
 .config-actions .outline-button,
@@ -2231,14 +2228,6 @@ details p {
   .configurator-page .config-actions .primary-button {
     padding: 12px 20px;
     line-height: 1.35;
-  }
-
-  .configurator-page .desktop-action-label {
-    display: none;
-  }
-
-  .configurator-page .mobile-action-label {
-    display: inline;
   }
 
   .compare-dialog {
