@@ -74,6 +74,7 @@ async function load(): Promise<PostHog | null> {
   if (loading) return loading;
   loading = (async () => {
     const cfg = await getPosthogConfig();
+    console.warn("[dbg] cfg", !!cfg.token);
     if (!cfg.token || !analyticsAllowed()) return null;
     const { default: posthog } = await import("posthog-js");
     const host = window.location.hostname;
@@ -92,6 +93,7 @@ async function load(): Promise<PostHog | null> {
       person_profiles: "identified_only",
       mask_personal_data_properties: true,
       save_referrer: false,
+      request_batching: false,
       persistence: "localStorage+cookie",
       before_send: (event) => {
         if (!event) return null;
@@ -129,6 +131,7 @@ export async function captureFunnel(event: FunnelEvent, props: Props = {}) {
   for (const k of ALLOWED_PROPS) if (props[k]) clean[k] = String(props[k]);
   const client = await load();
   if (!client || !analyticsAllowed()) return;
+  console.warn("[dbg] capture", event, !!client);
   client.capture(event, clean);
 }
 
