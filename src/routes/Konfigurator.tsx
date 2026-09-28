@@ -6,6 +6,7 @@ import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
 
 import { track } from "@/lib/track";
 import { captureFunnel, toBusinessModel } from "@/lib/analytics";
+import { currentCampaign } from "@/lib/campaign";
 
 type PreorderSelection = {
   productId: string;
@@ -256,7 +257,7 @@ function PreorderDialog({
           monthly_eur: selection.paymentType === "monthly" ? selection.monthly : null,
           consent,
            marketing_consent: marketingConsent,
-          source: "configurator",
+          source: currentCampaign() ?? "configurator",
         }),
         signal: controller.signal,
       }).finally(() => window.clearTimeout(timeout));
