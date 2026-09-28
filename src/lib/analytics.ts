@@ -19,6 +19,13 @@ type Props = {
 };
 
 const ALLOWED_PROPS = ["product_id", "business_model", "entry_type"] as const;
+const KEEP_PROPS = new Set<string>([
+  ...ALLOWED_PROPS,
+  "site_environment",
+  "site_host",
+  "token",
+  "distinct_id",
+]);
 const FUNNEL_EVENTS = new Set<FunnelEvent>([
   "landing_page_viewed",
   "product_area_viewed",
@@ -128,7 +135,9 @@ async function load(): Promise<PostHog | null> {
         if (!FUNNEL_EVENTS.has(event.event as FunnelEvent) || !analyticsAllowed()) return null;
         const p = (event.properties ?? {}) as Record<string, unknown>;
         for (const k of Object.keys(p)) {
-          if (DROP_PROP.test(k)) delete p[k];
+          // Positive list: SDK-technical "$" keys (minus DROP_PROP) plus our own props.
+          const keep = KEEP_PROPS.has(k) || (k.startsWith("$") && !DROP_PROP.test(k));
+          if (!keep) delete p[k];
         }
         if ("$current_url" in p) p.$current_url = stripQuery(p.$current_url);
         p.$geoip_disable = true;
