@@ -2437,3 +2437,5 @@ details p {
   border-color: var(--miele-red);
   box-shadow: 0 0 0 3px rgba(140, 0, 20, 0.1);
 }
+
+.config-actions .primary-button:disabled { opacity: 0.45; cursor: not-allowed; }
