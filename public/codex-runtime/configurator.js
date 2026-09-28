@@ -23,12 +23,6 @@
         "Automatisiert den Ablauf zwischen Wäsche, Maschinen und Ablage",
       ],
       levels: {
-        basic: {
-          label: "Basic",
-          note: "Der flexible Einstieg in die automatisierte Wäschepflege",
-          price: 9000,
-          features: ["sort", "wash"],
-        },
         premium: {
           label: "Premium",
           note: "Mehr Automatisierung für den vollständigen Ablauf",
@@ -49,12 +43,6 @@
         "Planungsrichtwert: ab 3 m² bis 5 m² Fläche",
       ],
       levels: {
-        basic: {
-          label: "Basic",
-          note: "Planungsrichtwert ab 3 m² Fläche",
-          price: 12500,
-          features: ["sort", "wash"],
-        },
         premium: {
           label: "Premium",
           note: "Planungsrichtwert ab 5 m² Fläche",
@@ -115,14 +103,20 @@
   const selectedFinance = () => new FormData(form).get("finance") || "monthly";
 
   const renderLevels = () => {
-    levelOptions.innerHTML = Object.entries(selectedProduct.levels)
+    const level = selectedProduct.levels[selectedLevelKey];
+    const options = [
+      ["cash", "Kaufpreis", `Einmalig ${level.price.toLocaleString("de-DE")} €`],
+      ["monthly", "Monatlicher Beitrag (Abo)", `${monthlyRate(level.price).toLocaleString("de-DE")} € / Monat im Abonnement`],
+    ];
+    const current = selectedFinance();
+    levelOptions.innerHTML = options
       .map(
-        ([key, level], index) => `
+        ([key, label, note]) => `
         <label class="option-row">
-          <input type="radio" name="level" value="${key}" ${index === 0 ? "checked" : ""} />
+          <input type="radio" name="finance" value="${key}" ${key === current ? "checked" : ""} />
           <span>
-            <strong>${level.label}</strong>
-            <small>${level.note}</small>
+            <strong>${label}</strong>
+            <small>${note}</small>
           </span>
         </label>
       `,
@@ -149,23 +143,25 @@
     const level = selectedProduct.levels[selectedLevelKey];
     priceUpfront.textContent = `${level.price.toLocaleString("de-DE")} €`;
     priceMonthly.textContent = `${monthlyRate(level.price).toLocaleString("de-DE")} € / Monat`;
+    const monthly = selectedFinance() === "monthly";
+    priceUpfront.closest("p")?.classList.toggle("is-selected", !monthly);
+    priceMonthly.closest("p")?.classList.toggle("is-selected", monthly);
   };
 
   const renderCompare = () => {
     const comparableProducts = Object.entries(products).filter(
-      ([, product]) => product.levels[selectedLevelKey],
+      ([, product]) => Object.keys(product.levels).length,
     );
 
     compareTable.innerHTML = comparableProducts
       .map(([key, product]) => {
-        const level = product.levels[selectedLevelKey];
+        const level = Object.values(product.levels)[0];
         return `
         <article class="compare-card">
           <img src="${product.image}" alt="Produktansicht: ${product.title}">
           <p class="kicker">${product.family}</p>
           <h3>${product.title}</h3>
-          <strong>${level.label}</strong>
-          <p>${level.note}</p>
+          <p>${level.price.toLocaleString("de-DE")} € oder ${monthlyRate(level.price).toLocaleString("de-DE")} € / Monat im Abo</p>
           <ul>
             ${product.highlights.map((highlight) => `<li>${highlight}</li>`).join("")}
           </ul>
@@ -190,11 +186,8 @@
   };
 
   form?.addEventListener("change", (event) => {
-    if (event.target.name === "level") {
-      selectedLevelKey = event.target.value;
-      renderFeatures();
+    if (event.target.name === "finance") {
       renderPrices();
-      renderCompare();
     }
   });
 
