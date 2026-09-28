@@ -318,9 +318,9 @@ function currentPage(): { path: string; product?: string } {
   return { path, product: q && PRODUCT_IDS.has(q) ? q : "mobile" };
 }
 
-function accumulate(now: number) {
+function accumulate(now: number, wasVisible = document.visibilityState === "visible") {
   if (!engagement) return;
-  if (document.visibilityState === "visible") {
+  if (wasVisible) {
     engagement.ms += Math.max(0, Math.min(now - engagement.last, MAX_TICK_GAP_MS));
   }
   engagement.last = now;
@@ -391,7 +391,7 @@ function onVisibilityChange() {
   if (!engagement || engagementTimer === null) return;
   const now = Date.now();
   if (document.visibilityState === "hidden") {
-    accumulate(now);
+    accumulate(now, true); // time up to the moment the tab was hidden
     flushEngagement(true);
   } else {
     engagement.last = now;
@@ -400,6 +400,6 @@ function onVisibilityChange() {
 
 function onPageHide() {
   if (!engagement || engagementTimer === null) return;
-  accumulate(Date.now());
+  accumulate(Date.now(), document.visibilityState === "visible");
   flushEngagement(true);
 }
