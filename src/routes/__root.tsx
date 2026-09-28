@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
 import { CookieBanner } from "@/components/site/CookieBanner";
-import { track } from "@/lib/track";
+import { captureFunnel, clearPending, initAnalytics } from "@/lib/analytics";
 import { LanguageProvider, LanguageSlot } from "@/lib/i18n";
 
 function NotFoundComponent() {
@@ -172,7 +172,12 @@ function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
-    track("page_view");
+    initAnalytics();
+  }, []);
+
+  useEffect(() => {
+    if (pathname === "/") void captureFunnel("landing_page_viewed");
+    else clearPending("landing_page_viewed");
   }, [pathname]);
 
   return (
