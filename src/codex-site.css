@@ -1298,6 +1298,12 @@ p {
   color: var(--muted);
 }
 
+.configurator-intro .development-status {
+  margin-top: 18px;
+  color: var(--ink);
+  font-weight: 700;
+}
+
 .option-form {
   display: grid;
   gap: 26px;
@@ -1436,8 +1442,50 @@ legend {
   color: var(--muted);
 }
 
+.config-price {
+  margin-top: 28px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.config-price-heading {
+  margin: 0 0 14px;
+  font-weight: 700;
+}
+
+.config-price-values {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.config-price-values p {
+  display: grid;
+  align-content: start;
+  gap: 5px;
+  margin: 0;
+}
+
+.config-price-values span,
+.config-price small {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.config-price-values strong {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 600;
+}
+
+.config-price small {
+  display: block;
+  margin-top: 14px;
+}
+
 .config-actions {
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
 .config-actions .primary-button,
@@ -2291,13 +2339,13 @@ details p {
   }
 
   .config-actions {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
 
   .config-actions .primary-button,
   .config-actions .outline-button {
     min-width: 0;
-    flex: 1;
+    flex: 1 1 100%;
   }
 
   .site-footer {

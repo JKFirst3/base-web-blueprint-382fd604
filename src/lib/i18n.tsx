@@ -184,7 +184,13 @@ const english: Record<string, string> = {
   Konfigurieren: "Configure",
   Variante: "Variant",
   Funktionsumfang: "Features",
-  Vorbestellen: "Pre-order",
+  "Unverbindlich vormerken": "Register interest without obligation",
+  "In Entwicklung · Marktstart geplant 2027": "In development · Market launch planned for 2027",
+  "Voraussichtliche, unverbindliche Preisindikation": "Estimated, non-binding price indication",
+  Kaufpreis: "Purchase price",
+  "Monatlicher Betrag": "Monthly amount",
+  "Inkl. 19 % MwSt. und Versand. Preise können sich bis zu einem späteren Angebot ändern. Keine Zahlungspflicht durch die Vormerkung.":
+    "Including 19% VAT and shipping. Prices may change before a future offer. Registering interest does not create a payment obligation.",
   Vergleichen: "Compare",
   Vergleich: "Comparison",
   "Welche Lavidro Lösung passt zu Ihnen?": "Which Lavidro solution is right for you?",
@@ -216,24 +222,22 @@ const english: Record<string, string> = {
     "A mobile robotic arm on a wheeled base for automated laundry care. It can be positioned flexibly in the utility room and connects the stations of the laundry routine.",
   "Vollautomatischer Wäscheschrank mit intelligenter Robotik, diskret integriert und für den Prozess vom Sortieren bis zur bereitgestellten Kleidung konzipiert.":
     "A fully automated laundry cabinet with intelligent robotics, discreetly integrated and designed for the process from sorting to ready-to-wear clothing.",
-  "Vorbestellung eingegangen": "Pre-order received",
-  "Heute ist Ihre Vorbestellung bei uns eingegangen.": "We have received your pre-order today.",
-  "Vorbestellung bestätigt": "Pre-order confirmed",
-  "Wir begleiten Sie transparent auf dem Weg zu Ihrem Lavidro System.":
-    "We will guide you transparently on the way to your Lavidro system.",
+  "Vormerkung eingegangen": "Registration of interest received",
+  "Ihre unverbindliche Vormerkung ist bei uns eingegangen.": "We have received your non-binding registration of interest.",
+  "In Entwicklung · Marktstart geplant 2027. Wir melden uns mit Neuigkeiten zum Entwicklungsstand.":
+    "In development · Market launch planned for 2027. We will share updates on our progress.",
+  "Unverbindliche Vormerkung": "Non-binding registration of interest",
   Schließen: "Close",
   vormerken: "reserve",
-  "Vorbestellung absenden": "Submit pre-order",
-  "Mit Ihren Angaben sichern Sie sich den aktuellen Vorbestellungsstatus.":
-    "With your details, you secure the current pre-order status.",
-  "In etwa 3 Monaten": "In around 3 months",
+  "Vormerkung absenden": "Submit registration of interest",
+  "Während der Entwicklung": "During development",
   "Weitere Produktinformationen": "Further product information",
   "Wir teilen den aktuellen Entwicklungsstand und die nächsten Schritte mit Ihnen.":
     "We will share the current development status and next steps with you.",
-  "In etwa 6 Monaten": "In around 6 months",
-  "Auslieferung und Installation": "Delivery and installation",
-  "Sie erhalten ein konkretes Update zum voraussichtlichen Liefertermin.":
-    "You will receive a specific update on the expected delivery date.",
+  Ausblick: "Outlook",
+  "Marktstart geplant 2027": "Market launch planned for 2027",
+  "Ein verbindliches Angebot oder ein Liefertermin ist damit nicht verbunden.":
+    "This does not constitute a binding offer or delivery date.",
   "Wir verwenden Cookies": "We use cookies",
   "Notwendige Cookies sorgen dafür, dass diese Website zuverlässig funktioniert. Mit Ihrer Zustimmung verwenden wir außerdem First-Party-Analytics, um zu verstehen, welche Lavidro-Produkte und Konfigurationen besonders relevant sind.":
     "Necessary cookies ensure that this website works reliably. With your consent, we also use first-party analytics to understand which Lavidro products and configurations are most relevant.",
