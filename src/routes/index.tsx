@@ -98,8 +98,8 @@ function HomePage() {
       io = new IntersectionObserver(
         (entries) => {
           if (entries.some((e) => e.isIntersecting)) {
+            // No-op without consent; deduped per visit once sent.
             void captureFunnel("product_area_viewed", { entry_type: "scroll" });
-            io?.disconnect();
           }
         },
         { threshold: 0.25 },
