@@ -1322,6 +1322,10 @@ legend {
   font-size: 0.9rem;
 }
 
+.feature-details {
+  border-bottom: 0;
+}
+
 .feature-details summary {
   display: flex;
   align-items: center;
