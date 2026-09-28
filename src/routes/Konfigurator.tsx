@@ -130,7 +130,6 @@ export const Route = createFileRoute("/Konfigurator")({
                 "@type": "Offer",
                 price: p.price,
                 priceCurrency: "EUR",
-                availability: "https://schema.org/PreOrder",
                 url: "https://lavidro.com/Konfigurator",
               },
             },

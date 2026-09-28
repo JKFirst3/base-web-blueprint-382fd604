@@ -2339,13 +2339,13 @@ details p {
   }
 
   .config-actions {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
 
   .config-actions .primary-button,
   .config-actions .outline-button {
     min-width: 0;
-    flex: 1;
+    flex: 1 1 100%;
   }
 
   .site-footer {
