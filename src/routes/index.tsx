@@ -87,11 +87,7 @@ function HomePage() {
   useCodexRuntime("/codex-runtime/home.js");
 
   // Smoke-test campaign: carry the exact constant tag to product links via URL only.
-  useEffect(() => {
-    propagateCampaignToProductLinks();
-    const t = window.setTimeout(() => propagateCampaignToProductLinks(), 500);
-    return () => window.clearTimeout(t);
-  }, []);
+  useEffect(() => propagateCampaignToProductLinks(), []);
 
   // Stage 2 (scroll): product teaser becomes visible. Deduped per visit in captureFunnel.
   useEffect(() => {

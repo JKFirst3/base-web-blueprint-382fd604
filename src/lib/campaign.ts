@@ -11,12 +11,33 @@ export function currentCampaign(): typeof SMOKE_CAMPAIGN | null {
   return value === SMOKE_CAMPAIGN ? SMOKE_CAMPAIGN : null;
 }
 
-/** Appends the campaign tag to same-site /Konfigurator links when the current page carries it. */
-export function propagateCampaignToProductLinks(root: ParentNode = document) {
-  if (!currentCampaign()) return;
-  root.querySelectorAll<HTMLAnchorElement>('a[href^="/Konfigurator"]').forEach((a) => {
-    const url = new URL(a.getAttribute("href")!, window.location.origin);
-    url.searchParams.set(CAMPAIGN_PARAM, SMOKE_CAMPAIGN);
-    a.setAttribute("href", `${url.pathname}${url.search}${url.hash}`);
-  });
+function tagLink(a: HTMLAnchorElement) {
+  const url = new URL(a.getAttribute("href")!, window.location.origin);
+  if (url.searchParams.get(CAMPAIGN_PARAM) === SMOKE_CAMPAIGN) return;
+  url.searchParams.set(CAMPAIGN_PARAM, SMOKE_CAMPAIGN);
+  a.setAttribute("href", `${url.pathname}${url.search}${url.hash}`);
+}
+
+/**
+ * Carries the campaign tag to /Konfigurator links when the current page carries it.
+ * Timing-independent: tags links already present, links added later (MutationObserver),
+ * and re-checks the clicked link in the capture phase right before navigation.
+ * Returns a cleanup function.
+ */
+export function propagateCampaignToProductLinks(): () => void {
+  if (typeof window === "undefined" || !currentCampaign()) return () => {};
+  const selector = 'a[href^="/Konfigurator"]';
+  const tagAll = () => document.querySelectorAll<HTMLAnchorElement>(selector).forEach(tagLink);
+  tagAll();
+  const observer = new MutationObserver(tagAll);
+  observer.observe(document.body, { childList: true, subtree: true });
+  const onClick = (e: Event) => {
+    const a = (e.target as Element | null)?.closest?.(selector);
+    if (a instanceof HTMLAnchorElement && currentCampaign()) tagLink(a);
+  };
+  document.addEventListener("click", onClick, true);
+  return () => {
+    observer.disconnect();
+    document.removeEventListener("click", onClick, true);
+  };
 }
