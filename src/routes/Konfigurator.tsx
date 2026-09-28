@@ -81,7 +81,7 @@ function getCatalogSelection(selection: PreorderSelection): PreorderSelection | 
 
 const KONFIGURATOR_TITLE = "Produkt — Lavidro Wäschesysteme im Vergleich";
 const KONFIGURATOR_DESCRIPTION =
-  "Vergleiche die drei Lavidro Lösungen: Mobiler Wäscheassistent, Integrierter Wäscheschrank und Einzelteilbehandlung im Schrank — mit Ausstattungsstufen und Vorbestellung.";
+  "Vergleiche die drei Lavidro Lösungen: Mobiler Wäscheassistent, Integrierter Wäscheschrank und Einzelteilbehandlung im Schrank — mit Ausstattungsstufen und unverbindlicher Vormerkung.";
 export const Route = createFileRoute("/Konfigurator")({
   head: () => ({
     meta: [
@@ -282,9 +282,9 @@ function PreorderDialog({
         {success ? (
           <div className="preorder-success">
             <span aria-hidden="true">✓</span>
-            <p className="kicker">Vorbestellung eingegangen</p>
-            <h2 id="preorder-title">Heute ist Ihre Vorbestellung bei uns eingegangen.</h2>
-            <p>Wir begleiten Sie transparent auf dem Weg zu Ihrem Lavidro System.</p>
+            <p className="kicker">Vormerkung eingegangen</p>
+            <h2 id="preorder-title">Ihre unverbindliche Vormerkung ist bei uns eingegangen.</h2>
+            <p>In Entwicklung · Marktstart geplant 2027. Wir melden uns mit Neuigkeiten zum Entwicklungsstand.</p>
             <PreorderJourney confirmed />
             <button className="primary-button" type="button" onClick={onClose}>
               Schließen
@@ -292,7 +292,7 @@ function PreorderDialog({
           </div>
         ) : (
           <>
-            <p className="kicker">Vorbestellung</p>
+            <p className="kicker">Unverbindliche Vormerkung</p>
             <h2 id="preorder-title">{selection.productName} vormerken</h2>
             <div className="preorder-summary">
               <span>
@@ -377,7 +377,7 @@ function PreorderJourney({ confirmed = false }: { confirmed?: boolean }) {
     <ol className="preorder-journey" aria-label="Ihr weiterer Weg mit Lavidro">
       <li>
         <span>Heute</span>
-        <strong>{confirmed ? "Vorbestellung bestätigt" : "Vorbestellung absenden"}</strong>
+        <strong>{confirmed ? "Vormerkung eingegangen" : "Vormerkung absenden"}</strong>
         <small>
           {confirmed
             ? "Wir prüfen Ihre Angaben und melden uns persönlich."
@@ -385,16 +385,16 @@ function PreorderJourney({ confirmed = false }: { confirmed?: boolean }) {
         </small>
       </li>
       <li>
-        <span>In etwa 3 Monaten</span>
+        <span>Während der Entwicklung</span>
         <strong>Weitere Produktinformationen</strong>
         <small>
           Wir teilen den aktuellen Entwicklungsstand und die nächsten Schritte mit Ihnen.
         </small>
       </li>
       <li>
-        <span>In etwa 6 Monaten</span>
-        <strong>Auslieferung und Installation</strong>
-        <small>Sie erhalten ein konkretes Update zum voraussichtlichen Liefertermin.</small>
+        <span>Ausblick</span>
+        <strong>Marktstart geplant 2027</strong>
+        <small>Ein verbindliches Angebot oder ein Liefertermin ist damit nicht verbunden.</small>
       </li>
     </ol>
   );

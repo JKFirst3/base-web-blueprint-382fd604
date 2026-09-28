@@ -103,6 +103,8 @@
   const featureList = document.querySelector("[data-feature-list]");
   const form = document.querySelector("[data-config-form]");
   const buyButton = document.querySelector("[data-buy-button]");
+  const priceUpfront = document.querySelector("[data-price-upfront]");
+  const priceMonthly = document.querySelector("[data-price-monthly]");
   const compareTable = document.querySelector("[data-compare-table]");
   const compareDialog = document.querySelector("[data-compare-dialog]");
   const openCompareButtons = document.querySelectorAll("[data-open-compare]");
@@ -143,6 +145,12 @@
       .join("");
   };
 
+  const renderPrices = () => {
+    const level = selectedProduct.levels[selectedLevelKey];
+    priceUpfront.textContent = `${level.price.toLocaleString("de-DE")} €`;
+    priceMonthly.textContent = `${monthlyRate(level.price).toLocaleString("de-DE")} € / Monat`;
+  };
+
   const renderCompare = () => {
     const comparableProducts = Object.entries(products).filter(
       ([, product]) => product.levels[selectedLevelKey],
@@ -177,6 +185,7 @@
     description.textContent = selectedProduct.description;
     renderLevels();
     renderFeatures();
+    renderPrices();
     renderCompare();
   };
 
@@ -184,6 +193,7 @@
     if (event.target.name === "level") {
       selectedLevelKey = event.target.value;
       renderFeatures();
+      renderPrices();
       renderCompare();
     }
   });
