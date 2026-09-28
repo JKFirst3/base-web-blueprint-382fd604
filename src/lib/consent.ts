@@ -78,12 +78,9 @@ export function readConsent(): ConsentState | null {
 export function writeConsent(analytics: boolean): ConsentState {
   const state: ConsentState = { v: CONSENT_VERSION, analytics, ts: Date.now() };
   writeCookie(CONSENT_COOKIE, JSON.stringify(state), SIX_MONTHS_SECONDS);
-  if (!analytics) {
-    deleteCookie(VISITOR_COOKIE);
-    deleteCookie(SESSION_COOKIE);
-  } else {
-    ensureAnalyticsCookies();
-  }
+  // Legacy first-party analytics cookies are no longer used; always remove them.
+  deleteCookie(VISITOR_COOKIE);
+  deleteCookie(SESSION_COOKIE);
   if (typeof window !== "undefined") {
     window.dispatchEvent(new CustomEvent("lavidro:consent-changed", { detail: state }));
   }

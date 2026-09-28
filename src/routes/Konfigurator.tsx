@@ -5,6 +5,7 @@ import configuratorHtml from "@/content/configurator.html?raw";
 import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
 
 import { track } from "@/lib/track";
+import { captureFunnel, toBusinessModel } from "@/lib/analytics";
 
 type PreorderSelection = {
   productId: string;
@@ -150,6 +151,15 @@ function ConfiguratorPage() {
     const requestedProduct = new URLSearchParams(window.location.search).get("product");
     const product = requestedProduct && requestedProduct in preorderCatalog ? requestedProduct : "mobile";
     track("configurator_open", { product_id: product });
+    void captureFunnel("product_area_viewed", { entry_type: "direct", product_id: product });
+
+    const onModel = (event: Event) => {
+      const detail = (event as CustomEvent<{ productId: string; paymentType: string }>).detail;
+      const business_model = toBusinessModel(detail?.paymentType);
+      if (!business_model || !(detail.productId in preorderCatalog)) return;
+      void captureFunnel("purchase_model_selected", { product_id: detail.productId, business_model });
+    };
+    window.addEventListener("lavidro:purchase-model", onModel);
 
     const onPreorder = (event: Event) => {
       const detail = (event as CustomEvent<PreorderSelection>).detail;
@@ -158,6 +168,10 @@ function ConfiguratorPage() {
         return;
       }
       setSelection(catalogSelection);
+      void captureFunnel("purchase_interest_started", {
+        product_id: catalogSelection.productId,
+        business_model: toBusinessModel(catalogSelection.paymentType),
+      });
       track("preorder_open", {
         product_id: catalogSelection.productId,
         tier: catalogSelection.tier,
@@ -166,7 +180,10 @@ function ConfiguratorPage() {
     };
 
     window.addEventListener("lavidro:preorder", onPreorder);
-    return () => window.removeEventListener("lavidro:preorder", onPreorder);
+    return () => {
+      window.removeEventListener("lavidro:preorder", onPreorder);
+      window.removeEventListener("lavidro:purchase-model", onModel);
+    };
   }, []);
 
   return (
@@ -246,6 +263,10 @@ function PreorderDialog({
 
       if (!response.ok) throw new Error(`Preorder request failed: ${response.status}`);
 
+      void captureFunnel("purchase_interest_submitted", {
+        product_id: selection.productId,
+        business_model: toBusinessModel(selection.paymentType),
+      });
       track("preorder_success", {
         product_id: selection.productId,
         tier: selection.tier,

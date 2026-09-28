@@ -100,7 +100,7 @@
 
   const monthlyRate = (amount) => Math.round((amount / 36) * 1.08);
 
-  const selectedFinance = () => new FormData(form).get("finance") || "monthly";
+  const selectedFinance = () => (form ? new FormData(form).get("finance") : null);
 
   const renderLevels = () => {
     const level = selectedProduct.levels[selectedLevelKey];
@@ -108,12 +108,11 @@
       ["cash", "Kaufpreis", `Einmalig ${level.price.toLocaleString("de-DE")} €`],
       ["monthly", "Monatlicher Beitrag (Abo)", `${monthlyRate(level.price).toLocaleString("de-DE")} € / Monat im Abonnement`],
     ];
-    const current = selectedFinance();
     levelOptions.innerHTML = options
       .map(
         ([key, label, note]) => `
         <label class="option-row">
-          <input type="radio" name="finance" value="${key}" ${key === current ? "checked" : ""} />
+          <input type="radio" name="finance" value="${key}" />
           <span>
             <strong>${label}</strong>
             <small>${note}</small>
@@ -143,9 +142,13 @@
     const level = selectedProduct.levels[selectedLevelKey];
     priceUpfront.textContent = `${level.price.toLocaleString("de-DE")} €`;
     priceMonthly.textContent = `${monthlyRate(level.price).toLocaleString("de-DE")} € / Monat`;
-    const monthly = selectedFinance() === "monthly";
-    priceUpfront.closest("p")?.classList.toggle("is-selected", !monthly);
-    priceMonthly.closest("p")?.classList.toggle("is-selected", monthly);
+    const finance = selectedFinance();
+    priceUpfront.closest("p")?.classList.toggle("is-selected", finance === "cash");
+    priceMonthly.closest("p")?.classList.toggle("is-selected", finance === "monthly");
+    if (buyButton) {
+      buyButton.disabled = !finance;
+      buyButton.title = finance ? "" : "Bitte zuerst Kaufpreis oder Abo wählen";
+    }
   };
 
   const renderCompare = () => {
@@ -188,10 +191,21 @@
   form?.addEventListener("change", (event) => {
     if (event.target.name === "finance") {
       renderPrices();
+      if (event.isTrusted) {
+        window.dispatchEvent(
+          new CustomEvent("lavidro:purchase-model", {
+            detail: {
+              productId: selectedKey,
+              paymentType: event.target.value === "cash" ? "upfront" : "monthly",
+            },
+          }),
+        );
+      }
     }
   });
 
   buyButton?.addEventListener("click", () => {
+    if (!selectedFinance()) return;
     const level = selectedProduct.levels[selectedLevelKey];
     window.dispatchEvent(
       new CustomEvent("lavidro:preorder", {

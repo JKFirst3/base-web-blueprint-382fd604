@@ -7,6 +7,8 @@ import {
   SESSION_COOKIE,
 } from "./consent";
 
+const LEGACY_COLLECTOR_DISABLED = true;
+
 // Allow-list of event names accepted by the collector.
 export const ALLOWED_EVENTS = [
   "page_view",
@@ -86,6 +88,8 @@ function isAllowedEvent(name: string): name is AllowedEvent {
  * Legacy callers may pass event names outside the allow-list — those are dropped.
  */
 export function track(event: string, props?: EventProps) {
+  // Legacy collector disabled: funnel tracking now runs via PostHog (src/lib/analytics.ts).
+  if (LEGACY_COLLECTOR_DISABLED) return;
   if (typeof window === "undefined") return;
   if (!analyticsAllowed()) return;
   if (!isAllowedEvent(event)) return;

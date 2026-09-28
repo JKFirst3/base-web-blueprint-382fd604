@@ -1,0 +1,1 @@
+- Funnel analytics run only via PostHog in src/lib/analytics.ts (5 manual events, loaded after analytics consent); legacy src/lib/track.ts collector is disabled — why: single source, no double counting, consent-gated.
