@@ -283,7 +283,7 @@ function PreorderDialog({
             <span aria-hidden="true">✓</span>
             <p className="kicker">Vormerkung eingegangen</p>
             <h2 id="preorder-title">Ihre unverbindliche Vormerkung ist bei uns eingegangen.</h2>
-            <p>In Entwicklung · Marktstart geplant 2027. Wir melden uns mit Neuigkeiten zum Entwicklungsstand.</p>
+            <p>In Entwicklung · Marktstart geplant 2027. Wir prüfen Ihre Vormerkung und informieren Sie über die nächsten Schritte dazu.</p>
             <PreorderJourney confirmed />
             <button className="primary-button" type="button" onClick={onClose}>
               Schließen

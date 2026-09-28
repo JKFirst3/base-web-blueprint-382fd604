@@ -224,8 +224,8 @@ const english: Record<string, string> = {
     "A fully automated laundry cabinet with intelligent robotics, discreetly integrated and designed for the process from sorting to ready-to-wear clothing.",
   "Vormerkung eingegangen": "Registration of interest received",
   "Ihre unverbindliche Vormerkung ist bei uns eingegangen.": "We have received your non-binding registration of interest.",
-  "In Entwicklung · Marktstart geplant 2027. Wir melden uns mit Neuigkeiten zum Entwicklungsstand.":
-    "In development · Market launch planned for 2027. We will share updates on our progress.",
+  "In Entwicklung · Marktstart geplant 2027. Wir prüfen Ihre Vormerkung und informieren Sie über die nächsten Schritte dazu.":
+    "In development · Market launch planned for 2027. We will review your registration of interest and keep you informed about the next steps.",
   "Unverbindliche Vormerkung": "Non-binding registration of interest",
   Schließen: "Close",
   vormerken: "reserve",
