@@ -19,12 +19,23 @@ type Props = {
 };
 
 const ALLOWED_PROPS = ["product_id", "business_model", "entry_type"] as const;
+// Explicit allow-list of outgoing properties. Everything else is dropped.
 const KEEP_PROPS = new Set<string>([
   ...ALLOWED_PROPS,
   "site_environment",
   "site_host",
-  "token",
-  "distinct_id",
+  "token", // project routing (required by ingestion)
+  "distinct_id", // pseudonymous visitor ID for the funnel
+  "$session_id", // groups a visit (session-based funnels)
+  "$window_id", // paired with $session_id by the SDK
+  "$device_id", // stable anonymous device ID for the same visitor
+  "$insert_id", // server-side dedupe of retried sends
+  "$time", // client event time
+  "$lib", // SDK identification (ingestion handling)
+  "$lib_version",
+  "$current_url", // query/fragment stripped below
+  "$geoip_disable", // forced true below
+  "$process_person_profile", // forced false below
 ]);
 const FUNNEL_EVENTS = new Set<FunnelEvent>([
   "landing_page_viewed",
@@ -33,10 +44,6 @@ const FUNNEL_EVENTS = new Set<FunnelEvent>([
   "purchase_interest_started",
   "purchase_interest_submitted",
 ]);
-// Automatic properties removed before sending: referrer/attribution, initial-visit data,
-// person updates, campaign params, click IDs and raw user agent.
-const DROP_PROP =
-  /^(\$referrer|\$referring_domain|\$initial_|\$search_engine|\$set|\$set_once|\$raw_user_agent|\$ip|utm_|\$utm_|gclid|gad_|gbraid|wbraid|fbclid|msclkid|dclid|li_fat_id|ttclid|twclid|igshid|mc_cid|mc_eid|\$session_entry_|\$prev_pageview_)/;
 const ONCE_PER_VISIT: FunnelEvent[] = ["landing_page_viewed", "product_area_viewed"];
 const FIRED_KEY = "lv_ph_fired";
 
@@ -134,11 +141,12 @@ async function load(): Promise<PostHog | null> {
         // Only the five funnel events may leave the browser, and only with consent.
         if (!FUNNEL_EVENTS.has(event.event as FunnelEvent) || !analyticsAllowed()) return null;
         const p = (event.properties ?? {}) as Record<string, unknown>;
+        // Strict positive list: every property not explicitly listed is dropped.
         for (const k of Object.keys(p)) {
-          // Positive list: SDK-technical "$" keys (minus DROP_PROP) plus our own props.
-          const keep = KEEP_PROPS.has(k) || (k.startsWith("$") && !DROP_PROP.test(k));
-          if (!keep) delete p[k];
+          if (!KEEP_PROPS.has(k)) delete p[k];
         }
+        // Never create person profiles (no identify is used anyway).
+        p.$process_person_profile = false;
         if ("$current_url" in p) p.$current_url = stripQuery(p.$current_url);
         p.$geoip_disable = true;
         event.properties = p;
