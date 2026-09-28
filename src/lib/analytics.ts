@@ -39,7 +39,6 @@ const KEEP_PROPS = new Set<string>([
   // page_engagement diagnostics only (whitelisted path, numeric seconds)
   "page_path",
   "visible_seconds",
-  "session_visible_seconds",
 ]);
 const FUNNEL_EVENTS = new Set<FunnelEvent>([
   "landing_page_viewed",
@@ -242,7 +241,7 @@ function wipePosthogStorage() {
   try {
     for (const store of [localStorage, sessionStorage]) {
       for (const key of Object.keys(store)) {
-        if (key.startsWith("ph_") || key.startsWith("__ph") || key === FIRED_KEY || key === SESSION_ENGAGED_KEY) store.removeItem(key);
+        if (key.startsWith("ph_") || key.startsWith("__ph") || key === FIRED_KEY) store.removeItem(key);
       }
     }
   } catch {
@@ -301,12 +300,10 @@ export function initAnalytics() {
 // Only runs while analytics consent exists; nothing is measured before opt-in.
 const PAGE_PATHS = new Set(["/", "/Konfigurator", "/aboutLavidro", "/kontakt", "/impressum", "/datenschutz"]);
 const PRODUCT_IDS = new Set(["mobile", "cabinet", "one"]);
-const SESSION_ENGAGED_KEY = "lv_ph_engaged";
 const FLUSH_EVERY_MS = 30_000; // periodic flush of visible time
-const MAX_PERIODIC_FLUSHES = 10; // per page view; later time is sent on leave/hide
 const MAX_TICK_GAP_MS = 2_000; // ignore gaps (sleep, throttling) beyond one tick
 
-type Engagement = { path: string; product?: string; ms: number; periodic: number; last: number };
+type Engagement = { path: string; product?: string; ms: number; last: number };
 let engagement: Engagement | null = null;
 let engagementTimer: number | null = null;
 
@@ -326,15 +323,6 @@ function accumulate(now: number, wasVisible = document.visibilityState === "visi
   engagement.last = now;
 }
 
-function sessionTotal(add: number) {
-  try {
-    const next = (Number(sessionStorage.getItem(SESSION_ENGAGED_KEY)) || 0) + add;
-    sessionStorage.setItem(SESSION_ENGAGED_KEY, String(next));
-    return next;
-  } catch {
-    return add;
-  }
-}
 
 function flushEngagement(beacon = false) {
   if (!engagement || !analyticsAllowed()) return;
@@ -343,8 +331,7 @@ function flushEngagement(beacon = false) {
   engagement.ms -= seconds * 1000;
   const props: Record<string, string | number> = {
     page_path: engagement.path,
-    visible_seconds: seconds,
-    session_visible_seconds: sessionTotal(seconds),
+    visible_seconds: seconds, // session total = sum grouped by $session_id in PostHog
   };
   if (engagement.product) props.product_id = engagement.product;
   const send = (client: PostHog) =>
@@ -358,18 +345,17 @@ function tickEngagement() {
   const now = Date.now();
   const page = currentPage();
   if (!engagement) {
-    engagement = { ...page, ms: 0, periodic: 0, last: now };
+    engagement = { ...page, ms: 0, last: now };
     return;
   }
   if (page.path !== engagement.path || page.product !== engagement.product) {
     accumulate(now); // SPA route change: close the previous page view
     flushEngagement();
-    engagement = { ...page, ms: 0, periodic: 0, last: now };
+    engagement = { ...page, ms: 0, last: now };
     return;
   }
   accumulate(now);
-  if (engagement.ms >= FLUSH_EVERY_MS && engagement.periodic < MAX_PERIODIC_FLUSHES) {
-    engagement.periodic++;
+  if (engagement.ms >= FLUSH_EVERY_MS) {
     flushEngagement();
   }
 }
@@ -377,6 +363,7 @@ function tickEngagement() {
 function startEngagement() {
   if (engagementTimer !== null || !analyticsAllowed()) return;
   engagement = null; // fresh start: no retroactive time before opt-in
+  void load(); // SDK ready on every page so short visits can be sent on leave
   tickEngagement();
   engagementTimer = window.setInterval(tickEngagement, 1000);
 }

@@ -73,6 +73,9 @@ export const Route = createFileRoute("/api/public/leads")({
         const email = cleanOptionalText(body.email, 255)?.toLowerCase() ?? "";
         const painPoint = cleanOptionalText(body.pain_point, 100);
         const requestType = body.request_type === "interview" ? "interview" : "termin";
+        // Template mode only (DB value stays "termin" for the existing RLS rule).
+        const templateMode =
+          requestType === "termin" && body.form_mode === "newsletter" ? "newsletter" : requestType;
         const phone = cleanOptionalText(body.phone, 40);
         const availability = cleanOptionalText(body.availability, 500);
         if (!email || !email.includes("@") || body.consent !== true) {
@@ -109,11 +112,11 @@ export const Route = createFileRoute("/api/public/leads")({
           await enqueueTransactionalEmail({
             templateName: "lead-confirmation",
             recipientEmail: email,
-            idempotencyKey: `lead-${requestType}-${email}-${new Date().toISOString().slice(0, 10)}`,
+            idempotencyKey: `lead-${templateMode}-${email}-${new Date().toISOString().slice(0, 10)}`,
             templateData: {
               name: name ?? undefined,
               email,
-              requestType,
+              requestType: templateMode,
               phone: phone ?? undefined,
               availability: availability ?? undefined,
             },
