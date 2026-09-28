@@ -65,7 +65,7 @@ export function CookieBanner() {
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-black/80">
               Notwendige Cookies sorgen dafür, dass diese Website zuverlässig funktioniert. Mit
-              Ihrer Zustimmung nutzen wir außerdem PostHog (EU-Server) für eine pseudonyme Nutzungsanalyse,
+              Ihrer Zustimmung nutzen wir außerdem PostHog für eine pseudonyme Nutzungsanalyse,
               um zu verstehen, welche Lavidro-Produkte und Bezahlmodelle besonders relevant sind.
             </p>
             <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:justify-end">
@@ -158,8 +158,9 @@ export function CookieBanner() {
                   </label>
                 </div>
                 <p className="mt-2 text-sm text-black/70">
-                  Pseudonyme Nutzungsanalyse mit PostHog (EU-Server): wenige Ereignisse zu Produktinteresse und
-                  Vormerkung. Kein Session Replay, keine Formularinhalte. Jederzeit widerrufbar.
+                  Pseudonyme Nutzungsanalyse mit PostHog, nur nach Ihrer Einwilligung: fünf Ereignisse
+                  zum Kaufinteresse inklusive der Wahl zwischen Kaufpreis und Abo sowie die sichtbare
+                  Aufenthaltsdauer je Seite. Kein Session Replay, keine Formularinhalte. Jederzeit widerrufbar.
                 </p>
               </div>
             </div>
