@@ -36,6 +36,10 @@ const KEEP_PROPS = new Set<string>([
   "$current_url", // query/fragment stripped below
   "$geoip_disable", // forced true below
   "$process_person_profile", // forced false below
+  // page_engagement diagnostics only (whitelisted path, numeric seconds)
+  "page_path",
+  "visible_seconds",
+  "session_visible_seconds",
 ]);
 const FUNNEL_EVENTS = new Set<FunnelEvent>([
   "landing_page_viewed",
@@ -44,6 +48,9 @@ const FUNNEL_EVENTS = new Set<FunnelEvent>([
   "purchase_interest_started",
   "purchase_interest_submitted",
 ]);
+// Diagnostic (not part of the 5-step funnel): visible time per page and per session.
+const ENGAGEMENT_EVENT = "page_engagement";
+const OUTGOING_EVENTS = new Set<string>([...FUNNEL_EVENTS, ENGAGEMENT_EVENT]);
 const ONCE_PER_VISIT: FunnelEvent[] = ["landing_page_viewed", "product_area_viewed"];
 const FIRED_KEY = "lv_ph_fired";
 
@@ -142,7 +149,7 @@ async function load(): Promise<PostHog | null> {
       before_send: (event) => {
         if (!event) return null;
         // Only the five funnel events may leave the browser, and only with consent.
-        if (!FUNNEL_EVENTS.has(event.event as FunnelEvent) || !analyticsAllowed()) return null;
+        if (!OUTGOING_EVENTS.has(event.event) || !analyticsAllowed()) return null;
         const p = (event.properties ?? {}) as Record<string, unknown>;
         // Strict positive list: every property not explicitly listed is dropped.
         for (const k of Object.keys(p)) {
@@ -235,7 +242,7 @@ function wipePosthogStorage() {
   try {
     for (const store of [localStorage, sessionStorage]) {
       for (const key of Object.keys(store)) {
-        if (key.startsWith("ph_") || key.startsWith("__ph") || key === FIRED_KEY) store.removeItem(key);
+        if (key.startsWith("ph_") || key.startsWith("__ph") || key === FIRED_KEY || key === SESSION_ENGAGED_KEY) store.removeItem(key);
       }
     }
   } catch {
@@ -261,8 +268,10 @@ function onConsentChanged() {
   removeLegacyAnalyticsCookies();
   if (analyticsAllowed()) {
     catchUpCurrentState();
+    startEngagement();
     return;
   }
+  stopEngagement();
   // Withdrawal: abort in-flight loads, stop capture, reset identity, wipe storage.
   consentEpoch++;
   retry.clear();
@@ -282,4 +291,115 @@ export function initAnalytics() {
   removeLegacyAnalyticsCookies();
   if (!analyticsAllowed()) wipePosthogStorage();
   window.addEventListener("lavidro:consent-changed", onConsentChanged);
+  document.addEventListener("visibilitychange", onVisibilityChange);
+  window.addEventListener("pagehide", onPageHide);
+  startEngagement();
+}
+
+// ---------------------------------------------------------------------------
+// page_engagement: visible seconds per page view and running total per session.
+// Only runs while analytics consent exists; nothing is measured before opt-in.
+const PAGE_PATHS = new Set(["/", "/Konfigurator", "/aboutLavidro", "/kontakt", "/impressum", "/datenschutz"]);
+const PRODUCT_IDS = new Set(["mobile", "cabinet", "one"]);
+const SESSION_ENGAGED_KEY = "lv_ph_engaged";
+const FLUSH_EVERY_MS = 30_000; // periodic flush of visible time
+const MAX_PERIODIC_FLUSHES = 10; // per page view; later time is sent on leave/hide
+const MAX_TICK_GAP_MS = 2_000; // ignore gaps (sleep, throttling) beyond one tick
+
+type Engagement = { path: string; product?: string; ms: number; periodic: number; last: number };
+let engagement: Engagement | null = null;
+let engagementTimer: number | null = null;
+
+function currentPage(): { path: string; product?: string } {
+  const raw = window.location.pathname;
+  const path = PAGE_PATHS.has(raw) ? raw : "other";
+  if (path !== "/Konfigurator") return { path };
+  const q = new URLSearchParams(window.location.search).get("product");
+  return { path, product: q && PRODUCT_IDS.has(q) ? q : "mobile" };
+}
+
+function accumulate(now: number) {
+  if (!engagement) return;
+  if (document.visibilityState === "visible") {
+    engagement.ms += Math.max(0, Math.min(now - engagement.last, MAX_TICK_GAP_MS));
+  }
+  engagement.last = now;
+}
+
+function sessionTotal(add: number) {
+  try {
+    const next = (Number(sessionStorage.getItem(SESSION_ENGAGED_KEY)) || 0) + add;
+    sessionStorage.setItem(SESSION_ENGAGED_KEY, String(next));
+    return next;
+  } catch {
+    return add;
+  }
+}
+
+function flushEngagement(beacon = false) {
+  if (!engagement || !analyticsAllowed()) return;
+  const seconds = Math.round(engagement.ms / 1000);
+  if (seconds < 1) return;
+  engagement.ms -= seconds * 1000;
+  const props: Record<string, string | number> = {
+    page_path: engagement.path,
+    visible_seconds: seconds,
+    session_visible_seconds: sessionTotal(seconds),
+  };
+  if (engagement.product) props.product_id = engagement.product;
+  const send = (client: PostHog) =>
+    client.capture(ENGAGEMENT_EVENT, props, beacon ? { transport: "sendBeacon" } : undefined);
+  if (ph) send(ph);
+  else if (!beacon) void load().then((c) => c && analyticsAllowed() && send(c));
+}
+
+function tickEngagement() {
+  if (!analyticsAllowed()) return stopEngagement();
+  const now = Date.now();
+  const page = currentPage();
+  if (!engagement) {
+    engagement = { ...page, ms: 0, periodic: 0, last: now };
+    return;
+  }
+  if (page.path !== engagement.path || page.product !== engagement.product) {
+    accumulate(now); // SPA route change: close the previous page view
+    flushEngagement();
+    engagement = { ...page, ms: 0, periodic: 0, last: now };
+    return;
+  }
+  accumulate(now);
+  if (engagement.ms >= FLUSH_EVERY_MS && engagement.periodic < MAX_PERIODIC_FLUSHES) {
+    engagement.periodic++;
+    flushEngagement();
+  }
+}
+
+function startEngagement() {
+  if (engagementTimer !== null || !analyticsAllowed()) return;
+  engagement = null; // fresh start: no retroactive time before opt-in
+  tickEngagement();
+  engagementTimer = window.setInterval(tickEngagement, 1000);
+}
+
+function stopEngagement() {
+  if (engagementTimer !== null) window.clearInterval(engagementTimer);
+  engagementTimer = null;
+  engagement = null; // discard unsent time on withdrawal
+}
+
+function onVisibilityChange() {
+  if (!engagement || engagementTimer === null) return;
+  const now = Date.now();
+  if (document.visibilityState === "hidden") {
+    accumulate(now);
+    flushEngagement(true);
+  } else {
+    engagement.last = now;
+  }
+}
+
+function onPageHide() {
+  if (!engagement || engagementTimer === null) return;
+  accumulate(Date.now());
+  flushEngagement(true);
 }
