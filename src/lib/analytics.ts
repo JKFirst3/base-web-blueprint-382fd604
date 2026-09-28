@@ -19,6 +19,17 @@ type Props = {
 };
 
 const ALLOWED_PROPS = ["product_id", "business_model", "entry_type"] as const;
+const FUNNEL_EVENTS = new Set<FunnelEvent>([
+  "landing_page_viewed",
+  "product_area_viewed",
+  "purchase_model_selected",
+  "purchase_interest_started",
+  "purchase_interest_submitted",
+]);
+// Automatic properties removed before sending: referrer/attribution, initial-visit data,
+// person updates, campaign params, click IDs and raw user agent.
+const DROP_PROP =
+  /^(\$referrer|\$referring_domain|\$initial_|\$search_engine|\$set|\$set_once|\$raw_user_agent|\$ip|utm_|\$utm_|gclid|gad_|gbraid|wbraid|fbclid|msclkid|dclid|li_fat_id|ttclid|twclid|igshid|mc_cid|mc_eid|\$session_entry_|\$prev_pageview_)/;
 const ONCE_PER_VISIT: FunnelEvent[] = ["landing_page_viewed", "product_area_viewed"];
 const FIRED_KEY = "lv_ph_fired";
 
@@ -113,12 +124,17 @@ async function load(): Promise<PostHog | null> {
       persistence: "localStorage+cookie",
       before_send: (event) => {
         if (!event) return null;
-        const p = event.properties ?? {};
-        for (const k of ["$current_url", "$referrer", "$initial_current_url", "$initial_referrer"]) {
-          if (k in p) p[k] = stripQuery(p[k]);
+        // Only the five funnel events may leave the browser, and only with consent.
+        if (!FUNNEL_EVENTS.has(event.event as FunnelEvent) || !analyticsAllowed()) return null;
+        const p = (event.properties ?? {}) as Record<string, unknown>;
+        for (const k of Object.keys(p)) {
+          if (DROP_PROP.test(k)) delete p[k];
         }
-        delete p.$set;
-        delete p.$set_once;
+        if ("$current_url" in p) p.$current_url = stripQuery(p.$current_url);
+        p.$geoip_disable = true;
+        event.properties = p;
+        delete (event as { $set?: unknown }).$set;
+        delete (event as { $set_once?: unknown }).$set_once;
         return event;
       },
     });
