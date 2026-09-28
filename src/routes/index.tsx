@@ -122,39 +122,12 @@ function HomePage() {
     const status = document.querySelector<HTMLElement>("[data-form-status]");
     if (!form || !status) return;
 
-    let mode: "termin" | "interview" = "interview";
-    const modeButtons = Array.from(form.querySelectorAll<HTMLButtonElement>("[data-mode]"));
-    const modeFields = Array.from(form.querySelectorAll<HTMLElement>("[data-mode-field]"));
-
-    const applyMode = () => {
-      modeButtons.forEach((b) => b.classList.toggle("is-active", b.dataset.mode === mode));
-      modeFields.forEach((f) => {
-        const visible = f.dataset.modeField === mode;
-        f.hidden = !visible;
-      });
-      const phone = form.querySelector<HTMLInputElement>('input[name="phone"]');
-      if (phone) phone.required = false;
-    };
-
-    const onModeClick = (event: Event) => {
-      const target = (event.currentTarget as HTMLButtonElement).dataset.mode;
-      mode = target === "interview" ? "interview" : "termin";
-      status.textContent = "";
-      applyMode();
-    };
-    modeButtons.forEach((b) => b.addEventListener("click", onModeClick));
-    applyMode();
-
     const onSubmit = async (event: SubmitEvent) => {
       event.preventDefault();
       event.stopImmediatePropagation();
 
       const data = new FormData(form);
-      const name = String(data.get("name") ?? "").trim();
       const email = String(data.get("email") ?? "").trim();
-      const painPoint = String(data.get("pain") ?? "").trim();
-      const phone = String(data.get("phone") ?? "").trim();
-      const availability = String(data.get("availability") ?? "").trim();
       const consent =
         form.querySelector<HTMLInputElement>('input[type="checkbox"]')?.checked === true;
       const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
@@ -180,27 +153,15 @@ function HomePage() {
         const response = await fetch("/api/public/leads", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: name || null,
-            email,
-            pain_point: mode === "termin" ? painPoint || null : null,
-            consent,
-            request_type: mode,
-            phone: mode === "interview" ? phone : null,
-            availability: mode === "interview" ? availability || null : null,
-          }),
+          // Newsletter only: email + required consent. Not part of the purchase funnel.
+          body: JSON.stringify({ email, consent, request_type: "termin" }),
           signal: controller.signal,
         }).finally(() => window.clearTimeout(timeout));
 
         if (!response.ok) throw new Error(`Lead request failed: ${response.status}`);
 
         form.reset();
-        applyMode();
-        status.textContent =
-          mode === "interview"
-            ? "Danke. Wir melden uns, um Ihre Lavidro-Produktvorstellung abzustimmen."
-            : "Danke. Sie erhalten künftig Neuigkeiten von Lavidro.";
-        track("live_experience_success");
+        status.textContent = "Danke. Sie erhalten künftig Neuigkeiten von Lavidro.";
       } catch (error) {
         console.error("[lead-form] Submission failed", error);
         status.textContent =
@@ -216,7 +177,6 @@ function HomePage() {
     form.addEventListener("submit", onSubmit, { capture: true });
     return () => {
       form.removeEventListener("submit", onSubmit, { capture: true });
-      modeButtons.forEach((b) => b.removeEventListener("click", onModeClick));
     };
   }, []);
 
