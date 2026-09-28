@@ -25,9 +25,12 @@ const FIRED_KEY = "lv_ph_fired";
 let ph: PostHog | null = null;
 let loading: Promise<PostHog | null> | null = null;
 let listening = false;
-// In-memory only (no storage before consent): events eligible for catch-up after consent.
-const pending = new Map<FunnelEvent, Props>();
 const firedInMemory = new Set<FunnelEvent>();
+const inFlight = new Set<FunnelEvent>();
+// Once-events that failed to send AFTER consent; retried on the next successful load.
+const retry = new Map<FunnelEvent, Props>();
+// Incremented on every consent withdrawal; aborts loads started under an older consent.
+let consentEpoch = 0;
 
 export function toBusinessModel(paymentType: string | null | undefined): BusinessModel | undefined {
   if (paymentType === "upfront" || paymentType === "cash" || paymentType === "purchase") return "purchase";
@@ -72,10 +75,24 @@ function markFired(event: FunnelEvent) {
 async function load(): Promise<PostHog | null> {
   if (ph) return ph;
   if (loading) return loading;
+  const epoch = consentEpoch;
+  const stillAllowed = () => epoch === consentEpoch && analyticsAllowed();
   loading = (async () => {
-    const cfg = await getPosthogConfig();
-    if (!cfg.token || !analyticsAllowed()) return null;
-    const { default: posthog } = await import("posthog-js");
+    let cfg: { token: string | null; host: string };
+    try {
+      cfg = await getPosthogConfig();
+    } catch {
+      return null;
+    }
+    if (!cfg.token || !stillAllowed()) return null;
+    let posthog: PostHog;
+    try {
+      posthog = (await import("posthog-js")).default;
+    } catch {
+      return null;
+    }
+    // Re-check right before init: consent may have been withdrawn while waiting.
+    if (!stillAllowed()) return null;
     const host = window.location.hostname;
     posthog.init(cfg.token, {
       api_host: cfg.host,
@@ -105,6 +122,10 @@ async function load(): Promise<PostHog | null> {
         return event;
       },
     });
+    if (!stillAllowed()) {
+      posthog.opt_out_capturing();
+      return null;
+    }
     posthog.register({ site_environment: siteEnvironment(host), site_host: host });
     if (posthog.has_opted_out_capturing()) posthog.opt_in_capturing();
     ph = posthog;
@@ -115,27 +136,63 @@ async function load(): Promise<PostHog | null> {
   return loading;
 }
 
-export async function captureFunnel(event: FunnelEvent, props: Props = {}) {
-  if (typeof window === "undefined") return;
-  const once = ONCE_PER_VISIT.includes(event);
-  if (!analyticsAllowed()) {
-    if (once && !firedInMemory.has(event) && !pending.has(event)) pending.set(event, props);
-    return;
-  }
-  if (once) {
-    if (wasFired(event)) return;
-    markFired(event); // mark synchronously to dedupe StrictMode / re-renders
-  }
+function cleanProps(props: Props) {
   const clean: Record<string, string> = {};
   for (const k of ALLOWED_PROPS) if (props[k]) clean[k] = String(props[k]);
-  const client = await load();
-  if (!client || !analyticsAllowed()) return;
-  client.capture(event, clean);
+  return clean;
 }
 
-/** Clear pending catch-up events (e.g. when navigating away from the landing page). */
-export function clearPending(event: FunnelEvent) {
-  pending.delete(event);
+export async function captureFunnel(event: FunnelEvent, props: Props = {}) {
+  if (typeof window === "undefined") return;
+  if (!analyticsAllowed()) return; // nothing is buffered before consent
+  const once = ONCE_PER_VISIT.includes(event);
+  if (once) {
+    if (wasFired(event) || inFlight.has(event)) return;
+    inFlight.add(event); // synchronous in-flight dedupe (StrictMode / re-renders)
+  }
+  try {
+    const client = await load();
+    if (!client || !analyticsAllowed()) {
+      if (once && analyticsAllowed()) retry.set(event, props);
+      return;
+    }
+    client.capture(event, cleanProps(props));
+    if (once) {
+      markFired(event);
+      retry.delete(event);
+    }
+    // Flush once-events that previously failed after consent.
+    for (const [e, p] of [...retry.entries()]) {
+      if (e === event) continue;
+      retry.delete(e);
+      void captureFunnel(e, p);
+    }
+  } finally {
+    if (once) inFlight.delete(event);
+  }
+}
+
+function productAreaVisible() {
+  const el = document.getElementById("produkt-teaser");
+  if (!el) return false;
+  const r = el.getBoundingClientRect();
+  const visible = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+  return visible > 0 && visible >= Math.min(r.height, window.innerHeight) * 0.25;
+}
+
+/** On consent: catch up only what is true right now (no retroactive pre-consent history). */
+function catchUpCurrentState() {
+  const path = window.location.pathname;
+  if (path === "/") void captureFunnel("landing_page_viewed");
+  if (path === "/Konfigurator") {
+    const product = new URLSearchParams(window.location.search).get("product") ?? undefined;
+    void captureFunnel("product_area_viewed", {
+      entry_type: "direct",
+      product_id: product && ["mobile", "cabinet", "one"].includes(product) ? product : "mobile",
+    });
+  } else if (productAreaVisible()) {
+    void captureFunnel("product_area_viewed", { entry_type: "scroll" });
+  }
 }
 
 function wipePosthogStorage() {
@@ -167,13 +224,12 @@ export function removeLegacyAnalyticsCookies() {
 function onConsentChanged() {
   removeLegacyAnalyticsCookies();
   if (analyticsAllowed()) {
-    const queued = [...pending.entries()];
-    pending.clear();
-    for (const [event, props] of queued) void captureFunnel(event, props);
+    catchUpCurrentState();
     return;
   }
-  // Withdrawal: stop capture, reset identity, wipe storage.
-  pending.clear();
+  // Withdrawal: abort in-flight loads, stop capture, reset identity, wipe storage.
+  consentEpoch++;
+  retry.clear();
   firedInMemory.clear();
   if (ph) {
     ph.opt_out_capturing();
