@@ -102,6 +102,9 @@ const english: Record<string, string> = {
   "Sensorik, Timing und abgestimmte Prozesse sorgen bei jedem Durchlauf für konsistente Ergebnisse.":
     "Sensors, timing and coordinated processes ensure consistent results with every cycle.",
   "Erleben Sie Lavidro live.": "Experience Lavidro live.",
+  "Entwicklungsupdates von Lavidro.": "Development updates from Lavidro.",
+  "Mit Ihrer Newsletter-Anmeldung erfahren Sie zuerst von Entwicklungsfortschritten und Pilotphasen.":
+    "By subscribing to the newsletter, you will be among the first to hear about development progress and pilot phases.",
   "Erhalten Sie Einblicke in die Entwicklung und sichern Sie sich frühen Zugang, sobald Lavidro für erste Haushalte verfügbar wird.":
     "Get insights into our development and secure early access when Lavidro becomes available for first households.",
   "Art der Anfrage": "Request type",
