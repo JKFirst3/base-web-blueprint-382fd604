@@ -109,6 +109,7 @@ async function load(): Promise<PostHog | null> {
     posthog.register({ site_environment: siteEnvironment(host), site_host: host });
     if (posthog.has_opted_out_capturing()) posthog.opt_in_capturing();
     ph = posthog;
+    (window as unknown as Record<string, unknown>).__lvph = posthog; // DBG
     return ph;
   })().finally(() => {
     loading = null;
