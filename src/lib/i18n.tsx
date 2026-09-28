@@ -184,7 +184,7 @@ const english: Record<string, string> = {
   Konfigurieren: "Configure",
   Variante: "Variant",
   Funktionsumfang: "Features",
-  "Unverbindlich anfragen": "Request without obligation",
+  Anfragen: "Request",
   "In Entwicklung · Marktstart geplant 2027": "In development · Market launch planned for 2027",
   "Voraussichtliche, unverbindliche Preisindikation": "Estimated, non-binding price indication",
   Kaufpreis: "Purchase price",
