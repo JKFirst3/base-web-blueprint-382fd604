@@ -134,11 +134,12 @@ async function load(): Promise<PostHog | null> {
         // Only the five funnel events may leave the browser, and only with consent.
         if (!FUNNEL_EVENTS.has(event.event as FunnelEvent) || !analyticsAllowed()) return null;
         const p = (event.properties ?? {}) as Record<string, unknown>;
+        // Strict positive list: every property not explicitly listed is dropped.
         for (const k of Object.keys(p)) {
-          // Positive list: SDK-technical "$" keys (minus DROP_PROP) plus our own props.
-          const keep = KEEP_PROPS.has(k) || (k.startsWith("$") && !DROP_PROP.test(k));
-          if (!keep) delete p[k];
+          if (!KEEP_PROPS.has(k)) delete p[k];
         }
+        // Never create person profiles (no identify is used anyway).
+        p.$process_person_profile = false;
         if ("$current_url" in p) p.$current_url = stripQuery(p.$current_url);
         p.$geoip_disable = true;
         event.properties = p;
