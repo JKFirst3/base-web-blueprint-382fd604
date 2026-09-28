@@ -1528,6 +1528,10 @@ legend {
   margin-top: 20px;
 }
 
+.mobile-action-label {
+  display: none;
+}
+
 .config-actions .primary-button,
 .config-actions .outline-button,
 .catalog-actions .primary-button,
@@ -2126,6 +2130,11 @@ details p {
 }
 
 @media (max-width: 980px) {
+  .configurator-page {
+    height: auto;
+    overflow: visible;
+  }
+
   .image-panels,
   .config-grid,
   .split-heading,
@@ -2164,20 +2173,23 @@ details p {
   }
 
   .configurator-shell {
-    height: 100svh;
-    grid-template-rows: minmax(250px, 46%) minmax(0, 54%);
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    grid-template-rows: auto auto;
   }
 
   .configurator-visual {
     position: relative;
     top: auto;
-    min-height: 0;
-    height: 100%;
+    height: clamp(280px, 42svh, 380px);
   }
 
   .configurator-panel {
-    height: 100%;
-    padding: 28px 22px 88px;
+    height: auto;
+    overflow: visible;
+    overscroll-behavior: auto;
+    padding: 28px 22px 48px;
   }
 
   .visual-caption {
@@ -2207,6 +2219,26 @@ details p {
 
   .configurator-intro h2 {
     font-size: clamp(1.65rem, 6vw, 2.25rem);
+  }
+
+  .configurator-page .feature-details summary:focus-visible,
+  .configurator-page .option-row:focus-within,
+  .configurator-page .config-actions button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+
+  .configurator-page .config-actions .primary-button {
+    padding: 12px 20px;
+    line-height: 1.35;
+  }
+
+  .configurator-page .desktop-action-label {
+    display: none;
+  }
+
+  .configurator-page .mobile-action-label {
+    display: inline;
   }
 
   .compare-dialog {
@@ -2334,10 +2366,6 @@ details p {
 
   .waitlist-form {
     padding: 24px;
-  }
-
-  .configurator-shell {
-    grid-template-rows: minmax(240px, 44%) minmax(0, 56%);
   }
 
   .configurator-image-header {

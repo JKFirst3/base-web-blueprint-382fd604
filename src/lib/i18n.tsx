@@ -188,6 +188,7 @@ const english: Record<string, string> = {
   Variante: "Variant",
   Funktionsumfang: "Features",
   Anfragen: "Request",
+  "Kaufinteresse unverbindlich vormerken": "Register purchase interest without obligation",
   "In Entwicklung · Marktstart geplant 2027": "In development · Market launch planned for 2027",
   "Voraussichtliche, unverbindliche Preisindikation": "Estimated, non-binding price indication",
   Kaufpreis: "Purchase price",
