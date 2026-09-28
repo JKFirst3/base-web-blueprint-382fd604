@@ -189,6 +189,8 @@ const english: Record<string, string> = {
   "Voraussichtliche, unverbindliche Preisindikation": "Estimated, non-binding price indication",
   Kaufpreis: "Purchase price",
   "Monatlicher Betrag": "Monthly amount",
+  "Monatlicher Beitrag (Abo)": "Monthly subscription",
+  "Bezahlart": "Payment option",
   "Inkl. 19 % MwSt. und Versand. Preise können sich bis zu einem späteren Angebot ändern. Keine Zahlungspflicht durch die Vormerkung.":
     "Including 19% VAT and shipping. Prices may change before a future offer. Registering interest does not create a payment obligation.",
   Vergleichen: "Compare",
