@@ -193,19 +193,7 @@
     progressObserver.observe(progressCard);
   }
 
-  form?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const data = new FormData(form);
-    const email = String(data.get("email") || "").trim();
-
-    if (!email) {
-      formStatus.textContent = "Bitte gib eine E-Mail-Adresse ein.";
-      return;
-    }
-
-    formStatus.textContent = "Danke. Wir melden uns, sobald Sie Lavidro live erleben können.";
-    form.reset();
-  });
+  // Newsletter submit is handled by the page itself (real backend request, real status).
 
   const alignNavigationTarget = () => {
     const requestedProductTarget =

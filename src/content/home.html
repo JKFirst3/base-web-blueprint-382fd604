@@ -31,7 +31,7 @@
         </nav>
         <div class="header-actions">
           <span data-language-slot></span>
-          <a class="nav-cta" href="#warteliste">Lavidro live erleben</a>
+          <a class="nav-cta" href="#warteliste">Newsletter</a>
         </div>
       </header>
 
@@ -432,29 +432,14 @@
 
         <section class="waitlist section-pad" id="warteliste" aria-labelledby="waitlist-title">
           <div class="waitlist-copy reveal">
-            <p class="kicker">Lavidro live erleben</p>
-            <h2 id="waitlist-title">Erleben Sie Lavidro live.</h2>
+            <p class="kicker">Newsletter</p>
+            <h2 id="waitlist-title">Entwicklungsupdates von Lavidro.</h2>
             <p>
               Erhalten Sie Einblicke in die Entwicklung und sichern Sie sich frühen Zugang, sobald
               Lavidro für erste Haushalte verfügbar wird.
             </p>
           </div>
-          <form class="waitlist-form reveal" data-form>
-            <div class="form-modes" role="group" aria-label="Art der Anfrage">
-              <button type="button" class="form-mode is-active" data-mode="interview">
-                Lavidro live erleben
-              </button>
-              <button type="button" class="form-mode" data-mode="termin">Newsletter anmelden</button>
-            </div>
-            <p data-mode-field="interview" hidden style="margin: 0; font-size: 0.9rem; opacity: 0.75">
-              Erleben Sie Lavidro bei einer unverbindlichen Produktvorstellung digital oder vor Ort
-              in Paderborn.
-            </p>
-
-            <label>
-              <span>Name</span>
-              <input type="text" name="name" autocomplete="name" placeholder="Ihr Name" />
-            </label>
+          <form class="waitlist-form reveal" data-form novalidate>
             <label>
               <span>E-Mail-Adresse</span>
               <input
@@ -462,34 +447,13 @@
                 name="email"
                 autocomplete="email"
                 placeholder="name@beispiel.de"
+                maxlength="255"
                 required
               />
             </label>
-            <label data-mode-field="termin">
-              <span>Was soll Lavidro zuerst für Sie übernehmen?</span>
-              <select name="pain">
-                <option value="">Bitte auswählen</option>
-                <option>Sortieren</option>
-                <option>Waschen und Trocknen</option>
-                <option>Zusammenlegen</option>
-                <option>Den gesamten Prozess</option>
-              </select>
-            </label>
-            <label data-mode-field="interview" hidden>
-              <span>Telefonnummer</span>
-              <input type="tel" name="phone" autocomplete="tel" placeholder="+49 …" />
-            </label>
-            <label data-mode-field="interview" hidden>
-              <span>Wann passt es Ihnen zeitlich am besten?</span>
-              <textarea
-                name="availability"
-                rows="3"
-                placeholder="z. B. werktags ab 18 Uhr oder samstags vormittags"
-              ></textarea>
-            </label>
 
             <label class="checkbox">
-              <input type="checkbox" required />
+              <input type="checkbox" name="consent" required />
               <span>Ich stimme zu, Updates von Lavidro zu erhalten.</span>
             </label>
             <button class="primary-button" type="submit">Jetzt eintragen</button>
@@ -545,8 +509,8 @@
             <details class="reveal">
               <summary>Wann wird Lavidro verfügbar?</summary>
               <p>
-                Mit Ihrer Anmeldung erfahren Sie zuerst von Entwicklungsfortschritten, Pilotphasen
-                und Möglichkeiten, Lavidro live zu erleben.
+                Mit Ihrer Newsletter-Anmeldung erfahren Sie zuerst von Entwicklungsfortschritten und
+                Pilotphasen.
               </p>
             </details>
             <details class="reveal">
