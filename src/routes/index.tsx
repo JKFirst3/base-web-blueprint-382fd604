@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import homeHtml from "@/content/home.html?raw";
 import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
-import { track } from "@/lib/track";
 import { captureFunnel } from "@/lib/analytics";
 import { propagateCampaignToProductLinks } from "@/lib/campaign";
 
