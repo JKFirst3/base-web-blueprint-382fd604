@@ -93,10 +93,10 @@ export const Route = createFileRoute("/api/public/preorders")({
 
         const name = cleanText(body.name, 100);
         const answers = answersSchema.safeParse({
-          household_size: body.household_size || null,
-          job_title: body.job_title || null,
-          greatest_value: body.greatest_value || null,
-          greatest_value_other: body.greatest_value_other || null,
+          household_size: body.household_size === undefined || body.household_size === "" ? null : body.household_size,
+          job_title: body.job_title === undefined || body.job_title === "" ? null : body.job_title,
+          greatest_value: body.greatest_value === undefined || body.greatest_value === "" ? null : body.greatest_value,
+          greatest_value_other: body.greatest_value_other === undefined || body.greatest_value_other === "" ? null : body.greatest_value_other,
         });
         const email = cleanText(body.email, 255)?.toLowerCase() ?? "";
         const requestedSolutionId = cleanText(body.solution_id, 100);

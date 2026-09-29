@@ -194,7 +194,7 @@ const english: Record<string, string> = {
   "Wäsche. Einfach. Fertig.": "Laundry. Simply. Done.",
   "Dreckige Wäsche dem System geben und saubere, gefaltete Wäsche zurückbekommen.": "Hand dirty laundry to the system and get clean, folded laundry back.",
   "Bereitet Ihre schönsten Wäschestücke wieder auf – ganz ohne Waschen.": "Refreshes your favourite garments – without washing.",
-  "Entfernt 99 % aller Bakterien und Gerüche.": "Removes 99% of bacteria and odours.",
+  "Entwicklungsziel: 99 % der Bakterien und Gerüche entfernen – Wirksamkeit noch nicht nachgewiesen.": "Development goal: remove 99% of bacteria and odours – effectiveness not yet proven.",
   "Kaufinteresse unverbindlich vormerken": "Register purchase interest without obligation",
   "In Entwicklung · Marktstart geplant 2027": "In development · Market launch planned for 2027",
   "Voraussichtliche, unverbindliche Preisindikation": "Estimated, non-binding price indication",
