@@ -30,3 +30,9 @@
 - [x] DOI-Limit ohne vertrauenswürdige Plattform-IP nicht unter einem Sammelschlüssel anwenden
 - [x] Bei `setPending`-Fehler bestmöglich `send_failed` setzen
 - [x] DOI-Sicherheitsfälle automatisiert sowie Typprüfung und Build prüfen
+
+## Rechtstexte an Factory33 angleichen
+- [x] Datenschutz mit zutreffenden Factory33-Grundabschnitten und belegten LAVIDRO-Datenflüssen abgleichen
+- [x] Impressum an die offiziellen Factory33-Angaben angleichen, ohne Gründer-Namen
+- [x] Unzutreffende LinkedIn-, Privacy-Shield- und Keine-Weitergabe-Aussagen ausschließen
+- [x] Rechtstexte mobil/desktop, Typprüfung und Build prüfen; keine echten Sendungen oder Veröffentlichung
