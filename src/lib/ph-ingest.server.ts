@@ -11,15 +11,18 @@ const MAX_EVENTS = 20;
 const CONSENT_COOKIE = "lavidro_consent";
 const CONSENT_VERSION = 1;
 
-const EVENTS = new Set([
+export const FUNNEL_EVENT_NAMES = [
   "landing_page_viewed",
   "product_area_viewed",
   "purchase_model_selected",
   "purchase_interest_started",
   "purchase_interest_submitted",
+] as const;
+export const DIAGNOSTIC_EVENT_NAMES = [
   "page_engagement",
   "purchase_interest_email_confirmed",
-]);
+] as const;
+const EVENTS = new Set([...FUNNEL_EVENT_NAMES, ...DIAGNOSTIC_EVENT_NAMES]);
 const PRODUCT_IDS = new Set(["mobile", "cabinet", "one"]);
 const BUSINESS_MODELS = new Set(["purchase", "subscription"]);
 const ENTRY_TYPES = new Set(["scroll", "direct"]);
@@ -50,6 +53,23 @@ export function validTimestamp(v: unknown, now: number): string | undefined {
 // Opaque SDK identifiers / metadata: short plain strings only.
 const ID_PROPS = ["distinct_id", "$session_id", "$window_id", "$device_id", "$insert_id", "$lib", "$lib_version"];
 const ID_RE = /^[A-Za-z0-9._:\-]{1,100}$/;
+const ALLOWED_INPUT_PROPS = new Set([
+  "token",
+  "consent_ts",
+  ...ID_PROPS,
+  "$time",
+  "$current_url",
+  "$geoip_disable",
+  "$process_person_profile",
+  "site_environment",
+  "site_host",
+  "product_id",
+  "business_model",
+  "entry_type",
+  "page_path",
+  "visible_seconds",
+  ...DEMOGRAPHIC_PROPS,
+]);
 
 const NO_STORE = { "cache-control": "no-store", "x-content-type-options": "nosniff" };
 
@@ -171,6 +191,7 @@ function cleanEvent(raw: unknown, token: string, consentTs: number, origin: stri
   const e = raw as Record<string, unknown>;
   const p = (e.properties && typeof e.properties === "object" ? e.properties : {}) as Record<string, unknown>;
   if (typeof e.event !== "string" || !EVENTS.has(e.event)) return "invalid";
+  if (Object.keys(p).some((key) => !ALLOWED_INPUT_PROPS.has(key))) return "invalid";
   if (p.token !== token) return "invalid";
   if (p.consent_ts !== consentTs) return "stale"; // older consent generation: never reactivated
   const out: Record<string, unknown> = {

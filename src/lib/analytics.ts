@@ -34,12 +34,14 @@ async function fetchPosthogConfig(): Promise<{ token: string; host: string } | n
   }
 }
 
-export type FunnelEvent =
-  | "landing_page_viewed"
-  | "product_area_viewed"
-  | "purchase_model_selected"
-  | "purchase_interest_started"
-  | "purchase_interest_submitted";
+export const FUNNEL_EVENT_NAMES = [
+  "landing_page_viewed",
+  "product_area_viewed",
+  "purchase_model_selected",
+  "purchase_interest_started",
+  "purchase_interest_submitted",
+] as const;
+export type FunnelEvent = (typeof FUNNEL_EVENT_NAMES)[number];
 
 export type BusinessModel = "purchase" | "subscription";
 type Props = {
@@ -88,17 +90,11 @@ const KEEP_PROPS = new Set<string>([
   "page_path",
   "visible_seconds",
 ]);
-const FUNNEL_EVENTS = new Set<FunnelEvent>([
-  "landing_page_viewed",
-  "product_area_viewed",
-  "purchase_model_selected",
-  "purchase_interest_started",
-  "purchase_interest_submitted",
-]);
+const FUNNEL_EVENTS = new Set<FunnelEvent>(FUNNEL_EVENT_NAMES);
 // Diagnostic (not part of the 5-step funnel): visible time per page and per session.
 const ENGAGEMENT_EVENT = "page_engagement";
 // Separate metric (not a funnel step): DOI confirmed on the confirmation page. No properties.
-const EMAIL_CONFIRMED_EVENT = "purchase_interest_email_confirmed";
+export const EMAIL_CONFIRMED_EVENT = "purchase_interest_email_confirmed";
 const OUTGOING_EVENTS = new Set<string>([...FUNNEL_EVENTS, ENGAGEMENT_EVENT, EMAIL_CONFIRMED_EVENT]);
 const ONCE_PER_VISIT: FunnelEvent[] = ["landing_page_viewed", "product_area_viewed"];
 const FIRED_KEY = "lv_ph_fired";
