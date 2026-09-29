@@ -23,7 +23,9 @@ function DatenschutzPage() {
     <div className="min-h-screen bg-background">
       <Header />
       <main className="mx-auto max-w-3xl px-4 pt-32 pb-20 sm:px-6 lg:px-8">
-        <h1 className="font-display text-4xl font-bold tracking-tight">Datenschutzerklärung</h1>
+        <h1 className="font-display text-4xl font-bold tracking-tight break-words sm:text-5xl">
+          Datenschutzerklärung
+        </h1>
         <p className="mt-4 text-sm text-foreground/60">Stand: 29. September 2026</p>
 
         {/* 1. Datenschutz auf einen Blick */}

@@ -17,11 +17,11 @@
 - [x] Typecheck/Build und sichtbare Seiten prüfen
 - [x] Widerruf ohne Neuladen: Same-Origin-Einwilligungsschranke für PostHog, Tests mit simuliertem PostHog
 - [x] Double-Opt-In für neue Anfragen (Token gehasht, Bestätigung nur per Button/POST, Marketing erst danach aktiv, Weitergabe-Einwilligung, Zusatzereignis nur mit Analyse-Einwilligung)
-- [ ] Datenschutzerklärung um Double-Opt-In und optionale Weitergabe an die Ausgründung ergänzen (Wortlaut rechtlich prüfen lassen)
+- [x] Datenschutzerklärung um Double-Opt-In und optionale Weitergabe an die Ausgründung ergänzen (Wortlaut zur rechtlichen Prüfung übernommen)
 - [ ] Double-Opt-In nach Veröffentlichung einmal mit eigener Adresse prüfen (kein echter Versand im Entwurf)
 
-- [ ] Factory33 als Verantwortliche in Impressum und Datenschutz mit offiziell geprüften Angaben eintragen
-- [ ] Lavidro-Datenschutzhinweise zu Anfrage, DOI, Weitergabe und PostHog präzisieren
-- [ ] Drei streng begrenzte demografische Eigenschaften für `purchase_interest_submitted` freigeben
-- [ ] Ablehnung unbekannter/freier Analysewerte sowie unveränderten Funnel automatisiert prüfen
-- [ ] Test- und Build-Belege sowie offene Rechtsfragen ausdrücklich dokumentieren
+- [x] Factory33 als Verantwortliche in Impressum und Datenschutz mit offiziell geprüften Angaben eintragen
+- [x] Lavidro-Datenschutzhinweise zu Anfrage, DOI, Weitergabe und PostHog präzisieren
+- [x] Drei streng begrenzte demografische Eigenschaften für `purchase_interest_submitted` freigeben
+- [x] Ablehnung unbekannter/freier Analysewerte sowie unveränderten Funnel automatisiert prüfen
+- [x] Test- und Build-Belege sowie offene Rechtsfragen ausdrücklich dokumentieren
