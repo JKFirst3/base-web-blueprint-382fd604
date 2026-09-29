@@ -22,6 +22,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
+import { Route as LovableEmailEventsRouteImport } from './routes/lovable/email/events'
 import { Route as ApiPublicPreordersRouteImport } from './routes/api/public/preorders'
 import { Route as ApiPublicPosthogConfigRouteImport } from './routes/api/public/posthog-config'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
@@ -97,6 +98,11 @@ const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   path: '/lovable/email/suppression',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LovableEmailEventsRoute = LovableEmailEventsRouteImport.update({
+  id: '/lovable/email/events',
+  path: '/lovable/email/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicPreordersRoute = ApiPublicPreordersRouteImport.update({
   id: '/api/public/preorders',
   path: '/api/public/preorders',
@@ -158,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
+  '/lovable/email/events': typeof LovableEmailEventsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/ph-ingest/$': typeof ApiPublicPhIngestSplatRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -181,6 +188,7 @@ export interface FileRoutesByTo {
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
+  '/lovable/email/events': typeof LovableEmailEventsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/ph-ingest/$': typeof ApiPublicPhIngestSplatRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -205,6 +213,7 @@ export interface FileRoutesById {
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
+  '/lovable/email/events': typeof LovableEmailEventsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/ph-ingest/$': typeof ApiPublicPhIngestSplatRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -230,6 +239,7 @@ export interface FileRouteTypes {
     | '/api/public/leads'
     | '/api/public/posthog-config'
     | '/api/public/preorders'
+    | '/lovable/email/events'
     | '/lovable/email/suppression'
     | '/api/public/ph-ingest/$'
     | '/lovable/email/queue/process'
@@ -253,6 +263,7 @@ export interface FileRouteTypes {
     | '/api/public/leads'
     | '/api/public/posthog-config'
     | '/api/public/preorders'
+    | '/lovable/email/events'
     | '/lovable/email/suppression'
     | '/api/public/ph-ingest/$'
     | '/lovable/email/queue/process'
@@ -276,6 +287,7 @@ export interface FileRouteTypes {
     | '/api/public/leads'
     | '/api/public/posthog-config'
     | '/api/public/preorders'
+    | '/lovable/email/events'
     | '/lovable/email/suppression'
     | '/api/public/ph-ingest/$'
     | '/lovable/email/queue/process'
@@ -300,6 +312,7 @@ export interface RootRouteChildren {
   ApiPublicLeadsRoute: typeof ApiPublicLeadsRoute
   ApiPublicPosthogConfigRoute: typeof ApiPublicPosthogConfigRoute
   ApiPublicPreordersRoute: typeof ApiPublicPreordersRoute
+  LovableEmailEventsRoute: typeof LovableEmailEventsRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicPhIngestSplatRoute: typeof ApiPublicPhIngestSplatRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
@@ -400,6 +413,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailSuppressionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lovable/email/events': {
+      id: '/lovable/email/events'
+      path: '/lovable/email/events'
+      fullPath: '/lovable/email/events'
+      preLoaderRoute: typeof LovableEmailEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/preorders': {
       id: '/api/public/preorders'
       path: '/api/public/preorders'
@@ -477,6 +497,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicLeadsRoute: ApiPublicLeadsRoute,
   ApiPublicPosthogConfigRoute: ApiPublicPosthogConfigRoute,
   ApiPublicPreordersRoute: ApiPublicPreordersRoute,
+  LovableEmailEventsRoute: LovableEmailEventsRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicPhIngestSplatRoute: ApiPublicPhIngestSplatRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
