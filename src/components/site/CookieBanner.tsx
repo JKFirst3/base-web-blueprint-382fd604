@@ -160,7 +160,9 @@ export function CookieBanner() {
                 <p className="mt-2 text-sm text-black/70">
                   Pseudonyme Nutzungsanalyse mit PostHog, nur nach Ihrer Einwilligung: fünf Ereignisse
                   zum Kaufinteresse inklusive der Wahl zwischen Kaufpreis und Abo sowie die sichtbare
-                  Aufenthaltsdauer je Seite. Kein Session Replay, keine Formularinhalte. Jederzeit widerrufbar.
+                  Aufenthaltsdauer je Seite. Beim Absenden werden nur Haushaltsgröße, eine fest
+                  vorgegebene Mehrwert-Kategorie und die Angabe, ob ein Jobtitel ausgefüllt wurde,
+                  ausgewertet. Keine Namen, E-Mail-Adressen oder Freitexte. Jederzeit widerrufbar.
                 </p>
               </div>
             </div>

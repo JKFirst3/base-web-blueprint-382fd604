@@ -126,14 +126,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               logo: "https://lavidro.com/assets/lavidro-icon.svg",
               description:
                 "Lavidro entwickelt Systeme, die den vollständigen Wäscheprozess im privaten Haushalt automatisieren.",
+              parentOrganization: {
+                "@type": "Organization",
+                name: "Factory33 Ecosystem GmbH",
+              },
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "Ausblick 13",
+                streetAddress: "Ausblick 1",
                 postalCode: "33100",
                 addressLocality: "Paderborn",
                 addressCountry: "DE",
               },
-              email: "lavidro@gmx.net",
+              email: "info@factory33.de",
             },
             {
               "@type": "WebSite",

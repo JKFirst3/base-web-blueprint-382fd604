@@ -23,7 +23,9 @@ function DatenschutzPage() {
     <div className="min-h-screen bg-background">
       <Header />
       <main className="mx-auto max-w-3xl px-4 pt-32 pb-20 sm:px-6 lg:px-8">
-        <h1 className="font-display text-4xl font-bold tracking-tight">Datenschutzerklärung</h1>
+        <h1 className="font-display text-4xl font-bold tracking-tight break-words sm:text-5xl">
+          Datenschutzerklärung
+        </h1>
         <p className="mt-4 text-sm text-foreground/60">Stand: 29. September 2026</p>
 
         {/* 1. Datenschutz auf einen Blick */}
@@ -164,18 +166,22 @@ function DatenschutzPage() {
             Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:
           </p>
           <address className="mt-4 not-italic text-foreground/80 leading-relaxed">
-            Lavidro
+            Factory33 Ecosystem GmbH
             <br />
-            Jonah Blümel, Jan-Kevin Ploch, Robin Zach
-            <br />
-            Ausblick 1D
+            Ausblick 1
             <br />
             33100 Paderborn
             <br />
+            Vertreten durch die Geschäftsführer Dr. Slawa Tomin und Jannik Woste
+            <br />
+            Sitz der Gesellschaft: Paderborn
+            <br />
+            Registergericht: Amtsgericht Paderborn, HRB 17652
+            <br />
             <br />
             E-Mail:{" "}
-            <a href="mailto:lavidro@gmx.net" className="underline underline-offset-4">
-              lavidro@gmx.net
+            <a href="mailto:marieke.funck@factory33.de" className="underline underline-offset-4">
+              marieke.funck@factory33.de
             </a>
           </address>
 
@@ -338,6 +344,14 @@ function DatenschutzPage() {
             aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten
             mitgelesen werden.
           </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">Links zu anderen Websites</h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Diese Datenschutzerklärung gilt für die LAVIDRO-Website. Soweit diese Website Links zu
+            Angeboten anderer Verantwortlicher enthält, gelten dort deren eigene
+            Datenschutzerklärungen. Bitte informieren Sie sich beim Verlassen unserer Website über
+            die Verarbeitung personenbezogener Daten durch den jeweiligen Anbieter.
+          </p>
         </section>
 
         {/* 4. Datenerfassung auf dieser Website */}
@@ -373,8 +387,8 @@ function DatenschutzPage() {
             Nach der Anmeldung senden wir eine Bestätigungs-E-Mail. Rechtsgrundlage ist Ihre
             Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Sie können Ihre Einwilligung jederzeit mit
             Wirkung für die Zukunft per E-Mail an{" "}
-            <a href="mailto:lavidro@gmx.net" className="underline underline-offset-4">
-              lavidro@gmx.net
+            <a href="mailto:info@factory33.de" className="underline underline-offset-4">
+              info@factory33.de
             </a>{" "}
             oder über den Abmeldelink in unseren E-Mails widerrufen. Wir speichern die Daten bis
             zum Widerruf; den Nachweis der Einwilligung können wir darüber hinaus aufbewahren,
@@ -389,17 +403,63 @@ function DatenschutzPage() {
             mitteilen, verarbeiten wir Ihren Namen, Ihre E-Mail-Adresse, das ausgewählte Produkt,
             die gewählte Variante zwischen Kauf und Abo, die zum Zeitpunkt der Anfrage angezeigte
             Preisindikation, optional Ihre Angaben zur Haushaltsgröße, zum Jobtitel und zum größten
-            Mehrwert (bei „Sonstige“ gegebenenfalls mit Freitext), die Bestätigung, dass Sie die Datenschutzhinweise zur Kenntnis
-            genommen haben, gegebenenfalls Ihre freiwillige Einwilligung in zusätzliche
-            Produktinformationen samt Zeitpunkt sowie den Zeitpunkt und die Quelle der Anfrage
-            (z. B. Produktseite oder eine bestimmte Kampagne). Nach dem Absenden erhalten Sie eine
-            Bestätigungs-E-Mail.
+            Mehrwert (bei „Sonstige“ gegebenenfalls mit Freitext), die Bestätigung, dass Sie die
+            Datenschutzhinweise zur Kenntnis genommen haben, gegebenenfalls Ihre freiwillige
+            Einwilligung in zusätzliche Produktinformationen samt Zeitpunkt, Ihre Entscheidung zur
+            optionalen Weitergabe an eine spätere Ausgründung samt Zeitpunkt bei einer Einwilligung
+            sowie den Zeitpunkt und die Quelle der Anfrage (z. B. Produktseite oder eine bestimmte
+            Kampagne).
           </p>
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Die Anfrage ist unverbindlich. Durch sie kommt kein Kaufvertrag zustande, und es wird
             keine Zahlung ausgelöst oder vereinbart. Die angezeigten Preise sind vorläufig und
             können sich bis zu einem späteren verbindlichen Angebot ändern. Die eingegebenen
-            Formulardaten werden nicht an Analysedienste übermittelt.
+            Namen, E-Mail-Adressen, Jobtitel und freie Antworten werden nicht an den Analysedienst
+            übermittelt. Nur nach Ihrer gesonderten Analyse-Einwilligung können beim erfolgreichen
+            Absenden die ausgewählte Haushaltsgrößen-Kategorie, die ausgewählte vordefinierte
+            Mehrwert-Kategorie (bei „Sonstige“ nur diese Kategorie) und die Angabe, ob das
+            Jobtitel-Feld ausgefüllt wurde, ohne den eingegebenen Text ausgewertet werden.
+          </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">
+            Bestätigung der Produktanfrage (Double-Opt-In)
+          </h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Die unverbindliche Anfrage wird bereits mit dem erfolgreichen Absenden gespeichert. Im
+            Anschluss senden wir einmalig eine E-Mail an die angegebene Adresse, damit Sie deren
+            Inhaberschaft durch einen bewussten Klick bestätigen können. Der Link ist 72 Stunden
+            gültig. Das bloße Öffnen des Links bestätigt die Anfrage nicht; die Bestätigung erfolgt
+            erst über die Schaltfläche auf der Bestätigungsseite. Serverseitig wird nur eine
+            kryptografische Prüfsumme des einmaligen Codes gespeichert. Zusätzlich speichern wir den
+            Versand- und Bestätigungsstatus sowie die zugehörigen Zeitpunkte. Abgelaufene, ungültige
+            oder bereits verwendete Codes können keine erneute Bestätigung auslösen.
+          </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Die E-Mail dient der Absicherung und Bearbeitung Ihrer konkreten Anfrage. Rechtsgrundlage
+            ist Art. 6 Abs. 1 lit. b DSGVO; die technischen Versand- und Sicherheitsprotokolle
+            verarbeiten wir auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Eine Anfrage bleibt auch
+            vor der E-Mail-Bestätigung gespeichert. Eine freiwillige Marketing-Einwilligung wird
+            jedoch erst nach erfolgreicher Bestätigung aktiviert.
+          </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">
+            Optionale Weitergabe an eine spätere Ausgründung
+          </h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Nur wenn Sie die gesonderte, nicht vorausgewählte Einwilligung aktiv erteilen, speichern
+            wir diese Entscheidung und den Zeitpunkt der Einwilligung. Der Wortlaut lautet:
+          </p>
+          <blockquote className="mt-4 border-l-2 border-border pl-4 text-foreground/80 leading-relaxed">
+            „Ich willige ein, dass meine personenbezogenen Daten, die im Rahmen des Projekts erhoben
+            werden, auch an die im Zuge des Projekts entstehende Ausgründung (einschließlich einer
+            späteren Rechtsnachfolge) weitergegeben und dort zu den genannten Zwecken
+            weiterverarbeitet werden dürfen.“
+          </blockquote>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO. Ohne diese Einwilligung findet keine auf
+            diesen Zweck gestützte Weitergabe statt. Die Einwilligung kann jederzeit mit Wirkung für
+            die Zukunft widerrufen werden; die Rechtmäßigkeit der bis dahin erfolgten Verarbeitung
+            bleibt unberührt.
           </p>
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Die Verarbeitung erfolgt zur Bearbeitung Ihrer Anfrage und zur Anbahnung eines möglichen
@@ -419,23 +479,22 @@ function DatenschutzPage() {
             informieren. Diese Einwilligung ist freiwillig, nicht vorausgewählt und keine Voraussetzung
             für die Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO. Sie
             können die Einwilligung jederzeit mit Wirkung für die Zukunft per E-Mail an{" "}
-            <a href="mailto:lavidro@gmx.net" className="underline underline-offset-4">
-              lavidro@gmx.net
+            <a href="mailto:info@factory33.de" className="underline underline-offset-4">
+              info@factory33.de
             </a>{" "}
             widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung bleibt
             unberührt. Wir speichern den Einwilligungsstatus und den Zeitpunkt der Einwilligung zum
             Nachweis; nach einem Widerruf verwenden wir Ihre Kontaktdaten nicht mehr für diesen Zweck.
           </p>
 
-          <h3 className="mt-6 font-display text-lg font-semibold">Bestätigungs-E-Mails</h3>
+          <h3 className="mt-6 font-display text-lg font-semibold">Weitere Bestätigungs-E-Mails</h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
-            Nach einer Newsletter-Anmeldung oder einer unverbindlichen Anfrage senden wir eine Bestätigungs-E-Mail
-            mit einer Zusammenfassung der übermittelten Angaben. Hierfür verarbeiten wir insbesondere
-            Ihre E-Mail-Adresse, Ihren Namen und die jeweiligen Anfrage- oder Produktdaten. Der Versand
-            dient der Bearbeitung Ihrer Anfrage beziehungsweise der Durchführung vorvertraglicher
-            Maßnahmen gemäß Art. 6 Abs. 1 lit. b DSGVO. Versandstatus und technische Protokolldaten
-            werden zur Gewährleistung eines sicheren und zuverlässigen Versands auf Grundlage unseres
-            berechtigten Interesses gemäß Art. 6 Abs. 1 lit. f DSGVO gespeichert.
+            Auch nach einer Newsletter-Anmeldung kann eine Bestätigungs-E-Mail versendet werden.
+            Hierfür verarbeiten wir die E-Mail-Adresse und den jeweiligen Anmeldekontext. Der Versand
+            dient dem Nachweis Ihrer Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO. Versandstatus und
+            technische Protokolldaten werden zur Gewährleistung eines sicheren und zuverlässigen
+            Versands auf Grundlage unseres berechtigten Interesses gemäß Art. 6 Abs. 1 lit. f DSGVO
+            verarbeitet.
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">Anfrage per E-Mail</h3>
@@ -524,25 +583,42 @@ function DatenschutzPage() {
             PostHog.
           </p>
           <p className="mt-4 text-foreground/80 leading-relaxed">
-            Erfasst werden ausschließlich folgende pseudonyme Ereignisse:
+            Erfasst werden ausschließlich folgende pseudonyme Ereignisse. Die ersten fünf bilden
+            den unveränderten Anfrage-Funnel; die beiden letzten Angaben werden davon getrennt
+            ausgewertet:
           </p>
           <ul className="mt-3 list-disc pl-6 text-foreground/80 leading-relaxed space-y-1">
             <li>Aufruf der Startseite</li>
             <li>Sichtbarwerden bzw. Aufruf des Produktbereichs</li>
             <li>Wahl zwischen Kaufpreis und Abo</li>
             <li>Öffnen des Anfrageformulars</li>
-            <li>Erfolgreiches Absenden des Anfrageformulars (ohne Formularinhalte)</li>
-            <li>Sichtbare Verweildauer je Seite</li>
+            <li>
+              Erfolgreiches Absenden des Anfrageformulars; dabei nur Haushaltsgrößen-Kategorie,
+              vordefinierte Mehrwert-Kategorie und die Angabe, ob ein Jobtitel eingetragen wurde
+            </li>
+            <li>Sichtbare Verweildauer je Seite (<code className="font-mono text-xs">page_engagement</code>)</li>
+            <li>
+              Erfolgreiche E-Mail-Bestätigung der Produktanfrage als separate Diagnosekennzahl,
+              nicht als Funnel-Schritt
+            </li>
           </ul>
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Zu den Ereignissen gehören das betroffene Produkt, die gewählte Zahlungsart, der
             Seitenpfad ohne URL-Parameter, eine zufällige pseudonyme Kennung für Browser und
-            Sitzung sowie technische Angaben der PostHog-Bibliothek. Beim Übermitteln verarbeitet
-            PostHog technisch bedingt Ihre IP-Adresse; wir haben die standortbezogene Auswertung
-            (GeoIP) in unserer Konfiguration deaktiviert. Namen, E-Mail-Adressen und andere
-            Formulareingaben werden nicht an PostHog übermittelt. Wir nutzen keine Identifizierung
-            einzelner Personen (identify), keine Personenprofile, keine automatische Erfassung von
-            Klicks (Autocapture) und keine Sitzungsaufzeichnung (Session Replay).
+            Sitzung sowie technische Angaben der PostHog-Bibliothek. Beim Absenden der Anfrage können
+            außerdem die oben genannten drei kategorisierten Angaben verarbeitet werden. Namen,
+            E-Mail-Adressen, Jobtitel und freie Antworten werden nicht an PostHog übermittelt. Wir
+            nutzen keine Identifizierung einzelner Personen (Identify), keine Personenprofile, keine
+            automatische Erfassung von Klicks (Autocapture) und keine Sitzungsaufzeichnung (Session
+            Replay).
+          </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Der Browser sendet Analyseereignisse ausschließlich an eine Adresse derselben Website.
+            Diese serverseitige Einwilligungsschranke prüft bei jeder Anfrage erneut die aktuelle
+            Einwilligung und deren Zeitstempel, entfernt nicht erlaubte Angaben und leitet nur gültige
+            Ereignisse an den fest vorgegebenen EU-Endpunkt von PostHog weiter. Dabei werden weder die
+            Besucher-IP noch Browser-Header oder Cookies an PostHog weitergereicht; PostHog sieht die
+            technische Verbindung des Servers. Die Standortauswertung ist zusätzlich deaktiviert.
           </p>
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Die PostHog-Bibliothek speichert dafür nach Ihrer Einwilligung eine pseudonyme
@@ -555,7 +631,9 @@ function DatenschutzPage() {
             Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG).
             Sie können Ihre Einwilligung jederzeit im Footer unter „Cookie-Einstellungen“ mit
             Wirkung für die Zukunft widerrufen. Beim Widerruf wird die Erfassung beendet und die
-            PostHog-Einträge in Ihrem Browser werden gelöscht. Frühere Cookies der eigenen
+            PostHog-Einträge in Ihrem Browser werden ohne Neuladen der Seite gelöscht. Bereits vor
+            dem Widerruf abgeschlossene Übermittlungen können nicht zurückgerufen werden; spätere
+            oder wiederholte Sendeversuche werden an der serverseitigen Schranke verworfen. Frühere Cookies der eigenen
             Nutzungsanalyse (<code className="font-mono text-xs">lavidro_visitor</code>,{" "}
             <code className="font-mono text-xs">lavidro_session</code>) werden nicht mehr gesetzt
             und bei einem Besuch automatisch entfernt.

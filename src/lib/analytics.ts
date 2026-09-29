@@ -34,21 +34,40 @@ async function fetchPosthogConfig(): Promise<{ token: string; host: string } | n
   }
 }
 
-export type FunnelEvent =
-  | "landing_page_viewed"
-  | "product_area_viewed"
-  | "purchase_model_selected"
-  | "purchase_interest_started"
-  | "purchase_interest_submitted";
+export const FUNNEL_EVENT_NAMES = [
+  "landing_page_viewed",
+  "product_area_viewed",
+  "purchase_model_selected",
+  "purchase_interest_started",
+  "purchase_interest_submitted",
+] as const;
+export type FunnelEvent = (typeof FUNNEL_EVENT_NAMES)[number];
 
 export type BusinessModel = "purchase" | "subscription";
 type Props = {
   product_id?: string;
   business_model?: BusinessModel;
   entry_type?: "scroll" | "direct";
+  household_size?: "1" | "2" | "3-4" | "5+" | null;
+  greatest_value?:
+    | "Weniger Zeit für Wäsche aufwenden"
+    | "Wiederkehrende Hausarbeit reduzieren"
+    | "Möglichst lange selbständig im eigenen Zuhause leben"
+    | "Weniger Abhängigkeit von Haushaltshilfen"
+    | "Schonender und zuverlässigere Textilpflege"
+    | "Sonstige"
+    | null;
+  job_title_provided?: boolean;
 };
 
-const ALLOWED_PROPS = ["product_id", "business_model", "entry_type"] as const;
+const ALLOWED_PROPS = [
+  "product_id",
+  "business_model",
+  "entry_type",
+  "household_size",
+  "greatest_value",
+  "job_title_provided",
+] as const;
 // Explicit allow-list of outgoing properties. Everything else is dropped.
 const KEEP_PROPS = new Set<string>([
   ...ALLOWED_PROPS,
@@ -71,17 +90,11 @@ const KEEP_PROPS = new Set<string>([
   "page_path",
   "visible_seconds",
 ]);
-const FUNNEL_EVENTS = new Set<FunnelEvent>([
-  "landing_page_viewed",
-  "product_area_viewed",
-  "purchase_model_selected",
-  "purchase_interest_started",
-  "purchase_interest_submitted",
-]);
+const FUNNEL_EVENTS = new Set<FunnelEvent>(FUNNEL_EVENT_NAMES);
 // Diagnostic (not part of the 5-step funnel): visible time per page and per session.
 const ENGAGEMENT_EVENT = "page_engagement";
 // Separate metric (not a funnel step): DOI confirmed on the confirmation page. No properties.
-const EMAIL_CONFIRMED_EVENT = "purchase_interest_email_confirmed";
+export const EMAIL_CONFIRMED_EVENT = "purchase_interest_email_confirmed";
 const OUTGOING_EVENTS = new Set<string>([...FUNNEL_EVENTS, ENGAGEMENT_EVENT, EMAIL_CONFIRMED_EVENT]);
 const ONCE_PER_VISIT: FunnelEvent[] = ["landing_page_viewed", "product_area_viewed"];
 const FIRED_KEY = "lv_ph_fired";
@@ -211,9 +224,18 @@ async function load(): Promise<PostHog | null> {
   return loading;
 }
 
-function cleanProps(props: Props) {
-  const clean: Record<string, string> = {};
-  for (const k of ALLOWED_PROPS) if (props[k]) clean[k] = String(props[k]);
+function cleanProps(event: FunnelEvent, props: Props) {
+  const clean: Record<string, string | boolean> = {};
+  if (props.product_id) clean.product_id = props.product_id;
+  if (props.business_model) clean.business_model = props.business_model;
+  if (props.entry_type) clean.entry_type = props.entry_type;
+  if (event === "purchase_interest_submitted") {
+    if (props.household_size) clean.household_size = props.household_size;
+    if (props.greatest_value) clean.greatest_value = props.greatest_value;
+    if (typeof props.job_title_provided === "boolean") {
+      clean.job_title_provided = props.job_title_provided;
+    }
+  }
   return clean;
 }
 
@@ -231,7 +253,7 @@ export async function captureFunnel(event: FunnelEvent, props: Props = {}) {
       if (once && analyticsAllowed()) retry.set(event, props);
       return;
     }
-    client.capture(event, cleanProps(props));
+    client.capture(event, cleanProps(event, props));
     if (once) {
       markFired(event);
       retry.delete(event);
