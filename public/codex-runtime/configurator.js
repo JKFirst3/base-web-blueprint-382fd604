@@ -164,7 +164,7 @@
           <ul>
             ${product.highlights.map((highlight) => `<li>${highlight}</li>`).join("")}
           </ul>
-          <a class="outline-button" href="/Konfigurator?product=${key}">Konfigurieren</a>
+          <a class="outline-button" href="/Konfigurator?product=${key}">Produkt anzeigen</a>
         </article>
       `;
       })
