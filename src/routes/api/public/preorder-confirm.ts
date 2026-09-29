@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { allowedOrigin, isRateLimited } from "@/lib/preorder-confirm.security";
 
 const HEADERS = {
   "cache-control": "no-store",
@@ -6,20 +7,6 @@ const HEADERS = {
   "x-content-type-options": "nosniff",
   "content-type": "application/json; charset=utf-8",
 };
-const RATE = new Map<string, { count: number; resetsAt: number }>();
-
-function allowedOrigin(origin: string | null, requestUrl: string): boolean {
-  if (!origin) return false;
-  try {
-    const o = new URL(origin);
-    if (o.origin === new URL(requestUrl).origin) return true;
-    const h = o.hostname;
-    return h === "lavidro.com" || h === "www.lavidro.com" || h.endsWith(".lovable.app") || h.endsWith(".lovableproject.com");
-  } catch {
-    return false;
-  }
-}
-
 function reply(status: number, body: { status: string }) {
   return new Response(JSON.stringify(body), { status, headers: HEADERS });
 }
@@ -31,11 +18,8 @@ export const Route = createFileRoute("/api/public/preorder-confirm")({
       GET: async () => reply(405, { status: "method_not_allowed" }),
       POST: async ({ request }) => {
         if (!allowedOrigin(request.headers.get("origin"), request.url)) return reply(403, { status: "forbidden" });
-        const ip = request.headers.get("cf-connecting-ip") ?? "unknown";
-        const now = Date.now();
-        const r = RATE.get(ip);
-        if (!r || r.resetsAt <= now) RATE.set(ip, { count: 1, resetsAt: now + 60_000 });
-        else if (++r.count > 10) return reply(429, { status: "rate_limited" });
+        const ip = request.headers.get("cf-connecting-ip");
+        if (isRateLimited(ip)) return reply(429, { status: "rate_limited" });
 
         let token: unknown;
         try {

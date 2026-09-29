@@ -59,6 +59,7 @@ export async function startDoi(
     await deps.setPending(id, await hashToken(raw), expiresAt);
   } catch {
     console.error("[doi] could not store pending state");
+    await deps.markSendFailed(id).catch(() => undefined);
     return "send_failed";
   }
   try {
