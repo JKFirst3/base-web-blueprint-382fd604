@@ -5,15 +5,21 @@
 - Jede Formularöffnung erhält eine zufällige, nicht personenbezogene Anfrage-ID. Diese wird beim ersten Absenden wiederverwendet und in einer neuen optionalen, eindeutigen Datenbankspalte gespeichert. Die sechs bestehenden Datensätze bleiben wegen `NULL` unverändert.
 - Der Server behandelt Wiederholungen derselben Anfrage-ID idempotent: genau ein Datensatz und ein DOI-Versandversuch. Ein erneuter Versuch nach Browser-Timeout liest nur den bereits gespeicherten Zustand zurück und erzeugt keine zweite Anfrage oder zweite Mail.
 - Die Antwort unterscheidet „gespeichert und Mail versendet“, „gespeichert, Versand noch in Bearbeitung“ und `send_failed`. Das Formular zeigt den sicheren Eingang immer als Erfolg, behauptet bei `send_failed` aber nicht, eine E-Mail sei verschickt worden. Der vorhandene 10-Sekunden-Timeout bleibt als Schutz bestehen; nach Timeout erklärt die Meldung neutral, dass der Status unklar ist und ein erneuter Versuch dieselbe Anfrage fortsetzt.
+- Neben dem freiwilligen Freitext-Jobtitel kommt ein separates optionales Select „Berufsfeld (freiwillig)“ mit sieben festen Kategorien hinzu. Es findet keine Ableitung aus dem Jobtitel statt.
+- Der gewählte Wert wird serverseitig gegen dieselbe feste Liste validiert und in einer neuen nullable Datenbankspalte gespeichert. Bestehende Datensätze bleiben unverändert.
+- `occupation_group` wird nur beim erfolgreichen `purchase_interest_submitted` an die Analyse übergeben. Client und Same-Origin-Gate erlauben ausschließlich die festen Kategorien; Jobtitel und andere Freitexte bleiben ausgeschlossen.
+- Cookie-Hinweis und Datenschutzerklärung werden nur um die tatsächlich erfasste grobe Berufskategorie ergänzt; sonstige Rechtstexte bleiben unverändert.
 
 ## Tests
 - Exakte Same-Origin akzeptieren; fehlenden und fremden Origin einschließlich fremder Lovable-Origin mit 403 ablehnen.
 - Nur `cf-connecting-ip` für das Limit verwenden; ohne diese Angabe keine gemeinsame Begrenzung.
 - Wiederholte und parallele Anfrage-ID erzeugt nur einen Datensatz und höchstens einen Mailversuch; bestehende Datensätze bleiben unberührt.
 - Speicherfehler, Mailfehler, verzögerte Mail/Client-Timeout und Wiederholung abdecken; Erfolgstexte für `sent`, `processing` und `send_failed` prüfen.
+- Berufsfeld-Validierung, fehlende Analyse-Einwilligung und Ablehnung unbekannter oder freier Analysewerte prüfen.
 - Ereignisnamen und Rechtstexte unverändert lassen; gezielte Tests sowie automatische Typ- und Build-Prüfung auswerten. Keine echten Formulare, Mails oder Veröffentlichung.
 
 ## Technische Details
 - Die Idempotenz wird durch einen eindeutigen Datenbankindex auf der neuen Anfrage-ID erzwungen, nicht durch Prozessspeicher.
 - Stufe 5 bleibt an den erfolgreichen Datenbankeintrag gekoppelt; DOI bleibt ein nachgelagerter Versandstatus.
 - Es werden keine E-Mail-Adressen, Namen oder Tokens in Logs oder Antworten ergänzt.
+- Die neue Berufsfeld-Kategorie erweitert nur die Eigenschaften des bestehenden fünften Funnel-Ereignisses; Stufe 5 und das separate DOI-Ereignis bleiben unverändert.
