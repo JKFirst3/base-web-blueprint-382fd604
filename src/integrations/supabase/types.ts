@@ -205,6 +205,7 @@ export type Database = {
       }
       preorders: {
         Row: {
+          client_submission_id: string | null
           consent: boolean
           created_at: string
           doi_confirmed_at: string | null
@@ -224,6 +225,7 @@ export type Database = {
           marketing_consent_at: string | null
           monthly_eur: number | null
           name: string
+          occupation_group: string | null
           payment_type: string
           price_eur: number
           size: string
@@ -235,6 +237,7 @@ export type Database = {
           transfer_consent_at: string | null
         }
         Insert: {
+          client_submission_id?: string | null
           consent?: boolean
           created_at?: string
           doi_confirmed_at?: string | null
@@ -254,6 +257,7 @@ export type Database = {
           marketing_consent_at?: string | null
           monthly_eur?: number | null
           name: string
+          occupation_group?: string | null
           payment_type: string
           price_eur: number
           size: string
@@ -265,6 +269,7 @@ export type Database = {
           transfer_consent_at?: string | null
         }
         Update: {
+          client_submission_id?: string | null
           consent?: boolean
           created_at?: string
           doi_confirmed_at?: string | null
@@ -284,6 +289,7 @@ export type Database = {
           marketing_consent_at?: string | null
           monthly_eur?: number | null
           name?: string
+          occupation_group?: string | null
           payment_type?: string
           price_eur?: number
           size?: string
