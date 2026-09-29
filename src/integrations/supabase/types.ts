@@ -207,13 +207,20 @@ export type Database = {
         Row: {
           consent: boolean
           created_at: string
+          doi_confirmed_at: string | null
+          doi_expires_at: string | null
+          doi_sent_at: string | null
+          doi_status: string | null
+          doi_token_hash: string | null
           email: string
           greatest_value: string | null
           greatest_value_other: string | null
           household_size: string | null
           id: string
           job_title: string | null
+          marketing_activated_at: string | null
           marketing_consent: boolean
+          marketing_consent_active: boolean
           marketing_consent_at: string | null
           monthly_eur: number | null
           name: string
@@ -224,17 +231,26 @@ export type Database = {
           solution_name: string
           source: string
           tier: string
+          transfer_consent: boolean
+          transfer_consent_at: string | null
         }
         Insert: {
           consent?: boolean
           created_at?: string
+          doi_confirmed_at?: string | null
+          doi_expires_at?: string | null
+          doi_sent_at?: string | null
+          doi_status?: string | null
+          doi_token_hash?: string | null
           email: string
           greatest_value?: string | null
           greatest_value_other?: string | null
           household_size?: string | null
           id?: string
           job_title?: string | null
+          marketing_activated_at?: string | null
           marketing_consent?: boolean
+          marketing_consent_active?: boolean
           marketing_consent_at?: string | null
           monthly_eur?: number | null
           name: string
@@ -245,17 +261,26 @@ export type Database = {
           solution_name: string
           source?: string
           tier: string
+          transfer_consent?: boolean
+          transfer_consent_at?: string | null
         }
         Update: {
           consent?: boolean
           created_at?: string
+          doi_confirmed_at?: string | null
+          doi_expires_at?: string | null
+          doi_sent_at?: string | null
+          doi_status?: string | null
+          doi_token_hash?: string | null
           email?: string
           greatest_value?: string | null
           greatest_value_other?: string | null
           household_size?: string | null
           id?: string
           job_title?: string | null
+          marketing_activated_at?: string | null
           marketing_consent?: boolean
+          marketing_consent_active?: boolean
           marketing_consent_at?: string | null
           monthly_eur?: number | null
           name?: string
@@ -266,6 +291,8 @@ export type Database = {
           solution_name?: string
           source?: string
           tier?: string
+          transfer_consent?: boolean
+          transfer_consent_at?: string | null
         }
         Relationships: []
       }
@@ -319,38 +346,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      delete_email: {
-        Args: { message_id: number; queue_name: string }
-        Returns: boolean
-      }
-      email_queue_dispatch: { Args: never; Returns: undefined }
-      enqueue_email: {
-        Args: { payload: Json; queue_name: string }
-        Returns: number
-      }
+      confirm_preorder_doi: { Args: { _token_hash: string }; Returns: string }
+      expire_preorder_doi: { Args: never; Returns: number }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
         Returns: boolean
-      }
-      move_to_dlq: {
-        Args: {
-          dlq_name: string
-          message_id: number
-          payload: Json
-          source_queue: string
-        }
-        Returns: number
-      }
-      read_email_batch: {
-        Args: { batch_size: number; queue_name: string; vt: number }
-        Returns: {
-          message: Json
-          msg_id: number
-          read_ct: number
-        }[]
       }
     }
     Enums: {

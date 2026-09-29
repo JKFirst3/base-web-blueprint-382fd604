@@ -16,3 +16,6 @@
 - [x] Alle Kaufinteresse-CTAs exakt „Anfragen“; Shared-Header auf Newsletter statt „Lavidro live erleben“
 - [x] Typecheck/Build und sichtbare Seiten prüfen
 - [x] Widerruf ohne Neuladen: Same-Origin-Einwilligungsschranke für PostHog, Tests mit simuliertem PostHog
+- [x] Double-Opt-In für neue Anfragen (Token gehasht, Bestätigung nur per Button/POST, Marketing erst danach aktiv, Weitergabe-Einwilligung, Zusatzereignis nur mit Analyse-Einwilligung)
+- [ ] Datenschutzerklärung um Double-Opt-In und optionale Weitergabe an die Ausgründung ergänzen (Wortlaut rechtlich prüfen lassen)
+- [ ] Double-Opt-In nach Veröffentlichung einmal mit eigener Adresse prüfen (kein echter Versand im Entwurf)

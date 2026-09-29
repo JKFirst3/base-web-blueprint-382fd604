@@ -3,3 +3,4 @@
 - Visible offers have no Basic/Premium; internal tier keys `premium` (Mobile, Cabinet) and `standard` (One) stay in client/API catalogs — why: historical records and the existing preorder insert rule accept them, so no migration is needed.
 
 - Optional household, job-title, and benefit answers are validated on both sides and stored with the existing preorder record; “Other” needs an explanation — why: keep inquiry context together without a separate identity store.
+- Product-inquiry double opt-in: raw token only in the email link fragment, SHA-256 hash in preorders; confirmation only via POST /api/public/preorder-confirm calling the service-role-only SQL function confirm_preorder_doi — why: mail scanners must not confirm, and confirmation must be atomic and single-use.
