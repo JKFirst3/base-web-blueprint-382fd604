@@ -2,7 +2,35 @@
 // PostHog JS is loaded dynamically only after explicit analytics consent.
 import type { PostHog } from "posthog-js";
 import { analyticsAllowed, deleteCookie, readCookie } from "./consent";
-import { getPosthogConfig } from "./posthog-config.functions";
+
+const INGEST_HOSTS = new Set(["https://eu.i.posthog.com", "https://us.i.posthog.com"]);
+
+/** Same-origin public config fetch (no auth middleware). Logs only non-sensitive diagnostics. */
+async function fetchPosthogConfig(): Promise<{ token: string; host: string } | null> {
+  try {
+    const res = await fetch("/api/public/posthog-config", {
+      method: "GET",
+      credentials: "same-origin",
+      cache: "no-store",
+      headers: { accept: "application/json" },
+    });
+    if (!res.ok) {
+      console.warn(`[analytics] config request failed (HTTP ${res.status})`);
+      return null;
+    }
+    const data = (await res.json()) as { token?: unknown; host?: unknown; reason?: unknown };
+    const token = typeof data.token === "string" && data.token.startsWith("phc_") ? data.token : null;
+    const host = typeof data.host === "string" && INGEST_HOSTS.has(data.host) ? data.host : null;
+    if (!token || !host) {
+      console.warn(`[analytics] config unavailable (${typeof data.reason === "string" ? data.reason : "invalid_config"})`);
+      return null;
+    }
+    return { token, host };
+  } catch (e) {
+    console.warn(`[analytics] config request error (${e instanceof Error ? e.name : "unknown"})`);
+    return null;
+  }
+}
 
 export type FunnelEvent =
   | "landing_page_viewed"
@@ -109,13 +137,8 @@ async function load(): Promise<PostHog | null> {
   const epoch = consentEpoch;
   const stillAllowed = () => epoch === consentEpoch && analyticsAllowed();
   loading = (async () => {
-    let cfg: { token: string | null; host: string };
-    try {
-      cfg = await getPosthogConfig();
-    } catch {
-      return null;
-    }
-    if (!cfg.token || !stillAllowed()) return null;
+    const cfg = await fetchPosthogConfig();
+    if (!cfg || !stillAllowed()) return null;
     let posthog: PostHog;
     try {
       posthog = (await import("posthog-js")).default;
