@@ -22,6 +22,11 @@ export async function hashToken(raw: string): Promise<string> {
 
 export const TOKEN_RE = /^[A-Za-z0-9_-]{43}$/;
 
+/** Confirmation tokens are accepted only from the URL fragment, never the query string. */
+export function tokenFromLocationHash(hash: string): string | null {
+  return new URLSearchParams(hash.startsWith("#") ? hash.slice(1) : hash).get("token");
+}
+
 /** Link base: only known site origins, never an arbitrary Host header. */
 export function confirmBaseUrl(requestUrl: string): string {
   try {
@@ -59,6 +64,7 @@ export async function startDoi(
     await deps.setPending(id, await hashToken(raw), expiresAt);
   } catch {
     console.error("[doi] could not store pending state");
+    await deps.markSendFailed(id).catch(() => undefined);
     return "send_failed";
   }
   try {

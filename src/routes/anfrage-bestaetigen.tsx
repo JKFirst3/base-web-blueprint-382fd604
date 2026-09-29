@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { captureEmailConfirmed } from "@/lib/analytics";
+import { tokenFromLocationHash } from "@/lib/preorder-doi.server";
 
 export const Route = createFileRoute("/anfrage-bestaetigen")({
   headers: () => ({ "Referrer-Policy": "no-referrer", "Cache-Control": "no-store" }),
@@ -36,9 +37,7 @@ function ConfirmPage() {
 
   useEffect(() => {
     // Read once, then remove the token from the address bar and history immediately.
-    const hash = new URLSearchParams(window.location.hash.slice(1));
-    const query = new URLSearchParams(window.location.search);
-    token.current = hash.get("token") ?? query.get("token");
+    token.current = tokenFromLocationHash(window.location.hash);
     if (window.location.hash || window.location.search) {
       window.history.replaceState(null, "", window.location.pathname);
     }
