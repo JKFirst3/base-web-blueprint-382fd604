@@ -13,7 +13,6 @@ type PreorderSelection = {
   productName: string;
   family: string;
   tier: string;
-  tierLabel: string;
   price: number;
   monthly: number;
   paymentType: "upfront" | "monthly";
@@ -21,43 +20,25 @@ type PreorderSelection = {
 
 type CatalogEntry = Omit<PreorderSelection, "paymentType">;
 
+// Only currently offered configurations. Internal tier keys stay compatible with
+// existing records and the database insert rule; they are never shown to visitors.
 const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
   mobile: {
-    basic: {
-      productId: "mobile",
-      productName: "Lavidro Mobile",
-      family: "Mobiler Wäscheassistent",
-      tier: "basic",
-      tierLabel: "Basic",
-      price: 9000,
-      monthly: 270,
-    },
     premium: {
       productId: "mobile",
       productName: "Lavidro Mobile",
       family: "Mobiler Wäscheassistent",
       tier: "premium",
-      tierLabel: "Premium",
       price: 14000,
       monthly: 420,
     },
   },
   cabinet: {
-    basic: {
-      productId: "cabinet",
-      productName: "Lavidro Cabinet",
-      family: "Integrierter Wäscheschrank",
-      tier: "basic",
-      tierLabel: "Basic",
-      price: 12500,
-      monthly: 375,
-    },
     premium: {
       productId: "cabinet",
       productName: "Lavidro Cabinet",
       family: "Integrierter Wäscheschrank",
       tier: "premium",
-      tierLabel: "Premium",
       price: 21500,
       monthly: 645,
     },
@@ -68,7 +49,6 @@ const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
       productName: "Lavidro One",
       family: "Einzelteilbehandlung im Schrank",
       tier: "standard",
-      tierLabel: "Standard",
       price: 10000,
       monthly: 300,
     },
@@ -83,7 +63,7 @@ function getCatalogSelection(selection: PreorderSelection): PreorderSelection | 
 
 const KONFIGURATOR_TITLE = "Produkt — Lavidro Wäschesysteme im Vergleich";
 const KONFIGURATOR_DESCRIPTION =
-  "Vergleiche die drei Lavidro Lösungen: Mobiler Wäscheassistent, Integrierter Wäscheschrank und Einzelteilbehandlung im Schrank — mit Ausstattungsstufen und unverbindlicher Vormerkung.";
+  "Vergleiche die drei Lavidro Lösungen: Mobiler Wäscheassistent, Integrierter Wäscheschrank und Einzelteilbehandlung im Schrank — mit Preisindikation und unverbindlicher Anfrage.";
 export const Route = createFileRoute("/Konfigurator")({
   head: () => ({
     meta: [
