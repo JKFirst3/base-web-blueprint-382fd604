@@ -10,3 +10,4 @@
 - [x] Basic/Premium-Bezeichnungen und nicht angebotene Varianten entfernen (Preise unverändert, keine Datenlöschung)
 - [x] Alle Kaufinteresse-CTAs exakt „Anfragen“; Shared-Header auf Newsletter statt „Lavidro live erleben“
 - [x] Typecheck/Build und sichtbare Seiten prüfen
+- [x] Widerruf ohne Neuladen: Same-Origin-Einwilligungsschranke für PostHog, Tests mit simuliertem PostHog

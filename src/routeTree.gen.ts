@@ -29,6 +29,7 @@ import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
+import { Route as ApiPublicPhIngestSplatRouteImport } from './routes/api/public/ph-ingest.$'
 
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
   id: '/unsubscribe',
@@ -134,6 +135,11 @@ const LovableEmailQueueProcessRoute =
     path: '/lovable/email/queue/process',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicPhIngestSplatRoute = ApiPublicPhIngestSplatRouteImport.update({
+  id: '/api/public/ph-ingest/$',
+  path: '/api/public/ph-ingest/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -153,6 +159,7 @@ export interface FileRoutesByFullPath {
   '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/ph-ingest/$': typeof ApiPublicPhIngestSplatRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
@@ -175,6 +182,7 @@ export interface FileRoutesByTo {
   '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/ph-ingest/$': typeof ApiPublicPhIngestSplatRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
@@ -198,6 +206,7 @@ export interface FileRoutesById {
   '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/ph-ingest/$': typeof ApiPublicPhIngestSplatRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
@@ -222,6 +231,7 @@ export interface FileRouteTypes {
     | '/api/public/posthog-config'
     | '/api/public/preorders'
     | '/lovable/email/suppression'
+    | '/api/public/ph-ingest/$'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
     | '/lovable/email/transactional/send'
@@ -244,6 +254,7 @@ export interface FileRouteTypes {
     | '/api/public/posthog-config'
     | '/api/public/preorders'
     | '/lovable/email/suppression'
+    | '/api/public/ph-ingest/$'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
     | '/lovable/email/transactional/send'
@@ -266,6 +277,7 @@ export interface FileRouteTypes {
     | '/api/public/posthog-config'
     | '/api/public/preorders'
     | '/lovable/email/suppression'
+    | '/api/public/ph-ingest/$'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
     | '/lovable/email/transactional/send'
@@ -289,6 +301,7 @@ export interface RootRouteChildren {
   ApiPublicPosthogConfigRoute: typeof ApiPublicPosthogConfigRoute
   ApiPublicPreordersRoute: typeof ApiPublicPreordersRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
+  ApiPublicPhIngestSplatRoute: typeof ApiPublicPhIngestSplatRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
   LovableEmailTransactionalSendRoute: typeof LovableEmailTransactionalSendRoute
@@ -436,6 +449,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailQueueProcessRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/ph-ingest/$': {
+      id: '/api/public/ph-ingest/$'
+      path: '/api/public/ph-ingest/$'
+      fullPath: '/api/public/ph-ingest/$'
+      preLoaderRoute: typeof ApiPublicPhIngestSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -458,6 +478,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicPosthogConfigRoute: ApiPublicPosthogConfigRoute,
   ApiPublicPreordersRoute: ApiPublicPreordersRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
+  ApiPublicPhIngestSplatRoute: ApiPublicPhIngestSplatRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
   LovableEmailTransactionalSendRoute: LovableEmailTransactionalSendRoute,
