@@ -24,3 +24,4 @@
 - [ ] Lavidro-Datenschutzhinweise zu Anfrage, DOI, Weitergabe und PostHog präzisieren
 - [ ] Drei streng begrenzte demografische Eigenschaften für `purchase_interest_submitted` freigeben
 - [ ] Ablehnung unbekannter/freier Analysewerte sowie unveränderten Funnel automatisiert prüfen
+- [ ] Test- und Build-Belege sowie offene Rechtsfragen ausdrücklich dokumentieren
