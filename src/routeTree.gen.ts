@@ -23,6 +23,7 @@ import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicPreordersRouteImport } from './routes/api/public/preorders'
+import { Route as ApiPublicPosthogConfigRouteImport } from './routes/api/public/posthog-config'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
 import { Route as ApiPublicCollectAnalyticsRouteImport } from './routes/api/public/collect-analytics'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
@@ -101,6 +102,11 @@ const ApiPublicPreordersRoute = ApiPublicPreordersRouteImport.update({
   path: '/api/public/preorders',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPosthogConfigRoute = ApiPublicPosthogConfigRouteImport.update({
+  id: '/api/public/posthog-config',
+  path: '/api/public/posthog-config',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
   id: '/api/public/leads',
   path: '/api/public/leads',
@@ -152,6 +158,7 @@ export interface FileRoutesByFullPath {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
+  '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -174,6 +181,7 @@ export interface FileRoutesByTo {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
+  '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -197,6 +205,7 @@ export interface FileRoutesById {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
+  '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -221,6 +230,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/api/public/collect-analytics'
     | '/api/public/leads'
+    | '/api/public/posthog-config'
     | '/api/public/preorders'
     | '/lovable/email/suppression'
     | '/lovable/email/queue/process'
@@ -243,6 +253,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/api/public/collect-analytics'
     | '/api/public/leads'
+    | '/api/public/posthog-config'
     | '/api/public/preorders'
     | '/lovable/email/suppression'
     | '/lovable/email/queue/process'
@@ -265,6 +276,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/api/public/collect-analytics'
     | '/api/public/leads'
+    | '/api/public/posthog-config'
     | '/api/public/preorders'
     | '/lovable/email/suppression'
     | '/lovable/email/queue/process'
@@ -288,6 +300,7 @@ export interface RootRouteChildren {
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   ApiPublicCollectAnalyticsRoute: typeof ApiPublicCollectAnalyticsRoute
   ApiPublicLeadsRoute: typeof ApiPublicLeadsRoute
+  ApiPublicPosthogConfigRoute: typeof ApiPublicPosthogConfigRoute
   ApiPublicPreordersRoute: typeof ApiPublicPreordersRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
@@ -395,6 +408,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPreordersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/posthog-config': {
+      id: '/api/public/posthog-config'
+      path: '/api/public/posthog-config'
+      fullPath: '/api/public/posthog-config'
+      preLoaderRoute: typeof ApiPublicPosthogConfigRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/leads': {
       id: '/api/public/leads'
       path: '/api/public/leads'
@@ -457,6 +477,7 @@ const rootRouteChildren: RootRouteChildren = {
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   ApiPublicCollectAnalyticsRoute: ApiPublicCollectAnalyticsRoute,
   ApiPublicLeadsRoute: ApiPublicLeadsRoute,
+  ApiPublicPosthogConfigRoute: ApiPublicPosthogConfigRoute,
   ApiPublicPreordersRoute: ApiPublicPreordersRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
