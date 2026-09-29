@@ -201,6 +201,7 @@ function PreorderDialog({
   const [greatestValueOther, setGreatestValueOther] = useState("");
   const [consent, setConsent] = useState(false);
   const [marketingConsent, setMarketingConsent] = useState(false);
+  const [transferConsent, setTransferConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
@@ -262,6 +263,7 @@ function PreorderDialog({
           monthly_eur: selection.paymentType === "monthly" ? selection.monthly : null,
           consent,
           marketing_consent: marketingConsent,
+          transfer_consent: transferConsent,
           ...answers.data,
           source: currentCampaign() ?? "configurator",
         }),
@@ -306,7 +308,7 @@ function PreorderDialog({
             <span aria-hidden="true">✓</span>
             <p className="kicker">Anfrage eingegangen</p>
             <h2 id="preorder-title">Ihre unverbindliche Anfrage ist bei uns eingegangen.</h2>
-            <p>In Entwicklung · Marktstart geplant 2027. Wir prüfen Ihre Anfrage und informieren Sie über die nächsten Schritte dazu.</p>
+            <p>Wir haben Ihnen eine E-Mail geschickt. Bitte bestätigen Sie darin Ihre E-Mail-Adresse. In Entwicklung · Marktstart geplant 2027.</p>
             <PreorderJourney confirmed />
             <button className="primary-button" type="button" onClick={onClose}>
               Schließen
@@ -403,6 +405,16 @@ function PreorderDialog({
                   Ich möchte zusätzlich per E-Mail über die Produktentwicklung, Verfügbarkeit und
                   Angebote von Lavidro informiert werden. Diese Einwilligung ist freiwillig und
                   jederzeit widerrufbar.
+                </span>
+              </label>
+              <label className="checkbox">
+                <input
+                  type="checkbox"
+                  checked={transferConsent}
+                  onChange={(event) => setTransferConsent(event.target.checked)}
+                />
+                <span>
+                  Ich willige ein, dass meine personenbezogenen Daten, die im Rahmen des Projekts erhoben werden, auch an die im Zuge des Projekts entstehende Ausgründung (einschließlich einer späteren Rechtsnachfolge) weitergegeben und dort zu den genannten Zwecken weiterverarbeitet werden dürfen.
                 </span>
               </label>
               <button className="primary-button" type="submit" disabled={submitting}>

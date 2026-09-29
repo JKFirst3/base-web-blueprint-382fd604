@@ -15,12 +15,14 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
+import { Route as AnfrageBestaetigenRouteImport } from './routes/anfrage-bestaetigen'
 import { Route as AboutLavidroRouteImport } from './routes/aboutLavidro'
 import { Route as KonfiguratorRouteImport } from './routes/Konfigurator'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as LovableEmailEventsRouteImport } from './routes/lovable/email/events'
 import { Route as ApiPublicPreordersRouteImport } from './routes/api/public/preorders'
+import { Route as ApiPublicPreorderConfirmRouteImport } from './routes/api/public/preorder-confirm'
 import { Route as ApiPublicPosthogConfigRouteImport } from './routes/api/public/posthog-config'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
@@ -57,6 +59,11 @@ const DatenschutzRoute = DatenschutzRouteImport.update({
   path: '/datenschutz',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AnfrageBestaetigenRoute = AnfrageBestaetigenRouteImport.update({
+  id: '/anfrage-bestaetigen',
+  path: '/anfrage-bestaetigen',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutLavidroRoute = AboutLavidroRouteImport.update({
   id: '/aboutLavidro',
   path: '/aboutLavidro',
@@ -88,6 +95,12 @@ const ApiPublicPreordersRoute = ApiPublicPreordersRouteImport.update({
   path: '/api/public/preorders',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPreorderConfirmRoute =
+  ApiPublicPreorderConfirmRouteImport.update({
+    id: '/api/public/preorder-confirm',
+    path: '/api/public/preorder-confirm',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicPosthogConfigRoute = ApiPublicPosthogConfigRouteImport.update({
   id: '/api/public/posthog-config',
   path: '/api/public/posthog-config',
@@ -119,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/Konfigurator': typeof KonfiguratorRoute
   '/aboutLavidro': typeof AboutLavidroRoute
+  '/anfrage-bestaetigen': typeof AnfrageBestaetigenRoute
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
@@ -129,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
+  '/api/public/preorder-confirm': typeof ApiPublicPreorderConfirmRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
   '/api/public/ph-ingest/$': typeof ApiPublicPhIngestSplatRoute
@@ -138,6 +153,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/Konfigurator': typeof KonfiguratorRoute
   '/aboutLavidro': typeof AboutLavidroRoute
+  '/anfrage-bestaetigen': typeof AnfrageBestaetigenRoute
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
@@ -148,6 +164,7 @@ export interface FileRoutesByTo {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
+  '/api/public/preorder-confirm': typeof ApiPublicPreorderConfirmRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
   '/api/public/ph-ingest/$': typeof ApiPublicPhIngestSplatRoute
@@ -158,6 +175,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/Konfigurator': typeof KonfiguratorRoute
   '/aboutLavidro': typeof AboutLavidroRoute
+  '/anfrage-bestaetigen': typeof AnfrageBestaetigenRoute
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
@@ -168,6 +186,7 @@ export interface FileRoutesById {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
+  '/api/public/preorder-confirm': typeof ApiPublicPreorderConfirmRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
   '/api/public/ph-ingest/$': typeof ApiPublicPhIngestSplatRoute
@@ -179,6 +198,7 @@ export interface FileRouteTypes {
     | '/'
     | '/Konfigurator'
     | '/aboutLavidro'
+    | '/anfrage-bestaetigen'
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
@@ -189,6 +209,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/api/public/leads'
     | '/api/public/posthog-config'
+    | '/api/public/preorder-confirm'
     | '/api/public/preorders'
     | '/lovable/email/events'
     | '/api/public/ph-ingest/$'
@@ -198,6 +219,7 @@ export interface FileRouteTypes {
     | '/'
     | '/Konfigurator'
     | '/aboutLavidro'
+    | '/anfrage-bestaetigen'
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
@@ -208,6 +230,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/api/public/leads'
     | '/api/public/posthog-config'
+    | '/api/public/preorder-confirm'
     | '/api/public/preorders'
     | '/lovable/email/events'
     | '/api/public/ph-ingest/$'
@@ -217,6 +240,7 @@ export interface FileRouteTypes {
     | '/'
     | '/Konfigurator'
     | '/aboutLavidro'
+    | '/anfrage-bestaetigen'
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
@@ -227,6 +251,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/api/public/leads'
     | '/api/public/posthog-config'
+    | '/api/public/preorder-confirm'
     | '/api/public/preorders'
     | '/lovable/email/events'
     | '/api/public/ph-ingest/$'
@@ -237,6 +262,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   KonfiguratorRoute: typeof KonfiguratorRoute
   AboutLavidroRoute: typeof AboutLavidroRoute
+  AnfrageBestaetigenRoute: typeof AnfrageBestaetigenRoute
   DatenschutzRoute: typeof DatenschutzRoute
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
@@ -247,6 +273,7 @@ export interface RootRouteChildren {
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   ApiPublicLeadsRoute: typeof ApiPublicLeadsRoute
   ApiPublicPosthogConfigRoute: typeof ApiPublicPosthogConfigRoute
+  ApiPublicPreorderConfirmRoute: typeof ApiPublicPreorderConfirmRoute
   ApiPublicPreordersRoute: typeof ApiPublicPreordersRoute
   LovableEmailEventsRoute: typeof LovableEmailEventsRoute
   ApiPublicPhIngestSplatRoute: typeof ApiPublicPhIngestSplatRoute
@@ -297,6 +324,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DatenschutzRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/anfrage-bestaetigen': {
+      id: '/anfrage-bestaetigen'
+      path: '/anfrage-bestaetigen'
+      fullPath: '/anfrage-bestaetigen'
+      preLoaderRoute: typeof AnfrageBestaetigenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/aboutLavidro': {
       id: '/aboutLavidro'
       path: '/aboutLavidro'
@@ -337,6 +371,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/preorders'
       fullPath: '/api/public/preorders'
       preLoaderRoute: typeof ApiPublicPreordersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/preorder-confirm': {
+      id: '/api/public/preorder-confirm'
+      path: '/api/public/preorder-confirm'
+      fullPath: '/api/public/preorder-confirm'
+      preLoaderRoute: typeof ApiPublicPreorderConfirmRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/posthog-config': {
@@ -381,6 +422,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   KonfiguratorRoute: KonfiguratorRoute,
   AboutLavidroRoute: AboutLavidroRoute,
+  AnfrageBestaetigenRoute: AnfrageBestaetigenRoute,
   DatenschutzRoute: DatenschutzRoute,
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
@@ -392,6 +434,7 @@ const rootRouteChildren: RootRouteChildren = {
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   ApiPublicLeadsRoute: ApiPublicLeadsRoute,
   ApiPublicPosthogConfigRoute: ApiPublicPosthogConfigRoute,
+  ApiPublicPreorderConfirmRoute: ApiPublicPreorderConfirmRoute,
   ApiPublicPreordersRoute: ApiPublicPreordersRoute,
   LovableEmailEventsRoute: LovableEmailEventsRoute,
   ApiPublicPhIngestSplatRoute: ApiPublicPhIngestSplatRoute,
