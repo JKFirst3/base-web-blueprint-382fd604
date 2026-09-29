@@ -77,6 +77,6 @@ export const template = {
     email: 'max@example.com',
     product: 'Lavidro Cabinet',
     paymentMode: 'Einmalzahlung',
-    price: '21.500 €',
+    price: '20.449 €',
   },
 } satisfies TemplateEntry
