@@ -208,7 +208,11 @@ export type Database = {
           consent: boolean
           created_at: string
           email: string
+          greatest_value: string | null
+          greatest_value_other: string | null
+          household_size: string | null
           id: string
+          job_title: string | null
           marketing_consent: boolean
           marketing_consent_at: string | null
           monthly_eur: number | null
@@ -225,7 +229,11 @@ export type Database = {
           consent?: boolean
           created_at?: string
           email: string
+          greatest_value?: string | null
+          greatest_value_other?: string | null
+          household_size?: string | null
           id?: string
+          job_title?: string | null
           marketing_consent?: boolean
           marketing_consent_at?: string | null
           monthly_eur?: number | null
@@ -242,7 +250,11 @@ export type Database = {
           consent?: boolean
           created_at?: string
           email?: string
+          greatest_value?: string | null
+          greatest_value_other?: string | null
+          household_size?: string | null
           id?: string
+          job_title?: string | null
           marketing_consent?: boolean
           marketing_consent_at?: string | null
           monthly_eur?: number | null

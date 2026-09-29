@@ -388,7 +388,8 @@ function DatenschutzPage() {
             Wenn Sie auf der Produktseite über „Anfragen“ unverbindlich Ihr Kaufinteresse
             mitteilen, verarbeiten wir Ihren Namen, Ihre E-Mail-Adresse, das ausgewählte Produkt,
             die gewählte Variante zwischen Kauf und Abo, die zum Zeitpunkt der Anfrage angezeigte
-            Preisindikation, die Bestätigung, dass Sie die Datenschutzhinweise zur Kenntnis
+            Preisindikation, optional Ihre Angaben zur Haushaltsgröße, zum Jobtitel und zum größten
+            Mehrwert (bei „Sonstige“ gegebenenfalls mit Freitext), die Bestätigung, dass Sie die Datenschutzhinweise zur Kenntnis
             genommen haben, gegebenenfalls Ihre freiwillige Einwilligung in zusätzliche
             Produktinformationen samt Zeitpunkt sowie den Zeitpunkt und die Quelle der Anfrage
             (z. B. Produktseite oder eine bestimmte Kampagne). Nach dem Absenden erhalten Sie eine
@@ -413,10 +414,10 @@ function DatenschutzPage() {
             Freiwillige Produktinformationen per E-Mail
           </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
-            Wenn Sie im Vormerkformular gesondert einwilligen, dürfen wir Ihre E-Mail-Adresse nutzen,
+            Wenn Sie im Anfrageformular gesondert einwilligen, dürfen wir Ihre E-Mail-Adresse nutzen,
             um Sie zusätzlich über die Produktentwicklung, Verfügbarkeit und Angebote von Lavidro zu
             informieren. Diese Einwilligung ist freiwillig, nicht vorausgewählt und keine Voraussetzung
-            für die Bearbeitung Ihrer Vormerkung. Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO. Sie
+            für die Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO. Sie
             können die Einwilligung jederzeit mit Wirkung für die Zukunft per E-Mail an{" "}
             <a href="mailto:lavidro@gmx.net" className="underline underline-offset-4">
               lavidro@gmx.net

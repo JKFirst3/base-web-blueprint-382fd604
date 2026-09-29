@@ -14,9 +14,9 @@ const CATALOG = [
   {
     solution_id: "cabinet",
     brand: "Lavidro Cabinet",
-    name: "Integrierter Wäscheschrank",
+    name: "Autonomer Wäscheschrank",
     description:
-      "Integrierter Wäscheschrank, der den kompletten Wäscheprozess im Hintergrund erledigt.",
+      "Autonomer Wäscheschrank, der den kompletten Wäscheprozess im Hintergrund erledigt.",
     tiers: [
       { tier: "premium", price_eur: 21500, monthly_eur: 645 },
     ],
@@ -24,7 +24,7 @@ const CATALOG = [
   {
     solution_id: "one",
     brand: "Lavidro One",
-    name: "Einzelteilbehandlung im Schrank",
+    name: "Einzelne Wäscheaufbereitung",
     description:
       "Roboterarm im Schrank zur gezielten Fleckenbehandlung und zum Auffrischen einzelner Kleidungsstücke.",
     tiers: [{ tier: "standard", price_eur: 10000, monthly_eur: 300 }],

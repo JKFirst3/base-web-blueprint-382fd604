@@ -517,7 +517,7 @@ p {
 
 .product-tile-content {
   display: grid;
-  min-height: 174px;
+  min-height: 200px;
   align-content: space-between;
   gap: 24px;
   padding: 18px 20px 22px;
@@ -1238,13 +1238,29 @@ p {
   position: absolute;
   z-index: 2;
   left: 0;
-  bottom: 130px;
+  bottom: 22px;
   padding: clamp(28px, 4vw, 58px);
+  max-width: 850px;
 }
 
 .visual-caption h1 {
   margin-bottom: 0;
 }
+
+.visual-promise {
+  margin-top: 16px;
+  max-width: 650px;
+  text-shadow: 0 2px 16px var(--black);
+}
+
+.visual-promise p {
+  margin: 0 0 4px;
+  font-size: clamp(0.92rem, 1.4vw, 1.12rem);
+  line-height: 1.4;
+}
+
+.visual-promise p:first-child { font-weight: 700; }
+.visual-promise [hidden] { display: none; }
 
 .visual-price {
   position: absolute;
@@ -1653,7 +1669,9 @@ legend {
 
 .preorder-form input[type="text"],
 .preorder-form input[type="email"],
-.preorder-form > label:not(.checkbox) input {
+.preorder-form > label:not(.checkbox) input,
+.preorder-form select,
+.preorder-form textarea {
   width: 100%;
   min-height: 50px;
   padding: 0 14px;
@@ -1662,6 +1680,10 @@ legend {
   background: var(--paper);
   color: var(--ink);
 }
+
+.preorder-form select { padding-right: 32px; }
+.preorder-form textarea { padding-top: 12px; resize: vertical; }
+.preorder-form :is(input, select, textarea):focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 .preorder-form .checkbox {
   display: grid;
@@ -2179,7 +2201,7 @@ details p {
   .configurator-visual {
     position: relative;
     top: auto;
-    height: clamp(280px, 42svh, 380px);
+    height: clamp(410px, 62svh, 560px);
   }
 
   .configurator-panel {
@@ -2190,9 +2212,11 @@ details p {
   }
 
   .visual-caption {
-    bottom: 82px;
+    bottom: 12px;
     padding: 20px 24px;
   }
+
+  .visual-promise p { font-size: 0.93rem; }
 
   .visual-caption h1 {
     font-size: clamp(2rem, 8vw, 3.2rem);

@@ -1,6 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
+import { z } from "zod";
+
+const valueOptions = ["Weniger Zeit für Wäsche aufwenden", "Wiederkehrende Hausarbeit reduzieren", "Möglichst lange selbständig im eigenen Zuhause leben", "Weniger Abhängigkeit von Haushaltshilfen", "Schonender und zuverlässigere Textilpflege", "Sonstige"] as const;
+const answersSchema = z.object({
+  household_size: z.enum(["1", "2", "3-4", "5+"]).nullish(),
+  job_title: z.string().trim().min(1).max(100).nullish(),
+  greatest_value: z.enum(valueOptions).nullish(),
+  greatest_value_other: z.string().trim().min(1).max(300).nullish(),
+}).refine((answers) => answers.greatest_value === "Sonstige" ? !!answers.greatest_value_other : !answers.greatest_value_other);
 
 const ALLOWED_ORIGINS = new Set([
   "https://lavidro.com",
@@ -83,6 +92,12 @@ export const Route = createFileRoute("/api/public/preorders")({
         }
 
         const name = cleanText(body.name, 100);
+        const answers = answersSchema.safeParse({
+          household_size: body.household_size === undefined || body.household_size === "" ? null : body.household_size,
+          job_title: body.job_title === undefined || body.job_title === "" ? null : body.job_title,
+          greatest_value: body.greatest_value === undefined || body.greatest_value === "" ? null : body.greatest_value,
+          greatest_value_other: body.greatest_value_other === undefined || body.greatest_value_other === "" ? null : body.greatest_value_other,
+        });
         const email = cleanText(body.email, 255)?.toLowerCase() ?? "";
         const requestedSolutionId = cleanText(body.solution_id, 100);
         const requestedTier = cleanText(body.tier, 50);
@@ -105,6 +120,7 @@ export const Route = createFileRoute("/api/public/preorders")({
             : null;
 
         if (
+          !answers.success ||
           !name ||
           !email ||
           !email.includes("@") ||
@@ -124,6 +140,7 @@ export const Route = createFileRoute("/api/public/preorders")({
         const tier = requestedTier;
         const price_eur = catalogEntry.price;
         const monthly_eur = normalizedPaymentType === "monthly" ? catalogEntry.monthly : null;
+        if (!answers.success) return Response.json({ error: "Invalid answers" }, { status: 400 });
 
         const url = process.env.SUPABASE_URL;
         const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
@@ -146,6 +163,10 @@ export const Route = createFileRoute("/api/public/preorders")({
           payment_type: normalizedPaymentType,
           price_eur,
           monthly_eur,
+          household_size: answers.data.household_size ?? null,
+          job_title: answers.data.job_title ?? null,
+          greatest_value: answers.data.greatest_value ?? null,
+          greatest_value_other: answers.data.greatest_value_other ?? null,
           consent: true,
            marketing_consent: body.marketing_consent,
            marketing_consent_at: body.marketing_consent ? new Date().toISOString() : null,
