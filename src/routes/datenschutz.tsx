@@ -178,8 +178,8 @@ function DatenschutzPage() {
             <br />
             <br />
             E-Mail:{" "}
-            <a href="mailto:info@factory33.de" className="underline underline-offset-4">
-              info@factory33.de
+            <a href="mailto:marieke.funck@factory33.de" className="underline underline-offset-4">
+              marieke.funck@factory33.de
             </a>
           </address>
 
@@ -341,6 +341,14 @@ function DatenschutzPage() {
             dem Schloss-Symbol in Ihrer Browserzeile. Wenn die SSL- bzw. TLS-Verschlüsselung
             aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten
             mitgelesen werden.
+          </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">Links zu anderen Websites</h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Diese Datenschutzerklärung gilt für die LAVIDRO-Website. Soweit diese Website Links zu
+            Angeboten anderer Verantwortlicher enthält, gelten dort deren eigene
+            Datenschutzerklärungen. Bitte informieren Sie sich beim Verlassen unserer Website über
+            die Verarbeitung personenbezogener Daten durch den jeweiligen Anbieter.
           </p>
         </section>
 

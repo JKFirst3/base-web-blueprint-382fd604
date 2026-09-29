@@ -22,7 +22,7 @@ export const DIAGNOSTIC_EVENT_NAMES = [
   "page_engagement",
   "purchase_interest_email_confirmed",
 ] as const;
-const EVENTS = new Set([...FUNNEL_EVENT_NAMES, ...DIAGNOSTIC_EVENT_NAMES]);
+const EVENTS = new Set<string>([...FUNNEL_EVENT_NAMES, ...DIAGNOSTIC_EVENT_NAMES]);
 const PRODUCT_IDS = new Set(["mobile", "cabinet", "one"]);
 const BUSINESS_MODELS = new Set(["purchase", "subscription"]);
 const ENTRY_TYPES = new Set(["scroll", "direct"]);

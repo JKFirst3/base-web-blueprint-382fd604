@@ -1,4 +1,5 @@
-import { describe, expect, test } from "bun:test";
+import assert from "node:assert/strict";
+import { describe, test } from "node:test";
 import {
   DIAGNOSTIC_EVENT_NAMES,
   FUNNEL_EVENT_NAMES,
@@ -55,56 +56,66 @@ describe("PostHog consent gate demographics", () => {
       greatest_value: "Sonstige",
       job_title_provided: true,
     }));
-    expect(result.outcome).toBe("forwarded");
-    expect(calls).toHaveLength(1);
-    expect(calls[0]?.url).toBe(UPSTREAM_URL);
+    assert.equal(result.outcome, "forwarded");
+    assert.equal(calls.length, 1);
+    assert.equal(calls[0]?.url, UPSTREAM_URL);
     const sent = JSON.parse(String(calls[0]?.init.body));
-    expect(sent.batch[0].properties).toMatchObject({
+    assert.deepEqual(
+      {
+        household_size: sent.batch[0].properties.household_size,
+        greatest_value: sent.batch[0].properties.greatest_value,
+        job_title_provided: sent.batch[0].properties.job_title_provided,
+      },
+      {
       household_size: "3-4",
       greatest_value: "Sonstige",
       job_title_provided: true,
-    });
-    expect(JSON.stringify(sent)).not.toContain("job_title\"");
-    expect(JSON.stringify(sent)).not.toContain("greatest_value_other");
+      },
+    );
+    assert.equal(JSON.stringify(sent).includes("job_title\""), false);
+    assert.equal(JSON.stringify(sent).includes("greatest_value_other"), false);
   });
 
-  test.each([
+  const invalidCases: Array<Record<string, unknown>> = [
     { household_size: "sechs" },
     { greatest_value: "mein freier Text" },
     { job_title_provided: "yes" },
     { job_title: "Geschäftsführer" },
     { greatest_value_other: "private Antwort" },
     { unknown_property: "nicht erlaubt" },
-  ])("rejects unknown or free-form input: %o", async (properties) => {
-    const { result, calls } = await send(event(properties));
-    expect(result.outcome).toBe("dropped_invalid");
-    expect(calls).toHaveLength(0);
-  });
+  ];
+  for (const [index, properties] of invalidCases.entries()) {
+    test(`rejects unknown or free-form input ${index + 1}`, async () => {
+      const { result, calls } = await send(event(properties));
+      assert.equal(result.outcome, "dropped_invalid");
+      assert.equal(calls.length, 0);
+    });
+  }
 
   test("rejects demographics on another funnel event", async () => {
     const { result, calls } = await send(event({ household_size: "2" }, "purchase_interest_started"));
-    expect(result.outcome).toBe("dropped_invalid");
-    expect(calls).toHaveLength(0);
+    assert.equal(result.outcome, "dropped_invalid");
+    assert.equal(calls.length, 0);
   });
 
   test("does not forward without analytics consent", async () => {
     const { result, calls } = await send(event({ household_size: "1" }), false);
-    expect(result.outcome).toBe("dropped_no_consent");
-    expect(calls).toHaveLength(0);
+    assert.equal(result.outcome, "dropped_no_consent");
+    assert.equal(calls.length, 0);
   });
 
   test("keeps exactly five funnel steps and separate diagnostics", () => {
-    expect(FUNNEL_EVENT_NAMES).toEqual([
+    assert.deepEqual(FUNNEL_EVENT_NAMES, [
       "landing_page_viewed",
       "product_area_viewed",
       "purchase_model_selected",
       "purchase_interest_started",
       "purchase_interest_submitted",
     ]);
-    expect(DIAGNOSTIC_EVENT_NAMES).toEqual([
+    assert.deepEqual(DIAGNOSTIC_EVENT_NAMES, [
       "page_engagement",
       "purchase_interest_email_confirmed",
     ]);
-    expect(FUNNEL_EVENT_NAMES).not.toContain("purchase_interest_email_confirmed" as never);
+    assert.equal(FUNNEL_EVENT_NAMES.includes("purchase_interest_email_confirmed" as never), false);
   });
 });
