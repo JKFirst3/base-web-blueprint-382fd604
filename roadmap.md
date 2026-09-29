@@ -2,7 +2,7 @@
 
 - [x] Produktnamen, Unterüberschriften und Anfrage-Wording aktualisieren
 - [x] Freiwillige Haushalts-, Berufs- und Mehrwertfragen sicher in Anfragen speichern
-- [ ] 99-%-Entwicklungsziel für Lavidro One vor Veröffentlichung durch belastbare Wirksamkeitsnachweise prüfen (Nachweis fehlt; derzeit ausdrücklich als unbewiesen gekennzeichnet)
+- [ ] 99-%-Entwicklungsziel für Lavidro One vor Veröffentlichung durch belastbare Wirksamkeitsnachweise prüfen (Nachweis fehlt; als Entwicklungsziel, nicht als bestätigte Wirkung formuliert)
 - [ ] Sichtbaren Absender hallo@lavidro.com vor Veröffentlichung mit Testversand prüfen (kein echter Versand in diesem Entwurf)
 
 - [x] Vormerkformular: notwendige Datenverarbeitung und optionale zusätzliche Kontaktaufnahme getrennt abfragen und speichern

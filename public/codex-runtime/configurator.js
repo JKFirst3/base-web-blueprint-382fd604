@@ -53,7 +53,7 @@
       title: "Lavidro One",
       family: "Einzelne Wäscheaufbereitung",
       description:
-        "Ein Roboterarm im Schrank behandelt einzelne Kleidungsstücke. Er beugt Flecken gezielt vor und frischt Textilien zwischendurch auf, ohne eine komplette Waschladung zu benötigen.",
+        "Ein Roboterarm im Schrank behandelt einzelne Kleidungsstücke. Er behandelt Flecken gezielt vor und frischt Textilien zwischendurch auf, ohne eine komplette Waschladung zu benötigen.",
       image: "/__l5e/assets-v1/d374de19-f828-4b44-8831-d1e221804f08/lavidro-one.png",
       highlights: [
         "Roboterarm im Schrank für die Behandlung einzelner Kleidungsstücke",
