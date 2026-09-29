@@ -127,8 +127,7 @@ function DatenschutzPage() {
             muss dies auf Grundlage der hierfür erforderlichen datenschutzrechtlichen Vereinbarungen
             erfolgen. Die konkret eingesetzten Unterauftragnehmer, Verarbeitungsstandorte und
             Garantien für mögliche Drittlandübermittlungen sind anhand der jeweils aktuellen
-            Vertrags- und Datenschutzunterlagen der Anbieter zu prüfen. Eine frühere Berufung auf das
-            aufgehobene EU-US Privacy Shield erfolgt nicht.
+            Vertrags- und Datenschutzunterlagen sowie der jeweils geltenden Rechtslage zu prüfen.
           </p>
         </section>
 
