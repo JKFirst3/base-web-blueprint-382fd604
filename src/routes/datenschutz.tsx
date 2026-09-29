@@ -93,15 +93,14 @@ function DatenschutzPage() {
             Wir hosten die Inhalte unserer Website bei folgenden Anbietern:
           </p>
 
-          <h3 className="mt-6 font-display text-lg font-semibold">
-            Hosting über Lovable Cloud (AWS)
-          </h3>
+          <h3 className="mt-6 font-display text-lg font-semibold">Hosting über Lovable</h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
             Unsere Website wird über die Plattform <strong>Lovable</strong> bereitgestellt
-            (Anbieter: Lovable Labs AB, Regeringsgatan 25, 111 53 Stockholm, Schweden). Die
-            physische Speicherung der Website-Inhalte erfolgt auf der von Lovable genutzten
-            Cloud-Infrastruktur von <strong>Amazon Web Services (AWS)</strong> an einem
-            Serverstandort innerhalb der Europäischen Union.
+            (Anbieter: Lovable Labs AB, Regeringsgatan 25, 111 53 Stockholm, Schweden). Lovable
+            setzt hierfür nach unserem Kenntnisstand Infrastruktur- und Netzwerkdienstleister ein.
+            Welche Subunternehmer im Einzelnen eingesetzt werden und an welchen Standorten Daten
+            verarbeitet werden, richtet sich nach den Vertrags- und Datenschutzunterlagen von
+            Lovable.
           </p>
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Beim Aufruf der Website werden technisch notwendige Verbindungsdaten (insbesondere Ihre
@@ -114,10 +113,11 @@ function DatenschutzPage() {
           </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
             Zur schnellen und sicheren Auslieferung der Website-Inhalte (insbesondere zur
-            Performance-Optimierung und zum Schutz vor DDoS-Angriffen) nutzen wir das Content
-            Delivery Network (CDN) von <strong>Cloudflare, Inc.</strong> (101 Townsend St, San
-            Francisco, CA 94107, USA). Alle Anfragen an unsere Website werden über die Server von
-            Cloudflare geleitet. Hierbei werden Verbindungsdaten (IP-Adresse) verarbeitet.
+            Performance-Optimierung und zum Schutz vor Angriffen) werden Anfragen an unsere Website
+            über das Netzwerk von <strong>Cloudflare, Inc.</strong> (101 Townsend St, San
+            Francisco, CA 94107, USA) geleitet. Hierbei werden Verbindungsdaten einschließlich der
+            IP-Adresse verarbeitet. Eine Verarbeitung außerhalb der EU, insbesondere in den USA,
+            kann dabei nicht ausgeschlossen werden.
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">
@@ -126,11 +126,11 @@ function DatenschutzPage() {
           <p className="mt-3 text-foreground/80 leading-relaxed">
             Die Datenverarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
             Interesse an einer technisch fehlerfreien, schnellen und sicheren Bereitstellung unserer
-            Website). Wir nutzen diese Dienste auf Grundlage eines Vertrags über
-            Auftragsverarbeitung (Art. 28 DSGVO) mit der Lovable Labs AB, welche wiederum
-            entsprechende vertragliche Vereinbarungen (einschließlich EU-Standardvertragsklauseln
-            für eventuelle US-Transfers der Subprozessoren wie Cloudflare oder AWS) abgeschlossen
-            hat.
+            Website). Soweit Dienstleister personenbezogene Daten in unserem Auftrag verarbeiten,
+            erfolgt dies auf Grundlage eines Vertrags über Auftragsverarbeitung (Art. 28 DSGVO).
+            Übermittlungen in Drittländer erfolgen nur auf Grundlage der in Art. 44 ff. DSGVO
+            vorgesehenen Garantien (z. B. EU-Standardvertragsklauseln oder einer Zertifizierung
+            unter dem EU-US Data Privacy Framework).
           </p>
         </section>
 
@@ -359,43 +359,40 @@ function DatenschutzPage() {
             Bestimmungen – insbesondere Aufbewahrungsfristen – bleiben unberührt.
           </p>
 
-          <h3 className="mt-6 font-display text-lg font-semibold">
-            Anmeldung zu „Lavidro live erleben“
-          </h3>
+          <h3 className="mt-6 font-display text-lg font-semibold">Newsletter</h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
-            Wenn Sie sich für „Lavidro live erleben“ anmelden, verarbeiten wir folgende Daten:
-          </p>
-          <ul className="mt-3 list-disc pl-6 text-foreground/80 leading-relaxed space-y-1">
-            <li>Name (optional)</li>
-            <li>E-Mail-Adresse</li>
-            <li>Gewünschte Kontaktart</li>
-            <li>Telefonnummer und gewünschtes Zeitfenster (jeweils optional)</li>
-            <li>Optionale Angabe zur persönlichen Herausforderung im Wäschealltag</li>
-            <li>Einwilligungsstatus</li>
-            <li>Zeitpunkt der Eintragung</li>
-          </ul>
-          <p className="mt-4 text-foreground/80 leading-relaxed">
-            Zweck der Verarbeitung ist die Information über den Produktstart von Lavidro sowie die
-            Anbahnung einer Geschäftsbeziehung. Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1
-            lit. a DSGVO). Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft per
-            E-Mail an{" "}
+            Wenn Sie sich auf der Startseite für den Newsletter anmelden, verarbeiten wir Ihre
+            E-Mail-Adresse, Ihre Einwilligung sowie den Zeitpunkt der Anmeldung. Zweck ist, Sie
+            über Entwicklungsfortschritte, Pilotphasen und Neuigkeiten von Lavidro zu informieren.
+            Nach der Anmeldung senden wir eine Bestätigungs-E-Mail. Rechtsgrundlage ist Ihre
+            Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Sie können Ihre Einwilligung jederzeit mit
+            Wirkung für die Zukunft per E-Mail an{" "}
             <a href="mailto:lavidro@gmx.net" className="underline underline-offset-4">
               lavidro@gmx.net
             </a>{" "}
-            widerrufen. Wir speichern die Daten bis zum Widerruf bzw. bis sie für den genannten
-            Zweck nicht mehr erforderlich sind.
+            oder über den Abmeldelink in unseren E-Mails widerrufen. Wir speichern die Daten bis
+            zum Widerruf; den Nachweis der Einwilligung können wir darüber hinaus aufbewahren,
+            soweit dies zur Abwehr von Ansprüchen erforderlich ist.
           </p>
 
-          <h3 className="mt-6 font-display text-lg font-semibold">Unverbindliche Vorbestellungen</h3>
+          <h3 className="mt-6 font-display text-lg font-semibold">
+            Unverbindliche Anfrage zum Kaufinteresse
+          </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
-            Wenn Sie ein Lavidro System unverbindlich vorbestellen, verarbeiten wir Ihren Namen, Ihre
-            E-Mail-Adresse, die ausgewählte Lösung und Ausstattungsvariante, die gewählte Zahlungsart,
-            die zum Zeitpunkt der Anfrage angezeigte Preisindikation, den Status der notwendigen
-            Datenverarbeitungsbestätigung, gegebenenfalls Ihre freiwillige Einwilligung in
-            zusätzliche Produktinformationen sowie den Zeitpunkt und die Quelle der Anfrage. Die
-            Vorbestellung ist unverbindlich und führt
-            weder zu einem Kaufvertrag noch zu einer Zahlungspflicht. Die angezeigten Preise sind
-            vorläufig und können sich bis zu einem späteren verbindlichen Angebot ändern.
+            Wenn Sie auf der Produktseite über „Anfragen“ unverbindlich Ihr Kaufinteresse
+            mitteilen, verarbeiten wir Ihren Namen, Ihre E-Mail-Adresse, das ausgewählte Produkt,
+            die gewählte Variante zwischen Kauf und Abo, die zum Zeitpunkt der Anfrage angezeigte
+            Preisindikation, die Bestätigung, dass Sie die Datenschutzhinweise zur Kenntnis
+            genommen haben, gegebenenfalls Ihre freiwillige Einwilligung in zusätzliche
+            Produktinformationen samt Zeitpunkt sowie den Zeitpunkt und die Quelle der Anfrage
+            (z. B. Produktseite oder eine bestimmte Kampagne). Nach dem Absenden erhalten Sie eine
+            Bestätigungs-E-Mail.
+          </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Die Anfrage ist unverbindlich. Durch sie kommt kein Kaufvertrag zustande, und es wird
+            keine Zahlung ausgelöst oder vereinbart. Die angezeigten Preise sind vorläufig und
+            können sich bis zu einem späteren verbindlichen Angebot ändern. Die eingegebenen
+            Formulardaten werden nicht an Analysedienste übermittelt.
           </p>
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Die Verarbeitung erfolgt zur Bearbeitung Ihrer Anfrage und zur Anbahnung eines möglichen
@@ -457,103 +454,101 @@ function DatenschutzPage() {
           </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
             Für die Speicherung und Verarbeitung der über die Website erfassten Daten (z. B.
-            Anmeldungen zu „Lavidro live erleben“ und unverbindliche Vorbestellungen) nutzen wir
-            „Lovable Cloud“. Anbieter ist die
-            Lovable Labs AB, Regeringsgatan 25, 111 53 Stockholm, Schweden. Lovable Cloud stellt uns
-            eine verwaltete Datenbank-Infrastruktur bereit. Im Hintergrund nutzt Lovable für diese
-            Dienste den Infrastruktur-Anbieter Supabase, Inc. (Palo Alto, USA) als
-            Unterauftragsverarbeiter. Die Daten werden auf Servern innerhalb der Europäischen Union
-            gespeichert. Für den Fall, dass Daten in die USA übertragen oder von dort aus eingesehen
-            werden können, haben Lovable bzw. Supabase sich zur Einhaltung der
-            EU-Standardvertragsklauseln verpflichtet, um ein angemessenes Datenschutzniveau zu
-            garantieren. Rechtsgrundlage ist unser berechtigtes Interesse an einer sicheren,
-            skalierbaren und performanten Datenbank-Infrastruktur (Art. 6 Abs. 1 lit. f DSGVO).
+            Newsletter-Anmeldungen, unverbindliche Anfragen zum Kaufinteresse und Kontaktanfragen)
+            nutzen wir „Lovable Cloud“ der Lovable Labs AB, Regeringsgatan 25, 111 53 Stockholm,
+            Schweden. Lovable Cloud stellt uns eine verwaltete Datenbank-Infrastruktur bereit und
+            setzt dafür nach unserem Kenntnisstand weitere Dienstleister (u. a. Supabase, Inc., USA)
+            ein. Welche Subunternehmer im Einzelnen eingesetzt werden, an welchen Standorten die
+            Daten gespeichert werden und ob dabei Übermittlungen in Drittländer (insbesondere die
+            USA) stattfinden, richtet sich nach den Vertrags- und Datenschutzunterlagen des
+            Anbieters. Soweit Daten in Drittländer übermittelt werden, erfolgt dies nur auf
+            Grundlage der in Art. 44 ff. DSGVO vorgesehenen Garantien (z. B. EU-Standardvertragsklauseln
+            oder einer Zertifizierung unter dem EU-US Data Privacy Framework). Rechtsgrundlage ist
+            unser berechtigtes Interesse an einer sicheren und zuverlässigen Datenbank-Infrastruktur
+            (Art. 6 Abs. 1 lit. f DSGVO) bzw. die Durchführung vorvertraglicher Maßnahmen (Art. 6
+            Abs. 1 lit. b DSGVO).
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">
             Schriftarten (lokal eingebunden)
           </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
-            Zur einheitlichen Darstellung von Schriftarten verwenden wir auf dieser Website lokal
-            gehostete Schriftarten (u. a. „Inter" und „Montserrat"). Die Schriftdateien werden
-            direkt vom Server unseres Hosting-Anbieters ausgeliefert. Es erfolgt keine Verbindung zu
-            Servern Dritter (insbesondere keine Verbindung zu Google Fonts) und es werden keine
-            personenbezogenen Daten an Dritte übertragen.
-          </p>
-          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Zur einheitlichen Darstellung verwenden wir die Schriftarten „Inter“ und „Montserrat“.
+            Die Schriftdateien sind Bestandteil unserer Website und werden gemeinsam mit den
+            übrigen Website-Inhalten über unseren Hosting-Anbieter ausgeliefert. Eine Verbindung zu
+            Google Fonts oder anderen externen Schriftarten-Diensten wird dafür nicht aufgebaut.
             Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer
-            einheitlichen und ansprechenden Darstellung unseres Online-Angebots unter Wahrung des
-            Datenschutzes).
+            einheitlichen Darstellung unseres Online-Angebots).
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">Cookies / Local Storage</h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
-            Details zu den auf dieser Website eingesetzten Cookies und First-Party-Einträgen
-            im Local Storage finden Sie im nachfolgenden Abschnitt „Cookies und
-            Nutzungsanalyse“.
+            Details zu den auf dieser Website eingesetzten Cookies und Einträgen im Local Storage
+            finden Sie im nachfolgenden Abschnitt „Cookies und Nutzungsanalyse mit PostHog“.
           </p>
 
         </section>
 
         {/* Cookies und Nutzungsanalyse */}
         <section className="mt-12">
-          <h2 className="font-display text-2xl font-bold">Cookies und Nutzungsanalyse</h2>
-          <p className="mt-4 text-foreground/80 leading-relaxed">
-            Wir verwenden ausschließlich First-Party-Cookies, die auf dieser Domain gesetzt werden.
-            Es findet keine Weitergabe an externe Analyse- oder Werbedienste (z. B. Google
-            Analytics, Meta Pixel) statt. Optionale Cookies werden erst nach Ihrer ausdrücklichen
-            Einwilligung im Cookie-Hinweis gesetzt (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG).
-            Sie können Ihre Einwilligung jederzeit im Footer unter „Cookie-Einstellungen“
-            widerrufen. Beim Widerruf werden die optionalen Cookies unmittelbar gelöscht.
+          <h2 className="font-display text-2xl font-bold">Cookies und Nutzungsanalyse mit PostHog</h2>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">Notwendiges Cookie</h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Wir speichern Ihre Auswahl im Cookie-Hinweis im Cookie <code className="font-mono text-xs">lavidro_consent</code>{" "}
+            (Version, Analyse ja/nein, Zeitstempel; Laufzeit 6 Monate). Dieses Cookie ist technisch
+            erforderlich, um Ihre Entscheidung zu beachten (§ 25 Abs. 2 Nr. 2 TDDDG, Art. 6 Abs. 1
+            lit. c und f DSGVO).
           </p>
 
-          <div className="mt-6 overflow-x-auto">
-            <table className="w-full min-w-[520px] border-collapse text-sm">
-              <thead>
-                <tr className="border-b border-foreground/20 text-left">
-                  <th className="py-2 pr-4 font-semibold">Cookie</th>
-                  <th className="py-2 pr-4 font-semibold">Zweck</th>
-                  <th className="py-2 pr-4 font-semibold">Laufzeit</th>
-                  <th className="py-2 font-semibold">Kategorie</th>
-                </tr>
-              </thead>
-              <tbody className="align-top">
-                <tr className="border-b border-foreground/10">
-                  <td className="py-3 pr-4 font-mono text-xs">lavidro_consent</td>
-                  <td className="py-3 pr-4">
-                    Speichert Ihre Cookie-Auswahl (Version, Analytics ja/nein, Zeitstempel).
-                  </td>
-                  <td className="py-3 pr-4">6 Monate</td>
-                  <td className="py-3">Notwendig</td>
-                </tr>
-                <tr className="border-b border-foreground/10">
-                  <td className="py-3 pr-4 font-mono text-xs">lavidro_visitor</td>
-                  <td className="py-3 pr-4">
-                    Zufällige, nicht personenbezogene Kennung zur Wiedererkennung wiederkehrender
-                    Besuche in der Nutzungsanalyse.
-                  </td>
-                  <td className="py-3 pr-4">6 Monate</td>
-                  <td className="py-3">Analyse</td>
-                </tr>
-                <tr>
-                  <td className="py-3 pr-4 font-mono text-xs">lavidro_session</td>
-                  <td className="py-3 pr-4">
-                    Zufällige Sitzungs-ID zur Gruppierung von Ereignissen innerhalb eines Besuchs
-                    (Ablauf nach 30 Minuten Inaktivität).
-                  </td>
-                  <td className="py-3 pr-4">bis zu 6 Monate</td>
-                  <td className="py-3">Analyse</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <p className="mt-6 text-foreground/80 leading-relaxed">
-            Über die Analyse-Cookies erheben wir ausschließlich pseudonyme Ereignisse zu
-            Seitenaufrufen sowie Produkt- und Konfigurator-Interaktionen (z. B. geöffnete
-            Produktseite, gewählte Ausstattungsvariante). Es werden keine Namen, E-Mail-Adressen,
-            Formulareingaben, Telefonnummern, vollständigen IP-Adressen oder Fingerprints
-            gespeichert. Die Daten werden auf unseren Servern in der EU verarbeitet.
+          <h3 className="mt-6 font-display text-lg font-semibold">
+            Nutzungsanalyse mit PostHog (nur nach Einwilligung)
+          </h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Nur wenn Sie im Cookie-Hinweis der Analyse aktiv zustimmen, nutzen wir den externen
+            Analysedienst <strong>PostHog</strong> (PostHog Inc., USA, bzw. die jeweils im Vertrag
+            benannte PostHog-Gesellschaft). Ohne Ihre Einwilligung wird PostHog nicht geladen und
+            es werden keine Analyse-Ereignisse gesendet. Die Ereignisse werden an den EU-Endpunkt
+            von PostHog übermittelt; ob und in welchem Umfang PostHog oder dessen Dienstleister
+            Daten außerhalb der EU verarbeiten, richtet sich nach den Vertragsunterlagen von
+            PostHog.
+          </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Erfasst werden ausschließlich folgende pseudonyme Ereignisse:
+          </p>
+          <ul className="mt-3 list-disc pl-6 text-foreground/80 leading-relaxed space-y-1">
+            <li>Aufruf der Startseite</li>
+            <li>Sichtbarwerden bzw. Aufruf des Produktbereichs</li>
+            <li>Wahl zwischen Kaufpreis und Abo</li>
+            <li>Öffnen des Anfrageformulars</li>
+            <li>Erfolgreiches Absenden des Anfrageformulars (ohne Formularinhalte)</li>
+            <li>Sichtbare Verweildauer je Seite</li>
+          </ul>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Zu den Ereignissen gehören das betroffene Produkt, die gewählte Zahlungsart, der
+            Seitenpfad ohne URL-Parameter, eine zufällige pseudonyme Kennung für Browser und
+            Sitzung sowie technische Angaben der PostHog-Bibliothek. Beim Übermitteln verarbeitet
+            PostHog technisch bedingt Ihre IP-Adresse; wir haben die standortbezogene Auswertung
+            (GeoIP) in unserer Konfiguration deaktiviert. Namen, E-Mail-Adressen und andere
+            Formulareingaben werden nicht an PostHog übermittelt. Wir nutzen keine Identifizierung
+            einzelner Personen (identify), keine Personenprofile, keine automatische Erfassung von
+            Klicks (Autocapture) und keine Sitzungsaufzeichnung (Session Replay).
+          </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Die PostHog-Bibliothek speichert dafür nach Ihrer Einwilligung eine pseudonyme
+            Kennung und Sitzungsinformationen in Cookies und im Local Storage Ihres Browsers
+            (Einträge mit dem Präfix <code className="font-mono text-xs">ph_</code> bzw.{" "}
+            <code className="font-mono text-xs">__ph</code>). Zweck ist die Auswertung, wie
+            Besucherinnen und Besucher Produktbereich und Anfrageformular nutzen.
+          </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG).
+            Sie können Ihre Einwilligung jederzeit im Footer unter „Cookie-Einstellungen“ mit
+            Wirkung für die Zukunft widerrufen. Beim Widerruf wird die Erfassung beendet und die
+            PostHog-Einträge in Ihrem Browser werden gelöscht. Frühere Cookies der eigenen
+            Nutzungsanalyse (<code className="font-mono text-xs">lavidro_visitor</code>,{" "}
+            <code className="font-mono text-xs">lavidro_session</code>) werden nicht mehr gesetzt
+            und bei einem Besuch automatisch entfernt.
           </p>
         </section>
 
