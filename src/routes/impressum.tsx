@@ -118,7 +118,7 @@ function ImpressumPage() {
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-xl font-semibold">
+          <h2 className="font-display text-xl font-semibold break-words [overflow-wrap:anywhere]">
             Verbraucherstreitbeilegung / Universalschlichtungsstelle
           </h2>
           <p className="mt-4 text-foreground/80 leading-relaxed">
