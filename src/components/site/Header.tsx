@@ -20,7 +20,7 @@ export function Header() {
       <div className="header-actions">
         <LanguageSwitcher />
         <a className="nav-cta" href="/#warteliste">
-          Lavidro live erleben
+          Newsletter
         </a>
       </div>
     </header>

@@ -22,7 +22,6 @@
       ],
       levels: {
         premium: {
-          label: "Premium",
           note: "Mehr Automatisierung für den vollständigen Ablauf",
           price: 14000,
           features: ["sort", "wash", "fold", "provide"],
@@ -42,7 +41,6 @@
       ],
       levels: {
         premium: {
-          label: "Premium",
           note: "Planungsrichtwert ab 5 m² Fläche",
           price: 21500,
           features: ["sort", "wash", "fold", "provide"],
@@ -62,7 +60,6 @@
       ],
       levels: {
         standard: {
-          label: "Standard",
           note: "Fleckenbehandlung und Auffrischen einzelner Kleidungsstücke",
           price: 10000,
           features: ["refresh", "stain"],
@@ -211,7 +208,6 @@
           productName: selectedProduct.title,
           family: selectedProduct.family,
           tier: selectedLevelKey,
-          tierLabel: level.label,
           price: level.price,
           monthly: monthlyRate(level.price),
           paymentType: selectedFinance() === "cash" ? "upfront" : "monthly",
