@@ -179,8 +179,8 @@ export const Route = createFileRoute("/api/public/preorders")({
         }
 
         try {
-          const { enqueueTransactionalEmail } = await import("@/lib/email/enqueue.server");
-          await enqueueTransactionalEmail({
+          const { sendLoggedTemplateEmail } = await import("@/lib/email/send-logged.server");
+          await sendLoggedTemplateEmail({
             templateName: "preorder-confirmation",
             recipientEmail: email,
             idempotencyKey: `preorder-${email}-${solution_id}-${tier}-${normalizedPaymentType}`,

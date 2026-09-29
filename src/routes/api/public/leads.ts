@@ -108,8 +108,8 @@ export const Route = createFileRoute("/api/public/leads")({
         }
 
         try {
-          const { enqueueTransactionalEmail } = await import("@/lib/email/enqueue.server");
-          await enqueueTransactionalEmail({
+          const { sendLoggedTemplateEmail } = await import("@/lib/email/send-logged.server");
+          await sendLoggedTemplateEmail({
             templateName: "lead-confirmation",
             recipientEmail: email,
             idempotencyKey: `lead-${templateMode}-${email}-${new Date().toISOString().slice(0, 10)}`,
