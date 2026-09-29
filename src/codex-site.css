@@ -530,7 +530,16 @@ p {
 
 .product-tile-content h3 {
   margin: 0;
-  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  font-size: 1.15rem;
+  white-space: nowrap;
+}
+
+@media (min-width: 981px) and (max-width: 1250px) {
+  .product-tile-content h3 { font-size: 0.95rem; }
+}
+
+@media (max-width: 420px) {
+  .product-tile-content h3 { font-size: 0.85rem; }
 }
 
 .product-price {
