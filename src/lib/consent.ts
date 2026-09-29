@@ -7,7 +7,6 @@ export const VISITOR_COOKIE = "lavidro_visitor";
 export const SESSION_COOKIE = "lavidro_session";
 
 const SIX_MONTHS_SECONDS = 60 * 60 * 24 * 30 * 6;
-const SESSION_IDLE_MS = 30 * 60 * 1000;
 
 export type ConsentState = {
   v: number;
@@ -85,49 +84,6 @@ export function writeConsent(analytics: boolean): ConsentState {
     window.dispatchEvent(new CustomEvent("lavidro:consent-changed", { detail: state }));
   }
   return state;
-}
-
-// ---------- visitor + session ----------
-
-function uuid(): string {
-  if (typeof crypto !== "undefined" && "randomUUID" in crypto) return crypto.randomUUID();
-  // fallback
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-    const r = (Math.random() * 16) | 0;
-    const v = c === "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
-
-type SessionRecord = { id: string; last: number };
-
-export function ensureAnalyticsCookies(): { visitorId: string; sessionId: string } | null {
-  const consent = readConsent();
-  if (!consent?.analytics) return null;
-
-  let visitorId = readCookie(VISITOR_COOKIE);
-  if (!visitorId) {
-    visitorId = uuid();
-    writeCookie(VISITOR_COOKIE, visitorId, SIX_MONTHS_SECONDS);
-  }
-
-  let sessionId: string | null = null;
-  const raw = readCookie(SESSION_COOKIE);
-  if (raw) {
-    try {
-      const rec = JSON.parse(raw) as SessionRecord;
-      if (rec.id && typeof rec.last === "number" && Date.now() - rec.last < SESSION_IDLE_MS) {
-        sessionId = rec.id;
-      }
-    } catch {
-      /* ignore */
-    }
-  }
-  if (!sessionId) sessionId = uuid();
-  const rec: SessionRecord = { id: sessionId, last: Date.now() };
-  writeCookie(SESSION_COOKIE, JSON.stringify(rec), SIX_MONTHS_SECONDS);
-
-  return { visitorId, sessionId };
 }
 
 export function analyticsAllowed(): boolean {

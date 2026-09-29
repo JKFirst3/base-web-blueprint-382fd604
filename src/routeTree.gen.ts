@@ -25,7 +25,6 @@ import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/em
 import { Route as ApiPublicPreordersRouteImport } from './routes/api/public/preorders'
 import { Route as ApiPublicPosthogConfigRouteImport } from './routes/api/public/posthog-config'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
-import { Route as ApiPublicCollectAnalyticsRouteImport } from './routes/api/public/collect-analytics'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -112,12 +111,6 @@ const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
   path: '/api/public/leads',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicCollectAnalyticsRoute =
-  ApiPublicCollectAnalyticsRouteImport.update({
-    id: '/api/public/collect-analytics',
-    path: '/api/public/collect-analytics',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
   id: '/.lovable/oauth/consent',
   path: '/.lovable/oauth/consent',
@@ -156,7 +149,6 @@ export interface FileRoutesByFullPath {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
-  '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
@@ -179,7 +171,6 @@ export interface FileRoutesByTo {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
-  '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
@@ -203,7 +194,6 @@ export interface FileRoutesById {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
-  '/api/public/collect-analytics': typeof ApiPublicCollectAnalyticsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/posthog-config': typeof ApiPublicPosthogConfigRoute
   '/api/public/preorders': typeof ApiPublicPreordersRoute
@@ -228,7 +218,6 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/email/unsubscribe'
     | '/.lovable/oauth/consent'
-    | '/api/public/collect-analytics'
     | '/api/public/leads'
     | '/api/public/posthog-config'
     | '/api/public/preorders'
@@ -251,7 +240,6 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/email/unsubscribe'
     | '/.lovable/oauth/consent'
-    | '/api/public/collect-analytics'
     | '/api/public/leads'
     | '/api/public/posthog-config'
     | '/api/public/preorders'
@@ -274,7 +262,6 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/email/unsubscribe'
     | '/.lovable/oauth/consent'
-    | '/api/public/collect-analytics'
     | '/api/public/leads'
     | '/api/public/posthog-config'
     | '/api/public/preorders'
@@ -298,7 +285,6 @@ export interface RootRouteChildren {
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
-  ApiPublicCollectAnalyticsRoute: typeof ApiPublicCollectAnalyticsRoute
   ApiPublicLeadsRoute: typeof ApiPublicLeadsRoute
   ApiPublicPosthogConfigRoute: typeof ApiPublicPosthogConfigRoute
   ApiPublicPreordersRoute: typeof ApiPublicPreordersRoute
@@ -422,13 +408,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicLeadsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/collect-analytics': {
-      id: '/api/public/collect-analytics'
-      path: '/api/public/collect-analytics'
-      fullPath: '/api/public/collect-analytics'
-      preLoaderRoute: typeof ApiPublicCollectAnalyticsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/.lovable/oauth/consent': {
       id: '/.lovable/oauth/consent'
       path: '/.lovable/oauth/consent'
@@ -475,7 +454,6 @@ const rootRouteChildren: RootRouteChildren = {
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
-  ApiPublicCollectAnalyticsRoute: ApiPublicCollectAnalyticsRoute,
   ApiPublicLeadsRoute: ApiPublicLeadsRoute,
   ApiPublicPosthogConfigRoute: ApiPublicPosthogConfigRoute,
   ApiPublicPreordersRoute: ApiPublicPreordersRoute,

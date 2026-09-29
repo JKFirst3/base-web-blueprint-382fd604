@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Check } from "lucide-react";
-import { track } from "@/lib/track";
 
 const schema = z.object({
   name: z.string().trim().max(100).optional(),
@@ -83,7 +82,6 @@ export function LeadFormCard({ intro }: { intro?: React.ReactNode } = {}) {
 
       if (!response.ok) throw new Error(`Lead request failed: ${response.status}`);
 
-      track("live_experience_success");
       setSuccess(true);
     } catch (error) {
       console.error("[lead-form] Submission failed", error);

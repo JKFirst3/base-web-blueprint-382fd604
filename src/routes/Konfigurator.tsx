@@ -4,7 +4,6 @@ import { X } from "lucide-react";
 import configuratorHtml from "@/content/configurator.html?raw";
 import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
 
-import { track } from "@/lib/track";
 import { captureFunnel, toBusinessModel } from "@/lib/analytics";
 import { currentCampaign } from "@/lib/campaign";
 
@@ -131,7 +130,6 @@ function ConfiguratorPage() {
   useEffect(() => {
     const requestedProduct = new URLSearchParams(window.location.search).get("product");
     const product = requestedProduct && requestedProduct in preorderCatalog ? requestedProduct : "mobile";
-    track("configurator_open", { product_id: product });
     void captureFunnel("product_area_viewed", { entry_type: "direct", product_id: product });
 
     const onModel = (event: Event) => {
@@ -152,11 +150,6 @@ function ConfiguratorPage() {
       void captureFunnel("purchase_interest_started", {
         product_id: catalogSelection.productId,
         business_model: toBusinessModel(catalogSelection.paymentType),
-      });
-      track("preorder_open", {
-        product_id: catalogSelection.productId,
-        tier: catalogSelection.tier,
-        payment_type: catalogSelection.paymentType,
       });
     };
 
@@ -247,11 +240,6 @@ function PreorderDialog({
       void captureFunnel("purchase_interest_submitted", {
         product_id: selection.productId,
         business_model: toBusinessModel(selection.paymentType),
-      });
-      track("preorder_success", {
-        product_id: selection.productId,
-        tier: selection.tier,
-        payment_type: selection.paymentType,
       });
       setSuccess(true);
     } catch (error) {

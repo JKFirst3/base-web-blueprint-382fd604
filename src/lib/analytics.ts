@@ -298,12 +298,18 @@ function onConsentChanged() {
   consentEpoch++;
   retry.clear();
   firedInMemory.clear();
+  const hadClient = ph !== null;
   if (ph) {
     ph.opt_out_capturing();
     ph.reset();
     ph = null; // a later re-consent re-inits via load()
   }
   wipePosthogStorage();
+  // Strict withdrawal boundary: opt_out_capturing() does not cancel retries of events
+  // accepted before withdrawal (posthog-js #5020, "working as intended"). The maintainers'
+  // documented workaround is a page reload; with request_batching=false the SDK does not
+  // flush its retry queue on unload, so pending retries are dropped.
+  if (hadClient) window.location.reload();
 }
 
 /** Call once on the client (from a useEffect). */
