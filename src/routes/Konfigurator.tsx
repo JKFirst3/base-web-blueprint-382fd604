@@ -370,16 +370,16 @@ function PreorderDialog({
                   {VALUE_OPTIONS.map((option) => <option key={option} value={option}>{option}</option>)}
                 </select>
               </label>
-              <label>
-                <span>Ihr Jobtitel (freiwillig)</span>
-                <input type="text" value={jobTitle} onChange={(event) => setJobTitle(event.target.value)} maxLength={100} autoComplete="organization-title" />
-              </label>
               {greatestValue === "Sonstige" && (
                 <label>
                   <span>Sonstige – bitte erläutern</span>
                   <textarea value={greatestValueOther} onChange={(event) => setGreatestValueOther(event.target.value)} maxLength={300} required rows={3} />
                 </label>
               )}
+              <label>
+                <span>Ihr Jobtitel (freiwillig)</span>
+                <input type="text" value={jobTitle} onChange={(event) => setJobTitle(event.target.value)} maxLength={100} autoComplete="organization-title" />
+              </label>
               <label className="checkbox">
                 <input
                   type="checkbox"
