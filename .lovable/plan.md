@@ -1,12 +1,16 @@
-# DOI-Sicherheitsnachbesserung
+# Rechtstexte an Factory33 angleichen
 
 ## Umsetzung
-- Auf der Bestätigungsseite ausschließlich `#token=...` lesen; Query-Parameter entfernen, ohne automatisch zu bestätigen.
-- Den Bestätigungs-POST nur akzeptieren, wenn der `Origin` exakt der Origin der angefragten URL entspricht.
-- Das bestehende Limit nur anwenden, wenn die vertrauenswürdige Plattform-IP `cf-connecting-ip` vorhanden und plausibel ist; ohne diese IP nicht alle Besucher unter einem gemeinsamen Schlüssel bündeln und keine anderen IP-Header verwenden.
-- Schlägt das Speichern des Pending-Tokens fehl, bestmöglich `send_failed` setzen und dabei keinen Mailversand starten.
+- Datenschutz und Impressum an den aktuellen offiziellen Factory33-Seiten ausrichten; Factory33 Ecosystem GmbH bleibt alleinige Verantwortliche, ohne Gründer-Namen.
+- Zutreffende allgemeine Abschnitte zu Datenschutz, freiwilligen Angaben, Wahlmöglichkeiten, Sicherheit, Betroffenenrechten, externen Links, Urheberrecht und Haftung vollständig bzw. rechtssicher sinngemäß übernehmen.
+- Unzutreffende Factory33-Passagen zu LinkedIn, Retargeting, sozialen Netzwerken, Privacy Shield, fehlender Weitergabe und angeblich nicht personenbezogenen technischen Daten auslassen oder auf den belegten LAVIDRO-Stand korrigieren.
+- Klar getrennte LAVIDRO-Abschnitte zu Hosting, Formular-/Datenbankspeicherung, Produktanfrage und DOI, Newsletter, E-Mail-Versand, optionaler Ausgründungsweitergabe sowie PostHog mit serverseitiger Einwilligungsschranke ergänzen; den bestehenden Einwilligungssatz unverändert lassen.
+
+## Technische Leitplanken
+- Aussagen nur aufnehmen, wenn sie durch den aktuellen Code oder die offiziellen Factory33-Seiten belegt sind; offene Vertrags-, Speicherfrist- oder Drittlandfragen ausdrücklich als zu prüfen kennzeichnen statt zu behaupten.
+- Keine Änderungen an Formularen, E-Mail-Versand, Datenbank, Cookies oder Analyse-Ereignissen.
 
 ## Prüfung
-- Automatisiert prüfen: Query-Link liefert keinen nutzbaren Token; Fragment-Link bleibt nutzbar; Same-Origin wird akzeptiert; fremde Lovable-Origin wird mit 403 abgewiesen; fehlende Plattform-IP erzeugt kein gemeinsames Limit; `setPending`-Fehler versucht `send_failed`.
-- Bestehende DOI-Tests sowie Typprüfung und Vorschau-Build prüfen.
-- Keine echten Formularsendungen, E-Mails oder Veröffentlichung.
+- Beide Seiten in Desktop- und Mobilansicht auf Inhalt, Lesbarkeit und Links prüfen.
+- Kontrollieren, dass LinkedIn/Privacy-Shield/Gründer-Namen fehlen, der Ausgründungssatz exakt bleibt und der fünfstufige PostHog-Funnel unverändert ist.
+- Typprüfung und Vorschau-Build prüfen; keine echten Formulare, E-Mails, Analyse-Sendungen oder Veröffentlichung.
