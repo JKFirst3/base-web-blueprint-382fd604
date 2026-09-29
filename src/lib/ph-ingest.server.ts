@@ -182,10 +182,9 @@ export async function handleIngest(
   splat: string,
   deps: { token: string | null; fetchUpstream: (url: string, init: RequestInit) => Promise<Response> },
 ): Promise<GateResult> {
-  if (request.method !== "POST") return { response: json(405, { error: "method" }), outcome: "dropped_path" };
+  // Only POST capture is forwarded; any other SDK path/method is answered locally, no upstream call.
+  if (request.method !== "POST" || splat.replace(/^\/+|\/+$/g, "") !== "e") return drop("dropped_path");
   if (!sameOrigin(request)) return { response: json(403, { error: "origin" }), outcome: "rejected_origin" };
-  // Only capture is forwarded; any other SDK path is answered locally without upstream call.
-  if (splat.replace(/^\/+|\/+$/g, "") !== "e") return drop("dropped_path");
   const consentTs = readConsentTs(request.headers.get("cookie"));
   const text = await readLimited(request);
   if (text === null) return { response: json(413, { error: "size" }), outcome: "rejected_size" };
