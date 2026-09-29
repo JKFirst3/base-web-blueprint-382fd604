@@ -218,6 +218,7 @@ export type Database = {
           household_size: string | null
           id: string
           job_title: string | null
+          marketing_activated_at: string | null
           marketing_consent: boolean
           marketing_consent_active: boolean
           marketing_consent_at: string | null
@@ -247,6 +248,7 @@ export type Database = {
           household_size?: string | null
           id?: string
           job_title?: string | null
+          marketing_activated_at?: string | null
           marketing_consent?: boolean
           marketing_consent_active?: boolean
           marketing_consent_at?: string | null
@@ -276,6 +278,7 @@ export type Database = {
           household_size?: string | null
           id?: string
           job_title?: string | null
+          marketing_activated_at?: string | null
           marketing_consent?: boolean
           marketing_consent_active?: boolean
           marketing_consent_at?: string | null
