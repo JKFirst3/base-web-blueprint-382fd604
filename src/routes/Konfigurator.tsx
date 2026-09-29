@@ -86,13 +86,13 @@ export const Route = createFileRoute("/Konfigurator")({
               name: "Mobiler Wäscheassistent",
               description:
                 "Mobiler Lavidro Wäscheassistent, der Wäsche im Haushalt sortiert, ein- und ausräumt.",
-              price: 9000,
+              price: 14000,
             },
             {
               name: "Integrierter Wäscheschrank",
               description:
                 "In den Hauswirtschaftsraum integrierter Lavidro Wäscheschrank für einen automatisierten Wäscheprozess im Hintergrund.",
-              price: 12500,
+              price: 21500,
             },
             {
               name: "Einzelteilbehandlung im Schrank",
@@ -296,9 +296,7 @@ function PreorderDialog({
             <p className="kicker">Unverbindliche Vormerkung</p>
             <h2 id="preorder-title">{selection.productName} vormerken</h2>
             <div className="preorder-summary">
-              <span>
-                {selection.family} · {selection.tierLabel}
-              </span>
+              <span>{selection.family}</span>
               <strong>
                 {selection.paymentType === "monthly"
                   ? `${selection.monthly.toLocaleString("de-DE")} € / Monat`
