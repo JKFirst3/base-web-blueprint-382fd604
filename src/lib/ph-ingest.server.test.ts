@@ -50,11 +50,12 @@ async function send(payload: unknown, withConsent = true) {
 }
 
 describe("PostHog consent gate demographics", () => {
-  test("forwards only the three validated submitted properties", async () => {
+  test("forwards only the validated submitted categories", async () => {
     const { result, calls } = await send(event({
       household_size: "3-4",
       greatest_value: "Sonstige",
       job_title_provided: true,
+      occupation_group: "Gesundheit/Pflege/Soziales",
     }));
     assert.equal(result.outcome, "forwarded");
     assert.equal(calls.length, 1);
@@ -65,11 +66,13 @@ describe("PostHog consent gate demographics", () => {
         household_size: sent.batch[0].properties.household_size,
         greatest_value: sent.batch[0].properties.greatest_value,
         job_title_provided: sent.batch[0].properties.job_title_provided,
+        occupation_group: sent.batch[0].properties.occupation_group,
       },
       {
       household_size: "3-4",
       greatest_value: "Sonstige",
       job_title_provided: true,
+      occupation_group: "Gesundheit/Pflege/Soziales",
       },
     );
     assert.equal(JSON.stringify(sent).includes("job_title\""), false);
@@ -81,6 +84,7 @@ describe("PostHog consent gate demographics", () => {
     { greatest_value: "mein freier Text" },
     { job_title_provided: "yes" },
     { job_title: "Geschäftsführer" },
+    { occupation_group: "Geschäftsführung bei Firma X" },
     { greatest_value_other: "private Antwort" },
     { unknown_property: "nicht erlaubt" },
   ];

@@ -7,6 +7,7 @@ import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
 import { captureFunnel, toBusinessModel } from "@/lib/analytics";
 import { currentCampaign } from "@/lib/campaign";
 import { z } from "zod";
+import { OCCUPATION_GROUPS } from "@/lib/preorder-request.server";
 
 const VALUE_OPTIONS = [
   "Weniger Zeit für Wäsche aufwenden",
@@ -22,6 +23,7 @@ const answersSchema = z.object({
   job_title: z.string().trim().max(100),
   greatest_value: z.enum(VALUE_OPTIONS).nullable(),
   greatest_value_other: z.string().trim().max(300),
+  occupation_group: z.enum(OCCUPATION_GROUPS).nullable(),
 }).refine((value) => value.greatest_value !== "Sonstige" || value.greatest_value_other.length > 0);
 
 type PreorderSelection = {
@@ -197,6 +199,7 @@ function PreorderDialog({
   const [email, setEmail] = useState("");
   const [householdSize, setHouseholdSize] = useState("");
   const [jobTitle, setJobTitle] = useState("");
+  const [occupationGroup, setOccupationGroup] = useState("");
   const [greatestValue, setGreatestValue] = useState("");
   const [greatestValueOther, setGreatestValueOther] = useState("");
   const [consent, setConsent] = useState(false);
@@ -205,6 +208,8 @@ function PreorderDialog({
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
+  const [emailStatus, setEmailStatus] = useState<"sent" | "processing" | "send_failed">("processing");
+  const [clientSubmissionId] = useState(() => crypto.randomUUID());
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -237,6 +242,7 @@ function PreorderDialog({
       job_title: jobTitle,
       greatest_value: greatestValue || null,
       greatest_value_other: greatestValue === "Sonstige" ? greatestValueOther : "",
+      occupation_group: occupationGroup || null,
     });
     if (!answers.success) {
       setMessage("Bitte ergänzen oder kürzen Sie Ihre Angaben zu den Zusatzfragen.");
@@ -264,6 +270,7 @@ function PreorderDialog({
           consent,
           marketing_consent: marketingConsent,
           transfer_consent: transferConsent,
+          client_submission_id: clientSubmissionId,
           ...answers.data,
           source: currentCampaign() ?? "configurator",
         }),
@@ -271,6 +278,8 @@ function PreorderDialog({
       }).finally(() => window.clearTimeout(timeout));
 
       if (!response.ok) throw new Error(`Preorder request failed: ${response.status}`);
+      const result = await response.json() as { saved?: boolean; email_status?: "sent" | "processing" | "send_failed" };
+      if (!result.saved || !result.email_status) throw new Error("Invalid preorder response");
 
       void captureFunnel("purchase_interest_submitted", {
         product_id: selection.productId,
@@ -278,11 +287,15 @@ function PreorderDialog({
         household_size: answers.data.household_size,
         greatest_value: answers.data.greatest_value,
         job_title_provided: answers.data.job_title.length > 0,
+        occupation_group: answers.data.occupation_group,
       });
+      setEmailStatus(result.email_status);
       setSuccess(true);
     } catch (error) {
       console.error("[preorder-form] Submission failed", error);
-      setMessage("Die Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.");
+      setMessage(error instanceof DOMException && error.name === "AbortError"
+        ? "Der Status der Anfrage ist noch unklar. Sie können erneut auf „Anfragen“ klicken; dadurch wird keine zweite Anfrage angelegt."
+        : "Die Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.");
     } finally {
       setSubmitting(false);
     }
@@ -311,7 +324,12 @@ function PreorderDialog({
             <span aria-hidden="true">✓</span>
             <p className="kicker">Anfrage eingegangen</p>
             <h2 id="preorder-title">Ihre unverbindliche Anfrage ist bei uns eingegangen.</h2>
-            <p>Wir haben Ihnen eine E-Mail geschickt. Bitte bestätigen Sie darin Ihre E-Mail-Adresse. In Entwicklung · Marktstart geplant 2027.</p>
+            <p>
+              {emailStatus === "sent" && "Wir haben Ihnen eine E-Mail geschickt. Bitte bestätigen Sie darin Ihre E-Mail-Adresse. "}
+              {emailStatus === "processing" && "Ihre Anfrage wurde gespeichert. Der Versand der Bestätigungs-E-Mail wird noch verarbeitet. "}
+              {emailStatus === "send_failed" && "Ihre Anfrage wurde gespeichert, die Bestätigungs-E-Mail konnte jedoch nicht versendet werden. Wir kümmern uns um Ihre Anfrage. "}
+              In Entwicklung · Marktstart geplant 2027.
+            </p>
             <PreorderJourney confirmed />
             <button className="primary-button" type="button" onClick={onClose}>
               Schließen
@@ -384,6 +402,13 @@ function PreorderDialog({
               <label>
                 <span>Ihr Jobtitel (freiwillig)</span>
                 <input type="text" value={jobTitle} onChange={(event) => setJobTitle(event.target.value)} maxLength={100} autoComplete="organization-title" />
+              </label>
+              <label>
+                <span>Berufsfeld (freiwillig)</span>
+                <select value={occupationGroup} onChange={(event) => setOccupationGroup(event.target.value)}>
+                  <option value="">Bitte auswählen</option>
+                  {OCCUPATION_GROUPS.map((group) => <option key={group} value={group}>{group}</option>)}
+                </select>
               </label>
               <label className="checkbox">
                 <input

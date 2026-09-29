@@ -405,7 +405,7 @@ function DatenschutzPage() {
             Wenn Sie auf der Produktseite über „Anfragen“ unverbindlich Ihr Kaufinteresse
             mitteilen, verarbeiten wir Ihren Namen, Ihre E-Mail-Adresse, das ausgewählte Produkt,
             die gewählte Variante zwischen Kauf und Abo, die zum Zeitpunkt der Anfrage angezeigte
-            Preisindikation, optional Ihre Angaben zur Haushaltsgröße, zum Jobtitel und zum größten
+            Preisindikation, optional Ihre Angaben zur Haushaltsgröße, zum Jobtitel, zum Berufsfeld und zum größten
             Mehrwert (bei „Sonstige“ gegebenenfalls mit Freitext), die Bestätigung, dass Sie die
             Datenschutzhinweise zur Kenntnis genommen haben, gegebenenfalls Ihre freiwillige
             Einwilligung in zusätzliche Produktinformationen samt Zeitpunkt, Ihre Entscheidung zur
@@ -420,8 +420,9 @@ function DatenschutzPage() {
             Namen, E-Mail-Adressen, Jobtitel und freie Antworten werden nicht an den Analysedienst
             übermittelt. Nur nach Ihrer gesonderten Analyse-Einwilligung können beim erfolgreichen
             Absenden die ausgewählte Haushaltsgrößen-Kategorie, die ausgewählte vordefinierte
-            Mehrwert-Kategorie (bei „Sonstige“ nur diese Kategorie) und die Angabe, ob das
-            Jobtitel-Feld ausgefüllt wurde, ohne den eingegebenen Text ausgewertet werden.
+            Mehrwert-Kategorie (bei „Sonstige“ nur diese Kategorie), die freiwillig gewählte grobe
+            Berufskategorie und die Angabe, ob das Jobtitel-Feld ausgefüllt wurde, ohne den
+            eingegebenen Text ausgewertet werden. Das Berufsfeld wird nicht aus dem Jobtitel abgeleitet.
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">
@@ -611,7 +612,8 @@ function DatenschutzPage() {
             <li>Öffnen des Anfrageformulars</li>
             <li>
               Erfolgreiches Absenden des Anfrageformulars; dabei nur Haushaltsgrößen-Kategorie,
-              vordefinierte Mehrwert-Kategorie und die Angabe, ob ein Jobtitel eingetragen wurde
+              vordefinierte Mehrwert-Kategorie, freiwillig gewählte grobe Berufskategorie und die
+              Angabe, ob ein Jobtitel eingetragen wurde
             </li>
             <li>Sichtbare Verweildauer je Seite (<code className="font-mono text-xs">page_engagement</code>)</li>
             <li>
@@ -623,7 +625,7 @@ function DatenschutzPage() {
             Zu den Ereignissen gehören das betroffene Produkt, die gewählte Zahlungsart, der
             Seitenpfad ohne URL-Parameter, eine zufällige pseudonyme Kennung für Browser und
             Sitzung sowie technische Angaben der PostHog-Bibliothek. Beim Absenden der Anfrage können
-            außerdem die oben genannten drei kategorisierten Angaben verarbeitet werden. Namen,
+            außerdem die oben genannten vier kategorisierten Angaben verarbeitet werden. Namen,
             E-Mail-Adressen, Jobtitel und freie Antworten werden nicht an PostHog übermittelt. Wir
             nutzen keine Identifizierung einzelner Personen (Identify), keine Personenprofile, keine
             automatische Erfassung von Klicks (Autocapture) und keine Sitzungsaufzeichnung (Session
