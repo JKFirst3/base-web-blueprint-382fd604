@@ -36,3 +36,16 @@
 - [x] Impressum an die offiziellen Factory33-Angaben angleichen, ohne Gründer-Namen
 - [x] Unzutreffende LinkedIn-, Privacy-Shield- und Keine-Weitergabe-Aussagen ausschließen
 - [x] Rechtstexte mobil/desktop, Typprüfung und Build prüfen; keine echten Sendungen oder Veröffentlichung
+
+## Anfrage- und DOI-Ablauf härten
+- [ ] Anfrage-POST strikt Same-Origin und nur mit vertrauenswürdiger Plattform-IP begrenzen
+- [ ] Wiederholungen nach Timeout datenbankgestützt idempotent behandeln
+- [ ] Versandstatus korrekt und ohne falsche Versandbestätigung anzeigen
+- [ ] Sicherheits-, Fehler-, Timeout-, Typ- und Build-Prüfungen abschließen
+
+## Freiwilliges Berufsfeld
+- [ ] Optionales Berufsfeld mit festen, verständlichen Kategorien ergänzen und validieren
+- [ ] Nullable Berufsfeld-Spalte ergänzen, bestehende Anfragen unverändert lassen
+- [ ] `occupation_group` nur nach Analyse-Einwilligung und ohne Jobtitel über beide Allow-lists senden
+- [ ] Cookie-Hinweis und Datenschutzerklärung an die tatsächliche Kategorie anpassen
+- [ ] No-Consent-, PII-, Validierungs-, Typ- und Build-Prüfungen abschließen
