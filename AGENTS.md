@@ -1,3 +1,5 @@
 - Funnel analytics run only via PostHog in src/lib/analytics.ts (5 manual events + separate `page_engagement` diagnostic with whitelisted page_path/visible seconds, all loaded after analytics consent); legacy track.ts collector and /api/public/collect-analytics route are removed (historical analytics_events table kept); the browser sends only to the same-origin gate /api/public/ph-ingest (src/lib/ph-ingest.server.ts: fixed EU upstream, consent cookie + consent_ts generation check per request, allow-lists, no IP/header forwarding), no reload on withdrawal — why: single source, consent-gated, SDK retries after withdrawal are dropped server-side without losing form input.
 
 - Visible offers have no Basic/Premium; internal tier keys `premium` (Mobile, Cabinet) and `standard` (One) stay in client/API catalogs — why: historical records and the existing preorder insert rule accept them, so no migration is needed.
+
+- Optional household, job-title, and benefit answers are validated on both sides and stored with the existing preorder record; “Other” needs an explanation — why: keep inquiry context together without a separate identity store.

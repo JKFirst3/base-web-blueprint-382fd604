@@ -1,5 +1,9 @@
 # Roadmap
 
+- [x] Produktnamen, Unterüberschriften und Anfrage-Wording aktualisieren
+- [x] Freiwillige Haushalts-, Berufs- und Mehrwertfragen sicher in Anfragen speichern
+- [ ] 99-%-Aussage für Lavidro One vor Veröffentlichung durch belastbare Wirksamkeitsnachweise prüfen (Nachweis fehlt)
+
 - [x] Vormerkformular: notwendige Datenverarbeitung und optionale zusätzliche Kontaktaufnahme getrennt abfragen und speichern
 - [x] Datenschutzerklärung für die optionale Kontaktaufnahme ergänzen
 - [x] Neues Cabinet-Bild an allen sichtbaren Stellen einsetzen

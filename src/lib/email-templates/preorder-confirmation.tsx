@@ -40,13 +40,12 @@ const Row = ({ title, content }: { title: string; content?: string }) =>
 const Email = ({ name, email, product, tier, paymentMode, price }: Props) => (
   <Html lang="de" dir="ltr">
     <Head />
-    <Preview>Deine Vorbestellung bei Lavidro ist eingegangen</Preview>
+    <Preview>Deine Anfrage bei Lavidro ist eingegangen</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Heading style={heading}>Deine Vorbestellung ist eingegangen</Heading>
+        <Heading style={heading}>Deine Anfrage ist eingegangen</Heading>
         <Text style={paragraph}>
-          {name ? `Hallo ${name},` : 'Hallo,'} danke für deine Vorbestellung. Wir informieren dich,
-          sobald dein System verfügbar ist.
+          {name ? `Hallo ${name},` : 'Hallo,'} danke für deine unverbindliche Anfrage. Wir melden uns zu den nächsten Schritten.
         </Text>
 
         <Section style={panel}>
@@ -59,7 +58,7 @@ const Email = ({ name, email, product, tier, paymentMode, price }: Props) => (
 
         <Hr style={{ borderColor: '#EAE4D5', margin: '24px 0' }} />
         <Text style={paragraph}>
-          Diese Vorbestellung ist unverbindlich — es entstehen dir aktuell keine Kosten und kein
+          Diese Anfrage ist unverbindlich — es entstehen dir aktuell keine Kosten und kein
           Kaufvertrag. Die angezeigte Preisindikation enthält 19 % MwSt. und Versand, kann sich aber
           bis zu einem späteren verbindlichen Angebot noch ändern.
         </Text>
@@ -71,12 +70,12 @@ const Email = ({ name, email, product, tier, paymentMode, price }: Props) => (
 
 export const template = {
   component: Email,
-  subject: 'Deine Vorbestellung bei Lavidro',
-  displayName: 'Vorbestellungs-Bestätigung',
+  subject: 'Deine Anfrage bei Lavidro',
+  displayName: 'Anfrage-Bestätigung',
   previewData: {
     name: 'Max Muster',
     email: 'max@example.com',
-    product: 'Integrierter Wäscheschrank',
+    product: 'Lavidro Cabinet',
     paymentMode: 'Einmalzahlung',
     price: '21.500 €',
   },

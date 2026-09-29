@@ -82,6 +82,8 @@
   const productFamily = document.querySelector("[data-product-family]");
   const panelTitle = document.querySelector("[data-panel-title]");
   const description = document.querySelector("[data-product-description]");
+  const promise = document.querySelector("[data-product-promise]");
+  const hygiene = document.querySelector("[data-product-hygiene]");
   const levelOptions = document.querySelector("[data-level-options]");
   const featureList = document.querySelector("[data-feature-list]");
   const form = document.querySelector("[data-config-form]");
@@ -176,6 +178,10 @@
     productFamily.textContent = selectedProduct.title;
     panelTitle.textContent = selectedProduct.title;
     description.textContent = selectedProduct.description;
+    promise.textContent = selectedKey === "one"
+      ? "Bereitet Ihre schönsten Wäschestücke wieder auf – ganz ohne Waschen."
+      : "Dreckige Wäsche dem System geben und saubere, gefaltete Wäsche zurückbekommen.";
+    hygiene.hidden = selectedKey !== "one";
     renderLevels();
     renderFeatures();
     renderPrices();
