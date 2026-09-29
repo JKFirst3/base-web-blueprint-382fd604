@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
-import { track } from "@/lib/track";
 
 const ITEMS: { q: string; a: string }[] = [
   {
@@ -76,7 +75,6 @@ export function FAQ() {
                   onClick={() => {
                     const next = isOpen ? null : i;
                     setOpen(next);
-                    if (next !== null) track("faq_open", { faq_id: String(i) });
                   }}
                   aria-expanded={isOpen}
                   className="flex w-full items-center justify-between gap-6 py-6 text-left"
