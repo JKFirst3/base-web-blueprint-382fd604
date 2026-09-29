@@ -19,7 +19,7 @@
       {
         "name": "get_product_catalog",
         "title": "Produktkatalog abrufen",
-        "description": "Liefert die Lavidro Lösungen mit Varianten, Kaufpreisen und monatlichen Raten in Euro.",
+        "description": "Liefert die Lavidro Lösungen mit aktuellen Angeboten, Kaufpreisen und monatlichen Raten in Euro.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
