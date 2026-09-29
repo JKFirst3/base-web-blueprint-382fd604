@@ -40,6 +40,13 @@ function DatenschutzPage() {
             Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text
             aufgeführten Datenschutzerklärung.
           </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Factory33 Ecosystem GmbH freut sich über Ihr Interesse an LAVIDRO. Der Schutz
+            personenbezogener Daten ist uns ein wichtiges Anliegen. Sämtliche Verarbeitungen im
+            Rahmen dieser Website richten sich nach den anwendbaren Vorschriften zum Datenschutz und
+            zur Datensicherheit. Diese Erklärung beschreibt sowohl die allgemeinen Grundsätze als
+            auch die für LAVIDRO konkret eingesetzten Dienste und Datenflüsse.
+          </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">
             Datenerfassung auf dieser Website
@@ -111,31 +118,17 @@ function DatenschutzPage() {
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">
-            Content Delivery Network (Cloudflare)
-          </h3>
-          <p className="mt-3 text-foreground/80 leading-relaxed">
-            Zur schnellen und sicheren Auslieferung der Website-Inhalte (insbesondere zur
-            Performance-Optimierung und zum Schutz vor Angriffen) werden Anfragen an unsere Website
-            über das Netzwerk von <strong>Cloudflare, Inc.</strong> (101 Townsend St, San
-            Francisco, CA 94107, USA) geleitet. Hierbei werden Verbindungsdaten einschließlich der
-            IP-Adresse verarbeitet. Eine Verarbeitung außerhalb der EU, insbesondere in den USA,
-            kann dabei nicht ausgeschlossen werden.
-          </p>
-
-          <h3 className="mt-6 font-display text-lg font-semibold">
             Rechtsgrundlage und Auftragsverarbeitung
           </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
             Die Datenverarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
             Interesse an einer technisch fehlerfreien, schnellen und sicheren Bereitstellung unserer
             Website). Soweit Dienstleister personenbezogene Daten in unserem Auftrag verarbeiten,
-            erfolgt dies auf Grundlage eines Vertrags über Auftragsverarbeitung (Art. 28 DSGVO). Da
-            einzelne der eingesetzten Dienstleister ihren Sitz in Drittländern haben oder dort
-            Rechenzentren betreiben, ist nicht auszuschließen, dass dabei auch personenbezogene Daten
-            in Drittländer (insbesondere die USA) übermittelt werden. Ob und mit welchen Garantien
-            (z. B. EU-Standardvertragsklauseln oder eine Zertifizierung unter dem EU-US Data Privacy
-            Framework) solche Übermittlungen erfolgen dürfen, ist von uns noch vertraglich mit den
-            jeweiligen Anbietern zu prüfen und sicherzustellen.
+            muss dies auf Grundlage der hierfür erforderlichen datenschutzrechtlichen Vereinbarungen
+            erfolgen. Die konkret eingesetzten Unterauftragnehmer, Verarbeitungsstandorte und
+            Garantien für mögliche Drittlandübermittlungen sind anhand der jeweils aktuellen
+            Vertrags- und Datenschutzunterlagen der Anbieter zu prüfen. Eine frühere Berufung auf das
+            aufgehobene EU-US Privacy Shield erfolgt nicht.
           </p>
         </section>
 
@@ -223,17 +216,16 @@ function DatenschutzPage() {
             Empfänger von personenbezogenen Daten
           </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
-            Im Rahmen unserer Geschäftstätigkeit arbeiten wir mit verschiedenen externen Stellen
-            zusammen. Dabei ist teilweise auch eine Übermittlung von personenbezogenen Daten an
-            diese externen Stellen erforderlich. Wir geben personenbezogene Daten nur dann an
-            externe Stellen weiter, wenn dies im Rahmen einer Vertragserfüllung erforderlich ist,
-            wenn wir gesetzlich hierzu verpflichtet sind (z. B. Weitergabe von Daten an
-            Steuerbehörden), wenn wir ein berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO an
-            der Weitergabe haben oder wenn eine sonstige Rechtsgrundlage die Datenweitergabe
-            erlaubt. Beim Einsatz von Auftragsverarbeitern geben wir personenbezogene Daten unserer
-            Kunden nur auf Grundlage eines gültigen Vertrags über Auftragsverarbeitung weiter. Im
-            Falle einer gemeinsamen Verarbeitung wird ein Vertrag über gemeinsame Verarbeitung
-            geschlossen.
+            Im Rahmen unserer Geschäftstätigkeit arbeiten wir mit externen Stellen zusammen. Dabei
+            kann eine Übermittlung personenbezogener Daten erforderlich sein. Eine Übermittlung
+            erfolgt nur, soweit sie zur Durchführung eines Vertrags oder vorvertraglicher Maßnahmen
+            erforderlich ist, eine gesetzliche Pflicht besteht, ein berechtigtes Interesse die
+            Verarbeitung trägt, eine Einwilligung vorliegt oder eine andere Rechtsgrundlage dies
+            erlaubt. Für LAVIDRO sind dies nach dem aktuellen technischen Stand insbesondere Lovable
+            Labs AB für Websitebetrieb, verwaltete Datenbank und E-Mail-Versand, die innerhalb der
+            Lovable-Cloud eingesetzte Datenbanktechnik von Supabase sowie – ausschließlich nach
+            Analyse-Einwilligung – PostHog. Eine zukünftige Ausgründung erhält Daten nur auf Grundlage
+            der gesonderten freiwilligen Einwilligung, die weiter unten vollständig wiedergegeben ist.
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">
@@ -352,21 +344,29 @@ function DatenschutzPage() {
             Datenschutzerklärungen. Bitte informieren Sie sich beim Verlassen unserer Website über
             die Verarbeitung personenbezogener Daten durch den jeweiligen Anbieter.
           </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">Sicherheit</h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Wir treffen angemessene technische und organisatorische Vorkehrungen, um
+            personenbezogene Daten vor Verlust, Zerstörung, Verfälschung, Manipulation und
+            unberechtigtem Zugriff zu schützen. Ein absoluter Schutz bei der Datenübertragung im
+            Internet kann jedoch nicht gewährleistet werden.
+          </p>
         </section>
 
         {/* 4. Datenerfassung auf dieser Website */}
         <section className="mt-12">
-          <h2 className="font-display text-2xl font-bold">4. Datenerfassung auf dieser Website</h2>
+          <h2 className="font-display text-2xl font-bold">4. LAVIDRO-spezifische Verarbeitungen</h2>
 
           <h3 className="mt-6 font-display text-lg font-semibold">Kontaktformular</h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
             Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem
             Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung
-            der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben
-            wir nicht für fremde eigene Zwecke weiter. Technisch notwendige Dienstleister können im
-            Rahmen einer Auftragsverarbeitung Zugang zu diesen Daten erhalten (siehe hierzu die
-            Abschnitte „Hosting" und „Datenbank und Backend (Lovable Cloud)"). Die Verarbeitung
-            dieser Daten erfolgt auf
+            der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Empfänger sind
+            Factory33 Ecosystem GmbH sowie die für Betrieb und Speicherung technisch erforderlichen
+            Dienstleister (siehe „Hosting“, „Datenbank und Backend“ und „E-Mail-Versand“). Eine
+            darüber hinausgehende Weitergabe erfolgt nur bei gesetzlicher Erlaubnis oder wirksamer
+            Einwilligung. Die Verarbeitung dieser Daten erfolgt auf
             Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines
             Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich
             ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse
@@ -384,8 +384,12 @@ function DatenschutzPage() {
             Wenn Sie sich auf der Startseite für den Newsletter anmelden, verarbeiten wir Ihre
             E-Mail-Adresse, Ihre Einwilligung sowie den Zeitpunkt der Anmeldung. Zweck ist, Sie
             über Entwicklungsfortschritte, Pilotphasen und Neuigkeiten von Lavidro zu informieren.
-            Nach der Anmeldung senden wir eine Bestätigungs-E-Mail. Rechtsgrundlage ist Ihre
-            Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Sie können Ihre Einwilligung jederzeit mit
+            Nach der Anmeldung senden wir eine Bestätigungs-E-Mail. Dabei werden die E-Mail-Adresse,
+            der Anmeldekontext sowie Versandstatus und technische Zustellereignisse verarbeitet.
+            Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO); technische
+            Versandprotokolle verarbeiten wir zur zuverlässigen Zustellung und zur Beachtung von
+            Abmeldungen, Beschwerden oder unzustellbaren Adressen auf Grundlage von Art. 6 Abs. 1
+            lit. f DSGVO. Sie können Ihre Einwilligung jederzeit mit
             Wirkung für die Zukunft per E-Mail an{" "}
             <a href="mailto:info@factory33.de" className="underline underline-offset-4">
               info@factory33.de
@@ -435,8 +439,11 @@ function DatenschutzPage() {
             oder bereits verwendete Codes können keine erneute Bestätigung auslösen.
           </p>
           <p className="mt-4 text-foreground/80 leading-relaxed">
-            Die E-Mail dient der Absicherung und Bearbeitung Ihrer konkreten Anfrage. Rechtsgrundlage
-            ist Art. 6 Abs. 1 lit. b DSGVO; die technischen Versand- und Sicherheitsprotokolle
+            Die E-Mail dient der Absicherung und Bearbeitung Ihrer konkreten Anfrage. Für den Versand
+            werden Empfängeradresse, Vorlagenname, Versandstatus und bei Fehlern eine technische
+            Fehlermeldung im Versandprotokoll gespeichert. Rückmeldungen zu Unzustellbarkeit,
+            Spam-Beschwerden oder Abmeldungen werden als Sperrstatus zur Vermeidung weiterer
+            unerwünschter Sendungen gespeichert. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO; die technischen Versand- und Sicherheitsprotokolle
             verarbeiten wir auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Eine Anfrage bleibt auch
             vor der E-Mail-Bestätigung gespeichert. Eine freiwillige Marketing-Einwilligung wird
             jedoch erst nach erfolgreicher Bestätigung aktiviert.
@@ -501,9 +508,10 @@ function DatenschutzPage() {
           <p className="mt-3 text-foreground/80 leading-relaxed">
             Wenn Sie uns per E-Mail kontaktieren, wird Ihre Anfrage inklusive aller daraus
             hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Ihres
-            Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht für fremde
-            eigene Zwecke weiter. Technisch notwendige Dienstleister können im Rahmen einer
-            Auftragsverarbeitung Zugang zu diesen Daten erhalten. Die Verarbeitung dieser Daten
+            Anliegens bei uns gespeichert und verarbeitet. Factory33 Ecosystem GmbH und technisch
+            notwendige E-Mail-Dienstleister können diese Daten für Kommunikation und Zustellung
+            verarbeiten. Eine Nutzung für andere Zwecke erfolgt nur bei gesetzlicher Erlaubnis oder
+            Einwilligung. Die Verarbeitung dieser Daten
             erfolgt auf Grundlage von Art. 6 Abs.
             1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder
             zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen
@@ -524,18 +532,28 @@ function DatenschutzPage() {
             Für die Speicherung und Verarbeitung der über die Website erfassten Daten (z. B.
             Newsletter-Anmeldungen, unverbindliche Anfragen zum Kaufinteresse und Kontaktanfragen)
             nutzen wir „Lovable Cloud“ der Lovable Labs AB, Regeringsgatan 25, 111 53 Stockholm,
-            Schweden. Lovable Cloud stellt uns eine verwaltete Datenbank-Infrastruktur bereit und
-            setzt dafür nach unserem Kenntnisstand weitere Dienstleister (u. a. Supabase, Inc., USA)
-            ein. Welche Subunternehmer im Einzelnen eingesetzt werden, an welchen Standorten die
-            Daten gespeichert werden und ob dabei Übermittlungen in Drittländer (insbesondere die
-            USA) stattfinden, richtet sich nach den Vertrags- und Datenschutzunterlagen des
-            Anbieters. Ob dabei Übermittlungen in Drittländer (insbesondere die USA) stattfinden und
-            mit welchen Garantien (z. B. EU-Standardvertragsklauseln oder einer Zertifizierung unter
-            dem EU-US Data Privacy Framework) dies gegebenenfalls zulässig wäre, ist von uns noch
-            vertraglich mit dem Anbieter zu prüfen und sicherzustellen. Rechtsgrundlage ist
+            Schweden. Die Anwendung greift dabei auf eine verwaltete Supabase-Datenbank zu. Gespeichert
+            werden die im jeweiligen Formular beschriebenen Angaben und Statusdaten; öffentlich
+            können diese Datensätze nicht ausgelesen werden. Welche Gesellschaften als
+            Unterauftragnehmer auftreten, an welchen Standorten die Daten gespeichert werden und
+            welche Garantien bei möglichen Drittlandübermittlungen gelten, ist anhand der aktuellen
+            Vertragsunterlagen von Lovable zu bestätigen. Rechtsgrundlage ist
             unser berechtigtes Interesse an einer sicheren und zuverlässigen Datenbank-Infrastruktur
             (Art. 6 Abs. 1 lit. f DSGVO) bzw. die Durchführung vorvertraglicher Maßnahmen (Art. 6
             Abs. 1 lit. b DSGVO).
+          </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">E-Mail-Versand über Lovable</h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Bestätigungen zu Newsletter-Anmeldungen und Produktanfragen werden über den verwalteten
+            E-Mail-Dienst von Lovable Labs AB versendet. Hierfür werden insbesondere die
+            Empfängeradresse, der Inhalt der jeweiligen Nachricht, ein technischer
+            Wiederholungsschutz sowie Zustell- und Fehlerstatus verarbeitet. Die Anwendung führt ein
+            Versandprotokoll mit Empfängeradresse, Vorlagenbezeichnung und Status; unzustellbare oder
+            abgemeldete Adressen können in einer Sperrliste gespeichert werden. Die konkrete
+            Versand-Infrastruktur, Unterauftragnehmer, Speicherfristen und Garantien für mögliche
+            Drittlandübermittlungen sind anhand der aktuellen Vertragsunterlagen von Lovable zu
+            bestätigen.
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">
@@ -575,12 +593,12 @@ function DatenschutzPage() {
           </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
             Nur wenn Sie im Cookie-Hinweis der Analyse aktiv zustimmen, nutzen wir den externen
-            Analysedienst <strong>PostHog</strong> (PostHog Inc., USA, bzw. die jeweils im Vertrag
-            benannte PostHog-Gesellschaft). Ohne Ihre Einwilligung wird PostHog nicht geladen und
+            Analysedienst <strong>PostHog</strong>. Ohne Ihre Einwilligung wird PostHog nicht geladen und
             es werden keine Analyse-Ereignisse gesendet. Die Ereignisse werden an den EU-Endpunkt
-            von PostHog übermittelt; ob und in welchem Umfang PostHog oder dessen Dienstleister
-            Daten außerhalb der EU verarbeiten, richtet sich nach den Vertragsunterlagen von
-            PostHog.
+            von PostHog übermittelt. Der EU-Endpunkt allein belegt keine ausschließlich europäische
+            Verarbeitung; die verantwortliche PostHog-Gesellschaft, Unterauftragnehmer,
+            Speicherorte, Speicherfristen und Garantien für mögliche Drittlandübermittlungen sind
+            anhand der aktuellen Vertragsunterlagen zu bestätigen.
           </p>
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Erfasst werden ausschließlich folgende pseudonyme Ereignisse. Die ersten fünf bilden

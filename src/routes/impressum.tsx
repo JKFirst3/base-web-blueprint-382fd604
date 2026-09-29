@@ -53,6 +53,8 @@ function ImpressumPage() {
         <section className="mt-10">
           <h2 className="font-display text-xl font-semibold">Kontakt</h2>
           <p className="mt-4 text-foreground/80">
+            Ansprechpartner: Jannik Woste
+            <br />
             E-Mail:{" "}
             <a href="mailto:info@factory33.de" className="underline underline-offset-4">
               info@factory33.de
@@ -69,23 +71,49 @@ function ImpressumPage() {
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-xl font-semibold">Haftung für Inhalte und Links</h2>
+          <h2 className="font-display text-xl font-semibold">Gewährleistung bei eigenen Inhalten</h2>
           <p className="mt-4 text-foreground/80 leading-relaxed">
-            Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen
-            Gesetzen verantwortlich. Soweit diese Website Links zu externen Angeboten enthält,
-            haben wir auf deren Inhalte keinen Einfluss. Für die Inhalte verlinkter Seiten ist stets
-            der jeweilige Anbieter verantwortlich. Bei Bekanntwerden von Rechtsverletzungen werden
-            wir entsprechende Links entfernen.
+            Die veröffentlichten Inhalte dieser Website wurden mit größter Sorgfalt geprüft und
+            erstellt. Hinweise und Korrekturen können Sie an{" "}
+            <a href="mailto:info@factory33.de" className="underline underline-offset-4">
+              info@factory33.de
+            </a>{" "}
+            senden. Factory33 Ecosystem GmbH haftet für Schäden aus der Nutzung der angebotenen
+            Inhalte nach den gesetzlichen Bestimmungen.
           </p>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-xl font-semibold">Urheberrecht</h2>
+          <h2 className="font-display text-xl font-semibold">Querverweise und Links</h2>
           <p className="mt-4 text-foreground/80 leading-relaxed">
-            Die von uns erstellten Inhalte und Werke auf dieser Website unterliegen dem deutschen
-            Urheberrecht. Beiträge Dritter sind als solche gekennzeichnet. Jede Verwertung außerhalb
-            der Grenzen des Urheberrechts bedarf der vorherigen Zustimmung der jeweiligen
-            Rechteinhaber.
+            Factory33 Ecosystem GmbH ist für die eigenen Inhalte dieser Website nach den allgemeinen
+            Gesetzen verantwortlich. Inhalte externer Anbieter, auf die verlinkt wird, unterliegen
+            nicht unserer Kontrolle und geben nicht notwendigerweise unsere Auffassung wieder. Für
+            rechtswidrige, fehlerhafte oder unvollständige Inhalte externer Seiten ist der jeweilige
+            Anbieter verantwortlich. Bei Bekanntwerden von Rechtsverletzungen entfernen wir
+            entsprechende Links.
+          </p>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="font-display text-xl font-semibold">Urheberrecht und Kennzeichenrechte</h2>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Die auf dieser Website veröffentlichten Inhalte, insbesondere Layout, Texte, Bilder und
+            Grafiken, unterliegen dem Urheberrecht. Jede gesetzlich nicht zugelassene Verwertung,
+            insbesondere Vervielfältigung, Bearbeitung, Übersetzung, Speicherung oder Wiedergabe in
+            anderen Medien und Systemen, bedarf der vorherigen Zustimmung der jeweiligen
+            Rechteinhaber. Beiträge Dritter werden als solche gekennzeichnet. Genannte Marken und
+            Warenzeichen unterliegen den Rechten ihrer jeweiligen Eigentümer; aus ihrer bloßen
+            Nennung folgt nicht, dass sie frei von Rechten Dritter sind.
+          </p>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="font-display text-xl font-semibold">Gleichbehandlung</h2>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Factory33 Ecosystem GmbH steht für Vielfalt und Chancengleichheit. Soweit zur besseren
+            Lesbarkeit eine bestimmte Sprachform verwendet wird, gelten die Personenbezeichnungen
+            gleichermaßen für alle Geschlechtsidentitäten.
           </p>
         </section>
 
