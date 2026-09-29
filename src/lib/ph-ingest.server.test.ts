@@ -5,7 +5,7 @@ import {
   FUNNEL_EVENT_NAMES,
   UPSTREAM_URL,
   handleIngest,
-} from "./ph-ingest.server";
+} from "./ph-ingest.server.ts";
 
 const TOKEN = "phc_testtoken1234567890";
 const CONSENT_TS = 1_800_000_000_000;
