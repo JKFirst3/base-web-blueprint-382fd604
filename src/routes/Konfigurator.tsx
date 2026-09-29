@@ -6,6 +6,23 @@ import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
 
 import { captureFunnel, toBusinessModel } from "@/lib/analytics";
 import { currentCampaign } from "@/lib/campaign";
+import { z } from "zod";
+
+const VALUE_OPTIONS = [
+  "Weniger Zeit für Wäsche aufwenden",
+  "Wiederkehrende Hausarbeit reduzieren",
+  "Möglichst lange selbständig im eigenen Zuhause leben",
+  "Weniger Abhängigkeit von Haushaltshilfen",
+  "Schonender und zuverlässigere Textilpflege",
+  "Sonstige",
+] as const;
+
+const answersSchema = z.object({
+  household_size: z.enum(["1", "2", "3-4", "5+"]).nullable(),
+  job_title: z.string().trim().max(100),
+  greatest_value: z.enum(VALUE_OPTIONS).nullable(),
+  greatest_value_other: z.string().trim().max(300),
+}).refine((value) => value.greatest_value !== "Sonstige" || value.greatest_value_other.length > 0);
 
 type PreorderSelection = {
   productId: string;
@@ -36,7 +53,7 @@ const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
     premium: {
       productId: "cabinet",
       productName: "Lavidro Cabinet",
-      family: "Integrierter Wäscheschrank",
+      family: "Autonomer Wäscheschrank",
       tier: "premium",
       price: 21500,
       monthly: 645,
@@ -46,7 +63,7 @@ const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
     standard: {
       productId: "one",
       productName: "Lavidro One",
-      family: "Einzelteilbehandlung im Schrank",
+      family: "Einzelne Wäscheaufbereitung",
       tier: "standard",
       price: 10000,
       monthly: 300,
@@ -62,7 +79,7 @@ function getCatalogSelection(selection: PreorderSelection): PreorderSelection | 
 
 const KONFIGURATOR_TITLE = "Produkt — Lavidro Wäschesysteme im Vergleich";
 const KONFIGURATOR_DESCRIPTION =
-  "Vergleiche die drei Lavidro Lösungen: Mobiler Wäscheassistent, Integrierter Wäscheschrank und Einzelteilbehandlung im Schrank — mit Preisindikation und unverbindlicher Anfrage.";
+  "Vergleiche die drei Lavidro Lösungen: Mobiler Wäscheassistent, Autonomer Wäscheschrank und Einzelne Wäscheaufbereitung — mit Preisindikation und unverbindlicher Anfrage.";
 export const Route = createFileRoute("/Konfigurator")({
   head: () => ({
     meta: [
@@ -72,6 +89,7 @@ export const Route = createFileRoute("/Konfigurator")({
       { property: "og:description", content: KONFIGURATOR_DESCRIPTION },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://lavidro.com/Konfigurator" },
+      { name: "twitter:card", content: "summary" },
     ],
     links: [{ rel: "canonical", href: "https://lavidro.com/Konfigurator" }],
     scripts: [
@@ -88,13 +106,13 @@ export const Route = createFileRoute("/Konfigurator")({
               price: 14000,
             },
             {
-              name: "Integrierter Wäscheschrank",
+              name: "Autonomer Wäscheschrank",
               description:
                 "In den Hauswirtschaftsraum integrierter Lavidro Wäscheschrank für einen automatisierten Wäscheprozess im Hintergrund.",
               price: 21500,
             },
             {
-              name: "Einzelteilbehandlung im Schrank",
+              name: "Einzelne Wäscheaufbereitung",
               description:
                 "Lavidro One behandelt einzelne Kleidungsstücke mit einem Roboterarm im Schrank: gezielte Fleckenbehandlung und Auffrischen von Textilien.",
               price: 10000,
@@ -177,6 +195,10 @@ function PreorderDialog({
 }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [householdSize, setHouseholdSize] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [greatestValue, setGreatestValue] = useState("");
+  const [greatestValueOther, setGreatestValueOther] = useState("");
   const [consent, setConsent] = useState(false);
   const [marketingConsent, setMarketingConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -209,6 +231,16 @@ function PreorderDialog({
       setMessage("Bitte stimmen Sie der Verarbeitung Ihrer Anfrage zu.");
       return;
     }
+    const answers = answersSchema.safeParse({
+      household_size: householdSize || null,
+      job_title: jobTitle,
+      greatest_value: greatestValue || null,
+      greatest_value_other: greatestValue === "Sonstige" ? greatestValueOther : "",
+    });
+    if (!answers.success) {
+      setMessage("Bitte ergänzen oder kürzen Sie Ihre Angaben zu den Zusatzfragen.");
+      return;
+    }
 
     setSubmitting(true);
     setMessage("");
@@ -229,7 +261,8 @@ function PreorderDialog({
           price_eur: selection.price,
           monthly_eur: selection.paymentType === "monthly" ? selection.monthly : null,
           consent,
-           marketing_consent: marketingConsent,
+          marketing_consent: marketingConsent,
+          ...answers.data,
           source: currentCampaign() ?? "configurator",
         }),
         signal: controller.signal,
@@ -271,9 +304,9 @@ function PreorderDialog({
         {success ? (
           <div className="preorder-success">
             <span aria-hidden="true">✓</span>
-            <p className="kicker">Vormerkung eingegangen</p>
-            <h2 id="preorder-title">Ihre unverbindliche Vormerkung ist bei uns eingegangen.</h2>
-            <p>In Entwicklung · Marktstart geplant 2027. Wir prüfen Ihre Vormerkung und informieren Sie über die nächsten Schritte dazu.</p>
+            <p className="kicker">Anfrage eingegangen</p>
+            <h2 id="preorder-title">Ihre unverbindliche Anfrage ist bei uns eingegangen.</h2>
+            <p>In Entwicklung · Marktstart geplant 2027. Wir prüfen Ihre Anfrage und informieren Sie über die nächsten Schritte dazu.</p>
             <PreorderJourney confirmed />
             <button className="primary-button" type="button" onClick={onClose}>
               Schließen
@@ -281,8 +314,8 @@ function PreorderDialog({
           </div>
         ) : (
           <>
-            <p className="kicker">Unverbindliche Vormerkung</p>
-            <h2 id="preorder-title">{selection.productName} vormerken</h2>
+            <p className="kicker">Unverbindliche Anfrage</p>
+            <h2 id="preorder-title">{selection.productName} anfragen</h2>
             <div className="preorder-summary">
               <span>{selection.family}</span>
               <strong>
@@ -320,6 +353,33 @@ function PreorderDialog({
                   required
                 />
               </label>
+              <label>
+                <span>Wie sieht Ihr Haushalt aus? (freiwillig)</span>
+                <select value={householdSize} onChange={(event) => setHouseholdSize(event.target.value)}>
+                  <option value="">Bitte auswählen</option>
+                  <option value="1">1 Person</option>
+                  <option value="2">2 Personen</option>
+                  <option value="3-4">3–4 Personen</option>
+                  <option value="5+">5 oder mehr Personen</option>
+                </select>
+              </label>
+              <label>
+                <span>Ihr Jobtitel (freiwillig)</span>
+                <input type="text" value={jobTitle} onChange={(event) => setJobTitle(event.target.value)} maxLength={100} autoComplete="organization-title" />
+              </label>
+              <label>
+                <span>Was wäre für Sie der größte Mehrwert von Lavidro? (freiwillig)</span>
+                <select value={greatestValue} onChange={(event) => { setGreatestValue(event.target.value); setGreatestValueOther(""); }}>
+                  <option value="">Bitte auswählen</option>
+                  {VALUE_OPTIONS.map((option) => <option key={option} value={option}>{option}</option>)}
+                </select>
+              </label>
+              {greatestValue === "Sonstige" && (
+                <label>
+                  <span>Sonstige – bitte erläutern</span>
+                  <textarea value={greatestValueOther} onChange={(event) => setGreatestValueOther(event.target.value)} maxLength={300} required rows={3} />
+                </label>
+              )}
               <label className="checkbox">
                 <input
                   type="checkbox"
@@ -329,7 +389,7 @@ function PreorderDialog({
                 />
                 <span>
                   Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> zur Kenntnis genommen
-                  und weiß, dass meine Daten zur Bearbeitung der unverbindlichen Vormerkung verarbeitet
+                  und weiß, dass meine Daten zur Bearbeitung der unverbindlichen Anfrage verarbeitet
                   werden.
                 </span>
               </label>
@@ -364,18 +424,18 @@ function PreorderJourney({ confirmed = false }: { confirmed?: boolean }) {
     <ol className="preorder-journey" aria-label="Ihr weiterer Weg mit Lavidro">
       <li>
         <span>Heute</span>
-        <strong>{confirmed ? "Vormerkung eingegangen" : "Vormerkung absenden"}</strong>
+        <strong>{confirmed ? "Anfrage eingegangen" : "Anfrage absenden"}</strong>
         <small>
           {confirmed
             ? "Wir prüfen Ihre Angaben und melden uns persönlich."
-            : "Ihre Vormerkung ist unverbindlich und löst keine Zahlungspflicht aus."}
+            : "Ihre Anfrage ist unverbindlich und löst keine Zahlungspflicht aus."}
         </small>
       </li>
       <li>
         <span>Während der Entwicklung</span>
-        <strong>Bearbeitung der Vormerkung</strong>
+        <strong>Bearbeitung der Anfrage</strong>
         <small>
-          Wir informieren Sie bei Bedarf über die nächsten Schritte Ihrer Vormerkung.
+          Wir informieren Sie bei Bedarf über die nächsten Schritte Ihrer Anfrage.
         </small>
       </li>
       <li>
