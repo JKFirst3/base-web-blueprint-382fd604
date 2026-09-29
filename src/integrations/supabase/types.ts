@@ -207,6 +207,11 @@ export type Database = {
         Row: {
           consent: boolean
           created_at: string
+          doi_confirmed_at: string | null
+          doi_expires_at: string | null
+          doi_sent_at: string | null
+          doi_status: string | null
+          doi_token_hash: string | null
           email: string
           greatest_value: string | null
           greatest_value_other: string | null
@@ -214,6 +219,7 @@ export type Database = {
           id: string
           job_title: string | null
           marketing_consent: boolean
+          marketing_consent_active: boolean
           marketing_consent_at: string | null
           monthly_eur: number | null
           name: string
@@ -224,10 +230,17 @@ export type Database = {
           solution_name: string
           source: string
           tier: string
+          transfer_consent: boolean
+          transfer_consent_at: string | null
         }
         Insert: {
           consent?: boolean
           created_at?: string
+          doi_confirmed_at?: string | null
+          doi_expires_at?: string | null
+          doi_sent_at?: string | null
+          doi_status?: string | null
+          doi_token_hash?: string | null
           email: string
           greatest_value?: string | null
           greatest_value_other?: string | null
@@ -235,6 +248,7 @@ export type Database = {
           id?: string
           job_title?: string | null
           marketing_consent?: boolean
+          marketing_consent_active?: boolean
           marketing_consent_at?: string | null
           monthly_eur?: number | null
           name: string
@@ -245,10 +259,17 @@ export type Database = {
           solution_name: string
           source?: string
           tier: string
+          transfer_consent?: boolean
+          transfer_consent_at?: string | null
         }
         Update: {
           consent?: boolean
           created_at?: string
+          doi_confirmed_at?: string | null
+          doi_expires_at?: string | null
+          doi_sent_at?: string | null
+          doi_status?: string | null
+          doi_token_hash?: string | null
           email?: string
           greatest_value?: string | null
           greatest_value_other?: string | null
@@ -256,6 +277,7 @@ export type Database = {
           id?: string
           job_title?: string | null
           marketing_consent?: boolean
+          marketing_consent_active?: boolean
           marketing_consent_at?: string | null
           monthly_eur?: number | null
           name?: string
@@ -266,6 +288,8 @@ export type Database = {
           solution_name?: string
           source?: string
           tier?: string
+          transfer_consent?: boolean
+          transfer_consent_at?: string | null
         }
         Relationships: []
       }
@@ -319,6 +343,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      confirm_preorder_doi: { Args: { _token_hash: string }; Returns: string }
+      expire_preorder_doi: { Args: never; Returns: number }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
