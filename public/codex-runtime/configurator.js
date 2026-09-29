@@ -30,12 +30,12 @@
     },
     cabinet: {
       title: "Lavidro Cabinet",
-      family: "Integrierter Wäscheschrank",
+      family: "Autonomer Wäscheschrank",
       description:
         "Vollautomatischer Wäscheschrank mit intelligenter Robotik, diskret integriert und für den Prozess vom Sortieren bis zur bereitgestellten Kleidung konzipiert.",
       image: "/__l5e/assets-v1/951a43fb-a953-4e09-b964-5ae22977e862/lavidro-cabinet.png",
       highlights: [
-        "Integrierter Wäscheschrank mit intelligenter Robotik",
+        "Autonomer Wäscheschrank mit intelligenter Robotik",
         "Diskret integriert mit elegantem Möbeldesign",
         "Planungsrichtwert: ab 3 m² bis 5 m² Fläche",
       ],
@@ -49,7 +49,7 @@
     },
     one: {
       title: "Lavidro One",
-      family: "Einzelteilbehandlung im Schrank",
+      family: "Einzelne Wäscheaufbereitung",
       description:
         "Ein Roboterarm im Schrank, der einzelne Kleidungsstücke behandelt: Flecken gezielt vorbehandeln und Textilien zwischendurch auffrischen – ohne komplette Waschladung.",
       image: "/__l5e/assets-v1/d374de19-f828-4b44-8831-d1e221804f08/lavidro-one.png",
@@ -174,7 +174,7 @@
     productImage.alt = `${selectedProduct.title} Produktvorschau`;
     productTitle.textContent = selectedProduct.family;
     productFamily.textContent = selectedProduct.title;
-    panelTitle.textContent = `${selectedProduct.title} konfigurieren`;
+    panelTitle.textContent = selectedProduct.title;
     description.textContent = selectedProduct.description;
     renderLevels();
     renderFeatures();

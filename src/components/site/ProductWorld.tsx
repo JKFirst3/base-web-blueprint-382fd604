@@ -20,14 +20,14 @@ const PRODUCTS: Product[] = [
   {
     id: "cabinet",
     brand: "Lavidro Cabinet",
-    name: "Integrierter Wäscheschrank",
+    name: "Autonomer Wäscheschrank",
     category: "Serie · Cabinet",
     image: "/__l5e/assets-v1/951a43fb-a953-4e09-b964-5ae22977e862/lavidro-cabinet.png",
   },
   {
     id: "one",
     brand: "Lavidro One",
-    name: "Einzelteilbehandlung im Schrank",
+    name: "Einzelne Wäscheaufbereitung",
     category: "Serie · One",
     image: "/__l5e/assets-v1/d374de19-f828-4b44-8831-d1e221804f08/lavidro-one.png",
   },
