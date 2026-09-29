@@ -8,18 +8,16 @@ const CATALOG = [
     description:
       "Mobiler Assistent, der Wäsche sortiert, be- und entlädt und zusammenlegt.",
     tiers: [
-      { tier: "basic", price_eur: 9000, monthly_eur: 270 },
       { tier: "premium", price_eur: 14000, monthly_eur: 420 },
     ],
   },
   {
     solution_id: "cabinet",
     brand: "Lavidro Cabinet",
-    name: "Autonomer Wäscheschrank",
+    name: "Integrierter Wäscheschrank",
     description:
       "Integrierter Wäscheschrank, der den kompletten Wäscheprozess im Hintergrund erledigt.",
     tiers: [
-      { tier: "basic", price_eur: 12500, monthly_eur: 375 },
       { tier: "premium", price_eur: 21500, monthly_eur: 645 },
     ],
   },
@@ -37,7 +35,7 @@ export default defineTool({
   name: "get_product_catalog",
   title: "Produktkatalog abrufen",
   description:
-    "Liefert die Lavidro Lösungen mit Varianten, Kaufpreisen und monatlichen Raten in Euro.",
+    "Liefert die Lavidro Lösungen mit aktuellen Angeboten, Kaufpreisen und monatlichen Raten in Euro.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({

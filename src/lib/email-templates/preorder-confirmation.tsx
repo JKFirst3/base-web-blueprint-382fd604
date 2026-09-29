@@ -77,8 +77,7 @@ export const template = {
     name: 'Max Muster',
     email: 'max@example.com',
     product: 'Integrierter Wäscheschrank',
-    tier: 'Plus',
     paymentMode: 'Einmalzahlung',
-    price: '12.000 €',
+    price: '21.500 €',
   },
 } satisfies TemplateEntry

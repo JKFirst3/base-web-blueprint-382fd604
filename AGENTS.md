@@ -1,1 +1,3 @@
 - Funnel analytics run only via PostHog in src/lib/analytics.ts (5 manual events + separate `page_engagement` diagnostic with whitelisted page_path/visible seconds, all loaded after analytics consent); legacy src/lib/track.ts collector is disabled — why: single source, no double counting, consent-gated.
+
+- Visible offers have no Basic/Premium; internal tier keys `premium` (Mobile, Cabinet) and `standard` (One) stay in client/API catalogs — why: historical records and the existing preorder insert rule accept them, so no migration is needed.

@@ -15,13 +15,13 @@ const RATE_LIMIT = new Map<string, { count: number; resetsAt: number }>();
 
 type CatalogEntry = { name: string; price: number; monthly: number };
 
+// Only currently offered configurations are accepted. Internal tier keys stay
+// compatible with existing records and the database insert rule.
 const PREORDER_CATALOG: Record<string, Record<string, CatalogEntry>> = {
   mobile: {
-    basic: { name: "Lavidro Mobile", price: 9000, monthly: 270 },
     premium: { name: "Lavidro Mobile", price: 14000, monthly: 420 },
   },
   cabinet: {
-    basic: { name: "Lavidro Cabinet", price: 12500, monthly: 375 },
     premium: { name: "Lavidro Cabinet", price: 21500, monthly: 645 },
   },
   one: {
@@ -167,7 +167,6 @@ export const Route = createFileRoute("/api/public/preorders")({
               name,
               email,
               product: solution_name,
-              tier,
               paymentMode:
                 normalizedPaymentType === "monthly" ? "Monatliche Zahlung" : "Einmalzahlung",
               price:
