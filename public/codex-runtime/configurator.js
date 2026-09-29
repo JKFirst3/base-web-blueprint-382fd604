@@ -53,7 +53,7 @@
       title: "Lavidro One",
       family: "Einzelne Wäscheaufbereitung",
       description:
-        "Ein Roboterarm im Schrank, der einzelne Kleidungsstücke behandelt: Flecken gezielt vorbehandeln und Textilien zwischendurch auffrischen – ohne komplette Waschladung.",
+        "Ein Roboterarm im Schrank behandelt einzelne Kleidungsstücke. Er beugt Flecken gezielt vor und frischt Textilien zwischendurch auf, ohne eine komplette Waschladung zu benötigen.",
       image: "/__l5e/assets-v1/d374de19-f828-4b44-8831-d1e221804f08/lavidro-one.png",
       highlights: [
         "Roboterarm im Schrank für die Behandlung einzelner Kleidungsstücke",
@@ -127,7 +127,7 @@
         const available = activeFeatures.includes(feature.key);
         return `
         <li class="${available ? "is-available" : "is-unavailable"}">
-          <span aria-hidden="true">${available ? "✓" : "–"}</span>
+          <span aria-hidden="true">${available ? "✓" : "×"}</span>
           <strong>${feature.label}</strong>
         </li>
       `;
@@ -182,7 +182,7 @@
     panelTitle.textContent = selectedProduct.title;
     description.textContent = selectedProduct.description;
     promise.textContent = selectedKey === "one"
-      ? "Bereitet Ihre schönsten Wäschestücke wieder auf – ganz ohne Waschen."
+      ? "Bereitet Ihre schönsten Wäschestücke wieder auf, ganz ohne Waschen."
       : "Dreckige Wäsche dem System geben und saubere, gefaltete Wäsche zurückbekommen.";
     hygiene.hidden = selectedKey !== "one";
     renderLevels();

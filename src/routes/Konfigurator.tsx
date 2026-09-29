@@ -77,9 +77,9 @@ function getCatalogSelection(selection: PreorderSelection): PreorderSelection | 
   return { ...entry, paymentType: selection.paymentType };
 }
 
-const KONFIGURATOR_TITLE = "Produkt — Lavidro Wäschesysteme im Vergleich";
+const KONFIGURATOR_TITLE = "Produkt | Lavidro Wäschesysteme im Vergleich";
 const KONFIGURATOR_DESCRIPTION =
-  "Vergleiche die drei Lavidro Lösungen: Mobiler Wäscheassistent, Autonomer Wäscheschrank und Einzelne Wäscheaufbereitung — mit Preisindikation und unverbindlicher Anfrage.";
+  "Vergleiche die drei Lavidro Lösungen: Mobiler Wäscheassistent, Autonomer Wäscheschrank und Einzelne Wäscheaufbereitung. Mit Preisindikation und unverbindlicher Anfrage.";
 export const Route = createFileRoute("/Konfigurator")({
   head: () => ({
     meta: [
@@ -359,7 +359,7 @@ function PreorderDialog({
                   <option value="">Bitte auswählen</option>
                   <option value="1">1 Person</option>
                   <option value="2">2 Personen</option>
-                  <option value="3-4">3–4 Personen</option>
+                  <option value="3-4">3 bis 4 Personen</option>
                   <option value="5+">5 oder mehr Personen</option>
                 </select>
               </label>
@@ -372,7 +372,7 @@ function PreorderDialog({
               </label>
               {greatestValue === "Sonstige" && (
                 <label>
-                  <span>Sonstige – bitte erläutern</span>
+                  <span>Sonstige: bitte erläutern</span>
                   <textarea value={greatestValueOther} onChange={(event) => setGreatestValueOther(event.target.value)} maxLength={300} required rows={3} />
                 </label>
               )}
