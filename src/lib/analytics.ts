@@ -58,6 +58,15 @@ type Props = {
     | "Sonstige"
     | null;
   job_title_provided?: boolean;
+  occupation_group?:
+    | "Büro/Verwaltung/Management"
+    | "Technik/Handwerk/Produktion"
+    | "Gesundheit/Pflege/Soziales"
+    | "Bildung/Forschung"
+    | "Handel/Dienstleistungen"
+    | "Ruhestand"
+    | "Anderer Bereich"
+    | null;
 };
 
 const ALLOWED_PROPS = [
@@ -67,6 +76,7 @@ const ALLOWED_PROPS = [
   "household_size",
   "greatest_value",
   "job_title_provided",
+  "occupation_group",
 ] as const;
 // Explicit allow-list of outgoing properties. Everything else is dropped.
 const KEEP_PROPS = new Set<string>([
@@ -235,6 +245,7 @@ function cleanProps(event: FunnelEvent, props: Props) {
     if (typeof props.job_title_provided === "boolean") {
       clean.job_title_provided = props.job_title_provided;
     }
+    if (props.occupation_group) clean.occupation_group = props.occupation_group;
   }
   return clean;
 }

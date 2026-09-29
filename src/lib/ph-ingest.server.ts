@@ -35,7 +35,16 @@ const GREATEST_VALUES = new Set([
   "Schonender und zuverlässigere Textilpflege",
   "Sonstige",
 ]);
-const DEMOGRAPHIC_PROPS = ["household_size", "greatest_value", "job_title_provided"] as const;
+const OCCUPATION_GROUPS = new Set([
+  "Büro/Verwaltung/Management",
+  "Technik/Handwerk/Produktion",
+  "Gesundheit/Pflege/Soziales",
+  "Bildung/Forschung",
+  "Handel/Dienstleistungen",
+  "Ruhestand",
+  "Anderer Bereich",
+]);
+const DEMOGRAPHIC_PROPS = ["household_size", "greatest_value", "job_title_provided", "occupation_group"] as const;
 const FORBIDDEN_FREE_TEXT_PROPS = new Set(["name", "email", "job_title", "greatest_value_other"]);
 const PAGE_PATHS = new Set(["/", "/Konfigurator", "/aboutLavidro", "/kontakt", "/impressum", "/datenschutz", "/anfrage-bestaetigen", "other"]);
 const PRODUCTION_HOSTS = new Set(["lavidro.com", "www.lavidro.com", "base-web-blueprint.lovable.app"]);
@@ -222,6 +231,10 @@ function cleanEvent(raw: unknown, token: string, consentTs: number, origin: stri
     if ("job_title_provided" in p) {
       if (typeof p.job_title_provided !== "boolean") return "invalid";
       out.job_title_provided = p.job_title_provided;
+    }
+    if ("occupation_group" in p) {
+      if (typeof p.occupation_group !== "string" || !OCCUPATION_GROUPS.has(p.occupation_group)) return "invalid";
+      out.occupation_group = p.occupation_group;
     }
   }
   // Server-derived only, never client text.
