@@ -18,11 +18,12 @@ const EVENTS = new Set([
   "purchase_interest_started",
   "purchase_interest_submitted",
   "page_engagement",
+  "purchase_interest_email_confirmed",
 ]);
 const PRODUCT_IDS = new Set(["mobile", "cabinet", "one"]);
 const BUSINESS_MODELS = new Set(["purchase", "subscription"]);
 const ENTRY_TYPES = new Set(["scroll", "direct"]);
-const PAGE_PATHS = new Set(["/", "/Konfigurator", "/aboutLavidro", "/kontakt", "/impressum", "/datenschutz", "other"]);
+const PAGE_PATHS = new Set(["/", "/Konfigurator", "/aboutLavidro", "/kontakt", "/impressum", "/datenschutz", "/anfrage-bestaetigen", "other"]);
 const PRODUCTION_HOSTS = new Set(["lavidro.com", "www.lavidro.com", "base-web-blueprint.lovable.app"]);
 const MAX_PAST_MS = 24 * 60 * 60 * 1000;
 const MAX_FUTURE_MS = 5 * 60 * 1000;

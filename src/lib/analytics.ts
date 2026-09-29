@@ -80,7 +80,9 @@ const FUNNEL_EVENTS = new Set<FunnelEvent>([
 ]);
 // Diagnostic (not part of the 5-step funnel): visible time per page and per session.
 const ENGAGEMENT_EVENT = "page_engagement";
-const OUTGOING_EVENTS = new Set<string>([...FUNNEL_EVENTS, ENGAGEMENT_EVENT]);
+// Separate metric (not a funnel step): DOI confirmed on the confirmation page. No properties.
+const EMAIL_CONFIRMED_EVENT = "purchase_interest_email_confirmed";
+const OUTGOING_EVENTS = new Set<string>([...FUNNEL_EVENTS, ENGAGEMENT_EVENT, EMAIL_CONFIRMED_EVENT]);
 const ONCE_PER_VISIT: FunnelEvent[] = ["landing_page_viewed", "product_area_viewed"];
 const FIRED_KEY = "lv_ph_fired";
 
@@ -245,6 +247,14 @@ export async function captureFunnel(event: FunnelEvent, props: Props = {}) {
   }
 }
 
+/** Only with current analytics consent; sends no properties besides the gate-checked basics. */
+export async function captureEmailConfirmed() {
+  if (typeof window === "undefined" || !analyticsAllowed()) return;
+  const client = await load();
+  if (!client || !analyticsAllowed()) return;
+  client.capture(EMAIL_CONFIRMED_EVENT, {});
+}
+
 function productAreaVisible() {
   const el = document.getElementById("produkt-teaser");
   if (!el) return false;
@@ -332,7 +342,7 @@ export function initAnalytics() {
 // ---------------------------------------------------------------------------
 // page_engagement: visible seconds per page view and running total per session.
 // Only runs while analytics consent exists; nothing is measured before opt-in.
-const PAGE_PATHS = new Set(["/", "/Konfigurator", "/aboutLavidro", "/kontakt", "/impressum", "/datenschutz"]);
+const PAGE_PATHS = new Set(["/", "/Konfigurator", "/aboutLavidro", "/kontakt", "/impressum", "/datenschutz", "/anfrage-bestaetigen"]);
 const PRODUCT_IDS = new Set(["mobile", "cabinet", "one"]);
 const FLUSH_EVERY_MS = 30_000; // periodic flush of visible time
 const MAX_TICK_GAP_MS = 2_000; // ignore gaps (sleep, throttling) beyond one tick
