@@ -127,10 +127,13 @@ function DatenschutzPage() {
             Die Datenverarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
             Interesse an einer technisch fehlerfreien, schnellen und sicheren Bereitstellung unserer
             Website). Soweit Dienstleister personenbezogene Daten in unserem Auftrag verarbeiten,
-            erfolgt dies auf Grundlage eines Vertrags über Auftragsverarbeitung (Art. 28 DSGVO).
-            Übermittlungen in Drittländer erfolgen nur auf Grundlage der in Art. 44 ff. DSGVO
-            vorgesehenen Garantien (z. B. EU-Standardvertragsklauseln oder einer Zertifizierung
-            unter dem EU-US Data Privacy Framework).
+            erfolgt dies auf Grundlage eines Vertrags über Auftragsverarbeitung (Art. 28 DSGVO). Da
+            einzelne der eingesetzten Dienstleister ihren Sitz in Drittländern haben oder dort
+            Rechenzentre betreiben, ist nicht auszuschließen, dass dabei auch personenbezogene Daten
+            in Drittländer (insbesondere die USA) übermittelt werden. Ob und mit welchen Garantien
+            (z. B. EU-Standardvertragsklauseln oder eine Zertifizierung unter dem EU-US Data Privacy
+            Framework) solche Übermittlungen erfolgen dürfen, ist von uns noch vertraglich mit den
+            jeweiligen Anbietern zu prüfen und sicherzustellen.
           </p>
         </section>
 
@@ -346,7 +349,10 @@ function DatenschutzPage() {
             Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem
             Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung
             der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben
-            wir nicht ohne Ihre Einwilligung weiter. Die Verarbeitung dieser Daten erfolgt auf
+            wir nicht für fremde eigene Zwecke weiter. Technisch notwendige Dienstleister können im
+            Rahmen einer Auftragsverarbeitung Zugang zu diesen Daten erhalten (siehe hierzu die
+            Abschnitte „Hosting" und „Datenbank und Backend (Lovable Cloud)"). Die Verarbeitung
+            dieser Daten erfolgt auf
             Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines
             Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich
             ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse
@@ -435,8 +441,10 @@ function DatenschutzPage() {
           <p className="mt-3 text-foreground/80 leading-relaxed">
             Wenn Sie uns per E-Mail kontaktieren, wird Ihre Anfrage inklusive aller daraus
             hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Ihres
-            Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre
-            Einwilligung weiter. Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs.
+            Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht für fremde
+            eigene Zwecke weiter. Technisch notwendige Dienstleister können im Rahmen einer
+            Auftragsverarbeitung Zugang zu diesen Daten erhalten. Die Verarbeitung dieser Daten
+            erfolgt auf Grundlage von Art. 6 Abs.
             1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder
             zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen
             beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung
@@ -461,9 +469,10 @@ function DatenschutzPage() {
             ein. Welche Subunternehmer im Einzelnen eingesetzt werden, an welchen Standorten die
             Daten gespeichert werden und ob dabei Übermittlungen in Drittländer (insbesondere die
             USA) stattfinden, richtet sich nach den Vertrags- und Datenschutzunterlagen des
-            Anbieters. Soweit Daten in Drittländer übermittelt werden, erfolgt dies nur auf
-            Grundlage der in Art. 44 ff. DSGVO vorgesehenen Garantien (z. B. EU-Standardvertragsklauseln
-            oder einer Zertifizierung unter dem EU-US Data Privacy Framework). Rechtsgrundlage ist
+            Anbieters. Ob dabei Übermittlungen in Drittländer (insbesondere die USA) stattfinden und
+            mit welchen Garantien (z. B. EU-Standardvertragsklauseln oder einer Zertifizierung unter
+            dem EU-US Data Privacy Framework) dies gegebenenfalls zulässig wäre, ist von uns noch
+            vertraglich mit dem Anbieter zu prüfen und sicherzustellen. Rechtsgrundlage ist
             unser berechtigtes Interesse an einer sicheren und zuverlässigen Datenbank-Infrastruktur
             (Art. 6 Abs. 1 lit. f DSGVO) bzw. die Durchführung vorvertraglicher Maßnahmen (Art. 6
             Abs. 1 lit. b DSGVO).
