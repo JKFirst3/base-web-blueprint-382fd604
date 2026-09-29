@@ -1,6 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { createClient } from "@supabase/supabase-js";
-import type { Database } from "@/integrations/supabase/types";
 import { z } from "zod";
 
 const valueOptions = ["Weniger Zeit für Wäsche aufwenden", "Wiederkehrende Hausarbeit reduzieren", "Möglichst lange selbständig im eigenen Zuhause leben", "Weniger Abhängigkeit von Haushaltshilfen", "Schonender und zuverlässigere Textilpflege", "Sonstige"] as const;
@@ -142,63 +140,89 @@ export const Route = createFileRoute("/api/public/preorders")({
         const monthly_eur = normalizedPaymentType === "monthly" ? catalogEntry.monthly : null;
         if (!answers.success) return Response.json({ error: "Invalid answers" }, { status: 400 });
 
-        const url = process.env.SUPABASE_URL;
-        const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
-        if (!url || !publishableKey) {
+        if (typeof body.transfer_consent !== "boolean") {
+          return Response.json({ error: "Invalid preorder" }, { status: 400 });
+        }
+        const transferConsent = body.transfer_consent;
+        const nowIso = new Date().toISOString();
+
+        let supabaseAdmin;
+        try {
+          ({ supabaseAdmin } = await import("@/integrations/supabase/client.server"));
+        } catch {
           console.error("[preorders] Backend configuration is unavailable");
           return Response.json({ error: "Service unavailable" }, { status: 503 });
         }
 
-        const backend = createClient<Database>(url, publishableKey, {
-          auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
-        });
+        // Saved first: this is the submitted inquiry (funnel step 5), independent of DOI.
+        const { data: inserted, error } = await supabaseAdmin
+          .from("preorders")
+          .insert({
+            name,
+            email,
+            solution_id,
+            solution_name,
+            tier,
+            size,
+            payment_type: normalizedPaymentType,
+            price_eur,
+            monthly_eur,
+            household_size: answers.data.household_size ?? null,
+            job_title: answers.data.job_title ?? null,
+            greatest_value: answers.data.greatest_value ?? null,
+            greatest_value_other: answers.data.greatest_value_other ?? null,
+            consent: true,
+            // Requested only; becomes active solely through confirm_preorder_doi.
+            marketing_consent: body.marketing_consent,
+            marketing_consent_at: body.marketing_consent ? nowIso : null,
+            marketing_consent_active: false,
+            transfer_consent: transferConsent,
+            transfer_consent_at: transferConsent ? nowIso : null,
+            doi_status: "pending",
+            source,
+          })
+          .select("id")
+          .single();
 
-        const { error } = await backend.from("preorders").insert({
-          name,
-          email,
-          solution_id,
-          solution_name,
-          tier,
-          size,
-          payment_type: normalizedPaymentType,
-          price_eur,
-          monthly_eur,
-          household_size: answers.data.household_size ?? null,
-          job_title: answers.data.job_title ?? null,
-          greatest_value: answers.data.greatest_value ?? null,
-          greatest_value_other: answers.data.greatest_value_other ?? null,
-          consent: true,
-           marketing_consent: body.marketing_consent,
-           marketing_consent_at: body.marketing_consent ? new Date().toISOString() : null,
-          source,
-        });
-
-        if (error) {
-          console.error("[preorders] Insert failed", error.code, error.message);
+        if (error || !inserted) {
+          console.error("[preorders] Insert failed", error?.code);
           return Response.json({ error: "Could not save preorder" }, { status: 500 });
         }
 
-        try {
-          const { sendLoggedTemplateEmail } = await import("@/lib/email/send-logged.server");
-          await sendLoggedTemplateEmail({
-            templateName: "preorder-confirmation",
-            recipientEmail: email,
-            idempotencyKey: `preorder-${email}-${solution_id}-${tier}-${normalizedPaymentType}`,
-            templateData: {
-              name,
-              email,
-              product: solution_name,
-              paymentMode:
-                normalizedPaymentType === "monthly" ? "Monatliche Zahlung" : "Einmalzahlung",
-              price:
-                normalizedPaymentType === "monthly" && monthly_eur
-                   ? `${monthly_eur.toLocaleString("de-DE")} € / Monat, inkl. 19 % MwSt. und Versand`
-                   : `${price_eur.toLocaleString("de-DE")} €, inkl. 19 % MwSt. und Versand`,
+        const { startDoi, confirmBaseUrl } = await import("@/lib/preorder-doi.server");
+        const { sendLoggedTemplateEmail } = await import("@/lib/email/send-logged.server");
+        const id = inserted.id;
+        await startDoi(
+          id,
+          confirmBaseUrl(request.url),
+          {
+            name,
+            product: solution_name,
+            paymentMode: normalizedPaymentType === "monthly" ? "Monatliche Zahlung" : "Einmalzahlung",
+            price:
+              normalizedPaymentType === "monthly" && monthly_eur
+                ? `${monthly_eur.toLocaleString("de-DE")} € / Monat, inkl. 19 % MwSt. und Versand`
+                : `${price_eur.toLocaleString("de-DE")} €, inkl. 19 % MwSt. und Versand`,
+            marketingRequested: body.marketing_consent === true,
+          },
+          {
+            now: () => Date.now(),
+            setPending: async (rowId, doi_token_hash, doi_expires_at) => {
+              const { error: e } = await supabaseAdmin
+                .from("preorders").update({ doi_token_hash, doi_expires_at, doi_status: "pending" }).eq("id", rowId);
+              if (e) throw new Error(e.code);
             },
-          });
-        } catch (mailError) {
-          console.error("[preorders] Confirmation email failed", mailError);
-        }
+            markSent: async (rowId, doi_sent_at) => {
+              await supabaseAdmin.from("preorders").update({ doi_sent_at }).eq("id", rowId);
+            },
+            markSendFailed: async (rowId) => {
+              await supabaseAdmin
+                .from("preorders").update({ doi_status: "send_failed", doi_token_hash: null }).eq("id", rowId);
+            },
+            sendMail: ({ idempotencyKey, templateData }) =>
+              sendLoggedTemplateEmail({ templateName: "preorder-doi", recipientEmail: email, idempotencyKey, templateData }),
+          },
+        );
 
         return new Response(null, { status: 204 });
 
