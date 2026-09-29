@@ -23,6 +23,17 @@ const EVENTS = new Set([
 const PRODUCT_IDS = new Set(["mobile", "cabinet", "one"]);
 const BUSINESS_MODELS = new Set(["purchase", "subscription"]);
 const ENTRY_TYPES = new Set(["scroll", "direct"]);
+const HOUSEHOLD_SIZES = new Set(["1", "2", "3-4", "5+"]);
+const GREATEST_VALUES = new Set([
+  "Weniger Zeit für Wäsche aufwenden",
+  "Wiederkehrende Hausarbeit reduzieren",
+  "Möglichst lange selbständig im eigenen Zuhause leben",
+  "Weniger Abhängigkeit von Haushaltshilfen",
+  "Schonender und zuverlässigere Textilpflege",
+  "Sonstige",
+]);
+const DEMOGRAPHIC_PROPS = ["household_size", "greatest_value", "job_title_provided"] as const;
+const FORBIDDEN_FREE_TEXT_PROPS = new Set(["name", "email", "job_title", "greatest_value_other"]);
 const PAGE_PATHS = new Set(["/", "/Konfigurator", "/aboutLavidro", "/kontakt", "/impressum", "/datenschutz", "/anfrage-bestaetigen", "other"]);
 const PRODUCTION_HOSTS = new Set(["lavidro.com", "www.lavidro.com", "base-web-blueprint.lovable.app"]);
 const MAX_PAST_MS = 24 * 60 * 60 * 1000;
@@ -175,6 +186,23 @@ function cleanEvent(raw: unknown, token: string, consentTs: number, origin: stri
   if (typeof p.product_id === "string" && PRODUCT_IDS.has(p.product_id)) out.product_id = p.product_id;
   if (typeof p.business_model === "string" && BUSINESS_MODELS.has(p.business_model)) out.business_model = p.business_model;
   if (typeof p.entry_type === "string" && ENTRY_TYPES.has(p.entry_type)) out.entry_type = p.entry_type;
+  if ([...FORBIDDEN_FREE_TEXT_PROPS].some((key) => key in p)) return "invalid";
+  const hasDemographics = DEMOGRAPHIC_PROPS.some((key) => key in p);
+  if (hasDemographics && e.event !== "purchase_interest_submitted") return "invalid";
+  if (e.event === "purchase_interest_submitted") {
+    if ("household_size" in p) {
+      if (typeof p.household_size !== "string" || !HOUSEHOLD_SIZES.has(p.household_size)) return "invalid";
+      out.household_size = p.household_size;
+    }
+    if ("greatest_value" in p) {
+      if (typeof p.greatest_value !== "string" || !GREATEST_VALUES.has(p.greatest_value)) return "invalid";
+      out.greatest_value = p.greatest_value;
+    }
+    if ("job_title_provided" in p) {
+      if (typeof p.job_title_provided !== "boolean") return "invalid";
+      out.job_title_provided = p.job_title_provided;
+    }
+  }
   // Server-derived only, never client text.
   out.site_environment = PRODUCTION_HOSTS.has(host) ? "production" : "preview";
   out.site_host = host;

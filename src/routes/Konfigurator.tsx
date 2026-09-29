@@ -275,6 +275,9 @@ function PreorderDialog({
       void captureFunnel("purchase_interest_submitted", {
         product_id: selection.productId,
         business_model: toBusinessModel(selection.paymentType),
+        household_size: answers.data.household_size,
+        greatest_value: answers.data.greatest_value,
+        job_title_provided: answers.data.job_title.length > 0,
       });
       setSuccess(true);
     } catch (error) {
