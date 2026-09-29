@@ -28,13 +28,13 @@ type CatalogEntry = { name: string; price: number; monthly: number };
 // compatible with existing records and the database insert rule.
 const PREORDER_CATALOG: Record<string, Record<string, CatalogEntry>> = {
   mobile: {
-    premium: { name: "Lavidro Mobile", price: 14000, monthly: 420 },
+    premium: { name: "Lavidro Mobile", price: 22990, monthly: 469 },
   },
   cabinet: {
-    premium: { name: "Lavidro Cabinet", price: 21500, monthly: 645 },
+    premium: { name: "Lavidro Cabinet", price: 20449, monthly: 390 },
   },
   one: {
-    standard: { name: "Lavidro One", price: 10000, monthly: 300 },
+    standard: { name: "Lavidro One", price: 8990, monthly: 199 },
   },
 } as const;
 

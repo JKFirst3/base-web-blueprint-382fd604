@@ -23,7 +23,8 @@
       levels: {
         premium: {
           note: "Mehr Automatisierung für den vollständigen Ablauf",
-          price: 14000,
+          price: 22990,
+          monthly: 469,
           features: ["sort", "wash", "fold", "provide"],
         },
       },
@@ -42,7 +43,8 @@
       levels: {
         premium: {
           note: "Planungsrichtwert ab 5 m² Fläche",
-          price: 21500,
+          price: 20449,
+          monthly: 390,
           features: ["sort", "wash", "fold", "provide"],
         },
       },
@@ -61,7 +63,8 @@
       levels: {
         standard: {
           note: "Fleckenbehandlung und Auffrischen einzelner Kleidungsstücke",
-          price: 10000,
+          price: 8990,
+          monthly: 199,
           features: ["refresh", "stain"],
         },
       },
@@ -94,8 +97,6 @@
   const compareDialog = document.querySelector("[data-compare-dialog]");
   const openCompareButtons = document.querySelectorAll("[data-open-compare]");
   const closeCompareButton = document.querySelector("[data-close-compare]");
-
-  const monthlyRate = (amount) => Math.round((amount / 36) * 1.08);
 
   const selectedFinance = () => (form ? new FormData(form).get("finance") : null);
 
@@ -137,8 +138,9 @@
   const renderPrices = () => {
     const level = selectedProduct.levels[selectedLevelKey];
     priceUpfront.textContent = `${level.price.toLocaleString("de-DE")} €`;
-    priceMonthly.textContent = `${monthlyRate(level.price).toLocaleString("de-DE")} € / Monat`;
+    priceMonthly.textContent = `${level.monthly.toLocaleString("de-DE")} € / Monat`;
     const finance = selectedFinance();
+
     priceUpfront.closest("p")?.classList.toggle("is-selected", finance === "cash");
     priceMonthly.closest("p")?.classList.toggle("is-selected", finance === "monthly");
     if (buyButton) {
@@ -160,7 +162,8 @@
           <img src="${product.image}" alt="Produktansicht: ${product.title}">
           <p class="kicker">${product.title}</p>
           <h3>${product.family}</h3>
-          <p>${level.price.toLocaleString("de-DE")} € oder ${monthlyRate(level.price).toLocaleString("de-DE")} € / Monat im Abo</p>
+          <p>${level.monthly.toLocaleString("de-DE")} € / Monat im Abo oder ${level.price.toLocaleString("de-DE")} € Kaufpreis</p>
+
           <ul>
             ${product.highlights.map((highlight) => `<li>${highlight}</li>`).join("")}
           </ul>
@@ -215,7 +218,8 @@
           family: selectedProduct.family,
           tier: selectedLevelKey,
           price: level.price,
-          monthly: monthlyRate(level.price),
+          monthly: level.monthly,
+
           paymentType: selectedFinance() === "cash" ? "upfront" : "monthly",
         },
       }),

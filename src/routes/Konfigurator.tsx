@@ -45,8 +45,8 @@ const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
       productName: "Lavidro Mobile",
       family: "Mobiler Wäscheassistent",
       tier: "premium",
-      price: 14000,
-      monthly: 420,
+      price: 22990,
+      monthly: 469,
     },
   },
   cabinet: {
@@ -55,8 +55,8 @@ const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
       productName: "Lavidro Cabinet",
       family: "Autonomer Wäscheschrank",
       tier: "premium",
-      price: 21500,
-      monthly: 645,
+      price: 20449,
+      monthly: 390,
     },
   },
   one: {
@@ -65,8 +65,8 @@ const preorderCatalog: Record<string, Record<string, CatalogEntry>> = {
       productName: "Lavidro One",
       family: "Einzelne Wäscheaufbereitung",
       tier: "standard",
-      price: 10000,
-      monthly: 300,
+      price: 8990,
+      monthly: 199,
     },
   },
 };
@@ -103,19 +103,19 @@ export const Route = createFileRoute("/Konfigurator")({
               name: "Mobiler Wäscheassistent",
               description:
                 "Mobiler Lavidro Wäscheassistent, der Wäsche im Haushalt sortiert, ein- und ausräumt.",
-              price: 14000,
+              price: 22990,
             },
             {
               name: "Autonomer Wäscheschrank",
               description:
                 "In den Hauswirtschaftsraum integrierter Lavidro Wäscheschrank für einen automatisierten Wäscheprozess im Hintergrund.",
-              price: 21500,
+              price: 20449,
             },
             {
               name: "Einzelne Wäscheaufbereitung",
               description:
                 "Lavidro One behandelt einzelne Kleidungsstücke mit einem Roboterarm im Schrank: gezielte Fleckenbehandlung und Auffrischen von Textilien.",
-              price: 10000,
+              price: 8990,
             },
           ].map((p, index) => ({
             "@type": "ListItem",
@@ -364,10 +364,6 @@ function PreorderDialog({
                 </select>
               </label>
               <label>
-                <span>Ihr Jobtitel (freiwillig)</span>
-                <input type="text" value={jobTitle} onChange={(event) => setJobTitle(event.target.value)} maxLength={100} autoComplete="organization-title" />
-              </label>
-              <label>
                 <span>Was wäre für Sie der größte Mehrwert von Lavidro? (freiwillig)</span>
                 <select value={greatestValue} onChange={(event) => { setGreatestValue(event.target.value); setGreatestValueOther(""); }}>
                   <option value="">Bitte auswählen</option>
@@ -380,6 +376,10 @@ function PreorderDialog({
                   <textarea value={greatestValueOther} onChange={(event) => setGreatestValueOther(event.target.value)} maxLength={300} required rows={3} />
                 </label>
               )}
+              <label>
+                <span>Ihr Jobtitel (freiwillig)</span>
+                <input type="text" value={jobTitle} onChange={(event) => setJobTitle(event.target.value)} maxLength={100} autoComplete="organization-title" />
+              </label>
               <label className="checkbox">
                 <input
                   type="checkbox"

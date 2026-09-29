@@ -8,7 +8,7 @@ const CATALOG = [
     description:
       "Mobiler Assistent, der Wäsche sortiert, be- und entlädt und zusammenlegt.",
     tiers: [
-      { tier: "premium", price_eur: 14000, monthly_eur: 420 },
+      { tier: "premium", price_eur: 22990, monthly_eur: 469 },
     ],
   },
   {
@@ -18,7 +18,7 @@ const CATALOG = [
     description:
       "Autonomer Wäscheschrank, der den kompletten Wäscheprozess im Hintergrund erledigt.",
     tiers: [
-      { tier: "premium", price_eur: 21500, monthly_eur: 645 },
+      { tier: "premium", price_eur: 20449, monthly_eur: 390 },
     ],
   },
   {
@@ -27,7 +27,7 @@ const CATALOG = [
     name: "Einzelne Wäscheaufbereitung",
     description:
       "Roboterarm im Schrank zur gezielten Fleckenbehandlung und zum Auffrischen einzelner Kleidungsstücke.",
-    tiers: [{ tier: "standard", price_eur: 10000, monthly_eur: 300 }],
+    tiers: [{ tier: "standard", price_eur: 8990, monthly_eur: 199 }],
   },
 ];
 
