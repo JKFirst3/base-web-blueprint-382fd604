@@ -129,7 +129,7 @@ function DatenschutzPage() {
             Website). Soweit Dienstleister personenbezogene Daten in unserem Auftrag verarbeiten,
             erfolgt dies auf Grundlage eines Vertrags über Auftragsverarbeitung (Art. 28 DSGVO). Da
             einzelne der eingesetzten Dienstleister ihren Sitz in Drittländern haben oder dort
-            Rechenzentre betreiben, ist nicht auszuschließen, dass dabei auch personenbezogene Daten
+            Rechenzentren betreiben, ist nicht auszuschließen, dass dabei auch personenbezogene Daten
             in Drittländer (insbesondere die USA) übermittelt werden. Ob und mit welchen Garantien
             (z. B. EU-Standardvertragsklauseln oder eine Zertifizierung unter dem EU-US Data Privacy
             Framework) solche Übermittlungen erfolgen dürfen, ist von uns noch vertraglich mit den
