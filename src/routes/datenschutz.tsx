@@ -6,9 +6,9 @@ export const Route = createFileRoute("/datenschutz")({
   head: () => ({
     meta: [
       { title: "Datenschutz — Lavidro" },
-      { name: "description", content: "Datenschutzerklärung von Lavidro: Welche Daten wir bei Anfragen, Vorbestellungen und der Nutzungsanalyse verarbeiten und welche Rechte du hast." },
+      { name: "description", content: "Datenschutzerklärung von Lavidro: Welche Daten wir bei Newsletter, unverbindlichen Anfragen und der Nutzungsanalyse mit PostHog verarbeiten und welche Rechte du hast." },
       { property: "og:title", content: "Datenschutz — Lavidro" },
-      { property: "og:description", content: "Datenschutzerklärung von Lavidro: Welche Daten wir bei Anfragen, Vorbestellungen und der Nutzungsanalyse verarbeiten und welche Rechte du hast." },
+      { property: "og:description", content: "Datenschutzerklärung von Lavidro: Welche Daten wir bei Newsletter, unverbindlichen Anfragen und der Nutzungsanalyse mit PostHog verarbeiten und welche Rechte du hast." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://lavidro.com/datenschutz" },
       { name: "twitter:card", content: "summary" },
@@ -24,7 +24,7 @@ function DatenschutzPage() {
       <Header />
       <main className="mx-auto max-w-3xl px-4 pt-32 pb-20 sm:px-6 lg:px-8">
         <h1 className="font-display text-4xl font-bold tracking-tight">Datenschutzerklärung</h1>
-        <p className="mt-4 text-sm text-foreground/60">Stand: September 2026</p>
+        <p className="mt-4 text-sm text-foreground/60">Stand: 29. September 2026</p>
 
         {/* 1. Datenschutz auf einen Blick */}
         <section className="mt-12">
@@ -422,7 +422,7 @@ function DatenschutzPage() {
 
           <h3 className="mt-6 font-display text-lg font-semibold">Bestätigungs-E-Mails</h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
-            Nach einer Anmeldung oder unverbindlichen Vorbestellung senden wir eine Bestätigungs-E-Mail
+            Nach einer Newsletter-Anmeldung oder einer unverbindlichen Anfrage senden wir eine Bestätigungs-E-Mail
             mit einer Zusammenfassung der übermittelten Angaben. Hierfür verarbeiten wir insbesondere
             Ihre E-Mail-Adresse, Ihren Namen und die jeweiligen Anfrage- oder Produktdaten. Der Versand
             dient der Bearbeitung Ihrer Anfrage beziehungsweise der Durchführung vorvertraglicher
