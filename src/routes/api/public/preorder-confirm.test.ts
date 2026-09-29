@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
-import { allowedOrigin, isRateLimited } from "./preorder-confirm.ts";
+import { allowedOrigin, isRateLimited } from "../../../lib/preorder-confirm.security.ts";
 
 describe("preorder confirmation request checks", () => {
   test("accepts the exact request origin", () => {

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { captureEmailConfirmed } from "@/lib/analytics";
-import { tokenFromLocationHash } from "@/lib/preorder-doi.server";
+import { tokenFromLocationHash } from "@/lib/preorder-doi-token";
 
 export const Route = createFileRoute("/anfrage-bestaetigen")({
   headers: () => ({ "Referrer-Policy": "no-referrer", "Cache-Control": "no-store" }),

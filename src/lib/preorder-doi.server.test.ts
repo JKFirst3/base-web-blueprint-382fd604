@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
-import { startDoi, tokenFromLocationHash } from "./preorder-doi.server.ts";
+import { startDoi } from "./preorder-doi.server.ts";
+import { tokenFromLocationHash } from "./preorder-doi-token.ts";
 
 describe("DOI token transport", () => {
   test("reads a token from the fragment", () => {
