@@ -187,7 +187,6 @@ const english: Record<string, string> = {
   Variante: "Variant",
   Funktionsumfang: "Features",
   Anfragen: "Request",
-  "Wäsche. Einfach. Fertig.": "Laundry. Simply. Done.",
   "Dreckige Wäsche dem System geben und saubere, gefaltete Wäsche zurückbekommen.": "Hand dirty laundry to the system and get clean, folded laundry back.",
   "Bereitet Ihre schönsten Wäschestücke wieder auf, ganz ohne Waschen.": "Refreshes your favourite garments without washing.",
   "Entwicklungsziel: 99 % der Bakterien und Gerüche entfernen.": "Development goal: remove 99% of bacteria and odours.",
