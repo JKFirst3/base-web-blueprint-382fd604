@@ -23,7 +23,18 @@ const PRODUCT_IDS = new Set(["mobile", "cabinet", "one"]);
 const BUSINESS_MODELS = new Set(["purchase", "subscription"]);
 const ENTRY_TYPES = new Set(["scroll", "direct"]);
 const PAGE_PATHS = new Set(["/", "/Konfigurator", "/aboutLavidro", "/kontakt", "/impressum", "/datenschutz", "other"]);
-const SITE_ENVS = new Set(["preview", "production"]);
+const PRODUCTION_HOSTS = new Set(["lavidro.com", "www.lavidro.com", "base-web-blueprint.lovable.app"]);
+const MAX_PAST_MS = 24 * 60 * 60 * 1000;
+const MAX_FUTURE_MS = 5 * 60 * 1000;
+const ISO_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-]\d{2}:\d{2})$/;
+
+/** Strict ISO-8601 timestamp within [now-24h, now+5min], else undefined. */
+export function validTimestamp(v: unknown, now: number): string | undefined {
+  if (typeof v !== "string" || !ISO_RE.test(v)) return undefined;
+  const t = Date.parse(v);
+  if (!Number.isFinite(t) || t < now - MAX_PAST_MS || t > now + MAX_FUTURE_MS) return undefined;
+  return new Date(t).toISOString();
+}
 // Opaque SDK identifiers / metadata: short plain strings only.
 const ID_PROPS = ["distinct_id", "$session_id", "$window_id", "$device_id", "$insert_id", "$lib", "$lib_version"];
 const ID_RE = /^[A-Za-z0-9._:\-]{1,100}$/;
@@ -130,16 +141,17 @@ function stripUrl(v: unknown, origin: string): string | undefined {
   if (typeof v !== "string") return undefined;
   try {
     const u = new URL(v);
-    if (u.origin !== origin) return undefined;
-    return `${u.origin}${u.pathname}`.slice(0, 300);
+    // Only same-origin, known site paths; query and fragment are always removed.
+    if (u.origin !== origin || u.pathname === "other" || !PAGE_PATHS.has(u.pathname)) return undefined;
+    return `${u.origin}${u.pathname}`;
   } catch {
     return undefined;
   }
 }
 
-type CleanEvent = { event: string; properties: Record<string, unknown>; uuid?: string; timestamp?: string };
+type CleanEvent = { event: string; distinct_id: string; properties: Record<string, unknown>; uuid?: string; timestamp?: string };
 
-function cleanEvent(raw: unknown, token: string, consentTs: number, origin: string, host: string):
+function cleanEvent(raw: unknown, token: string, consentTs: number, origin: string, host: string, now: number):
   | CleanEvent
   | "stale"
   | "invalid" {
@@ -162,8 +174,9 @@ function cleanEvent(raw: unknown, token: string, consentTs: number, origin: stri
   if (typeof p.product_id === "string" && PRODUCT_IDS.has(p.product_id)) out.product_id = p.product_id;
   if (typeof p.business_model === "string" && BUSINESS_MODELS.has(p.business_model)) out.business_model = p.business_model;
   if (typeof p.entry_type === "string" && ENTRY_TYPES.has(p.entry_type)) out.entry_type = p.entry_type;
-  if (typeof p.site_environment === "string" && SITE_ENVS.has(p.site_environment)) out.site_environment = p.site_environment;
-  out.site_host = host; // server-derived, never client text
+  // Server-derived only, never client text.
+  out.site_environment = PRODUCTION_HOSTS.has(host) ? "production" : "preview";
+  out.site_host = host;
   if (e.event === "page_engagement") {
     if (typeof p.page_path !== "string" || !PAGE_PATHS.has(p.page_path)) return "invalid";
     const s = p.visible_seconds;
@@ -171,16 +184,18 @@ function cleanEvent(raw: unknown, token: string, consentTs: number, origin: stri
     out.page_path = p.page_path;
     out.visible_seconds = s;
   }
-  const clean: CleanEvent = { event: e.event, properties: out };
+  // Top-level distinct_id (required by the capture API) mirrors the validated property.
+  const clean: CleanEvent = { event: e.event, distinct_id: out.distinct_id as string, properties: out };
   if (typeof e.uuid === "string" && /^[0-9a-f-]{36}$/i.test(e.uuid)) clean.uuid = e.uuid;
-  if (typeof e.timestamp === "string" && e.timestamp.length <= 40) clean.timestamp = e.timestamp;
+  const ts = validTimestamp(e.timestamp, now);
+  if (ts) clean.timestamp = ts;
   return clean;
 }
 
 export async function handleIngest(
   request: Request,
   splat: string,
-  deps: { token: string | null; fetchUpstream: (url: string, init: RequestInit) => Promise<Response> },
+  deps: { token: string | null; now?: () => number; fetchUpstream: (url: string, init: RequestInit) => Promise<Response> },
 ): Promise<GateResult> {
   // Only POST capture is forwarded; any other SDK path/method is answered locally, no upstream call.
   if (request.method !== "POST" || splat.replace(/^\/+|\/+$/g, "") !== "e") return drop("dropped_path");
@@ -194,10 +209,11 @@ export async function handleIngest(
   const items = parseBody(text);
   if (!items || items.length === 0 || items.length > MAX_EVENTS) return drop("dropped_invalid");
   const url = new URL(request.url);
+  const now = (deps.now ?? Date.now)();
   const batch: CleanEvent[] = [];
   let stale = false;
   for (const it of items) {
-    const r = cleanEvent(it, token, consentTs, url.origin, url.hostname);
+    const r = cleanEvent(it, token, consentTs, url.origin, url.hostname, now);
     if (r === "stale") stale = true;
     else if (r !== "invalid") batch.push(r);
   }
