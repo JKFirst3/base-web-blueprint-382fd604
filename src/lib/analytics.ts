@@ -1,9 +1,11 @@
 // Consent-gated PostHog funnel tracking (5 manual events only). No PII.
 // PostHog JS is loaded dynamically only after explicit analytics consent.
 import type { PostHog } from "posthog-js";
-import { analyticsAllowed, deleteCookie, readCookie } from "./consent";
+import { analyticsAllowed, deleteCookie, readConsent, readCookie } from "./consent";
 
-const INGEST_HOSTS = new Set(["https://eu.i.posthog.com", "https://us.i.posthog.com"]);
+// The browser never talks to PostHog directly: all capture goes through the same-origin
+// consent gate, which re-checks consent (and its generation) on every request, incl. SDK retries.
+const INGEST_PATH = "/api/public/ph-ingest";
 
 /** Same-origin public config fetch (no auth middleware). Logs only non-sensitive diagnostics. */
 async function fetchPosthogConfig(): Promise<{ token: string; host: string } | null> {
@@ -20,7 +22,7 @@ async function fetchPosthogConfig(): Promise<{ token: string; host: string } | n
     }
     const data = (await res.json()) as { token?: unknown; host?: unknown; reason?: unknown };
     const token = typeof data.token === "string" && data.token.startsWith("phc_") ? data.token : null;
-    const host = typeof data.host === "string" && INGEST_HOSTS.has(data.host) ? data.host : null;
+    const host = data.host === INGEST_PATH ? `${window.location.origin}${INGEST_PATH}` : null;
     if (!token || !host) {
       console.warn(`[analytics] config unavailable (${typeof data.reason === "string" ? data.reason : "invalid_config"})`);
       return null;
@@ -64,6 +66,7 @@ const KEEP_PROPS = new Set<string>([
   "$current_url", // query/fragment stripped below
   "$geoip_disable", // forced true below
   "$process_person_profile", // forced false below
+  "consent_ts", // consent generation; checked and removed by the same-origin gate
   // page_engagement diagnostics only (whitelisted path, numeric seconds)
   "page_path",
   "visible_seconds",
@@ -167,6 +170,7 @@ async function load(): Promise<PostHog | null> {
       disable_capture_url_hashes: true,
       save_referrer: false,
       request_batching: false,
+      disable_compression: true, // plain JSON so the gate can verify every payload
       persistence: "localStorage+cookie",
       before_send: (event) => {
         if (!event) return null;
@@ -191,7 +195,11 @@ async function load(): Promise<PostHog | null> {
       posthog.opt_out_capturing();
       return null;
     }
-    posthog.register({ site_environment: siteEnvironment(host), site_host: host });
+    const consentTs = readConsent()?.ts;
+    if (typeof consentTs !== "number") return null;
+    // Stamp the consent generation on every event; the gate drops events whose stamp
+    // differs from the current consent cookie, so a re-consent never revives old retries.
+    posthog.register({ site_environment: siteEnvironment(host), site_host: host, consent_ts: consentTs });
     if (posthog.has_opted_out_capturing()) posthog.opt_in_capturing();
     ph = posthog;
     return ph;
@@ -298,18 +306,15 @@ function onConsentChanged() {
   consentEpoch++;
   retry.clear();
   firedInMemory.clear();
-  const hadClient = ph !== null;
   if (ph) {
     ph.opt_out_capturing();
     ph.reset();
     ph = null; // a later re-consent re-inits via load()
   }
   wipePosthogStorage();
-  // Strict withdrawal boundary: in our local test, opt_out_capturing() did not stop retries
-  // of events captured before withdrawal (cf. posthog-js #5020). Reloading the page discards
-  // the in-memory retry queue; our test with delayed/failed responses showed no further
-  // PostHog requests after the reload.
-  if (hadClient) window.location.reload();
+  // No reload: SDK retries of earlier events may still be attempted, but they go only to the
+  // same-origin gate, which drops them (analytics:false, or stale consent_ts after re-consent).
+  // A request that already reached PostHog before withdrawal cannot be recalled.
 }
 
 /** Call once on the client (from a useEffect). */
