@@ -25,3 +25,8 @@
 - [x] Drei streng begrenzte demografische Eigenschaften für `purchase_interest_submitted` freigeben
 - [x] Ablehnung unbekannter/freier Analysewerte sowie unveränderten Funnel automatisiert prüfen
 - [x] Test- und Build-Belege sowie offene Rechtsfragen ausdrücklich dokumentieren
+
+- [ ] DOI nur aus URL-Fragment lesen und Bestätigungs-POST strikt auf Same-Origin begrenzen
+- [ ] DOI-Limit ohne vertrauenswürdige Plattform-IP nicht unter einem Sammelschlüssel anwenden
+- [ ] Bei `setPending`-Fehler bestmöglich `send_failed` setzen
+- [ ] DOI-Sicherheitsfälle automatisiert sowie Typprüfung und Build prüfen
