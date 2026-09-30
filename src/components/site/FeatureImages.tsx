@@ -1,4 +1,4 @@
-import mobilImage from "@/assets/design-das-sich-einfuegt.png.asset.json";
+import mobilImage from "@/assets/konfigurator-mobil.png.asset.json";
 import praezision from "@/assets/praezision-uebernimmt.png.asset.json";
 import qualitaet from "@/assets/qualitaet-bleibt.png.asset.json";
 
