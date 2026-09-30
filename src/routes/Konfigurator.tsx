@@ -336,12 +336,11 @@ function PreorderDialog({
             <h2 id="preorder-title">Ihre unverbindliche Anfrage ist bei uns eingegangen.</h2>
             <p>
               {emailStatus === "sent" &&
-                "Wir haben Ihnen eine E-Mail geschickt. Bitte bestätigen Sie darin Ihre E-Mail-Adresse. "}
+                "Wir haben Ihnen eine E-Mail geschickt. Bitte bestätigen Sie darin Ihre E-Mail-Adresse."}
               {emailStatus === "processing" &&
                 "Ihre Anfrage wurde gespeichert. Der Versand der Bestätigungs-E-Mail wird noch verarbeitet. "}
               {emailStatus === "send_failed" &&
                 "Ihre Anfrage wurde gespeichert, die Bestätigungs-E-Mail konnte jedoch nicht versendet werden. Wir kümmern uns um Ihre Anfrage. "}
-              In Entwicklung · Marktstart geplant 2027.
             </p>
             <PreorderJourney confirmed />
             <button className="primary-button" type="button" onClick={onClose}>

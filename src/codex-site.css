@@ -1734,6 +1734,15 @@ legend {
   color: var(--muted);
 }
 
+.preorder-success .primary-button {
+  min-width: 180px;
+  min-height: 56px;
+  padding: 14px 32px;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
 .preorder-journey {
   width: 100%;
   display: grid;
