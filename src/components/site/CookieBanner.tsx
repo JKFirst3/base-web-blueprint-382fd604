@@ -162,7 +162,7 @@ export function CookieBanner() {
                   zum Kaufinteresse inklusive der Wahl zwischen Kaufpreis und Abo sowie die sichtbare
                   Aufenthaltsdauer je Seite. Bei gekennzeichneten Anzeigenlinks gehört dazu auch die
                   fest vorgegebene Kampagnenkennung. Beim Absenden werden nur Haushaltsgröße, eine fest
-                  vorgegebene Mehrwert-Kategorie, eine freiwillig gewählte grobe Berufskategorie und
+                  vorgegebene Mehrwert-Kategorie und
                   die Angabe, ob ein Jobtitel ausgefüllt wurde, ausgewertet. Keine Namen,
                   E-Mail-Adressen oder Freitexte. Jederzeit widerrufbar.
                 </p>

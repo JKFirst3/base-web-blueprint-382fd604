@@ -223,8 +223,7 @@ function DatenschutzPage() {
             erlaubt. Für LAVIDRO sind dies nach dem aktuellen technischen Stand insbesondere Lovable
             Labs AB für Websitebetrieb, verwaltete Datenbank und E-Mail-Versand, die innerhalb der
             Lovable-Cloud eingesetzte Datenbanktechnik von Supabase sowie – ausschließlich nach
-            Analyse-Einwilligung – PostHog. Eine zukünftige Ausgründung erhält Daten nur auf Grundlage
-            der gesonderten freiwilligen Einwilligung, die weiter unten vollständig wiedergegeben ist.
+            Analyse-Einwilligung – PostHog.
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">
@@ -405,12 +404,10 @@ function DatenschutzPage() {
             Wenn Sie auf der Produktseite über „Anfragen“ unverbindlich Ihr Kaufinteresse
             mitteilen, verarbeiten wir Ihren Namen, Ihre E-Mail-Adresse, das ausgewählte Produkt,
             die gewählte Variante zwischen Kauf und Abo, die zum Zeitpunkt der Anfrage angezeigte
-            Preisindikation, optional Ihre Angaben zur Haushaltsgröße, zum Jobtitel, zum Berufsfeld und zum größten
+            Preisindikation, optional Ihre Angaben zur Haushaltsgröße, zum Jobtitel und zum größten
             Mehrwert (bei „Sonstige“ gegebenenfalls mit Freitext), die Bestätigung, dass Sie die
             Datenschutzhinweise zur Kenntnis genommen haben, gegebenenfalls Ihre freiwillige
-            Einwilligung in zusätzliche Produktinformationen samt Zeitpunkt, Ihre Entscheidung zur
-            optionalen Weitergabe an eine spätere Ausgründung samt Zeitpunkt bei einer Einwilligung
-            sowie den Zeitpunkt und die Quelle der Anfrage (z. B. Produktseite oder eine bestimmte
+            Einwilligung in zusätzliche Produktinformationen samt Zeitpunkt sowie den Zeitpunkt und die Quelle der Anfrage (z. B. Produktseite oder eine bestimmte
             Kampagne).
           </p>
           <p className="mt-4 text-foreground/80 leading-relaxed">
@@ -420,9 +417,8 @@ function DatenschutzPage() {
             Namen, E-Mail-Adressen, Jobtitel und freie Antworten werden nicht an den Analysedienst
             übermittelt. Nur nach Ihrer gesonderten Analyse-Einwilligung können beim erfolgreichen
             Absenden die ausgewählte Haushaltsgrößen-Kategorie, die ausgewählte vordefinierte
-            Mehrwert-Kategorie (bei „Sonstige“ nur diese Kategorie), die freiwillig gewählte grobe
-            Berufskategorie und die Angabe, ob das Jobtitel-Feld ausgefüllt wurde, ohne den
-            eingegebenen Text ausgewertet werden. Das Berufsfeld wird nicht aus dem Jobtitel abgeleitet.
+            Mehrwert-Kategorie (bei „Sonstige“ nur diese Kategorie) und die Angabe, ob das Jobtitel-Feld ausgefüllt wurde, ohne den
+            eingegebenen Text ausgewertet werden.
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">
@@ -449,25 +445,6 @@ function DatenschutzPage() {
             jedoch erst nach erfolgreicher Bestätigung aktiviert.
           </p>
 
-          <h3 className="mt-6 font-display text-lg font-semibold">
-            Optionale Weitergabe an eine spätere Ausgründung
-          </h3>
-          <p className="mt-3 text-foreground/80 leading-relaxed">
-            Nur wenn Sie die gesonderte, nicht vorausgewählte Einwilligung aktiv erteilen, speichern
-            wir diese Entscheidung und den Zeitpunkt der Einwilligung. Der Wortlaut lautet:
-          </p>
-          <blockquote className="mt-4 border-l-2 border-border pl-4 text-foreground/80 leading-relaxed">
-            „Ich willige ein, dass meine personenbezogenen Daten, die im Rahmen des Projekts erhoben
-            werden, auch an die im Zuge des Projekts entstehende Ausgründung (einschließlich einer
-            späteren Rechtsnachfolge) weitergegeben und dort zu den genannten Zwecken
-            weiterverarbeitet werden dürfen.“
-          </blockquote>
-          <p className="mt-4 text-foreground/80 leading-relaxed">
-            Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO. Ohne diese Einwilligung findet keine auf
-            diesen Zweck gestützte Weitergabe statt. Die Einwilligung kann jederzeit mit Wirkung für
-            die Zukunft widerrufen werden; die Rechtmäßigkeit der bis dahin erfolgten Verarbeitung
-            bleibt unberührt.
-          </p>
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Die Verarbeitung erfolgt zur Bearbeitung Ihrer Anfrage und zur Anbahnung eines möglichen
             Vertragsverhältnisses auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO sowie, soweit eine
@@ -612,7 +589,7 @@ function DatenschutzPage() {
             <li>Öffnen des Anfrageformulars</li>
             <li>
               Erfolgreiches Absenden des Anfrageformulars; dabei nur Haushaltsgrößen-Kategorie,
-              vordefinierte Mehrwert-Kategorie, freiwillig gewählte grobe Berufskategorie und die
+              vordefinierte Mehrwert-Kategorie und die
               Angabe, ob ein Jobtitel eingetragen wurde
             </li>
             <li>Sichtbare Verweildauer je Seite (<code className="font-mono text-xs">page_engagement</code>)</li>
@@ -629,7 +606,7 @@ function DatenschutzPage() {
             übermittelt, damit die Nutzung dieser Kampagne getrennt ausgewertet werden kann.
             Diese Kennung wird über interne Links weitergegeben, ohne zusätzliche Kampagnen-Cookies
             oder Speichereinträge anzulegen. Beim Absenden der Anfrage können
-            außerdem die oben genannten vier kategorisierten Angaben verarbeitet werden. Namen,
+            außerdem die oben genannten drei kategorisierten Angaben verarbeitet werden. Namen,
             E-Mail-Adressen, Jobtitel und freie Antworten werden nicht an PostHog übermittelt. Wir
             nutzen keine Identifizierung einzelner Personen (Identify), keine Personenprofile, keine
             automatische Erfassung von Klicks (Autocapture) und keine Sitzungsaufzeichnung (Session

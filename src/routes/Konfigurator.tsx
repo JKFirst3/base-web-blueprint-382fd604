@@ -8,7 +8,6 @@ import { captureFunnel, toBusinessModel } from "@/lib/analytics";
 import { requestPreorder } from "@/lib/preorder-client";
 import { currentCampaign } from "@/lib/campaign";
 import { z } from "zod";
-import { OCCUPATION_GROUPS } from "@/lib/preorder-options";
 
 const VALUE_OPTIONS = [
   "Weniger Zeit für Wäsche aufwenden",
@@ -25,7 +24,6 @@ const answersSchema = z
     job_title: z.string().trim().max(100),
     greatest_value: z.enum(VALUE_OPTIONS).nullable(),
     greatest_value_other: z.string().trim().max(300),
-    occupation_group: z.enum(OCCUPATION_GROUPS).nullable(),
   })
   .refine((value) => value.greatest_value !== "Sonstige" || value.greatest_value_other.length > 0);
 
@@ -206,12 +204,10 @@ function PreorderDialog({
   const [email, setEmail] = useState("");
   const [householdSize, setHouseholdSize] = useState("");
   const [jobTitle, setJobTitle] = useState("");
-  const [occupationGroup, setOccupationGroup] = useState("");
   const [greatestValue, setGreatestValue] = useState("");
   const [greatestValueOther, setGreatestValueOther] = useState("");
   const [consent, setConsent] = useState(false);
   const [marketingConsent, setMarketingConsent] = useState(false);
-  const [transferConsent, setTransferConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [attemptStarted, setAttemptStarted] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -254,7 +250,6 @@ function PreorderDialog({
       job_title: jobTitle,
       greatest_value: greatestValue || null,
       greatest_value_other: greatestValue === "Sonstige" ? greatestValueOther : "",
-      occupation_group: occupationGroup || null,
     });
     if (!answers.success) {
       setMessage("Bitte ergänzen oder kürzen Sie Ihre Angaben zu den Zusatzfragen.");
@@ -278,7 +273,6 @@ function PreorderDialog({
         monthly_eur: selection.paymentType === "monthly" ? selection.monthly : null,
         consent,
         marketing_consent: marketingConsent,
-        transfer_consent: transferConsent,
         client_submission_id: clientSubmissionId,
         ...answers.data,
         source: currentCampaign() ?? "configurator",
@@ -292,7 +286,6 @@ function PreorderDialog({
           household_size: answers.data.household_size,
           greatest_value: answers.data.greatest_value,
           job_title_provided: answers.data.job_title.length > 0,
-          occupation_group: answers.data.occupation_group,
         },
         clientSubmissionId,
       );
@@ -446,21 +439,6 @@ function PreorderDialog({
                   autoComplete="organization-title"
                 />
               </label>
-              <label>
-                <span>Berufsfeld (freiwillig)</span>
-                <select
-                  disabled={attemptStarted}
-                  value={occupationGroup}
-                  onChange={(event) => setOccupationGroup(event.target.value)}
-                >
-                  <option value="">Bitte auswählen</option>
-                  {OCCUPATION_GROUPS.map((group) => (
-                    <option key={group} value={group}>
-                      {group}
-                    </option>
-                  ))}
-                </select>
-              </label>
               <label className="checkbox">
                 <input
                   disabled={attemptStarted}
@@ -486,20 +464,6 @@ function PreorderDialog({
                   Ich möchte zusätzlich per E-Mail über die Produktentwicklung, Verfügbarkeit und
                   Angebote von Lavidro informiert werden. Diese Einwilligung ist freiwillig und
                   jederzeit widerrufbar.
-                </span>
-              </label>
-              <label className="checkbox">
-                <input
-                  disabled={attemptStarted}
-                  type="checkbox"
-                  checked={transferConsent}
-                  onChange={(event) => setTransferConsent(event.target.checked)}
-                />
-                <span>
-                  Ich willige ein, dass meine personenbezogenen Daten, die im Rahmen des Projekts
-                  erhoben werden, auch an die im Zuge des Projekts entstehende Ausgründung
-                  (einschließlich einer späteren Rechtsnachfolge) weitergegeben und dort zu den
-                  genannten Zwecken weiterverarbeitet werden dürfen.
                 </span>
               </label>
               <button className="primary-button" type="submit" disabled={submitting}>

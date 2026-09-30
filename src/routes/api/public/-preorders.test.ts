@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { mock, test } from "node:test";
 
 // Execute the real request handler. Database and email boundaries are in-memory only.
-test("real preorder handler: validation, consent booleans, occupation and concurrent retries", async () => {
+test("real preorder handler: validation, consent booleans, retired fields and concurrent retries", async () => {
   mock.module("@tanstack/react-router", {
     namedExports: { createFileRoute: () => (config: unknown) => config },
   });
@@ -59,9 +59,7 @@ test("real preorder handler: validation, consent booleans, occupation and concur
     payment_type: "upfront",
     consent: true,
     marketing_consent: false,
-    transfer_consent: false,
     client_submission_id: crypto.randomUUID(),
-    occupation_group: "Bildung/Forschung",
     job_title: "Private free text",
   };
   const post = (body: unknown, origin = "http://localhost") =>
@@ -76,9 +74,8 @@ test("real preorder handler: validation, consent booleans, occupation and concur
     null,
     [],
     { ...base, marketing_consent: "true" },
-    { ...base, occupation_group: "private free text" },
     { ...base, consent: false },
-    { ...base, transfer_consent: null },
+    { ...base, source: "unapproved campaign" },
   ]) {
     assert.equal((await post(body)).status, 400);
   }
@@ -91,14 +88,18 @@ test("real preorder handler: validation, consent booleans, occupation and concur
   const row = rows.get(base.client_submission_id)!;
   assert.equal(row.marketing_consent, false);
   assert.equal(row.marketing_consent_active, false);
-  assert.equal(row.occupation_group, "Bildung/Forschung");
+  assert.equal(row.occupation_group, null);
+  assert.equal(row.transfer_consent, false);
+  assert.equal(row.transfer_consent_at, null);
   assert.equal(row.job_title, "Private free text");
   assert.equal(row.price_eur, 8990);
   failMail = true;
   const second = {
     ...base,
     client_submission_id: crypto.randomUUID(),
-    occupation_group: null,
+    occupation_group: "legacy field is ignored",
+    transfer_consent: true,
+    source: "smoke_google_one_v1",
     marketing_consent: true,
   };
   assert.deepEqual(await (await post(second)).json(), { saved: true, email_status: "send_failed" });
@@ -106,4 +107,7 @@ test("real preorder handler: validation, consent booleans, occupation and concur
   assert.equal(mailAttempts, 2);
   assert.equal(rows.size, 2);
   assert.equal(rows.get(second.client_submission_id)?.marketing_consent_active, false);
+  assert.equal(rows.get(second.client_submission_id)?.source, "smoke_google_one_v1");
+  assert.equal(rows.get(second.client_submission_id)?.transfer_consent, false);
+  assert.equal(rows.get(second.client_submission_id)?.occupation_group, null);
 });

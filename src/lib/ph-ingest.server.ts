@@ -1,4 +1,4 @@
-import { SMOKE_CAMPAIGN } from "./campaign.ts";
+import { validCampaign } from "./campaign.ts";
 
 // Same-origin consent gate for PostHog capture. NOT an open proxy:
 // - fixed EU upstream, fixed path; nothing from the client selects the destination
@@ -37,16 +37,7 @@ const GREATEST_VALUES = new Set([
   "Schonender und zuverlässigere Textilpflege",
   "Sonstige",
 ]);
-const OCCUPATION_GROUPS = new Set([
-  "Büro/Verwaltung/Management",
-  "Technik/Handwerk/Produktion",
-  "Gesundheit/Pflege/Soziales",
-  "Bildung/Forschung",
-  "Handel/Dienstleistungen",
-  "Ruhestand",
-  "Anderer Bereich",
-]);
-const DEMOGRAPHIC_PROPS = ["household_size", "greatest_value", "job_title_provided", "occupation_group"] as const;
+const DEMOGRAPHIC_PROPS = ["household_size", "greatest_value", "job_title_provided"] as const;
 const FORBIDDEN_FREE_TEXT_PROPS = new Set(["name", "email", "job_title", "greatest_value_other"]);
 const PAGE_PATHS = new Set(["/", "/Konfigurator", "/aboutLavidro", "/kontakt", "/impressum", "/datenschutz", "/anfrage-bestaetigen", "other"]);
 const PRODUCTION_HOSTS = new Set(["lavidro.com", "www.lavidro.com", "base-web-blueprint.lovable.app"]);
@@ -212,8 +203,9 @@ function cleanEvent(raw: unknown, token: string, consentTs: number, origin: stri
     $geoip_disable: true,
   };
   if ("campaign_id" in p) {
-    if (p.campaign_id !== SMOKE_CAMPAIGN) return "invalid";
-    out.campaign_id = SMOKE_CAMPAIGN;
+    const campaign = validCampaign(p.campaign_id);
+    if (!campaign) return "invalid";
+    out.campaign_id = campaign;
   }
   for (const k of ID_PROPS) if (typeof p[k] === "string" && ID_RE.test(p[k] as string)) out[k] = p[k];
   if (!out.distinct_id) return "invalid";
@@ -239,10 +231,7 @@ function cleanEvent(raw: unknown, token: string, consentTs: number, origin: stri
       if (typeof p.job_title_provided !== "boolean") return "invalid";
       out.job_title_provided = p.job_title_provided;
     }
-    if ("occupation_group" in p) {
-      if (typeof p.occupation_group !== "string" || !OCCUPATION_GROUPS.has(p.occupation_group)) return "invalid";
-      out.occupation_group = p.occupation_group;
-    }
+
   }
   // Server-derived only, never client text.
   out.site_environment = PRODUCTION_HOSTS.has(host) ? "production" : "preview";

@@ -67,7 +67,7 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
   try {
     const { captureFunnel, captureEmailConfirmed, initAnalytics } = await import("./analytics.ts");
     initAnalytics();
-    const props = { occupation_group: "Bildung/Forschung" as const, job_title_provided: true };
+    const props = { job_title_provided: true };
     await captureFunnel("purchase_interest_submitted", props, "no-consent");
     await captureEmailConfirmed();
     assert.equal(configRequests, 0);
@@ -81,7 +81,7 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
     await captureFunnel("purchase_interest_submitted", props, "same-submission");
     assert.equal(captured.length, 1);
     assert.equal(captured[0].properties.campaign_id, "smoke_google_v1");
-    assert.equal(captured[0].properties.occupation_group, "Bildung/Forschung");
+    assert.equal("occupation_group" in captured[0].properties, false);
     assert.equal("job_title" in captured[0].properties, false);
     assert.equal("email" in captured[0].properties, false);
     await captureFunnel("purchase_interest_submitted", {}, "second-submission");

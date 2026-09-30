@@ -1,25 +1,38 @@
-// Smoke-test campaign tag. Only this exact constant is accepted; no UTMs, click IDs
+// Fixed campaign tags only; no UTMs, click IDs
 // or other parameters are read. Passed via URL only (no cookie/localStorage/sessionStorage).
 export const CAMPAIGN_PARAM = "lv_campaign";
 export const SMOKE_CAMPAIGN = "smoke_google_v1";
-export const PREORDER_SOURCES = ["configurator", SMOKE_CAMPAIGN] as const;
+export const PRODUCT_CAMPAIGNS = {
+  mobile: "smoke_google_mobile_v1",
+  cabinet: "smoke_google_cabinet_v1",
+  one: "smoke_google_one_v1",
+} as const;
+export const CAMPAIGNS = [SMOKE_CAMPAIGN, ...Object.values(PRODUCT_CAMPAIGNS)] as const;
+export type Campaign = (typeof CAMPAIGNS)[number];
+export const PREORDER_SOURCES = ["configurator", ...CAMPAIGNS] as const;
+
+export function validCampaign(value: unknown): Campaign | null {
+  return typeof value === "string" && (CAMPAIGNS as readonly string[]).includes(value) ? value as Campaign : null;
+}
 export type PreorderSource = (typeof PREORDER_SOURCES)[number];
 
-export function currentCampaign(): typeof SMOKE_CAMPAIGN | null {
+export function currentCampaign(): Campaign | null {
   if (typeof window === "undefined") return null;
   const value = new URLSearchParams(window.location.search).get(CAMPAIGN_PARAM);
-  return value === SMOKE_CAMPAIGN ? SMOKE_CAMPAIGN : null;
+  return validCampaign(value);
 }
 
-export function campaignLink(href: string, origin: string): string | null {
+export function campaignLink(href: string, origin: string, campaign: Campaign = SMOKE_CAMPAIGN): string | null {
   const url = new URL(href, origin);
   if (url.origin !== origin || !["/", "/Konfigurator", "/aboutLavidro", "/kontakt", "/datenschutz", "/impressum"].includes(url.pathname)) return null;
-  url.searchParams.set(CAMPAIGN_PARAM, SMOKE_CAMPAIGN);
+  url.searchParams.set(CAMPAIGN_PARAM, campaign);
   return `${url.pathname}${url.search}${url.hash}`;
 }
 
 function tagLink(a: HTMLAnchorElement) {
-  const tagged = campaignLink(a.getAttribute("href")!, window.location.origin);
+  const campaign = currentCampaign();
+  if (!campaign) return;
+  const tagged = campaignLink(a.getAttribute("href")!, window.location.origin, campaign);
   if (tagged && tagged !== a.getAttribute("href")) a.setAttribute("href", tagged);
 }
 

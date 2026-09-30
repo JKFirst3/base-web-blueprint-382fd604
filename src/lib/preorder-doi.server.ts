@@ -1,4 +1,4 @@
-import { CAMPAIGN_PARAM, SMOKE_CAMPAIGN, type PreorderSource } from "./campaign.ts";
+import { CAMPAIGN_PARAM, validCampaign, type PreorderSource } from "./campaign.ts";
 
 // Double opt-in for product inquiries. The raw token only exists in memory and in the
 // email link; the database stores its SHA-256 hash. Never log or return the raw token.
@@ -56,7 +56,8 @@ export async function startDoi(
   deps: DoiDeps,
   source?: PreorderSource,
 ): Promise<"pending" | "send_failed"> {
-  const campaignQuery = source === SMOKE_CAMPAIGN ? `?${CAMPAIGN_PARAM}=${SMOKE_CAMPAIGN}` : "";
+  const campaign = validCampaign(source);
+  const campaignQuery = campaign ? `?${CAMPAIGN_PARAM}=${campaign}` : "";
   const raw = createRawToken();
   const expiresAt = new Date(deps.now() + DOI_TTL_MS).toISOString();
   try {

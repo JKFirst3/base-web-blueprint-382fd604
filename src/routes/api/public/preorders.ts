@@ -7,7 +7,7 @@ import {
   isPreorderRateLimited,
 } from "@/lib/preorder-request.server";
 
-import { OCCUPATION_GROUPS } from "@/lib/preorder-options";
+import { PREORDER_SOURCES } from "@/lib/campaign";
 
 const valueOptions = [
   "Weniger Zeit für Wäsche aufwenden",
@@ -23,7 +23,6 @@ const answersSchema = z
     job_title: z.string().trim().min(1).max(100).nullish(),
     greatest_value: z.enum(valueOptions).nullish(),
     greatest_value_other: z.string().trim().min(1).max(300).nullish(),
-    occupation_group: z.enum(OCCUPATION_GROUPS).nullish(),
   })
   .refine((answers) =>
     answers.greatest_value === "Sonstige"
@@ -94,10 +93,6 @@ export const Route = createFileRoute("/api/public/preorders")({
             body.greatest_value_other === undefined || body.greatest_value_other === ""
               ? null
               : body.greatest_value_other,
-          occupation_group:
-            body.occupation_group === undefined || body.occupation_group === ""
-              ? null
-              : body.occupation_group,
         });
         const clientSubmissionId = z.string().uuid().safeParse(body.client_submission_id);
         const email = cleanText(body.email, 255)?.toLowerCase() ?? "";
@@ -105,13 +100,9 @@ export const Route = createFileRoute("/api/public/preorders")({
         const requestedTier = cleanText(body.tier, 50);
         const size = cleanText(body.size, 50) ?? "Standard";
         const payment_type = cleanText(body.payment_type, 20);
-        // Only the two known sources are accepted; anything else is rejected.
-        const rawSource =
-          body.source === undefined || body.source === null ? "configurator" : body.source;
-        if (rawSource !== "configurator" && rawSource !== "smoke_google_v1") {
-          return Response.json({ error: "Invalid preorder" }, { status: 400 });
-        }
-        const source: "configurator" | "smoke_google_v1" = rawSource;
+        const parsedSource = z.enum(PREORDER_SOURCES).safeParse(body.source ?? "configurator");
+        if (!parsedSource.success) return Response.json({ error: "Invalid preorder" }, { status: 400 });
+        const source = parsedSource.data;
 
         const product =
           requestedSolutionId && requestedSolutionId in PREORDER_CATALOG
@@ -146,10 +137,6 @@ export const Route = createFileRoute("/api/public/preorders")({
         const monthly_eur = normalizedPaymentType === "monthly" ? catalogEntry.monthly : null;
         if (!answers.success) return Response.json({ error: "Invalid answers" }, { status: 400 });
 
-        if (typeof body.transfer_consent !== "boolean") {
-          return Response.json({ error: "Invalid preorder" }, { status: 400 });
-        }
-        const transferConsent = body.transfer_consent;
         const marketingConsent = body.marketing_consent;
         const nowIso = new Date().toISOString();
 
@@ -181,14 +168,14 @@ export const Route = createFileRoute("/api/public/preorders")({
                 job_title: answers.data.job_title ?? null,
                 greatest_value: answers.data.greatest_value ?? null,
                 greatest_value_other: answers.data.greatest_value_other ?? null,
-                occupation_group: answers.data.occupation_group ?? null,
+                occupation_group: null, // retired field; existing records remain intact
                 consent: true,
                 // Requested only; becomes active solely through confirm_preorder_doi.
                 marketing_consent: marketingConsent,
                 marketing_consent_at: marketingConsent ? nowIso : null,
                 marketing_consent_active: false,
-                transfer_consent: transferConsent,
-                transfer_consent_at: transferConsent ? nowIso : null,
+                transfer_consent: false, // no consent is requested or inferred
+                transfer_consent_at: null,
                 doi_status: "pending",
                 source,
               })
