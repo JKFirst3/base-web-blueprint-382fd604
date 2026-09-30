@@ -7,7 +7,7 @@ Lovable-Infrastruktur und Supabase als Backend.
 
 Voraussetzungen:
 
-- Node.js 20 oder neuer
+- Node.js 24 oder neuer (Tests verwenden Nodes TypeScript- und Modul-Mocking-Unterstützung)
 - npm oder Bun
 
 ```bash
@@ -50,6 +50,8 @@ Verwendete Tabellen:
 ## Prüfungen
 
 ```bash
+npm test
+npm run typecheck
 npm run lint
 npm run build
 ```
@@ -60,3 +62,8 @@ npm run build
 - `public/` Bilder und browserseitige Laufzeitdateien
 - `src/` Website, Routen und Supabase-Anbindung
 - `supabase/` Datenbankkonfiguration und Migrationen
+
+Die Tests ersetzen Datenbank, E-Mail-Versand und PostHog durch lokale Test-Doubles.
+Sie laden keine `.env` und senden keine echten Anfragen oder E-Mails.
+`npm run dev` lädt dagegen die lokale Umgebung: Formularübermittlungen dort
+dürfen nur mit ausdrücklich freigegebenem Test-Backend erfolgen.

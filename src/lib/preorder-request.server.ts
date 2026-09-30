@@ -1,13 +1,3 @@
-export const OCCUPATION_GROUPS = [
-  "Büro/Verwaltung/Management",
-  "Technik/Handwerk/Produktion",
-  "Gesundheit/Pflege/Soziales",
-  "Bildung/Forschung",
-  "Handel/Dienstleistungen",
-  "Ruhestand",
-  "Anderer Bereich",
-] as const;
-
 const RATE = new Map<string, { count: number; resetsAt: number }>();
 
 export function allowedPreorderOrigin(origin: string | null, requestUrl: string): boolean {
@@ -47,7 +37,11 @@ export type InsertResult = {
 export async function createOrFindSubmission(
   create: () => Promise<InsertResult>,
   findExisting: () => Promise<ExistingSubmission | null>,
-): Promise<{ kind: "created"; row: { id: string } } | { kind: "existing"; row: ExistingSubmission } | { kind: "failed" }> {
+): Promise<
+  | { kind: "created"; row: { id: string } }
+  | { kind: "existing"; row: ExistingSubmission }
+  | { kind: "failed" }
+> {
   const result = await create();
   if (result.data && !result.error) return { kind: "created", row: result.data };
   if (result.error?.code !== "23505") return { kind: "failed" };

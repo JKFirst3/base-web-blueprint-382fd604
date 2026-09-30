@@ -51,12 +51,14 @@ async function send(payload: unknown, withConsent = true) {
 
 describe("PostHog consent gate demographics", () => {
   test("forwards only the validated submitted categories", async () => {
-    const { result, calls } = await send(event({
-      household_size: "3-4",
-      greatest_value: "Sonstige",
-      job_title_provided: true,
-      occupation_group: "Gesundheit/Pflege/Soziales",
-    }));
+    const { result, calls } = await send(
+      event({
+        household_size: "3-4",
+        greatest_value: "Sonstige",
+        job_title_provided: true,
+        occupation_group: "Gesundheit/Pflege/Soziales",
+      }),
+    );
     assert.equal(result.outcome, "forwarded");
     assert.equal(calls.length, 1);
     assert.equal(calls[0]?.url, UPSTREAM_URL);
@@ -69,13 +71,13 @@ describe("PostHog consent gate demographics", () => {
         occupation_group: sent.batch[0].properties.occupation_group,
       },
       {
-      household_size: "3-4",
-      greatest_value: "Sonstige",
-      job_title_provided: true,
-      occupation_group: "Gesundheit/Pflege/Soziales",
+        household_size: "3-4",
+        greatest_value: "Sonstige",
+        job_title_provided: true,
+        occupation_group: "Gesundheit/Pflege/Soziales",
       },
     );
-    assert.equal(JSON.stringify(sent).includes("job_title\""), false);
+    assert.equal(JSON.stringify(sent).includes('job_title"'), false);
     assert.equal(JSON.stringify(sent).includes("greatest_value_other"), false);
   });
 
@@ -97,7 +99,9 @@ describe("PostHog consent gate demographics", () => {
   }
 
   test("rejects demographics on another funnel event", async () => {
-    const { result, calls } = await send(event({ household_size: "2" }, "purchase_interest_started"));
+    const { result, calls } = await send(
+      event({ household_size: "2" }, "purchase_interest_started"),
+    );
     assert.equal(result.outcome, "dropped_invalid");
     assert.equal(calls.length, 0);
   });
@@ -122,4 +126,58 @@ describe("PostHog consent gate demographics", () => {
     ]);
     assert.equal(FUNNEL_EVENT_NAMES.includes("purchase_interest_email_confirmed" as never), false);
   });
+});
+for (const [name, consent, stamp, outcome] of [
+  [
+    "explicit rejection",
+    { v: 1, analytics: false, ts: CONSENT_TS },
+    CONSENT_TS,
+    "dropped_no_consent",
+  ],
+  [
+    "withdrawn and renewed consent",
+    { v: 1, analytics: true, ts: CONSENT_TS + 1 },
+    CONSENT_TS,
+    "dropped_stale_consent",
+  ],
+] as const) {
+  test(`does not forward occupation after ${name}`, async () => {
+    let upstream = 0;
+    const result = await handleIngest(
+      new Request(`${ORIGIN}/api/public/ph-ingest/e`, {
+        method: "POST",
+        headers: {
+          origin: ORIGIN,
+          cookie: `lavidro_consent=${encodeURIComponent(JSON.stringify(consent))}`,
+        },
+        body: JSON.stringify(event({ occupation_group: "Bildung/Forschung", consent_ts: stamp })),
+      }),
+      "e",
+      {
+        token: TOKEN,
+        fetchUpstream: async () => {
+          upstream++;
+          return new Response();
+        },
+      },
+    );
+    assert.equal(result.outcome, outcome);
+    assert.equal(upstream, 0);
+  });
+}
+
+test("SDK retries retain all PostHog deduplication fields", async () => {
+  const payload = {
+    ...event({ $insert_id: "sdk-insert-id" }),
+    uuid: "12345678-1234-4123-8123-123456789abc",
+    timestamp: new Date(CONSENT_TS).toISOString(),
+  };
+  const first = await send(payload);
+  const retry = await send(payload);
+  const a = JSON.parse(String(first.calls[0].init.body)).batch[0];
+  const b = JSON.parse(String(retry.calls[0].init.body)).batch[0];
+  assert.equal(a.uuid, payload.uuid);
+  assert.equal(a.timestamp, payload.timestamp);
+  for (const key of ["uuid", "event", "timestamp", "distinct_id"]) assert.equal(a[key], b[key]);
+  assert.deepEqual(first.calls[0].init.headers, { "content-type": "application/json" });
 });

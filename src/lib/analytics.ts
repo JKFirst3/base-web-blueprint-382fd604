@@ -1,7 +1,7 @@
 // Consent-gated PostHog funnel tracking (5 manual events only). No PII.
 // PostHog JS is loaded dynamically only after explicit analytics consent.
 import type { PostHog } from "posthog-js";
-import { analyticsAllowed, deleteCookie, readConsent, readCookie } from "./consent";
+import { analyticsAllowed, deleteCookie, readConsent, readCookie } from "./consent.ts";
 
 // The browser never talks to PostHog directly: all capture goes through the same-origin
 // consent gate, which re-checks consent (and its generation) on every request, incl. SDK retries.
@@ -21,10 +21,13 @@ async function fetchPosthogConfig(): Promise<{ token: string; host: string } | n
       return null;
     }
     const data = (await res.json()) as { token?: unknown; host?: unknown; reason?: unknown };
-    const token = typeof data.token === "string" && data.token.startsWith("phc_") ? data.token : null;
+    const token =
+      typeof data.token === "string" && data.token.startsWith("phc_") ? data.token : null;
     const host = data.host === INGEST_PATH ? `${window.location.origin}${INGEST_PATH}` : null;
     if (!token || !host) {
-      console.warn(`[analytics] config unavailable (${typeof data.reason === "string" ? data.reason : "invalid_config"})`);
+      console.warn(
+        `[analytics] config unavailable (${typeof data.reason === "string" ? data.reason : "invalid_config"})`,
+      );
       return null;
     }
     return { token, host };
@@ -105,22 +108,27 @@ const FUNNEL_EVENTS = new Set<FunnelEvent>(FUNNEL_EVENT_NAMES);
 const ENGAGEMENT_EVENT = "page_engagement";
 // Separate metric (not a funnel step): DOI confirmed on the confirmation page. No properties.
 export const EMAIL_CONFIRMED_EVENT = "purchase_interest_email_confirmed";
-const OUTGOING_EVENTS = new Set<string>([...FUNNEL_EVENTS, ENGAGEMENT_EVENT, EMAIL_CONFIRMED_EVENT]);
+const OUTGOING_EVENTS = new Set<string>([
+  ...FUNNEL_EVENTS,
+  ENGAGEMENT_EVENT,
+  EMAIL_CONFIRMED_EVENT,
+]);
 const ONCE_PER_VISIT: FunnelEvent[] = ["landing_page_viewed", "product_area_viewed"];
 const FIRED_KEY = "lv_ph_fired";
 
 let ph: PostHog | null = null;
 let loading: Promise<PostHog | null> | null = null;
 let listening = false;
-const firedInMemory = new Set<FunnelEvent>();
-const inFlight = new Set<FunnelEvent>();
+const firedInMemory = new Set<string>();
+const inFlight = new Set<string>();
 // Once-events that failed to send AFTER consent; retried on the next successful load.
 const retry = new Map<FunnelEvent, Props>();
 // Incremented on every consent withdrawal; aborts loads started under an older consent.
 let consentEpoch = 0;
 
 export function toBusinessModel(paymentType: string | null | undefined): BusinessModel | undefined {
-  if (paymentType === "upfront" || paymentType === "cash" || paymentType === "purchase") return "purchase";
+  if (paymentType === "upfront" || paymentType === "cash" || paymentType === "purchase")
+    return "purchase";
   if (paymentType === "monthly" || paymentType === "subscription") return "subscription";
   return undefined;
 }
@@ -140,7 +148,7 @@ function stripQuery(value: unknown) {
   }
 }
 
-function wasFired(event: FunnelEvent) {
+function wasFired(event: string) {
   if (firedInMemory.has(event)) return true;
   try {
     return (JSON.parse(sessionStorage.getItem(FIRED_KEY) || "[]") as string[]).includes(event);
@@ -149,7 +157,7 @@ function wasFired(event: FunnelEvent) {
   }
 }
 
-function markFired(event: FunnelEvent) {
+function markFired(event: string) {
   firedInMemory.add(event);
   try {
     const list = JSON.parse(sessionStorage.getItem(FIRED_KEY) || "[]") as string[];
@@ -224,7 +232,11 @@ async function load(): Promise<PostHog | null> {
     if (typeof consentTs !== "number") return null;
     // Stamp the consent generation on every event; the gate drops events whose stamp
     // differs from the current consent cookie, so a re-consent never revives old retries.
-    posthog.register({ site_environment: siteEnvironment(host), site_host: host, consent_ts: consentTs });
+    posthog.register({
+      site_environment: siteEnvironment(host),
+      site_host: host,
+      consent_ts: consentTs,
+    });
     if (posthog.has_opted_out_capturing()) posthog.opt_in_capturing();
     ph = posthog;
     return ph;
@@ -250,23 +262,27 @@ function cleanProps(event: FunnelEvent, props: Props) {
   return clean;
 }
 
-export async function captureFunnel(event: FunnelEvent, props: Props = {}) {
+export async function captureFunnel(event: FunnelEvent, props: Props = {}, submissionId?: string) {
   if (typeof window === "undefined") return;
   if (!analyticsAllowed()) return; // nothing is buffered before consent
-  const once = ONCE_PER_VISIT.includes(event);
+  // A saved inquiry is counted once, even when simultaneous/retried responses arrive.
+  // The key stays local: no database submission ID is sent to PostHog.
+  if (event === "purchase_interest_submitted" && !submissionId) return;
+  const key = event === "purchase_interest_submitted" ? `${event}:${submissionId}` : event;
+  const once = ONCE_PER_VISIT.includes(event) || event === "purchase_interest_submitted";
   if (once) {
-    if (wasFired(event) || inFlight.has(event)) return;
-    inFlight.add(event); // synchronous in-flight dedupe (StrictMode / re-renders)
+    if (wasFired(key) || inFlight.has(key)) return;
+    inFlight.add(key); // synchronous in-flight dedupe (StrictMode / re-renders)
   }
   try {
     const client = await load();
     if (!client || !analyticsAllowed()) {
-      if (once && analyticsAllowed()) retry.set(event, props);
+      if (ONCE_PER_VISIT.includes(event) && analyticsAllowed()) retry.set(event, props);
       return;
     }
     client.capture(event, cleanProps(event, props));
     if (once) {
-      markFired(event);
+      markFired(key);
       retry.delete(event);
     }
     // Flush once-events that previously failed after consent.
@@ -276,7 +292,7 @@ export async function captureFunnel(event: FunnelEvent, props: Props = {}) {
       void captureFunnel(e, p);
     }
   } finally {
-    if (once) inFlight.delete(event);
+    if (once) inFlight.delete(key);
   }
 }
 
@@ -315,7 +331,8 @@ function wipePosthogStorage() {
   try {
     for (const store of [localStorage, sessionStorage]) {
       for (const key of Object.keys(store)) {
-        if (key.startsWith("ph_") || key.startsWith("__ph") || key === FIRED_KEY) store.removeItem(key);
+        if (key.startsWith("ph_") || key.startsWith("__ph") || key === FIRED_KEY)
+          store.removeItem(key);
       }
     }
   } catch {
@@ -375,7 +392,15 @@ export function initAnalytics() {
 // ---------------------------------------------------------------------------
 // page_engagement: visible seconds per page view and running total per session.
 // Only runs while analytics consent exists; nothing is measured before opt-in.
-const PAGE_PATHS = new Set(["/", "/Konfigurator", "/aboutLavidro", "/kontakt", "/impressum", "/datenschutz", "/anfrage-bestaetigen"]);
+const PAGE_PATHS = new Set([
+  "/",
+  "/Konfigurator",
+  "/aboutLavidro",
+  "/kontakt",
+  "/impressum",
+  "/datenschutz",
+  "/anfrage-bestaetigen",
+]);
 const PRODUCT_IDS = new Set(["mobile", "cabinet", "one"]);
 const FLUSH_EVERY_MS = 30_000; // periodic flush of visible time
 const MAX_TICK_GAP_MS = 2_000; // ignore gaps (sleep, throttling) beyond one tick
@@ -399,7 +424,6 @@ function accumulate(now: number, wasVisible = document.visibilityState === "visi
   }
   engagement.last = now;
 }
-
 
 function flushEngagement(beacon = false) {
   if (!engagement || !analyticsAllowed()) return;

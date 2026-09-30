@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { X } from "lucide-react";
 import configuratorHtml from "@/content/configurator.html?raw";
 import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
 
 import { captureFunnel, toBusinessModel } from "@/lib/analytics";
+import { requestPreorder } from "@/lib/preorder-client";
 import { currentCampaign } from "@/lib/campaign";
 import { z } from "zod";
-import { OCCUPATION_GROUPS } from "@/lib/preorder-request.server";
+import { OCCUPATION_GROUPS } from "@/lib/preorder-options";
 
 const VALUE_OPTIONS = [
   "Weniger Zeit für Wäsche aufwenden",
@@ -18,13 +19,15 @@ const VALUE_OPTIONS = [
   "Sonstige",
 ] as const;
 
-const answersSchema = z.object({
-  household_size: z.enum(["1", "2", "3-4", "5+"]).nullable(),
-  job_title: z.string().trim().max(100),
-  greatest_value: z.enum(VALUE_OPTIONS).nullable(),
-  greatest_value_other: z.string().trim().max(300),
-  occupation_group: z.enum(OCCUPATION_GROUPS).nullable(),
-}).refine((value) => value.greatest_value !== "Sonstige" || value.greatest_value_other.length > 0);
+const answersSchema = z
+  .object({
+    household_size: z.enum(["1", "2", "3-4", "5+"]).nullable(),
+    job_title: z.string().trim().max(100),
+    greatest_value: z.enum(VALUE_OPTIONS).nullable(),
+    greatest_value_other: z.string().trim().max(300),
+    occupation_group: z.enum(OCCUPATION_GROUPS).nullable(),
+  })
+  .refine((value) => value.greatest_value !== "Sonstige" || value.greatest_value_other.length > 0);
 
 type PreorderSelection = {
   productId: string;
@@ -149,14 +152,18 @@ function ConfiguratorPage() {
 
   useEffect(() => {
     const requestedProduct = new URLSearchParams(window.location.search).get("product");
-    const product = requestedProduct && requestedProduct in preorderCatalog ? requestedProduct : "mobile";
+    const product =
+      requestedProduct && requestedProduct in preorderCatalog ? requestedProduct : "mobile";
     void captureFunnel("product_area_viewed", { entry_type: "direct", product_id: product });
 
     const onModel = (event: Event) => {
       const detail = (event as CustomEvent<{ productId: string; paymentType: string }>).detail;
       const business_model = toBusinessModel(detail?.paymentType);
       if (!business_model || !(detail.productId in preorderCatalog)) return;
-      void captureFunnel("purchase_model_selected", { product_id: detail.productId, business_model });
+      void captureFunnel("purchase_model_selected", {
+        product_id: detail.productId,
+        business_model,
+      });
     };
     window.addEventListener("lavidro:purchase-model", onModel);
 
@@ -206,9 +213,13 @@ function PreorderDialog({
   const [marketingConsent, setMarketingConsent] = useState(false);
   const [transferConsent, setTransferConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [attemptStarted, setAttemptStarted] = useState(false);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
-  const [emailStatus, setEmailStatus] = useState<"sent" | "processing" | "send_failed">("processing");
+  const [emailStatus, setEmailStatus] = useState<"sent" | "processing" | "send_failed">(
+    "processing",
+  );
+  const submissionBusy = useRef(false);
   const [clientSubmissionId] = useState(() => crypto.randomUUID());
 
   useEffect(() => {
@@ -225,6 +236,7 @@ function PreorderDialog({
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
+    if (submissionBusy.current || success) return;
     if (!name.trim()) {
       setMessage("Bitte geben Sie Ihren Namen ein.");
       return;
@@ -249,54 +261,52 @@ function PreorderDialog({
       return;
     }
 
+    submissionBusy.current = true;
+    setAttemptStarted(true);
     setSubmitting(true);
     setMessage("");
     try {
-      const controller = new AbortController();
-      const timeout = window.setTimeout(() => controller.abort(), 10_000);
-      const response = await fetch("/api/public/preorders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name.trim(),
-          email: email.trim(),
-          solution_id: selection.productId,
-          solution_name: selection.productName,
-          tier: selection.tier,
-          size: "Standard",
-          payment_type: selection.paymentType,
-          price_eur: selection.price,
-          monthly_eur: selection.paymentType === "monthly" ? selection.monthly : null,
-          consent,
-          marketing_consent: marketingConsent,
-          transfer_consent: transferConsent,
-          client_submission_id: clientSubmissionId,
-          ...answers.data,
-          source: currentCampaign() ?? "configurator",
-        }),
-        signal: controller.signal,
-      }).finally(() => window.clearTimeout(timeout));
-
-      if (!response.ok) throw new Error(`Preorder request failed: ${response.status}`);
-      const result = await response.json() as { saved?: boolean; email_status?: "sent" | "processing" | "send_failed" };
-      if (!result.saved || !result.email_status) throw new Error("Invalid preorder response");
-
-      void captureFunnel("purchase_interest_submitted", {
-        product_id: selection.productId,
-        business_model: toBusinessModel(selection.paymentType),
-        household_size: answers.data.household_size,
-        greatest_value: answers.data.greatest_value,
-        job_title_provided: answers.data.job_title.length > 0,
-        occupation_group: answers.data.occupation_group,
+      const result = await requestPreorder({
+        name: name.trim(),
+        email: email.trim(),
+        solution_id: selection.productId,
+        solution_name: selection.productName,
+        tier: selection.tier,
+        size: "Standard",
+        payment_type: selection.paymentType,
+        price_eur: selection.price,
+        monthly_eur: selection.paymentType === "monthly" ? selection.monthly : null,
+        consent,
+        marketing_consent: marketingConsent,
+        transfer_consent: transferConsent,
+        client_submission_id: clientSubmissionId,
+        ...answers.data,
+        source: currentCampaign() ?? "configurator",
       });
+
+      void captureFunnel(
+        "purchase_interest_submitted",
+        {
+          product_id: selection.productId,
+          business_model: toBusinessModel(selection.paymentType),
+          household_size: answers.data.household_size,
+          greatest_value: answers.data.greatest_value,
+          job_title_provided: answers.data.job_title.length > 0,
+          occupation_group: answers.data.occupation_group,
+        },
+        clientSubmissionId,
+      );
       setEmailStatus(result.email_status);
       setSuccess(true);
     } catch (error) {
       console.error("[preorder-form] Submission failed", error);
-      setMessage(error instanceof DOMException && error.name === "AbortError"
-        ? "Der Status der Anfrage ist noch unklar. Sie können erneut auf „Anfragen“ klicken; dadurch wird keine zweite Anfrage angelegt."
-        : "Die Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.");
+      setMessage(
+        error instanceof DOMException && error.name === "AbortError"
+          ? "Der Status der Anfrage ist noch unklar. Ihre Angaben bleiben für den Wiederholungsversuch unverändert. Klicken Sie erneut auf „Anfragen“; dadurch wird keine zweite Anfrage angelegt."
+          : "Der Eingang Ihrer Anfrage konnte nicht bestätigt werden. Bitte klicken Sie mit den unveränderten Angaben erneut auf „Anfragen“.",
+      );
     } finally {
+      submissionBusy.current = false;
       setSubmitting(false);
     }
   }
@@ -325,9 +335,12 @@ function PreorderDialog({
             <p className="kicker">Anfrage eingegangen</p>
             <h2 id="preorder-title">Ihre unverbindliche Anfrage ist bei uns eingegangen.</h2>
             <p>
-              {emailStatus === "sent" && "Wir haben Ihnen eine E-Mail geschickt. Bitte bestätigen Sie darin Ihre E-Mail-Adresse. "}
-              {emailStatus === "processing" && "Ihre Anfrage wurde gespeichert. Der Versand der Bestätigungs-E-Mail wird noch verarbeitet. "}
-              {emailStatus === "send_failed" && "Ihre Anfrage wurde gespeichert, die Bestätigungs-E-Mail konnte jedoch nicht versendet werden. Wir kümmern uns um Ihre Anfrage. "}
+              {emailStatus === "sent" &&
+                "Wir haben Ihnen eine E-Mail geschickt. Bitte bestätigen Sie darin Ihre E-Mail-Adresse. "}
+              {emailStatus === "processing" &&
+                "Ihre Anfrage wurde gespeichert. Der Versand der Bestätigungs-E-Mail wird noch verarbeitet. "}
+              {emailStatus === "send_failed" &&
+                "Ihre Anfrage wurde gespeichert, die Bestätigungs-E-Mail konnte jedoch nicht versendet werden. Wir kümmern uns um Ihre Anfrage. "}
               In Entwicklung · Marktstart geplant 2027.
             </p>
             <PreorderJourney confirmed />
@@ -347,8 +360,8 @@ function PreorderDialog({
                   : `${selection.price.toLocaleString("de-DE")} €`}
               </strong>
               <small>
-                Unverbindliche Preisindikation, inkl. 19 % MwSt. und Versand. Der Preis kann sich bis
-                zum verbindlichen Angebot ändern.
+                Unverbindliche Preisindikation, inkl. 19 % MwSt. und Versand. Der Preis kann sich
+                bis zum verbindlichen Angebot ändern.
               </small>
             </div>
 
@@ -358,6 +371,7 @@ function PreorderDialog({
               <label>
                 <span>Name</span>
                 <input
+                  disabled={attemptStarted}
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                   autoComplete="name"
@@ -368,6 +382,7 @@ function PreorderDialog({
               <label>
                 <span>E-Mail-Adresse</span>
                 <input
+                  disabled={attemptStarted}
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   autoComplete="email"
@@ -378,7 +393,11 @@ function PreorderDialog({
               </label>
               <label>
                 <span>Wie sieht Ihr Haushalt aus? (freiwillig)</span>
-                <select value={householdSize} onChange={(event) => setHouseholdSize(event.target.value)}>
+                <select
+                  disabled={attemptStarted}
+                  value={householdSize}
+                  onChange={(event) => setHouseholdSize(event.target.value)}
+                >
                   <option value="">Bitte auswählen</option>
                   <option value="1">1 Person</option>
                   <option value="2">2 Personen</option>
@@ -388,30 +407,64 @@ function PreorderDialog({
               </label>
               <label>
                 <span>Was wäre für Sie der größte Mehrwert von Lavidro? (freiwillig)</span>
-                <select value={greatestValue} onChange={(event) => { setGreatestValue(event.target.value); setGreatestValueOther(""); }}>
+                <select
+                  disabled={attemptStarted}
+                  value={greatestValue}
+                  onChange={(event) => {
+                    setGreatestValue(event.target.value);
+                    setGreatestValueOther("");
+                  }}
+                >
                   <option value="">Bitte auswählen</option>
-                  {VALUE_OPTIONS.map((option) => <option key={option} value={option}>{option}</option>)}
+                  {VALUE_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
                 </select>
               </label>
               {greatestValue === "Sonstige" && (
                 <label>
                   <span>Sonstige: bitte erläutern</span>
-                  <textarea value={greatestValueOther} onChange={(event) => setGreatestValueOther(event.target.value)} maxLength={300} required rows={3} />
+                  <textarea
+                    disabled={attemptStarted}
+                    value={greatestValueOther}
+                    onChange={(event) => setGreatestValueOther(event.target.value)}
+                    maxLength={300}
+                    required
+                    rows={3}
+                  />
                 </label>
               )}
               <label>
                 <span>Ihr Jobtitel (freiwillig)</span>
-                <input type="text" value={jobTitle} onChange={(event) => setJobTitle(event.target.value)} maxLength={100} autoComplete="organization-title" />
+                <input
+                  disabled={attemptStarted}
+                  type="text"
+                  value={jobTitle}
+                  onChange={(event) => setJobTitle(event.target.value)}
+                  maxLength={100}
+                  autoComplete="organization-title"
+                />
               </label>
               <label>
                 <span>Berufsfeld (freiwillig)</span>
-                <select value={occupationGroup} onChange={(event) => setOccupationGroup(event.target.value)}>
+                <select
+                  disabled={attemptStarted}
+                  value={occupationGroup}
+                  onChange={(event) => setOccupationGroup(event.target.value)}
+                >
                   <option value="">Bitte auswählen</option>
-                  {OCCUPATION_GROUPS.map((group) => <option key={group} value={group}>{group}</option>)}
+                  {OCCUPATION_GROUPS.map((group) => (
+                    <option key={group} value={group}>
+                      {group}
+                    </option>
+                  ))}
                 </select>
               </label>
               <label className="checkbox">
                 <input
+                  disabled={attemptStarted}
                   type="checkbox"
                   checked={consent}
                   onChange={(event) => setConsent(event.target.checked)}
@@ -425,6 +478,7 @@ function PreorderDialog({
               </label>
               <label className="checkbox">
                 <input
+                  disabled={attemptStarted}
                   type="checkbox"
                   checked={marketingConsent}
                   onChange={(event) => setMarketingConsent(event.target.checked)}
@@ -437,12 +491,16 @@ function PreorderDialog({
               </label>
               <label className="checkbox">
                 <input
+                  disabled={attemptStarted}
                   type="checkbox"
                   checked={transferConsent}
                   onChange={(event) => setTransferConsent(event.target.checked)}
                 />
                 <span>
-                  Ich willige ein, dass meine personenbezogenen Daten, die im Rahmen des Projekts erhoben werden, auch an die im Zuge des Projekts entstehende Ausgründung (einschließlich einer späteren Rechtsnachfolge) weitergegeben und dort zu den genannten Zwecken weiterverarbeitet werden dürfen.
+                  Ich willige ein, dass meine personenbezogenen Daten, die im Rahmen des Projekts
+                  erhoben werden, auch an die im Zuge des Projekts entstehende Ausgründung
+                  (einschließlich einer späteren Rechtsnachfolge) weitergegeben und dort zu den
+                  genannten Zwecken weiterverarbeitet werden dürfen.
                 </span>
               </label>
               <button className="primary-button" type="submit" disabled={submitting}>
@@ -474,9 +532,7 @@ function PreorderJourney({ confirmed = false }: { confirmed?: boolean }) {
       <li>
         <span>Während der Entwicklung</span>
         <strong>Bearbeitung der Anfrage</strong>
-        <small>
-          Wir informieren Sie bei Bedarf über die nächsten Schritte Ihrer Anfrage.
-        </small>
+        <small>Wir informieren Sie bei Bedarf über die nächsten Schritte Ihrer Anfrage.</small>
       </li>
       <li>
         <span>Ausblick</span>

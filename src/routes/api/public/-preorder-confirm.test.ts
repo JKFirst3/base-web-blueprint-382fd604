@@ -5,7 +5,10 @@ import { allowedOrigin, isRateLimited } from "../../../lib/preorder-confirm.secu
 describe("preorder confirmation request checks", () => {
   test("accepts the exact request origin", () => {
     assert.equal(
-      allowedOrigin("https://preview.example", "https://preview.example/api/public/preorder-confirm"),
+      allowedOrigin(
+        "https://preview.example",
+        "https://preview.example/api/public/preorder-confirm",
+      ),
       true,
     );
   });
