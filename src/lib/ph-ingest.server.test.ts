@@ -181,3 +181,23 @@ test("SDK retries retain all PostHog deduplication fields", async () => {
   for (const key of ["uuid", "event", "timestamp", "distinct_id"]) assert.equal(a[key], b[key]);
   assert.deepEqual(first.calls[0].init.headers, { "content-type": "application/json" });
 });
+
+
+describe("campaign attribution", () => {
+  test("forwards the fixed campaign on all funnel and diagnostic events", async () => {
+    for (const name of [...FUNNEL_EVENT_NAMES, ...DIAGNOSTIC_EVENT_NAMES]) {
+      const payload = event({ campaign_id: "smoke_google_v1", ...(name === "page_engagement" ? { page_path: "/", visible_seconds: 10 } : {}) }, name);
+      const { result, calls } = await send(payload);
+      assert.equal(result.outcome, "forwarded", name);
+      assert.equal(JSON.parse(String(calls[0].init.body)).batch[0].properties.campaign_id, "smoke_google_v1");
+      assert.equal((await send(payload, false)).calls.length, 0);
+    }
+  });
+  test("rejects arbitrary campaign text rather than forwarding it", async () => {
+    for (const campaign_id of ["private@example.invalid", "other_campaign", null, 123]) {
+      const { result, calls } = await send(event({ campaign_id }));
+      assert.equal(result.outcome, "dropped_invalid");
+      assert.equal(calls.length, 0);
+    }
+  });
+});

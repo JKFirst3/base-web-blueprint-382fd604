@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
 import { CookieBanner } from "@/components/site/CookieBanner";
+import { propagateCampaignToSiteLinks } from "@/lib/campaign";
 import { captureFunnel, initAnalytics } from "@/lib/analytics";
 import { LanguageProvider, LanguageSlot } from "@/lib/i18n";
 
@@ -179,9 +180,12 @@ function RootComponent() {
     initAnalytics();
   }, []);
 
+  const searchStr = useRouterState({ select: (s) => s.location.searchStr });
+  useEffect(() => propagateCampaignToSiteLinks(), [pathname, searchStr]);
+
   useEffect(() => {
     if (pathname === "/") void captureFunnel("landing_page_viewed");
-  }, [pathname]);
+  }, [pathname, searchStr]);
 
   return (
     <LanguageProvider>

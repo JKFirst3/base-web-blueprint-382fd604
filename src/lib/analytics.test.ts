@@ -52,7 +52,7 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
   );
   Object.assign(globalThis, {
     window: {
-      location: { origin: "http://localhost", hostname: "localhost", pathname: "/other" },
+      location: { origin: "http://localhost", hostname: "localhost", pathname: "/other", search: "?lv_campaign=smoke_google_v1" },
       addEventListener: (name: string, cb: () => void) => listeners.set(name, cb),
       clearInterval: () => {},
     },
@@ -80,6 +80,7 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
     );
     await captureFunnel("purchase_interest_submitted", props, "same-submission");
     assert.equal(captured.length, 1);
+    assert.equal(captured[0].properties.campaign_id, "smoke_google_v1");
     assert.equal(captured[0].properties.occupation_group, "Bildung/Forschung");
     assert.equal("job_title" in captured[0].properties, false);
     assert.equal("email" in captured[0].properties, false);
@@ -87,11 +88,15 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
     assert.equal(captured.length, 2);
     await captureEmailConfirmed();
     assert.equal(captured[2].event, "purchase_interest_email_confirmed");
+    assert.equal(captured[2].properties.campaign_id, "smoke_google_v1");
+    window.location.search = "?lv_campaign=unapproved";
+    await captureFunnel("purchase_interest_submitted", {}, "direct-submission");
+    assert.equal("campaign_id" in captured[3].properties, false);
     allowed = false;
     consentTs++;
     listeners.get("lavidro:consent-changed")?.();
     await captureFunnel("purchase_interest_submitted", props, "after-withdrawal");
-    assert.equal(captured.length, 3);
+    assert.equal(captured.length, 4);
     assert.equal(beforeSend!({ event: "purchase_interest_submitted", properties: props }), null);
   } finally {
     for (const [key, descriptor] of Object.entries(originals)) {

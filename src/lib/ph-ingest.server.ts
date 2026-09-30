@@ -1,3 +1,5 @@
+import { SMOKE_CAMPAIGN } from "./campaign.ts";
+
 // Same-origin consent gate for PostHog capture. NOT an open proxy:
 // - fixed EU upstream, fixed path; nothing from the client selects the destination
 // - forwards only allow-listed events/properties, only with valid analytics consent whose
@@ -70,6 +72,7 @@ const ALLOWED_INPUT_PROPS = new Set([
   "$current_url",
   "$geoip_disable",
   "$process_person_profile",
+  "campaign_id",
   "site_environment",
   "site_host",
   "product_id",
@@ -208,6 +211,10 @@ function cleanEvent(raw: unknown, token: string, consentTs: number, origin: stri
     $process_person_profile: false,
     $geoip_disable: true,
   };
+  if ("campaign_id" in p) {
+    if (p.campaign_id !== SMOKE_CAMPAIGN) return "invalid";
+    out.campaign_id = SMOKE_CAMPAIGN;
+  }
   for (const k of ID_PROPS) if (typeof p[k] === "string" && ID_RE.test(p[k] as string)) out[k] = p[k];
   if (!out.distinct_id) return "invalid";
   if (typeof p.$time === "number" && Number.isFinite(p.$time)) out.$time = p.$time;

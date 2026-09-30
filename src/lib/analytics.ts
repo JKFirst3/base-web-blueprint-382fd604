@@ -1,6 +1,7 @@
 // Consent-gated PostHog funnel tracking (5 manual events only). No PII.
 // PostHog JS is loaded dynamically only after explicit analytics consent.
 import type { PostHog } from "posthog-js";
+import { currentCampaign } from "./campaign.ts";
 import { analyticsAllowed, deleteCookie, readConsent, readCookie } from "./consent.ts";
 
 // The browser never talks to PostHog directly: all capture goes through the same-origin
@@ -84,6 +85,7 @@ const ALLOWED_PROPS = [
 // Explicit allow-list of outgoing properties. Everything else is dropped.
 const KEEP_PROPS = new Set<string>([
   ...ALLOWED_PROPS,
+  "campaign_id",
   "site_environment",
   "site_host",
   "token", // project routing (required by ingestion)
@@ -268,7 +270,8 @@ export async function captureFunnel(event: FunnelEvent, props: Props = {}, submi
   // A saved inquiry is counted once, even when simultaneous/retried responses arrive.
   // The key stays local: no database submission ID is sent to PostHog.
   if (event === "purchase_interest_submitted" && !submissionId) return;
-  const key = event === "purchase_interest_submitted" ? `${event}:${submissionId}` : event;
+  const campaign = currentCampaign();
+  const key = event === "purchase_interest_submitted" ? `${event}:${submissionId}` : `${event}:${campaign ?? "direct"}`;
   const once = ONCE_PER_VISIT.includes(event) || event === "purchase_interest_submitted";
   if (once) {
     if (wasFired(key) || inFlight.has(key)) return;
@@ -280,7 +283,7 @@ export async function captureFunnel(event: FunnelEvent, props: Props = {}, submi
       if (ONCE_PER_VISIT.includes(event) && analyticsAllowed()) retry.set(event, props);
       return;
     }
-    client.capture(event, cleanProps(event, props));
+    client.capture(event, { ...cleanProps(event, props), ...(campaign ? { campaign_id: campaign } : {}) });
     if (once) {
       markFired(key);
       retry.delete(event);
@@ -299,9 +302,10 @@ export async function captureFunnel(event: FunnelEvent, props: Props = {}, submi
 /** Only with current analytics consent; sends no properties besides the gate-checked basics. */
 export async function captureEmailConfirmed() {
   if (typeof window === "undefined" || !analyticsAllowed()) return;
+  const campaign = currentCampaign();
   const client = await load();
   if (!client || !analyticsAllowed()) return;
-  client.capture(EMAIL_CONFIRMED_EVENT, {});
+  client.capture(EMAIL_CONFIRMED_EVENT, campaign ? { campaign_id: campaign } : {});
 }
 
 function productAreaVisible() {
@@ -405,16 +409,17 @@ const PRODUCT_IDS = new Set(["mobile", "cabinet", "one"]);
 const FLUSH_EVERY_MS = 30_000; // periodic flush of visible time
 const MAX_TICK_GAP_MS = 2_000; // ignore gaps (sleep, throttling) beyond one tick
 
-type Engagement = { path: string; product?: string; ms: number; last: number };
+type Engagement = { path: string; product?: string; campaign?: string; ms: number; last: number };
 let engagement: Engagement | null = null;
 let engagementTimer: number | null = null;
 
-function currentPage(): { path: string; product?: string } {
+function currentPage(): { path: string; product?: string; campaign?: string } {
+  const campaign = currentCampaign() ?? undefined;
   const raw = window.location.pathname;
   const path = PAGE_PATHS.has(raw) ? raw : "other";
-  if (path !== "/Konfigurator") return { path };
+  if (path !== "/Konfigurator") return { path, campaign };
   const q = new URLSearchParams(window.location.search).get("product");
-  return { path, product: q && PRODUCT_IDS.has(q) ? q : "mobile" };
+  return { path, campaign, product: q && PRODUCT_IDS.has(q) ? q : "mobile" };
 }
 
 function accumulate(now: number, wasVisible = document.visibilityState === "visible") {
@@ -435,6 +440,7 @@ function flushEngagement(beacon = false) {
     visible_seconds: seconds, // session total = sum grouped by $session_id in PostHog
   };
   if (engagement.product) props.product_id = engagement.product;
+  if (engagement.campaign) props.campaign_id = engagement.campaign;
   const send = (client: PostHog) =>
     client.capture(ENGAGEMENT_EVENT, props, beacon ? { transport: "sendBeacon" } : undefined);
   if (ph) send(ph);
@@ -449,7 +455,7 @@ function tickEngagement() {
     engagement = { ...page, ms: 0, last: now };
     return;
   }
-  if (page.path !== engagement.path || page.product !== engagement.product) {
+  if (page.path !== engagement.path || page.product !== engagement.product || page.campaign !== engagement.campaign) {
     accumulate(now); // SPA route change: close the previous page view
     flushEngagement();
     engagement = { ...page, ms: 0, last: now };

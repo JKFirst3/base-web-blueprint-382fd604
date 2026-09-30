@@ -258,6 +258,7 @@ export const Route = createFileRoute("/api/public/preorders")({
                   templateData,
                 }),
             },
+            source,
           );
 
           return Response.json({

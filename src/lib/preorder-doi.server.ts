@@ -1,3 +1,5 @@
+import { CAMPAIGN_PARAM, SMOKE_CAMPAIGN, type PreorderSource } from "./campaign.ts";
+
 // Double opt-in for product inquiries. The raw token only exists in memory and in the
 // email link; the database stores its SHA-256 hash. Never log or return the raw token.
 
@@ -52,7 +54,9 @@ export async function startDoi(
   baseUrl: string,
   templateData: Record<string, unknown>,
   deps: DoiDeps,
+  source?: PreorderSource,
 ): Promise<"pending" | "send_failed"> {
+  const campaignQuery = source === SMOKE_CAMPAIGN ? `?${CAMPAIGN_PARAM}=${SMOKE_CAMPAIGN}` : "";
   const raw = createRawToken();
   const expiresAt = new Date(deps.now() + DOI_TTL_MS).toISOString();
   try {
@@ -65,7 +69,7 @@ export async function startDoi(
   try {
     const result = await deps.sendMail({
       idempotencyKey: `preorder-doi-${id}`,
-      templateData: { ...templateData, confirmUrl: `${baseUrl}${CONFIRM_PATH}#token=${raw}`, expiresHours: DOI_TTL_MS / 3_600_000 },
+      templateData: { ...templateData, confirmUrl: `${baseUrl}${CONFIRM_PATH}${campaignQuery}#token=${raw}`, expiresHours: DOI_TTL_MS / 3_600_000 },
     });
     if (!result.success) throw new Error("not sent");
     await deps.markSent(id, new Date(deps.now()).toISOString());

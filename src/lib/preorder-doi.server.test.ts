@@ -29,3 +29,19 @@ describe("DOI pending failure", () => {
     assert.equal(sent, 0);
   });
 });
+
+test("DOI link keeps only the fixed campaign tag and the token stays in the fragment", async () => {
+  for (const source of ["configurator", "smoke_google_v1"] as const) {
+    let confirmUrl = "";
+    await startDoi("row-1", "https://lavidro.com", {}, {
+      now: () => 1_800_000_000_000,
+      setPending: async () => undefined,
+      markSent: async () => undefined,
+      markSendFailed: async () => undefined,
+      sendMail: async ({ templateData }) => { confirmUrl = String(templateData.confirmUrl); return { success: true }; },
+    }, source);
+    const url = new URL(confirmUrl);
+    assert.equal(url.search, source === "configurator" ? "" : "?lv_campaign=smoke_google_v1");
+    assert.match(url.hash, /^#token=[A-Za-z0-9_-]{43}$/);
+  }
+});

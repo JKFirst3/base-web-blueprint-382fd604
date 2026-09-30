@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { CAMPAIGN_PARAM, currentCampaign } from "@/lib/campaign";
 import { captureEmailConfirmed } from "@/lib/analytics";
 import { tokenFromLocationHash } from "@/lib/preorder-doi-token";
 
@@ -39,7 +40,8 @@ function ConfirmPage() {
     // Read once, then remove the token from the address bar and history immediately.
     token.current = tokenFromLocationHash(window.location.hash);
     if (window.location.hash || window.location.search) {
-      window.history.replaceState(null, "", window.location.pathname);
+      const campaign = currentCampaign();
+      window.history.replaceState(null, "", `${window.location.pathname}${campaign ? `?${CAMPAIGN_PARAM}=${campaign}` : ""}`);
     }
     if (!token.current) setState("missing");
   }, []);
