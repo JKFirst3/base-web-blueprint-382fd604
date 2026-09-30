@@ -160,7 +160,8 @@ export function CookieBanner() {
                 <p className="mt-2 text-sm text-black/70">
                   Pseudonyme Nutzungsanalyse mit PostHog, nur nach Ihrer Einwilligung: fünf Ereignisse
                   zum Kaufinteresse inklusive der Wahl zwischen Kaufpreis und Abo sowie die sichtbare
-                  Aufenthaltsdauer je Seite. Beim Absenden werden nur Haushaltsgröße, eine fest
+                  Aufenthaltsdauer je Seite. Bei gekennzeichneten Anzeigenlinks gehört dazu auch die
+                  fest vorgegebene Kampagnenkennung. Beim Absenden werden nur Haushaltsgröße, eine fest
                   vorgegebene Mehrwert-Kategorie, eine freiwillig gewählte grobe Berufskategorie und
                   die Angabe, ob ein Jobtitel ausgefüllt wurde, ausgewertet. Keine Namen,
                   E-Mail-Adressen oder Freitexte. Jederzeit widerrufbar.

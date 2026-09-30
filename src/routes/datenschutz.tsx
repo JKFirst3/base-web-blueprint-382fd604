@@ -624,7 +624,11 @@ function DatenschutzPage() {
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Zu den Ereignissen gehören das betroffene Produkt, die gewählte Zahlungsart, der
             Seitenpfad ohne URL-Parameter, eine zufällige pseudonyme Kennung für Browser und
-            Sitzung sowie technische Angaben der PostHog-Bibliothek. Beim Absenden der Anfrage können
+            Sitzung sowie technische Angaben der PostHog-Bibliothek. Bei Besuchen über einen
+            gekennzeichneten Anzeigenlink wird zusätzlich eine fest vorgegebene Kampagnenkennung
+            übermittelt, damit die Nutzung dieser Kampagne getrennt ausgewertet werden kann.
+            Diese Kennung wird über interne Links weitergegeben, ohne zusätzliche Kampagnen-Cookies
+            oder Speichereinträge anzulegen. Beim Absenden der Anfrage können
             außerdem die oben genannten vier kategorisierten Angaben verarbeitet werden. Namen,
             E-Mail-Adressen, Jobtitel und freie Antworten werden nicht an PostHog übermittelt. Wir
             nutzen keine Identifizierung einzelner Personen (Identify), keine Personenprofile, keine
