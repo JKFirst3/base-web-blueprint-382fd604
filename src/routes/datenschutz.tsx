@@ -657,6 +657,36 @@ function DatenschutzPage() {
           </p>
         </section>
 
+        <section className="mt-12">
+          <h2 className="font-display text-2xl font-bold">
+            Meta-Pixel (geplant, derzeit nicht aktiv)
+          </h2>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Wir erwägen, künftig den Meta-Pixel einzusetzen, um die Wirksamkeit unserer Anzeigen
+            auf Facebook und Instagram zu messen und gegebenenfalls interessenbezogene Werbung
+            auszuspielen. Der Meta-Pixel ist auf dieser Website derzeit nicht eingebunden. Dieser
+            Hinweis beschreibt einen möglichen künftigen Einsatz und keine aktuell stattfindende
+            Datenverarbeitung durch den Meta-Pixel.
+          </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Bei einem späteren Einsatz können nach Ihrer Einwilligung Informationen über
+            Seitenaufrufe und ausgewählte Aktionen sowie technische Verbindungsdaten und
+            Cookie-Kennungen an Meta übermittelt werden. Meta kann diese Angaben gegebenenfalls
+            einem Facebook- oder Instagram-Konto zuordnen. Die konkret übermittelten Daten,
+            Empfänger, Speicherfristen und Regelungen zu möglichen Drittlandübermittlungen werden
+            vor der Aktivierung in dieser Datenschutzerklärung beschrieben.
+          </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Ein Einsatz erfolgt erst nach einer gesonderten, freiwilligen Einwilligung für
+            Werbetracking. Rechtsgrundlage wäre Art. 6 Abs. 1 lit. a DSGVO und, soweit Informationen
+            auf Ihrem Endgerät gespeichert oder ausgelesen werden, § 25 Abs. 1 TDDDG. Die hierfür
+            erforderliche Einwilligungssteuerung wird vor der Aktivierung eingerichtet. Ihre
+            Einwilligung könnten Sie dann jederzeit über „Cookie-Einstellungen“ mit Wirkung für
+            die Zukunft widerrufen. Die aktuelle Analyse-Einwilligung für PostHog umfasst keinen
+            Einsatz des Meta-Pixels.
+          </p>
+        </section>
+
         {/* 5. Aktualität */}
         <section className="mt-12">
           <h2 className="font-display text-2xl font-bold">5. Aktualität dieser Erklärung</h2>
