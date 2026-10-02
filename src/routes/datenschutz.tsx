@@ -26,7 +26,7 @@ function DatenschutzPage() {
         <h1 className="font-display text-4xl font-bold tracking-tight break-words sm:text-5xl">
           Datenschutzerklärung
         </h1>
-        <p className="mt-4 text-sm text-foreground/60">Stand: 29. September 2026</p>
+        <p className="mt-4 text-sm text-foreground/60">Stand: 2. Oktober 2026</p>
 
         {/* 1. Datenschutz auf einen Blick */}
         <section className="mt-12">
@@ -172,8 +172,8 @@ function DatenschutzPage() {
             <br />
             <br />
             E-Mail:{" "}
-            <a href="mailto:marieke.funck@factory33.de" className="underline underline-offset-4">
-              marieke.funck@factory33.de
+            <a href="mailto:hello@factory33.de" className="underline underline-offset-4">
+              hello@factory33.de
             </a>
           </address>
 
@@ -389,8 +389,8 @@ function DatenschutzPage() {
             Abmeldungen, Beschwerden oder unzustellbaren Adressen auf Grundlage von Art. 6 Abs. 1
             lit. f DSGVO. Sie können Ihre Einwilligung jederzeit mit
             Wirkung für die Zukunft per E-Mail an{" "}
-            <a href="mailto:info@factory33.de" className="underline underline-offset-4">
-              info@factory33.de
+            <a href="mailto:hello@factory33.de" className="underline underline-offset-4">
+              hello@factory33.de
             </a>{" "}
             oder über den Abmeldelink in unseren E-Mails widerrufen. Wir speichern die Daten bis
             zum Widerruf; den Nachweis der Einwilligung können wir darüber hinaus aufbewahren,
@@ -455,6 +455,23 @@ function DatenschutzPage() {
           </p>
 
           <h3 className="mt-6 font-display text-lg font-semibold">
+            Mögliche Weitergabe an eine spätere Ausgründung
+          </h3>
+          <p className="mt-3 text-foreground/80 leading-relaxed">
+            Im Zuge des Projekts LAVIDRO kann eine eigenständige Gesellschaft entstehen. Sollte diese
+            Gesellschaft oder eine spätere Rechtsnachfolgerin die Bearbeitung Ihrer Anfrage übernehmen,
+            kommt eine Übermittlung der hierfür erforderlichen Anfrage- und Kontaktdaten für die hier
+            beschriebenen Zwecke in Betracht. Eine solche Übermittlung erfolgt nur, wenn dafür eine
+            datenschutzrechtliche Rechtsgrundlage besteht. Vor einer entsprechenden Weitergabe
+            informieren wir Sie über den konkreten Empfänger, die Zwecke und die Rechtsgrundlage.
+          </p>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Soweit die Weitergabe eine Einwilligung erfordert, holen wir diese gesondert und freiwillig
+            ein. Die bloße Kenntnisnahme dieser Datenschutzerklärung im Anfrageformular stellt keine
+            Einwilligung in die Weitergabe an eine Ausgründung oder Rechtsnachfolgerin dar.
+          </p>
+
+          <h3 className="mt-6 font-display text-lg font-semibold">
             Freiwillige Produktinformationen per E-Mail
           </h3>
           <p className="mt-3 text-foreground/80 leading-relaxed">
@@ -463,8 +480,8 @@ function DatenschutzPage() {
             informieren. Diese Einwilligung ist freiwillig, nicht vorausgewählt und keine Voraussetzung
             für die Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO. Sie
             können die Einwilligung jederzeit mit Wirkung für die Zukunft per E-Mail an{" "}
-            <a href="mailto:info@factory33.de" className="underline underline-offset-4">
-              info@factory33.de
+            <a href="mailto:hello@factory33.de" className="underline underline-offset-4">
+              hello@factory33.de
             </a>{" "}
             widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung bleibt
             unberührt. Wir speichern den Einwilligungsstatus und den Zeitpunkt der Einwilligung zum

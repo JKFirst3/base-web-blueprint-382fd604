@@ -138,7 +138,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
                 addressLocality: "Paderborn",
                 addressCountry: "DE",
               },
-              email: "info@factory33.de",
+              email: "hello@factory33.de",
             },
             {
               "@type": "WebSite",

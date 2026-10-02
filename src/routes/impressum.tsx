@@ -56,8 +56,8 @@ function ImpressumPage() {
             Ansprechpartner: Jannik Woste
             <br />
             E-Mail:{" "}
-            <a href="mailto:info@factory33.de" className="underline underline-offset-4">
-              info@factory33.de
+            <a href="mailto:hello@factory33.de" className="underline underline-offset-4">
+              hello@factory33.de
             </a>
           </p>
         </section>
@@ -75,8 +75,8 @@ function ImpressumPage() {
           <p className="mt-4 text-foreground/80 leading-relaxed">
             Die veröffentlichten Inhalte dieser Website wurden mit größter Sorgfalt geprüft und
             erstellt. Hinweise und Korrekturen können Sie an{" "}
-            <a href="mailto:info@factory33.de" className="underline underline-offset-4">
-              info@factory33.de
+            <a href="mailto:hello@factory33.de" className="underline underline-offset-4">
+              hello@factory33.de
             </a>{" "}
             senden. Factory33 Ecosystem GmbH haftet für Schäden aus der Nutzung der angebotenen
             Inhalte nach den gesetzlichen Bestimmungen.
@@ -105,6 +105,13 @@ function ImpressumPage() {
             Rechteinhaber. Beiträge Dritter werden als solche gekennzeichnet. Genannte Marken und
             Warenzeichen unterliegen den Rechten ihrer jeweiligen Eigentümer; aus ihrer bloßen
             Nennung folgt nicht, dass sie frei von Rechten Dritter sind.
+          </p>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="font-display text-xl font-semibold">Bilderquellen</h2>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            Eigene Bilder &amp; garage33 / Universität Paderborn
           </p>
         </section>
 
