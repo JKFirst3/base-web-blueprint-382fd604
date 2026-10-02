@@ -110,8 +110,9 @@ describe("PostHog consent gate demographics", () => {
     assert.equal(calls.length, 0);
   });
 
-  test("keeps exactly five funnel steps and separate diagnostics", () => {
+  test("keeps supported journey events and DOI separate", () => {
     assert.deepEqual(FUNNEL_EVENT_NAMES, [
+      "website_visited",
       "landing_page_viewed",
       "product_area_viewed",
       "purchase_model_selected",
@@ -180,14 +181,22 @@ test("SDK retries retain all PostHog deduplication fields", async () => {
   assert.deepEqual(first.calls[0].init.headers, { "content-type": "application/json" });
 });
 
-
 describe("campaign attribution", () => {
   test("forwards the fixed campaign on all funnel and diagnostic events", async () => {
     for (const name of [...FUNNEL_EVENT_NAMES, ...DIAGNOSTIC_EVENT_NAMES]) {
-      const payload = event({ campaign_id: "smoke_google_v1", ...(name === "page_engagement" ? { page_path: "/", visible_seconds: 10 } : {}) }, name);
+      const payload = event(
+        {
+          campaign_id: "smoke_google_v1",
+          ...(name === "page_engagement" ? { page_path: "/", visible_seconds: 10 } : {}),
+        },
+        name,
+      );
       const { result, calls } = await send(payload);
       assert.equal(result.outcome, "forwarded", name);
-      assert.equal(JSON.parse(String(calls[0].init.body)).batch[0].properties.campaign_id, "smoke_google_v1");
+      assert.equal(
+        JSON.parse(String(calls[0].init.body)).batch[0].properties.campaign_id,
+        "smoke_google_v1",
+      );
       assert.equal((await send(payload, false)).calls.length, 0);
     }
   });
@@ -200,11 +209,17 @@ describe("campaign attribution", () => {
   });
 });
 
-
 test("all three product campaigns pass the consent gate", async () => {
-  for (const campaign_id of ["smoke_google_mobile_v1", "smoke_google_cabinet_v1", "smoke_google_one_v1"]) {
+  for (const campaign_id of [
+    "smoke_google_mobile_v1",
+    "smoke_google_cabinet_v1",
+    "smoke_google_one_v1",
+  ]) {
     const { result, calls } = await send(event({ campaign_id }));
     assert.equal(result.outcome, "forwarded");
-    assert.equal(JSON.parse(String(calls[0].init.body)).batch[0].properties.campaign_id, campaign_id);
+    assert.equal(
+      JSON.parse(String(calls[0].init.body)).batch[0].properties.campaign_id,
+      campaign_id,
+    );
   }
 });

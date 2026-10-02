@@ -8,6 +8,10 @@ test("timeout after saving and concurrent retries create one row and attempt DOI
   const rows = new Map<string, { id: string; doi_status: string; doi_sent_at: string | null }>();
   let mailAttempts = 0;
   let releaseMail!: () => void;
+  let notifyMailStarted!: () => void;
+  const mailStarted = new Promise<void>((resolve) => {
+    notifyMailStarted = resolve;
+  });
   const waiting = new Promise<void>((resolve) => {
     releaseMail = resolve;
   });
@@ -36,6 +40,7 @@ test("timeout after saving and concurrent retries create one row and attempt DOI
         markSendFailed: async () => {},
         sendMail: async () => {
           mailAttempts++;
+          notifyMailStarted();
           await waiting;
           return { success: true };
         },
@@ -48,6 +53,8 @@ test("timeout after saving and concurrent retries create one row and attempt DOI
   };
   const payload = { client_submission_id: crypto.randomUUID() };
   await assert.rejects(requestPreorder(payload, fakeFetch, 20), { name: "AbortError" });
+  // Hashing may finish after the browser deadline; wait for the simulated server, not a timer.
+  await mailStarted;
   const retries = await Promise.all(
     Array.from({ length: 4 }, () => requestPreorder(payload, fakeFetch)),
   );

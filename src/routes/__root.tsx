@@ -7,6 +7,7 @@ import {
   useRouterState,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect } from "react";
 
@@ -39,7 +40,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
 
@@ -184,6 +185,7 @@ function RootComponent() {
   useEffect(() => propagateCampaignToSiteLinks(), [pathname, searchStr]);
 
   useEffect(() => {
+    void captureFunnel("website_visited");
     if (pathname === "/") void captureFunnel("landing_page_viewed");
   }, [pathname, searchStr]);
 

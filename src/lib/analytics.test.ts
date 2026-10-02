@@ -52,7 +52,12 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
   );
   Object.assign(globalThis, {
     window: {
-      location: { origin: "http://localhost", hostname: "localhost", pathname: "/other", search: "?lv_campaign=smoke_google_v1" },
+      location: {
+        origin: "http://localhost",
+        hostname: "localhost",
+        pathname: "/other",
+        search: "?lv_campaign=smoke_google_v1",
+      },
       addEventListener: (name: string, cb: () => void) => listeners.set(name, cb),
       clearInterval: () => {},
     },
@@ -70,6 +75,7 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
     const props = { job_title_provided: true };
     await captureFunnel("purchase_interest_submitted", props, "no-consent");
     await captureEmailConfirmed();
+    await captureFunnel("website_visited");
     assert.equal(configRequests, 0);
     assert.equal(captured.length, 0);
     allowed = true;
@@ -92,11 +98,15 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
     window.location.search = "?lv_campaign=unapproved";
     await captureFunnel("purchase_interest_submitted", {}, "direct-submission");
     assert.equal("campaign_id" in captured[3].properties, false);
+    // Arrival on any route is consent-gated and counted once per visit/campaign.
+    await Promise.all([captureFunnel("website_visited"), captureFunnel("website_visited")]);
+    await captureFunnel("website_visited");
+    assert.equal(captured.filter(({ event }) => event === "website_visited").length, 1);
     allowed = false;
     consentTs++;
     listeners.get("lavidro:consent-changed")?.();
     await captureFunnel("purchase_interest_submitted", props, "after-withdrawal");
-    assert.equal(captured.length, 4);
+    assert.equal(captured.length, 5);
     assert.equal(beforeSend!({ event: "purchase_interest_submitted", properties: props }), null);
   } finally {
     for (const [key, descriptor] of Object.entries(originals)) {

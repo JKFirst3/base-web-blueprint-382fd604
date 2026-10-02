@@ -154,17 +154,6 @@ function ConfiguratorPage() {
       requestedProduct && requestedProduct in preorderCatalog ? requestedProduct : "mobile";
     void captureFunnel("product_area_viewed", { entry_type: "direct", product_id: product });
 
-    const onModel = (event: Event) => {
-      const detail = (event as CustomEvent<{ productId: string; paymentType: string }>).detail;
-      const business_model = toBusinessModel(detail?.paymentType);
-      if (!business_model || !(detail.productId in preorderCatalog)) return;
-      void captureFunnel("purchase_model_selected", {
-        product_id: detail.productId,
-        business_model,
-      });
-    };
-    window.addEventListener("lavidro:purchase-model", onModel);
-
     const onPreorder = (event: Event) => {
       const detail = (event as CustomEvent<PreorderSelection>).detail;
       const catalogSelection = getCatalogSelection(detail);
@@ -174,14 +163,12 @@ function ConfiguratorPage() {
       setSelection(catalogSelection);
       void captureFunnel("purchase_interest_started", {
         product_id: catalogSelection.productId,
-        business_model: toBusinessModel(catalogSelection.paymentType),
       });
     };
 
     window.addEventListener("lavidro:preorder", onPreorder);
     return () => {
       window.removeEventListener("lavidro:preorder", onPreorder);
-      window.removeEventListener("lavidro:purchase-model", onModel);
     };
   }, []);
 
@@ -200,6 +187,7 @@ function PreorderDialog({
   selection: PreorderSelection;
   onClose: () => void;
 }) {
+  const [paymentType, setPaymentType] = useState<"upfront" | "monthly" | "">("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [householdSize, setHouseholdSize] = useState("");
@@ -233,6 +221,10 @@ function PreorderDialog({
   async function submit(event: React.FormEvent) {
     event.preventDefault();
     if (submissionBusy.current || success) return;
+    if (!paymentType) {
+      setMessage("Bitte wählen Sie Kauf oder Abo aus.");
+      return;
+    }
     if (!name.trim()) {
       setMessage("Bitte geben Sie Ihren Namen ein.");
       return;
@@ -268,9 +260,9 @@ function PreorderDialog({
         solution_name: selection.productName,
         tier: selection.tier,
         size: "Standard",
-        payment_type: selection.paymentType,
+        payment_type: paymentType,
         price_eur: selection.price,
-        monthly_eur: selection.paymentType === "monthly" ? selection.monthly : null,
+        monthly_eur: paymentType === "monthly" ? selection.monthly : null,
         consent,
         marketing_consent: marketingConsent,
         client_submission_id: clientSubmissionId,
@@ -282,7 +274,7 @@ function PreorderDialog({
         "purchase_interest_submitted",
         {
           product_id: selection.productId,
-          business_model: toBusinessModel(selection.paymentType),
+          business_model: toBusinessModel(paymentType),
           household_size: answers.data.household_size,
           greatest_value: answers.data.greatest_value,
           job_title_provided: answers.data.job_title.length > 0,
@@ -344,22 +336,46 @@ function PreorderDialog({
           <>
             <p className="kicker">Unverbindliche Anfrage</p>
             <h2 id="preorder-title">{selection.productName} anfragen</h2>
-            <div className="preorder-summary">
-              <span>{selection.family}</span>
-              <strong>
-                {selection.paymentType === "monthly"
-                  ? `${selection.monthly.toLocaleString("de-DE")} € / Monat`
-                  : `${selection.price.toLocaleString("de-DE")} €`}
-              </strong>
-              <small>
-                Unverbindliche Preisindikation, inkl. 19 % MwSt. und Versand. Der Preis kann sich
-                bis zum verbindlichen Angebot ändern.
-              </small>
-            </div>
-
-            <PreorderJourney />
+            <p className="preorder-introduction">
+              Lavidro befindet sich in einer frühen Entwicklungsphase. Weitere Details teilen wir
+              gerne im persönlichen Austausch. Senden Sie uns eine unverbindliche Anfrage – wir
+              setzen uns mit Ihnen in Verbindung.
+            </p>
 
             <form className="preorder-form" onSubmit={submit}>
+              <fieldset className="preorder-payment-options" disabled={attemptStarted}>
+                <legend>Voraussichtliche, unverbindliche Preisindikation</legend>
+                {(["upfront", "monthly"] as const).map((model) => (
+                  <label key={model}>
+                    <input
+                      type="radio"
+                      name="payment-type"
+                      value={model}
+                      required
+                      checked={paymentType === model}
+                      onChange={() => {
+                        setPaymentType(model);
+                        void captureFunnel("purchase_model_selected", {
+                          product_id: selection.productId,
+                          business_model: toBusinessModel(model),
+                        });
+                      }}
+                    />
+                    <span>
+                      <span>{model === "monthly" ? "Monatlicher Beitrag (Abo)" : "Kaufpreis"}</span>
+                      <strong>
+                        {model === "monthly"
+                          ? `${selection.monthly.toLocaleString("de-DE")} € / Monat`
+                          : `${selection.price.toLocaleString("de-DE")} €`}
+                      </strong>
+                    </span>
+                  </label>
+                ))}
+                <small>
+                  Inkl. 19 % MwSt. und Versand. Preise können sich bis zu einem späteren Angebot
+                  ändern. Keine Zahlungspflicht durch die Anfrage.
+                </small>
+              </fieldset>
               <label>
                 <span>Name</span>
                 <input
@@ -473,6 +489,7 @@ function PreorderDialog({
                 {message}
               </p>
             </form>
+            <PreorderJourney />
           </>
         )}
       </section>

@@ -2538,3 +2538,14 @@ details p {
 }
 
 .config-actions .primary-button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.preorder-introduction { margin: 16px 0 24px; color: var(--muted); }
+.preorder-payment-options { display: grid; gap: 12px; padding: 20px 0; margin: 0; border: 0; border-bottom: 1px solid var(--line); }
+.preorder-payment-options legend { font-weight: 600; padding: 0; }
+.preorder-payment-options label { display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; }
+.preorder-payment-options label:has(input:checked) { border-color: var(--ink); background: var(--paper); }
+.preorder-payment-options input { flex: 0 0 auto; width: 20px; height: 20px; accent-color: var(--ink); }
+.preorder-payment-options label > span { display: grid; gap: 4px; }
+.preorder-payment-options strong { font-size: clamp(1.4rem, 4vw, 1.9rem); font-weight: 500; }
+.preorder-payment-options small { color: var(--muted); }
+.preorder-payment-options:disabled label { cursor: default; opacity: .7; }

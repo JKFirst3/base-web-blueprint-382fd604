@@ -87,38 +87,12 @@
   const description = document.querySelector("[data-product-description]");
   const promise = document.querySelector("[data-product-promise]");
   const hygiene = document.querySelector("[data-product-hygiene]");
-  const levelOptions = document.querySelector("[data-level-options]");
   const featureList = document.querySelector("[data-feature-list]");
-  const form = document.querySelector("[data-config-form]");
   const buyButton = document.querySelector("[data-buy-button]");
-  const priceUpfront = document.querySelector("[data-price-upfront]");
-  const priceMonthly = document.querySelector("[data-price-monthly]");
   const compareTable = document.querySelector("[data-compare-table]");
   const compareDialog = document.querySelector("[data-compare-dialog]");
   const openCompareButtons = document.querySelectorAll("[data-open-compare]");
   const closeCompareButton = document.querySelector("[data-close-compare]");
-
-  const selectedFinance = () => (form ? new FormData(form).get("finance") : null);
-
-  const renderLevels = () => {
-    const level = selectedProduct.levels[selectedLevelKey];
-    const options = [
-      ["cash", "Kaufpreis"],
-      ["monthly", "Monatlicher Beitrag (Abo)"],
-    ];
-    levelOptions.innerHTML = options
-      .map(
-        ([key, label]) => `
-        <label class="option-row">
-          <input type="radio" name="finance" value="${key}" />
-          <span>
-            <strong>${label}</strong>
-          </span>
-        </label>
-      `,
-      )
-      .join("");
-  };
 
   const renderFeatures = () => {
     const activeFeatures = selectedProduct.levels[selectedLevelKey].features;
@@ -135,20 +109,6 @@
       .join("");
   };
 
-  const renderPrices = () => {
-    const level = selectedProduct.levels[selectedLevelKey];
-    priceUpfront.textContent = `${level.price.toLocaleString("de-DE")} €`;
-    priceMonthly.textContent = `${level.monthly.toLocaleString("de-DE")} € / Monat`;
-    const finance = selectedFinance();
-
-    priceUpfront.closest("p")?.classList.toggle("is-selected", finance === "cash");
-    priceMonthly.closest("p")?.classList.toggle("is-selected", finance === "monthly");
-    if (buyButton) {
-      buyButton.disabled = !finance;
-      buyButton.title = finance ? "" : "Bitte zuerst Kaufpreis oder Abo wählen";
-    }
-  };
-
   const renderCompare = () => {
     const comparableProducts = Object.entries(products).filter(
       ([, product]) => Object.keys(product.levels).length,
@@ -156,13 +116,11 @@
 
     compareTable.innerHTML = comparableProducts
       .map(([key, product]) => {
-        const level = Object.values(product.levels)[0];
         return `
         <article class="compare-card">
           <img src="${product.image}" alt="Produktansicht: ${product.title}">
           <p class="kicker">${product.title}</p>
           <h3>${product.family}</h3>
-          <p>${level.monthly.toLocaleString("de-DE")} € / Monat im Abo oder ${level.price.toLocaleString("de-DE")} € Kaufpreis</p>
 
           <ul>
             ${product.highlights.map((highlight) => `<li>${highlight}</li>`).join("")}
@@ -185,30 +143,11 @@
       ? "Bereitet Ihre schönsten Wäschestücke wieder auf, ganz ohne Waschen."
       : "Dreckige Wäsche dem System geben und saubere, gefaltete Wäsche zurückbekommen.";
     hygiene.hidden = selectedKey !== "one";
-    renderLevels();
     renderFeatures();
-    renderPrices();
     renderCompare();
   };
 
-  form?.addEventListener("change", (event) => {
-    if (event.target.name === "finance") {
-      renderPrices();
-      if (event.isTrusted) {
-        window.dispatchEvent(
-          new CustomEvent("lavidro:purchase-model", {
-            detail: {
-              productId: selectedKey,
-              paymentType: event.target.value === "cash" ? "upfront" : "monthly",
-            },
-          }),
-        );
-      }
-    }
-  });
-
   buyButton?.addEventListener("click", () => {
-    if (!selectedFinance()) return;
     const level = selectedProduct.levels[selectedLevelKey];
     window.dispatchEvent(
       new CustomEvent("lavidro:preorder", {
@@ -220,7 +159,7 @@
           price: level.price,
           monthly: level.monthly,
 
-          paymentType: selectedFinance() === "cash" ? "upfront" : "monthly",
+          paymentType: "upfront",
         },
       }),
     );

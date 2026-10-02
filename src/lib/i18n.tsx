@@ -187,6 +187,8 @@ const english: Record<string, string> = {
   Variante: "Variant",
   Funktionsumfang: "Features",
   Anfragen: "Request",
+  "Mehr erfahren": "Learn more",
+  "Lavidro befindet sich in einer frühen Entwicklungsphase. Weitere Details teilen wir gerne im persönlichen Austausch. Senden Sie uns eine unverbindliche Anfrage – wir setzen uns mit Ihnen in Verbindung.": "Lavidro is at an early stage of development. We would be happy to share further details in a personal conversation. Send us a non-binding inquiry and we will get in touch.",
   "Dreckige Wäsche dem System geben und saubere, gefaltete Wäsche zurückbekommen.": "Hand dirty laundry to the system and get clean, folded laundry back.",
   "Bereitet Ihre schönsten Wäschestücke wieder auf, ganz ohne Waschen.": "Refreshes your favourite garments without washing.",
   "Entwicklungsziel: 99 % der Bakterien und Gerüche entfernen.": "Development goal: remove 99% of bacteria and odours.",

@@ -39,6 +39,7 @@ async function fetchPosthogConfig(): Promise<{ token: string; host: string } | n
 }
 
 export const FUNNEL_EVENT_NAMES = [
+  "website_visited",
   "landing_page_viewed",
   "product_area_viewed",
   "purchase_model_selected",
@@ -62,7 +63,6 @@ type Props = {
     | "Sonstige"
     | null;
   job_title_provided?: boolean;
-
 };
 
 const ALLOWED_PROPS = [
@@ -106,7 +106,11 @@ const OUTGOING_EVENTS = new Set<string>([
   ENGAGEMENT_EVENT,
   EMAIL_CONFIRMED_EVENT,
 ]);
-const ONCE_PER_VISIT: FunnelEvent[] = ["landing_page_viewed", "product_area_viewed"];
+const ONCE_PER_VISIT: FunnelEvent[] = [
+  "website_visited",
+  "landing_page_viewed",
+  "product_area_viewed",
+];
 const FIRED_KEY = "lv_ph_fired";
 
 let ph: PostHog | null = null;
@@ -261,7 +265,10 @@ export async function captureFunnel(event: FunnelEvent, props: Props = {}, submi
   // The key stays local: no database submission ID is sent to PostHog.
   if (event === "purchase_interest_submitted" && !submissionId) return;
   const campaign = currentCampaign();
-  const key = event === "purchase_interest_submitted" ? `${event}:${submissionId}` : `${event}:${campaign ?? "direct"}`;
+  const key =
+    event === "purchase_interest_submitted"
+      ? `${event}:${submissionId}`
+      : `${event}:${campaign ?? "direct"}`;
   const once = ONCE_PER_VISIT.includes(event) || event === "purchase_interest_submitted";
   if (once) {
     if (wasFired(key) || inFlight.has(key)) return;
@@ -273,7 +280,10 @@ export async function captureFunnel(event: FunnelEvent, props: Props = {}, submi
       if (ONCE_PER_VISIT.includes(event) && analyticsAllowed()) retry.set(event, props);
       return;
     }
-    client.capture(event, { ...cleanProps(event, props), ...(campaign ? { campaign_id: campaign } : {}) });
+    client.capture(event, {
+      ...cleanProps(event, props),
+      ...(campaign ? { campaign_id: campaign } : {}),
+    });
     if (once) {
       markFired(key);
       retry.delete(event);
@@ -309,6 +319,7 @@ function productAreaVisible() {
 /** On consent: catch up only what is true right now (no retroactive pre-consent history). */
 function catchUpCurrentState() {
   const path = window.location.pathname;
+  void captureFunnel("website_visited");
   if (path === "/") void captureFunnel("landing_page_viewed");
   if (path === "/Konfigurator") {
     const product = new URLSearchParams(window.location.search).get("product") ?? undefined;
@@ -445,7 +456,11 @@ function tickEngagement() {
     engagement = { ...page, ms: 0, last: now };
     return;
   }
-  if (page.path !== engagement.path || page.product !== engagement.product || page.campaign !== engagement.campaign) {
+  if (
+    page.path !== engagement.path ||
+    page.product !== engagement.product ||
+    page.campaign !== engagement.campaign
+  ) {
     accumulate(now); // SPA route change: close the previous page view
     flushEngagement();
     engagement = { ...page, ms: 0, last: now };

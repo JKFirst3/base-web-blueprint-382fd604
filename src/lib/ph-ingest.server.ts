@@ -14,6 +14,7 @@ const CONSENT_COOKIE = "lavidro_consent";
 const CONSENT_VERSION = 1;
 
 export const FUNNEL_EVENT_NAMES = [
+  "website_visited",
   "landing_page_viewed",
   "product_area_viewed",
   "purchase_model_selected",
