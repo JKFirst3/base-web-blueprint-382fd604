@@ -20,6 +20,8 @@ export const FUNNEL_EVENT_NAMES = [
   "purchase_model_selected",
   "purchase_interest_started",
   "purchase_interest_submitted",
+  "product_comparison_opened",
+  "product_comparison_product_selected",
 ] as const;
 export const DIAGNOSTIC_EVENT_NAMES = [
   "page_engagement",
@@ -68,6 +70,7 @@ const ALLOWED_INPUT_PROPS = new Set([
   "site_environment",
   "site_host",
   "product_id",
+  "source_product_id",
   "business_model",
   "entry_type",
   "page_path",
@@ -214,6 +217,14 @@ function cleanEvent(raw: unknown, token: string, consentTs: number, origin: stri
   const url = stripUrl(p.$current_url, origin);
   if (url) out.$current_url = url;
   if (typeof p.product_id === "string" && PRODUCT_IDS.has(p.product_id)) out.product_id = p.product_id;
+  if (e.event === "product_comparison_opened" || e.event === "product_comparison_product_selected") {
+    if (!out.product_id) return "invalid";
+  }
+  if ("source_product_id" in p) {
+    if (e.event !== "product_comparison_product_selected" || typeof p.source_product_id !== "string" || !PRODUCT_IDS.has(p.source_product_id)) return "invalid";
+    out.source_product_id = p.source_product_id;
+  }
+  if (e.event === "product_comparison_product_selected" && (!out.source_product_id || out.source_product_id === out.product_id)) return "invalid";
   if (typeof p.business_model === "string" && BUSINESS_MODELS.has(p.business_model)) out.business_model = p.business_model;
   if (typeof p.entry_type === "string" && ENTRY_TYPES.has(p.entry_type)) out.entry_type = p.entry_type;
   if ([...FORBIDDEN_FREE_TEXT_PROPS].some((key) => key in p)) return "invalid";

@@ -76,6 +76,8 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
     await captureFunnel("purchase_interest_submitted", props, "no-consent");
     await captureEmailConfirmed();
     await captureFunnel("website_visited");
+    await captureFunnel("product_comparison_opened", { product_id: "mobile" });
+    await captureFunnel("product_comparison_product_selected", { product_id: "one", source_product_id: "mobile" });
     assert.equal(configRequests, 0);
     assert.equal(captured.length, 0);
     allowed = true;
@@ -102,11 +104,17 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
     await Promise.all([captureFunnel("website_visited"), captureFunnel("website_visited")]);
     await captureFunnel("website_visited");
     assert.equal(captured.filter(({ event }) => event === "website_visited").length, 1);
+    await captureFunnel("product_comparison_opened", { product_id: "mobile", source_product_id: "one" });
+    await captureFunnel("product_comparison_product_selected", { product_id: "one", source_product_id: "mobile" });
+    assert.equal("source_product_id" in captured[5].properties, false);
+    assert.equal(captured[6].properties.source_product_id, "mobile");
+    assert.equal(captured[6].properties.product_id, "one");
+    assert.equal("job_title" in captured[6].properties, false);
     allowed = false;
     consentTs++;
     listeners.get("lavidro:consent-changed")?.();
     await captureFunnel("purchase_interest_submitted", props, "after-withdrawal");
-    assert.equal(captured.length, 5);
+    assert.equal(captured.length, 7);
     assert.equal(beforeSend!({ event: "purchase_interest_submitted", properties: props }), null);
   } finally {
     for (const [key, descriptor] of Object.entries(originals)) {

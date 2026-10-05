@@ -166,9 +166,24 @@ function ConfiguratorPage() {
       });
     };
 
+    const onComparisonOpened = () => {
+      void captureFunnel("product_comparison_opened", { product_id: product });
+    };
+    const onComparisonSelected = (event: Event) => {
+      const target = (event as CustomEvent<{ productId?: string }>).detail?.productId;
+      if (!target || !(target in preorderCatalog) || target === product) return;
+      void captureFunnel("product_comparison_product_selected", {
+        product_id: target,
+        source_product_id: product,
+      });
+    };
+    window.addEventListener("lavidro:comparison-opened", onComparisonOpened);
+    window.addEventListener("lavidro:comparison-product-selected", onComparisonSelected);
     window.addEventListener("lavidro:preorder", onPreorder);
     return () => {
       window.removeEventListener("lavidro:preorder", onPreorder);
+      window.removeEventListener("lavidro:comparison-opened", onComparisonOpened);
+      window.removeEventListener("lavidro:comparison-product-selected", onComparisonSelected);
     };
   }, []);
 

@@ -232,8 +232,8 @@ const english: Record<string, string> = {
     "A mobile robotic arm on a wheeled base for automated laundry care. It can be positioned flexibly in the utility room and takes care of your laundry.",
   "Vollautomatischer Wäscheschrank mit intelligenter Robotik, diskret integriert und für den Prozess vom Sortieren bis zur bereitgestellten Kleidung konzipiert.":
     "A fully automated laundry cabinet with intelligent robotics, discreetly integrated and designed for the process from sorting to ready-to-wear clothing.",
-  "Ein leistungsstarkes Dampfreinigungssystem entfernt bis zu 99,99 % der Gerüche, Viren und Bakterien aus den Textilien und frischt sie hygienisch auf. Ergänzend behandelt ein integrierter Roboterarm einzelne Kleidungsstücke gezielt, bearbeitet Flecken punktgenau und kann Textilien zusätzlich schonend steamen. So werden Kleidungsstücke gezielt gepflegt und aufgefrischt, wann immer es nötig ist.":
-    "A powerful steam-cleaning system removes up to 99.99% of odours, viruses and bacteria from textiles and refreshes them hygienically. An integrated robotic arm also treats individual garments, targets stains precisely and can gently steam textiles. This gives garments focused care and refreshes them whenever needed.",
+  "Ein leistungsstarkes Dampfreinigungssystem entfernt bis zu 99,99 % der Gerüche, Viren und Bakterien aus den Textilien und frischt sie hygienisch auf. Ergänzend behandelt ein integrierter Roboterarm einzelne Kleidungsstücke gezielt, bearbeitet Flecken punktgenau und kann Textilien zusätzlich schonend steamen.":
+    "A powerful steam-cleaning system removes up to 99.99% of odours, viruses and bacteria from textiles and refreshes them hygienically. An integrated robotic arm also treats individual garments, targets stains precisely and can gently steam textiles.",
   Schließen: "Close",
   "Während der Entwicklung": "During development",
   "Anfrage eingegangen": "Request received",

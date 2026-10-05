@@ -45,12 +45,15 @@ export const FUNNEL_EVENT_NAMES = [
   "purchase_model_selected",
   "purchase_interest_started",
   "purchase_interest_submitted",
+  "product_comparison_opened",
+  "product_comparison_product_selected",
 ] as const;
 export type FunnelEvent = (typeof FUNNEL_EVENT_NAMES)[number];
 
 export type BusinessModel = "purchase" | "subscription";
 type Props = {
   product_id?: string;
+  source_product_id?: string;
   business_model?: BusinessModel;
   entry_type?: "scroll" | "direct";
   household_size?: "1" | "2" | "3-4" | "5+" | null;
@@ -67,6 +70,7 @@ type Props = {
 
 const ALLOWED_PROPS = [
   "product_id",
+  "source_product_id",
   "business_model",
   "entry_type",
   "household_size",
@@ -204,7 +208,7 @@ async function load(): Promise<PostHog | null> {
       persistence: "localStorage+cookie",
       before_send: (event) => {
         if (!event) return null;
-        // Only the five funnel events may leave the browser, and only with consent.
+        // Only explicitly permitted events may leave the browser, and only with consent.
         if (!OUTGOING_EVENTS.has(event.event) || !analyticsAllowed()) return null;
         const p = (event.properties ?? {}) as Record<string, unknown>;
         // Strict positive list: every property not explicitly listed is dropped.
@@ -246,6 +250,9 @@ async function load(): Promise<PostHog | null> {
 function cleanProps(event: FunnelEvent, props: Props) {
   const clean: Record<string, string | boolean> = {};
   if (props.product_id) clean.product_id = props.product_id;
+  if (event === "product_comparison_product_selected" && props.source_product_id) {
+    clean.source_product_id = props.source_product_id;
+  }
   if (props.business_model) clean.business_model = props.business_model;
   if (props.entry_type) clean.entry_type = props.entry_type;
   if (event === "purchase_interest_submitted") {

@@ -118,6 +118,8 @@ describe("PostHog consent gate demographics", () => {
       "purchase_model_selected",
       "purchase_interest_started",
       "purchase_interest_submitted",
+      "product_comparison_opened",
+      "product_comparison_product_selected",
     ]);
     assert.deepEqual(DIAGNOSTIC_EVENT_NAMES, [
       "page_engagement",
@@ -187,6 +189,8 @@ describe("campaign attribution", () => {
       const payload = event(
         {
           campaign_id: "smoke_google_v1",
+          ...(name === "product_comparison_opened" ? { product_id: "mobile" } : {}),
+          ...(name === "product_comparison_product_selected" ? { product_id: "one", source_product_id: "mobile" } : {}),
           ...(name === "page_engagement" ? { page_path: "/", visible_seconds: 10 } : {}),
         },
         name,
@@ -223,3 +227,18 @@ test("all three product campaigns pass the consent gate", async () => {
     );
   }
 });
+
+ test("comparison events preserve validated source and target only with consent", async () => {
+   const props = { product_id: "one", source_product_id: "mobile" };
+   const accepted = await send(event(props, "product_comparison_product_selected"));
+   assert.equal(accepted.result.outcome, "forwarded");
+   const sent = JSON.parse(String(accepted.calls[0].init.body)).batch[0].properties;
+   assert.equal(sent.product_id, "one");
+   assert.equal(sent.source_product_id, "mobile");
+   assert.equal((await send(event(props, "product_comparison_product_selected"), false)).calls.length, 0);
+   for (const invalid of [{ ...props, source_product_id: "private text" }, { product_id: "one" }, { product_id: "one", source_product_id: "one" }]) {
+     assert.equal((await send(event(invalid, "product_comparison_product_selected"))).result.outcome, "dropped_invalid");
+   }
+   assert.equal((await send(event({ product_id: "mobile" }, "product_comparison_opened"))).result.outcome, "forwarded");
+   assert.equal((await send(event(props, "product_comparison_opened"))).result.outcome, "dropped_invalid");
+ });

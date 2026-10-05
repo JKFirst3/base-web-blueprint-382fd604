@@ -53,7 +53,7 @@
       title: "Lavidro One",
       family: "Einzelne Wäscheaufbereitung",
       description:
-        "Ein leistungsstarkes Dampfreinigungssystem entfernt bis zu 99,99 % der Gerüche, Viren und Bakterien aus den Textilien und frischt sie hygienisch auf. Ergänzend behandelt ein integrierter Roboterarm einzelne Kleidungsstücke gezielt, bearbeitet Flecken punktgenau und kann Textilien zusätzlich schonend steamen. So werden Kleidungsstücke gezielt gepflegt und aufgefrischt, wann immer es nötig ist.",
+        "Ein leistungsstarkes Dampfreinigungssystem entfernt bis zu 99,99 % der Gerüche, Viren und Bakterien aus den Textilien und frischt sie hygienisch auf. Ergänzend behandelt ein integrierter Roboterarm einzelne Kleidungsstücke gezielt, bearbeitet Flecken punktgenau und kann Textilien zusätzlich schonend steamen.",
       image: "/__l5e/assets-v1/d374de19-f828-4b44-8831-d1e221804f08/lavidro-one.png",
       highlights: [
         "Roboterarm im Schrank für die Behandlung einzelner Kleidungsstücke",
@@ -167,7 +167,19 @@
     button.addEventListener("click", () => {
       renderCompare();
       compareDialog?.showModal();
+      window.dispatchEvent(new CustomEvent("lavidro:comparison-opened"));
     });
+  });
+
+  compareTable?.addEventListener("click", (event) => {
+    const link = event.target.closest?.("a[href]");
+    if (!link) return;
+    const target = new URL(link.href, window.location.origin).searchParams.get("product");
+    if (target && products[target] && target !== selectedKey) {
+      window.dispatchEvent(new CustomEvent("lavidro:comparison-product-selected", {
+        detail: { productId: target },
+      }));
+    }
   });
 
   closeCompareButton?.addEventListener("click", () => compareDialog.close());
