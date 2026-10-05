@@ -16,7 +16,7 @@
         "Ein mobiler Roboterarm auf fahrbarer Basis für automatisierte Wäschepflege. Er wird flexibel im Hauswirtschaftsraum positioniert und übernimmt Ihre Wäsche.",
       image: "assets/lavidro-hero-humanoid-v4.png",
       highlights: [
-        "Roboterarm auf fahrbarer Basis statt fest montierter Lösung",
+        "Mobiler Roboterarm für automatisierte Wäschepflege",
         "Flexibel im Hauswirtschaftsraum positionierbar",
         "Automatisiert den Ablauf zwischen Wäsche, Maschinen und Ablage",
       ],
@@ -58,7 +58,7 @@
       highlights: [
         "Roboterarm im Schrank für die Behandlung einzelner Kleidungsstücke",
         "Gezielte Fleckenbehandlung statt kompletter Waschladung",
-        "Auffrischen von Textilien zwischen zwei Tragen",
+        "Textilien zwischen zwei Tragevorgängen auffrischen",
       ],
       levels: {
         standard: {

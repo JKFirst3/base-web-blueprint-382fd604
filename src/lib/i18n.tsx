@@ -216,8 +216,10 @@ const english: Record<string, string> = {
   "Planungsrichtwert ab 5 m² Fläche": "Planning guideline from 5 m² of space",
   "Umfangreiche Funktionen": "Extensive features",
   "Voller Funktionsumfang": "Full feature set",
-  "Roboterarm auf fahrbarer Basis statt fest montierter Lösung":
-    "Robotic arm on a mobile base instead of a fixed installation",
+  "Mobiler Roboterarm für automatisierte Wäschepflege":
+    "Mobile robotic arm for automated laundry care",
+  "Textilien zwischen zwei Tragevorgängen auffrischen":
+    "Refresh textiles between wears",
   "Flexibel im Hauswirtschaftsraum positionierbar": "Flexible positioning in the utility room",
   "Automatisiert den Ablauf zwischen Wäsche, Maschinen und Ablage":
     "Automates the flow between laundry, appliances and storage",
