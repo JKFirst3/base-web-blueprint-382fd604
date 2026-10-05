@@ -191,7 +191,6 @@ const english: Record<string, string> = {
   "Lavidro befindet sich in einer frühen Entwicklungsphase. Weitere Details teilen wir gerne im persönlichen Austausch. Senden Sie uns eine unverbindliche Anfrage – wir setzen uns mit Ihnen in Verbindung.": "Lavidro is at an early stage of development. We would be happy to share further details in a personal conversation. Send us a non-binding inquiry and we will get in touch.",
   "Dreckige Wäsche dem System geben und saubere, gefaltete Wäsche zurückbekommen.": "Hand dirty laundry to the system and get clean, folded laundry back.",
   "Bereitet Ihre schönsten Wäschestücke wieder auf, ganz ohne Waschen.": "Refreshes your favourite garments without washing.",
-  "Entwicklungsziel: 99 % der Bakterien und Gerüche entfernen.": "Development goal: remove 99% of bacteria and odours.",
   "In Entwicklung · Marktstart geplant 2027": "In development · Market launch planned for 2027",
   "Voraussichtliche, unverbindliche Preisindikation": "Estimated, non-binding price indication",
   Kaufpreis: "Purchase price",
@@ -227,10 +226,12 @@ const english: Record<string, string> = {
   "Diskret integriert mit elegantem Möbeldesign":
     "Discreetly integrated with elegant furniture design",
   "Planungsrichtwert: ab 3 m² bis 5 m² Fläche": "Planning guideline: from 3 m² to 5 m² of space",
-  "Ein mobiler Roboterarm auf fahrbarer Basis für automatisierte Wäschepflege. Er wird flexibel im Hauswirtschaftsraum positioniert und verbindet die Stationen des Wäschealltags.":
-    "A mobile robotic arm on a wheeled base for automated laundry care. It can be positioned flexibly in the utility room and connects the stations of the laundry routine.",
+  "Ein mobiler Roboterarm auf fahrbarer Basis für automatisierte Wäschepflege. Er wird flexibel im Hauswirtschaftsraum positioniert und übernimmt Ihre Wäsche.":
+    "A mobile robotic arm on a wheeled base for automated laundry care. It can be positioned flexibly in the utility room and takes care of your laundry.",
   "Vollautomatischer Wäscheschrank mit intelligenter Robotik, diskret integriert und für den Prozess vom Sortieren bis zur bereitgestellten Kleidung konzipiert.":
     "A fully automated laundry cabinet with intelligent robotics, discreetly integrated and designed for the process from sorting to ready-to-wear clothing.",
+  "Ein leistungsstarkes Dampfreinigungssystem entfernt bis zu 99,99 % der Gerüche, Viren und Bakterien aus den Textilien und frischt sie hygienisch auf. Ergänzend behandelt ein integrierter Roboterarm einzelne Kleidungsstücke gezielt, bearbeitet Flecken punktgenau und kann Textilien zusätzlich schonend steamen. So werden Kleidungsstücke gezielt gepflegt und aufgefrischt, wann immer es nötig ist.":
+    "A powerful steam-cleaning system removes up to 99.99% of odours, viruses and bacteria from textiles and refreshes them hygienically. An integrated robotic arm also treats individual garments, targets stains precisely and can gently steam textiles. This gives garments focused care and refreshes them whenever needed.",
   Schließen: "Close",
   "Während der Entwicklung": "During development",
   "Anfrage eingegangen": "Request received",

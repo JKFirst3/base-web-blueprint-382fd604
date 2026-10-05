@@ -489,7 +489,6 @@ function PreorderDialog({
                 {message}
               </p>
             </form>
-            <PreorderJourney />
           </>
         )}
       </section>

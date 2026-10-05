@@ -13,7 +13,7 @@
       title: "Lavidro Mobile",
       family: "Mobiler Wäscheassistent",
       description:
-        "Ein mobiler Roboterarm auf fahrbarer Basis für automatisierte Wäschepflege. Er wird flexibel im Hauswirtschaftsraum positioniert und verbindet die Stationen des Wäschealltags.",
+        "Ein mobiler Roboterarm auf fahrbarer Basis für automatisierte Wäschepflege. Er wird flexibel im Hauswirtschaftsraum positioniert und übernimmt Ihre Wäsche.",
       image: "assets/lavidro-hero-humanoid-v4.png",
       highlights: [
         "Roboterarm auf fahrbarer Basis statt fest montierter Lösung",
@@ -53,7 +53,7 @@
       title: "Lavidro One",
       family: "Einzelne Wäscheaufbereitung",
       description:
-        "Ein Roboterarm im Schrank behandelt einzelne Kleidungsstücke. Er behandelt Flecken gezielt vor und frischt Textilien zwischendurch auf, ohne eine komplette Waschladung zu benötigen.",
+        "Ein leistungsstarkes Dampfreinigungssystem entfernt bis zu 99,99 % der Gerüche, Viren und Bakterien aus den Textilien und frischt sie hygienisch auf. Ergänzend behandelt ein integrierter Roboterarm einzelne Kleidungsstücke gezielt, bearbeitet Flecken punktgenau und kann Textilien zusätzlich schonend steamen. So werden Kleidungsstücke gezielt gepflegt und aufgefrischt, wann immer es nötig ist.",
       image: "/__l5e/assets-v1/d374de19-f828-4b44-8831-d1e221804f08/lavidro-one.png",
       highlights: [
         "Roboterarm im Schrank für die Behandlung einzelner Kleidungsstücke",
@@ -86,7 +86,6 @@
   const panelTitle = document.querySelector("[data-panel-title]");
   const description = document.querySelector("[data-product-description]");
   const promise = document.querySelector("[data-product-promise]");
-  const hygiene = document.querySelector("[data-product-hygiene]");
   const featureList = document.querySelector("[data-feature-list]");
   const buyButton = document.querySelector("[data-buy-button]");
   const compareTable = document.querySelector("[data-compare-table]");
@@ -142,7 +141,6 @@
     promise.textContent = selectedKey === "one"
       ? "Bereitet Ihre schönsten Wäschestücke wieder auf, ganz ohne Waschen."
       : "Dreckige Wäsche dem System geben und saubere, gefaltete Wäsche zurückbekommen.";
-    hygiene.hidden = selectedKey !== "one";
     renderFeatures();
     renderCompare();
   };
