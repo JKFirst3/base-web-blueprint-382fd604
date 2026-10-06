@@ -9,64 +9,29 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as KontaktRouteImport } from './routes/kontakt'
-import { Route as ImpressumRouteImport } from './routes/impressum'
-import { Route as DatenschutzRouteImport } from './routes/datenschutz'
-import { Route as AnfrageBestaetigenRouteImport } from './routes/anfrage-bestaetigen'
-import { Route as AboutLavidroRouteImport } from './routes/aboutLavidro'
-import { Route as KonfiguratorRouteImport } from './routes/Konfigurator'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as KonfiguratorRouteImport } from './routes/Konfigurator'
+import { Route as AboutLavidroRouteImport } from './routes/aboutLavidro'
+import { Route as AnfrageBestaetigenRouteImport } from './routes/anfrage-bestaetigen'
+import { Route as DatenschutzRouteImport } from './routes/datenschutz'
+import { Route as ImpressumRouteImport } from './routes/impressum'
+import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
-import { Route as LovableEmailEventsRouteImport } from './routes/lovable/email/events'
-import { Route as ApiPublicPreordersRouteImport } from './routes/api/public/preorders'
-import { Route as ApiPublicPreorderConfirmRouteImport } from './routes/api/public/preorder-confirm'
-import { Route as ApiPublicPosthogConfigRouteImport } from './routes/api/public/posthog-config'
-import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
-import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
+import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
+import { Route as ApiPublicPosthogConfigRouteImport } from './routes/api/public/posthog-config'
+import { Route as ApiPublicPreorderConfirmRouteImport } from './routes/api/public/preorder-confirm'
+import { Route as ApiPublicPreordersRouteImport } from './routes/api/public/preorders'
+import { Route as LovableEmailEventsRouteImport } from './routes/lovable/email/events'
 import { Route as ApiPublicPhIngestSplatRouteImport } from './routes/api/public/ph-ingest.$'
+import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KontaktRoute = KontaktRouteImport.update({
-  id: '/kontakt',
-  path: '/kontakt',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ImpressumRoute = ImpressumRouteImport.update({
-  id: '/impressum',
-  path: '/impressum',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DatenschutzRoute = DatenschutzRouteImport.update({
-  id: '/datenschutz',
-  path: '/datenschutz',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AnfrageBestaetigenRoute = AnfrageBestaetigenRouteImport.update({
-  id: '/anfrage-bestaetigen',
-  path: '/anfrage-bestaetigen',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutLavidroRoute = AboutLavidroRouteImport.update({
-  id: '/aboutLavidro',
-  path: '/aboutLavidro',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KonfiguratorRoute = KonfiguratorRouteImport.update({
@@ -74,9 +39,44 @@ const KonfiguratorRoute = KonfiguratorRouteImport.update({
   path: '/Konfigurator',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AboutLavidroRoute = AboutLavidroRouteImport.update({
+  id: '/aboutLavidro',
+  path: '/aboutLavidro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnfrageBestaetigenRoute = AnfrageBestaetigenRouteImport.update({
+  id: '/anfrage-bestaetigen',
+  path: '/anfrage-bestaetigen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DatenschutzRoute = DatenschutzRouteImport.update({
+  id: '/datenschutz',
+  path: '/datenschutz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpressumRoute = ImpressumRouteImport.update({
+  id: '/impressum',
+  path: '/impressum',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
@@ -85,14 +85,19 @@ const Char91DotwellKnownChar93OauthProtectedResourceRoute =
     path: '/.well-known/oauth-protected-resource',
     getParentRoute: () => rootRouteImport,
   } as any)
-const LovableEmailEventsRoute = LovableEmailEventsRouteImport.update({
-  id: '/lovable/email/events',
-  path: '/lovable/email/events',
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicPreordersRoute = ApiPublicPreordersRouteImport.update({
-  id: '/api/public/preorders',
-  path: '/api/public/preorders',
+const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
+  id: '/api/public/leads',
+  path: '/api/public/leads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicPosthogConfigRoute = ApiPublicPosthogConfigRouteImport.update({
+  id: '/api/public/posthog-config',
+  path: '/api/public/posthog-config',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicPreorderConfirmRoute =
@@ -101,19 +106,19 @@ const ApiPublicPreorderConfirmRoute =
     path: '/api/public/preorder-confirm',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicPosthogConfigRoute = ApiPublicPosthogConfigRouteImport.update({
-  id: '/api/public/posthog-config',
-  path: '/api/public/posthog-config',
+const ApiPublicPreordersRoute = ApiPublicPreordersRouteImport.update({
+  id: '/api/public/preorders',
+  path: '/api/public/preorders',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
-  id: '/api/public/leads',
-  path: '/api/public/leads',
+const LovableEmailEventsRoute = LovableEmailEventsRouteImport.update({
+  id: '/lovable/email/events',
+  path: '/lovable/email/events',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
-  id: '/.lovable/oauth/consent',
-  path: '/.lovable/oauth/consent',
+const ApiPublicPhIngestSplatRoute = ApiPublicPhIngestSplatRouteImport.update({
+  id: '/api/public/ph-ingest/$',
+  path: '/api/public/ph-ingest/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LovableEmailTransactionalPreviewRoute =
@@ -122,11 +127,6 @@ const LovableEmailTransactionalPreviewRoute =
     path: '/lovable/email/transactional/preview',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicPhIngestSplatRoute = ApiPublicPhIngestSplatRouteImport.update({
-  id: '/api/public/ph-ingest/$',
-  path: '/api/public/ph-ingest/$',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -282,60 +282,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/kontakt': {
-      id: '/kontakt'
-      path: '/kontakt'
-      fullPath: '/kontakt'
-      preLoaderRoute: typeof KontaktRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/impressum': {
-      id: '/impressum'
-      path: '/impressum'
-      fullPath: '/impressum'
-      preLoaderRoute: typeof ImpressumRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/datenschutz': {
-      id: '/datenschutz'
-      path: '/datenschutz'
-      fullPath: '/datenschutz'
-      preLoaderRoute: typeof DatenschutzRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/anfrage-bestaetigen': {
-      id: '/anfrage-bestaetigen'
-      path: '/anfrage-bestaetigen'
-      fullPath: '/anfrage-bestaetigen'
-      preLoaderRoute: typeof AnfrageBestaetigenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/aboutLavidro': {
-      id: '/aboutLavidro'
-      path: '/aboutLavidro'
-      fullPath: '/aboutLavidro'
-      preLoaderRoute: typeof AboutLavidroRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/Konfigurator': {
@@ -345,11 +296,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KonfiguratorRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/aboutLavidro': {
+      id: '/aboutLavidro'
+      path: '/aboutLavidro'
+      fullPath: '/aboutLavidro'
+      preLoaderRoute: typeof AboutLavidroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/anfrage-bestaetigen': {
+      id: '/anfrage-bestaetigen'
+      path: '/anfrage-bestaetigen'
+      fullPath: '/anfrage-bestaetigen'
+      preLoaderRoute: typeof AnfrageBestaetigenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/datenschutz': {
+      id: '/datenschutz'
+      path: '/datenschutz'
+      fullPath: '/datenschutz'
+      preLoaderRoute: typeof DatenschutzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impressum': {
+      id: '/impressum'
+      path: '/impressum'
+      fullPath: '/impressum'
+      preLoaderRoute: typeof ImpressumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.well-known/oauth-protected-resource': {
@@ -359,32 +359,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lovable/email/events': {
-      id: '/lovable/email/events'
-      path: '/lovable/email/events'
-      fullPath: '/lovable/email/events'
-      preLoaderRoute: typeof LovableEmailEventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/preorders': {
-      id: '/api/public/preorders'
-      path: '/api/public/preorders'
-      fullPath: '/api/public/preorders'
-      preLoaderRoute: typeof ApiPublicPreordersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/preorder-confirm': {
-      id: '/api/public/preorder-confirm'
-      path: '/api/public/preorder-confirm'
-      fullPath: '/api/public/preorder-confirm'
-      preLoaderRoute: typeof ApiPublicPreorderConfirmRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/posthog-config': {
-      id: '/api/public/posthog-config'
-      path: '/api/public/posthog-config'
-      fullPath: '/api/public/posthog-config'
-      preLoaderRoute: typeof ApiPublicPosthogConfigRouteImport
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/leads': {
@@ -394,18 +373,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicLeadsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.lovable/oauth/consent': {
-      id: '/.lovable/oauth/consent'
-      path: '/.lovable/oauth/consent'
-      fullPath: '/.lovable/oauth/consent'
-      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+    '/api/public/posthog-config': {
+      id: '/api/public/posthog-config'
+      path: '/api/public/posthog-config'
+      fullPath: '/api/public/posthog-config'
+      preLoaderRoute: typeof ApiPublicPosthogConfigRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lovable/email/transactional/preview': {
-      id: '/lovable/email/transactional/preview'
-      path: '/lovable/email/transactional/preview'
-      fullPath: '/lovable/email/transactional/preview'
-      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
+    '/api/public/preorder-confirm': {
+      id: '/api/public/preorder-confirm'
+      path: '/api/public/preorder-confirm'
+      fullPath: '/api/public/preorder-confirm'
+      preLoaderRoute: typeof ApiPublicPreorderConfirmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/preorders': {
+      id: '/api/public/preorders'
+      path: '/api/public/preorders'
+      fullPath: '/api/public/preorders'
+      preLoaderRoute: typeof ApiPublicPreordersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/events': {
+      id: '/lovable/email/events'
+      path: '/lovable/email/events'
+      fullPath: '/lovable/email/events'
+      preLoaderRoute: typeof LovableEmailEventsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/ph-ingest/$': {
@@ -413,6 +406,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/ph-ingest/$'
       fullPath: '/api/public/ph-ingest/$'
       preLoaderRoute: typeof ApiPublicPhIngestSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/transactional/preview': {
+      id: '/lovable/email/transactional/preview'
+      path: '/lovable/email/transactional/preview'
+      fullPath: '/lovable/email/transactional/preview'
+      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
