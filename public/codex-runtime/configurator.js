@@ -148,9 +148,8 @@
     document.querySelector("[data-benefit-list]").innerHTML = selectedProduct.benefits
       .map(([, text]) => `<li><span class="benefit-check" aria-hidden="true">✓</span><strong>${text}</strong></li>`)
       .join("");
-    const hasCalculation = selectedKey !== "one";
-    document.querySelector("[data-benefit-reference]").hidden = !hasCalculation;
-    document.querySelector("[data-benefit-footnote]").hidden = !hasCalculation;
+    document.querySelector("[data-benefit-reference]").hidden = false;
+    document.querySelector("[data-benefit-footnote]").hidden = false;
     renderFeatures();
     renderCompare();
   };

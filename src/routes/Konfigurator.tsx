@@ -147,7 +147,7 @@ export const Route = createFileRoute("/Konfigurator")({
 
 function ConfiguratorPage() {
   const [selection, setSelection] = useState<PreorderSelection | null>(null);
-  useCodexRuntime("/codex-runtime/configurator.js", "20261007-responsive-notes");
+  useCodexRuntime("/codex-runtime/configurator.js", "20261007-all-benefit-notes");
 
   useEffect(() => {
     const requestedProduct = new URLSearchParams(window.location.search).get("product");
