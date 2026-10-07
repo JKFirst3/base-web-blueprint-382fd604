@@ -2566,3 +2566,8 @@ details p {
 .config-actions [data-buy-button]:focus-visible,
 .product-benefits h3 a:focus-visible { outline: 2px solid #800d16; outline-offset: 4px; }
 .configurator-page [hidden] { display: none !important; }
+
+/* The calculation and familiar site footer follow the complete product page. */
+.configurator-page { height: auto; overflow: visible; }
+.product-endnote { padding: 24px max(24px, calc((100vw - 1240px) / 2)); background: var(--paper); }
+.product-endnote .benefit-footnote { margin: 0; max-width: 840px; }

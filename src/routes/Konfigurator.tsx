@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { X } from "lucide-react";
 import configuratorHtml from "@/content/configurator.html?raw";
 import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
+import { Footer } from "@/components/site/Footer";
 
 import { captureFunnel, toBusinessModel } from "@/lib/analytics";
 import { requestPreorder } from "@/lib/preorder-client";
@@ -190,6 +191,7 @@ function ConfiguratorPage() {
   return (
     <>
       <CodexMarkup html={configuratorHtml} className="configurator-page" />
+      <Footer />
       {selection && <PreorderDialog selection={selection} onClose={() => setSelection(null)} />}
     </>
   );
@@ -536,4 +538,3 @@ function PreorderJourney({ confirmed = false }: { confirmed?: boolean }) {
     </ol>
   );
 }
-
