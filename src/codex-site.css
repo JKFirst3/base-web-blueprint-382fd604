@@ -2564,8 +2564,7 @@ details p {
 /* Desktop stays within the image/sidebar canvas; mobile ends with notes and footer. */
 .configurator-page { height: 100svh; overflow: hidden; }
 .product-mobile-notes, .product-mobile-footer { display: none; }
-.development-reference { display: inline-block; margin-left: 5px; vertical-align: super; font-size: .35em; line-height: 1; }
-.development-reference:focus-visible { outline: 2px solid #8c0014; outline-offset: 4px; }
+.visual-caption .development-status { margin: 0 0 14px; font-size: .95rem; font-weight: 700; line-height: 1.5; color: white; text-shadow: 0 2px 12px var(--black); }
 .product-notes { padding-top: 24px; }
 .product-notes .benefit-footnote { margin: 0 0 12px; }
 .product-notes .benefit-footnote:last-child { margin-bottom: 0; }
