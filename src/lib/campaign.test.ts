@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { campaignLink, PRODUCT_CAMPAIGNS, validCampaign } from "./campaign.ts";
+import { campaignLink, PRODUCT_CAMPAIGNS, SALE_CAMPAIGNS, validCampaign } from "./campaign.ts";
 
 test("campaign follows internal navigation without losing product or fragment", () => {
   assert.equal(campaignLink("/Konfigurator?product=one", "https://lavidro.com"), "/Konfigurator?product=one&lv_campaign=smoke_google_v1");
@@ -11,7 +11,7 @@ test("campaign follows internal navigation without losing product or fragment", 
 
 
 test("each product keeps its own campaign through navigation", () => {
-  for (const [product, campaign] of Object.entries(PRODUCT_CAMPAIGNS)) {
+  for (const [product, campaign] of [...Object.entries(PRODUCT_CAMPAIGNS), ...Object.entries(SALE_CAMPAIGNS)]) {
     assert.equal(validCampaign(campaign), campaign);
     assert.equal(campaignLink(`/Konfigurator?product=${product}`, "https://lavidro.com", campaign), `/Konfigurator?product=${product}&lv_campaign=${campaign}`);
     assert.equal(campaignLink("/#top", "https://lavidro.com", campaign), `/?lv_campaign=${campaign}#top`);

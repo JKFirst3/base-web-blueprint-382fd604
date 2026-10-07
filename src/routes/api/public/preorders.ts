@@ -8,6 +8,7 @@ import {
 } from "@/lib/preorder-request.server";
 
 import { PREORDER_SOURCES } from "@/lib/campaign";
+import { salePrices } from "@/lib/sale-pricing";
 
 const valueOptions = [
   "Weniger Zeit für Wäsche aufwenden",
@@ -133,8 +134,9 @@ export const Route = createFileRoute("/api/public/preorders")({
         const solution_id = requestedSolutionId;
         const solution_name = catalogEntry.name;
         const tier = requestedTier;
-        const price_eur = catalogEntry.price;
-        const monthly_eur = normalizedPaymentType === "monthly" ? catalogEntry.monthly : null;
+        const offer = salePrices(solution_id, source);
+        const price_eur = offer?.price ?? catalogEntry.price;
+        const monthly_eur = normalizedPaymentType === "monthly" ? (offer?.monthly ?? catalogEntry.monthly) : null;
         if (!answers.success) return Response.json({ error: "Invalid answers" }, { status: 400 });
 
         const marketingConsent = body.marketing_consent;

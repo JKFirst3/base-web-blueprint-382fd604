@@ -35,6 +35,10 @@ const english: Record<string, string> = {
   "Drei Systeme für einen vollständig autonomen Wäschealltag.":
     "Three systems for a fully autonomous laundry routine.",
   "Mobiler Wäscheassistent": "Mobile laundry assistant",
+  "Einführungsangebot": "Introductory offer",
+  "Mindestens 50 % Preisvorteil": "Save at least 50%",
+  "Für frühe Anfragen über diese Aktion. Unverbindlich – keine Zahlungspflicht.": "For early inquiries through this promotion. Non-binding – no payment obligation.",
+  "Bisherige Preisindikation:": "Previous indicative price:",
   "Einzelteilbehandlung im Schrank": "Single-garment care inside the cabinet",
   "Einzelne Wäscheaufbereitung": "Individual garment care",
   "Lavidro One anzeigen": "View Lavidro One",
@@ -457,4 +461,3 @@ export function LanguageSlot() {
 
   return slot ? createPortal(<LanguageSwitcher />, slot) : null;
 }
-

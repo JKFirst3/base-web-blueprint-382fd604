@@ -7,7 +7,12 @@ export const PRODUCT_CAMPAIGNS = {
   cabinet: "smoke_google_cabinet_v1",
   one: "smoke_google_one_v1",
 } as const;
-export const CAMPAIGNS = [SMOKE_CAMPAIGN, ...Object.values(PRODUCT_CAMPAIGNS)] as const;
+export const SALE_CAMPAIGNS = {
+  mobile: "smoke_google_mobile_sale_v1",
+  cabinet: "smoke_google_cabinet_sale_v1",
+  one: "smoke_google_one_sale_v1",
+} as const;
+export const CAMPAIGNS = [SMOKE_CAMPAIGN, ...Object.values(PRODUCT_CAMPAIGNS), ...Object.values(SALE_CAMPAIGNS)] as const;
 export type Campaign = (typeof CAMPAIGNS)[number];
 export const PREORDER_SOURCES = ["configurator", ...CAMPAIGNS] as const;
 

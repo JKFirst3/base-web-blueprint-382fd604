@@ -110,4 +110,18 @@ test("real preorder handler: validation, consent booleans, retired fields and co
   assert.equal(rows.get(second.client_submission_id)?.source, "smoke_google_one_v1");
   assert.equal(rows.get(second.client_submission_id)?.transfer_consent, false);
   assert.equal(rows.get(second.client_submission_id)?.occupation_group, null);
+  failMail = false;
+  const sale = { ...base, source: "smoke_google_one_sale_v1", payment_type: "monthly", client_submission_id: crypto.randomUUID(), price_eur: 1, monthly_eur: 1 };
+  const beforeSaleMail = mailAttempts;
+  const saleResponses = await Promise.all(Array.from({ length: 4 }, () => post(sale)));
+  for (const response of saleResponses) assert.equal((await response.json()).saved, true);
+  assert.equal(rows.size, 3);
+  assert.equal(mailAttempts, beforeSaleMail + 1);
+  assert.equal(rows.get(sale.client_submission_id)?.source, "smoke_google_one_sale_v1");
+  assert.equal(rows.get(sale.client_submission_id)?.price_eur, 4490);
+  assert.equal(rows.get(sale.client_submission_id)?.monthly_eur, 99);
+  const normal = { ...sale, source: "configurator", client_submission_id: crypto.randomUUID() };
+  assert.equal((await post(normal)).status, 200);
+  assert.equal(rows.get(normal.client_submission_id)?.price_eur, 8990);
+  assert.equal(rows.get(normal.client_submission_id)?.monthly_eur, 199);
 });

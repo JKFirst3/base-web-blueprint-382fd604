@@ -2577,3 +2577,12 @@ details p {
   .product-mobile-notes .product-notes { padding: 0; }
   .product-mobile-footer .site-footer a:hover { color: white; }
 }
+
+.sale-offer-banner { display: grid; gap: 8px; margin: 0 0 24px; padding: 20px; border: 1px solid #8c001433; border-radius: 12px; background: #8c001408; }
+.sale-offer-label { justify-self: start; padding: 5px 10px; border-radius: 999px; background: #8c0014; color: white; font-size: .75rem; font-weight: 700; }
+.sale-offer-banner > strong { font-size: 1.3rem; line-height: 1.25; }
+.sale-offer-banner p { margin: 0; font-size: .9rem; color: var(--muted); line-height: 1.5; }
+.sale-original-price { color: var(--muted); font-size: .95rem; text-decoration-thickness: 1px; }
+.sale-pricing label > span > strong { color: #8c0014; }
+.sale-pricing label:has(input:checked) { border-color: #8c0014; background: #8c001408; }
+.sale-pricing input { accent-color: #8c0014; }

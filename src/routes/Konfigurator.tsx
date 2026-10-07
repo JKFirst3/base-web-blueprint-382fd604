@@ -8,6 +8,7 @@ import { Footer } from "@/components/site/Footer";
 import { captureFunnel, toBusinessModel } from "@/lib/analytics";
 import { requestPreorder } from "@/lib/preorder-client";
 import { currentCampaign } from "@/lib/campaign";
+import { salePrices } from "@/lib/sale-pricing";
 import { z } from "zod";
 
 const VALUE_OPTIONS = [
@@ -205,6 +206,10 @@ function PreorderDialog({
   onClose: () => void;
 }) {
   const [paymentType, setPaymentType] = useState<"upfront" | "monthly" | "">("");
+  const [campaign] = useState(() => currentCampaign());
+  const offer = salePrices(selection.productId, campaign);
+  const quotedPrice = offer?.price ?? selection.price;
+  const quotedMonthly = offer?.monthly ?? selection.monthly;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [householdSize, setHouseholdSize] = useState("");
@@ -278,13 +283,13 @@ function PreorderDialog({
         tier: selection.tier,
         size: "Standard",
         payment_type: paymentType,
-        price_eur: selection.price,
-        monthly_eur: paymentType === "monthly" ? selection.monthly : null,
+        price_eur: quotedPrice,
+        monthly_eur: paymentType === "monthly" ? quotedMonthly : null,
         consent,
         marketing_consent: marketingConsent,
         client_submission_id: clientSubmissionId,
         ...answers.data,
-        source: currentCampaign() ?? "configurator",
+        source: campaign ?? "configurator",
       });
 
       void captureFunnel(
@@ -359,8 +364,15 @@ function PreorderDialog({
               setzen uns mit Ihnen in Verbindung.
             </p>
 
+            {offer && (
+              <div className="sale-offer-banner">
+                <span className="sale-offer-label">Einführungsangebot</span>
+                <strong>Mindestens 50 % Preisvorteil</strong>
+                <p>Für frühe Anfragen über diese Aktion. Unverbindlich – keine Zahlungspflicht.</p>
+              </div>
+            )}
             <form className="preorder-form" onSubmit={submit}>
-              <fieldset className="preorder-payment-options" disabled={attemptStarted}>
+              <fieldset className={`preorder-payment-options${offer ? " sale-pricing" : ""}`} disabled={attemptStarted}>
                 <legend>Voraussichtliche, unverbindliche Preisindikation</legend>
                 {(["upfront", "monthly"] as const).map((model) => (
                   <label key={model}>
@@ -380,10 +392,18 @@ function PreorderDialog({
                     />
                     <span>
                       <span>{model === "monthly" ? "Monatlicher Beitrag (Abo)" : "Kaufpreis"}</span>
+                      {offer && (
+                        <del className="sale-original-price">
+                          <span className="sr-only">Bisherige Preisindikation: </span>
+                          {model === "monthly"
+                            ? `${selection.monthly.toLocaleString("de-DE")} € / Monat`
+                            : `${selection.price.toLocaleString("de-DE")} €`}
+                        </del>
+                      )}
                       <strong>
                         {model === "monthly"
-                          ? `${selection.monthly.toLocaleString("de-DE")} € / Monat`
-                          : `${selection.price.toLocaleString("de-DE")} €`}
+                          ? `${quotedMonthly.toLocaleString("de-DE")} € / Monat`
+                          : `${quotedPrice.toLocaleString("de-DE")} €`}
                       </strong>
                     </span>
                   </label>
