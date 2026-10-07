@@ -33,7 +33,7 @@
         />
         <div class="visual-caption">
           <p class="kicker" data-product-family>Lavidro Mobile</p>
-          <h1 data-product-title>Mobiler Wäscheassistent</h1>
+          <h1><span data-product-title>Mobiler Wäscheassistent</span><a class="development-reference mobile-reference" href="#product-development" aria-label="Hinweis zum Entwicklungsstand"><sup>2</sup></a></h1>
           <div class="visual-promise">
             <p data-product-promise>Wäsche abstellen, Assistent einschalten. Saubere Wäsche zurück bekommen.</p>
           </div>
@@ -42,11 +42,10 @@
 
       <aside class="configurator-panel" id="kaufen" aria-label="Produktdetails">
         <div class="configurator-intro">
-          <h2 data-panel-title>Lavidro Mobile</h2>
+          <h2><span data-panel-title>Lavidro Mobile</span><a class="development-reference desktop-reference" href="#product-development" aria-label="Hinweis zum Entwicklungsstand"><sup>2</sup></a></h2>
           <p data-product-description>
             Ein mobiler Roboterarm auf fahrbarer Basis für automatisierte Wäschepflege.
           </p>
-          <p class="development-status">In Entwicklung · Marktstart geplant 2027</p>
         </div>
 
         <section class="product-benefits" aria-labelledby="benefits-title">
@@ -66,15 +65,19 @@
           <button class="primary-button" type="button" data-buy-button>Jetzt konfigurieren</button>
           <button class="outline-button" type="button" data-open-compare>Vergleichen</button>
         </div>
+        <div data-desktop-notes>
+          <div class="product-notes" data-product-notes>
+            <p class="benefit-footnote" id="benefits-calculation" data-benefit-footnote>
+              <sup>1</sup> <strong>Rechenbasis:</strong> ca. 10 Std. Wäscheaufwand pro Woche im Familienhaushalt,
+              Haushaltshilfe ca. 20 € pro Stunde. Bei 8 Std. pro Woche Entlastung ergibt das rund 8.300 € pro Jahr.
+            </p>
+            <p class="benefit-footnote" id="product-development"><sup>2</sup> <span>In Entwicklung · Marktstart geplant 2027</span></p>
+          </div>
+        </div>
       </aside>
     </main>
 
-    <div class="product-endnote" data-benefit-footnote>
-      <p class="benefit-footnote" id="benefits-calculation">
-        <sup>1</sup> <strong>Rechenbasis:</strong> ca. 10 Std. Wäscheaufwand pro Woche im Familienhaushalt,
-        Haushaltshilfe ca. 20 € pro Stunde. Bei 8 Std. pro Woche Entlastung ergibt das rund 8.300 € pro Jahr.
-      </p>
-    </div>
+    <div class="product-mobile-notes" data-mobile-notes></div>
 
     <dialog class="compare-dialog" data-compare-dialog aria-labelledby="compare-title">
       <div class="compare-dialog-shell">

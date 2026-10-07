@@ -147,7 +147,7 @@ export const Route = createFileRoute("/Konfigurator")({
 
 function ConfiguratorPage() {
   const [selection, setSelection] = useState<PreorderSelection | null>(null);
-  useCodexRuntime("/codex-runtime/configurator.js", "20261007-benefits");
+  useCodexRuntime("/codex-runtime/configurator.js", "20261007-responsive-notes");
 
   useEffect(() => {
     const requestedProduct = new URLSearchParams(window.location.search).get("product");
@@ -191,7 +191,7 @@ function ConfiguratorPage() {
   return (
     <>
       <CodexMarkup html={configuratorHtml} className="configurator-page" />
-      <Footer />
+      <div className="product-mobile-footer"><Footer /></div>
       {selection && <PreorderDialog selection={selection} onClose={() => setSelection(null)} />}
     </>
   );

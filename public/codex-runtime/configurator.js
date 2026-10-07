@@ -143,10 +143,10 @@
     productTitle.textContent = selectedProduct.family;
     productFamily.textContent = selectedProduct.title;
     panelTitle.textContent = selectedProduct.title;
-    description.textContent = selectedProduct.slogan;
+    description.textContent = selectedProduct.description;
     promise.textContent = selectedProduct.slogan;
     document.querySelector("[data-benefit-list]").innerHTML = selectedProduct.benefits
-      .map(([label, text]) => `<li><span class="benefit-check" aria-hidden="true">✓</span><strong><span>${label}:</span> <span>${text}</span></strong></li>`)
+      .map(([, text]) => `<li><span class="benefit-check" aria-hidden="true">✓</span><strong>${text}</strong></li>`)
       .join("");
     const hasCalculation = selectedKey !== "one";
     document.querySelector("[data-benefit-reference]").hidden = !hasCalculation;
@@ -154,6 +154,20 @@
     renderFeatures();
     renderCompare();
   };
+
+  // Keep a single set of anchor targets: sidebar on desktop, page end on mobile.
+  const mobileLayout = window.matchMedia("(max-width: 980px)");
+  const notes = document.querySelector("[data-product-notes]");
+  const placeNotes = () => {
+    const target = document.querySelector(mobileLayout.matches ? "[data-mobile-notes]" : "[data-desktop-notes]");
+    if (!target || !notes?.isConnected) {
+      mobileLayout.removeEventListener("change", placeNotes);
+      return;
+    }
+    target.appendChild(notes);
+  };
+  placeNotes();
+  mobileLayout.addEventListener("change", placeNotes);
 
   buyButton?.addEventListener("click", () => {
     const level = selectedProduct.levels[selectedLevelKey];
@@ -202,4 +216,3 @@
 
   renderProduct();
 })();
-

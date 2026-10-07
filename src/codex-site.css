@@ -2559,15 +2559,29 @@ details p {
 .benefit-list { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
 .benefit-list li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; align-items: start; }
 .benefit-list strong { font-size: 1rem; font-weight: 700; line-height: 1.45; }
-.benefit-check { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #800d16; color: white; font-size: .9rem; }
+.benefit-check { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #8c0014; color: white; font-size: .9rem; }
 .benefit-footnote { margin: 24px 0 0; color: var(--muted); font-size: .75rem; line-height: 1.5; }
-.config-actions [data-buy-button] { background: #800d16; border-color: #800d16; padding: 12px 22px; min-height: 50px; }
+.config-actions [data-buy-button] { background: #8c0014; border-color: #8c0014; padding: 12px 22px; min-height: 50px; }
 .config-actions [data-buy-button]:hover { background: #610a11; border-color: #610a11; }
 .config-actions [data-buy-button]:focus-visible,
-.product-benefits h3 a:focus-visible { outline: 2px solid #800d16; outline-offset: 4px; }
+.product-benefits h3 a:focus-visible { outline: 2px solid #8c0014; outline-offset: 4px; }
 .configurator-page [hidden] { display: none !important; }
 
-/* The calculation and familiar site footer follow the complete product page. */
-.configurator-page { height: auto; overflow: visible; }
-.product-endnote { padding: 24px max(24px, calc((100vw - 1240px) / 2)); background: var(--paper); }
-.product-endnote .benefit-footnote { margin: 0; max-width: 840px; }
+/* Desktop stays within the image/sidebar canvas; mobile ends with notes and footer. */
+.configurator-page { height: 100svh; overflow: hidden; }
+.product-mobile-notes, .product-mobile-footer, .development-reference.mobile-reference { display: none; }
+.development-reference { display: inline-block; margin-left: 5px; vertical-align: super; font-size: .35em; line-height: 1; }
+.development-reference:focus-visible { outline: 2px solid #8c0014; outline-offset: 4px; }
+.product-notes { padding-top: 24px; }
+.product-notes .benefit-footnote { margin: 0 0 12px; }
+.product-notes .benefit-footnote:last-child { margin-bottom: 0; }
+@media (max-width: 980px) {
+  .configurator-page { height: auto; overflow: visible; }
+  .product-mobile-notes, .product-mobile-footer { display: block; }
+  .desktop-reference { display: none; }
+  .development-reference.mobile-reference { display: inline-block; }
+  .visual-caption [data-product-family] { font-size: .7rem; line-height: 1.4; }
+  .product-mobile-notes { padding: 24px 22px; background: var(--paper); }
+  .product-mobile-notes .product-notes { padding: 0; }
+  .product-mobile-footer .site-footer a:hover { color: white; }
+}
