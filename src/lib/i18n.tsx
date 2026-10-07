@@ -188,6 +188,26 @@ const english: Record<string, string> = {
   Funktionsumfang: "Features",
   Anfragen: "Request",
   "Mehr erfahren": "Learn more",
+  "Jetzt konfigurieren": "Configure now",
+  "Rechenbasis zu den Benefits": "Calculation basis for the benefits",
+  "Rechenbasis:": "Calculation basis:",
+  "Zeit:": "Time:",
+  "Geld:": "Money:",
+  "Weniger Waschen:": "Less washing:",
+  "Längere Haltbarkeit:": "Longer lifespan:",
+  "Tempo:": "Speed:",
+  "Ein ganzer Arbeitstag pro Woche gehört wieder Ihnen": "Get a full working day back every week",
+  "Ca. 8.300 € Haushaltshilfe pro Jahr gespart": "Save approx. €8,300 a year in household help",
+  "Kein Wäscheberg. Kein Gedanke mehr daran.": "No laundry pile. No more worrying about it.",
+  "Nutzt Ihren bestehenden Waschraum. Kein Umbau nötig.": "Uses your existing laundry room. No renovation needed.",
+  "70 % weniger Waschgänge": "70% fewer wash cycles",
+  "Kleidung hält 3-mal so lang.": "Clothes last 3 times as long.",
+  "Lieblingsteil in Minuten wieder tragbar": "Your favourite outfit ready to wear again in minutes",
+  "Wäsche abstellen, Assistent einschalten. Saubere Wäsche zurück bekommen.": "Put your laundry down, switch the assistant on. Get clean laundry back.",
+  "Schmutzige Wäsche einlegen, saubere Wäsche entnehmen. So einfach ist es.": "Put dirty laundry in, take clean laundry out. It is that simple.",
+  "Getragene Kleidung rein, wenige Minuten warten, frisch wieder entnehmen.": "Put worn clothes in, wait a few minutes, take them out fresh.",
+  "ca. 10 Std. Wäscheaufwand pro Woche im Familienhaushalt, Haushaltshilfe ca. 20 € pro Stunde. Bei 8 Std. pro Woche Entlastung ergibt das rund 8.300 € pro Jahr.": "Approx. 10 hours of laundry work per week in a family household, household help at approx. €20 per hour. Saving 8 hours per week amounts to roughly €8,300 per year.",
+
   "Lavidro befindet sich in einer frühen Entwicklungsphase. Weitere Details teilen wir gerne im persönlichen Austausch. Senden Sie uns eine unverbindliche Anfrage – wir setzen uns mit Ihnen in Verbindung.": "Lavidro is at an early stage of development. We would be happy to share further details in a personal conversation. Send us a non-binding inquiry and we will get in touch.",
   "Dreckige Wäsche dem System geben und saubere, gefaltete Wäsche zurückbekommen.": "Hand dirty laundry to the system and get clean, folded laundry back.",
   "Bereitet Ihre schönsten Wäschestücke wieder auf, ganz ohne Waschen.": "Refreshes your favourite garments without washing.",
@@ -437,3 +457,4 @@ export function LanguageSlot() {
 
   return slot ? createPortal(<LanguageSwitcher />, slot) : null;
 }
+

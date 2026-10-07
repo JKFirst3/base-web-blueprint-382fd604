@@ -146,7 +146,7 @@ export const Route = createFileRoute("/Konfigurator")({
 
 function ConfiguratorPage() {
   const [selection, setSelection] = useState<PreorderSelection | null>(null);
-  useCodexRuntime("/codex-runtime/configurator.js");
+  useCodexRuntime("/codex-runtime/configurator.js", "20261007-benefits");
 
   useEffect(() => {
     const requestedProduct = new URLSearchParams(window.location.search).get("product");
@@ -536,3 +536,4 @@ function PreorderJourney({ confirmed = false }: { confirmed?: boolean }) {
     </ol>
   );
 }
+

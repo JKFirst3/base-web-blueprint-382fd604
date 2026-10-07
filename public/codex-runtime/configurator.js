@@ -10,6 +10,8 @@
 
   const products = {
     mobile: {
+      slogan: "Wäsche abstellen, Assistent einschalten. Saubere Wäsche zurück bekommen.",
+      benefits: [["Zeit", "Ein ganzer Arbeitstag pro Woche gehört wieder Ihnen"], ["Geld", "Ca. 8.300 € Haushaltshilfe pro Jahr gespart"], ["Peace of Mind", "Nutzt Ihren bestehenden Waschraum. Kein Umbau nötig."]],
       title: "Lavidro Mobile",
       family: "Mobiler Wäscheassistent",
       description:
@@ -30,6 +32,8 @@
       },
     },
     cabinet: {
+      slogan: "Schmutzige Wäsche einlegen, saubere Wäsche entnehmen. So einfach ist es.",
+      benefits: [["Zeit", "Ein ganzer Arbeitstag pro Woche gehört wieder Ihnen"], ["Geld", "Ca. 8.300 € Haushaltshilfe pro Jahr gespart"], ["Peace of Mind", "Kein Wäscheberg. Kein Gedanke mehr daran."]],
       title: "Lavidro Cabinet",
       family: "Autonomer Wäscheschrank",
       description:
@@ -50,6 +54,8 @@
       },
     },
     one: {
+      slogan: "Getragene Kleidung rein, wenige Minuten warten, frisch wieder entnehmen.",
+      benefits: [["Weniger Waschen", "70 % weniger Waschgänge"], ["Längere Haltbarkeit", "Kleidung hält 3-mal so lang."], ["Tempo", "Lieblingsteil in Minuten wieder tragbar"]],
       title: "Lavidro One",
       family: "Einzelne Wäscheaufbereitung",
       description:
@@ -137,10 +143,14 @@
     productTitle.textContent = selectedProduct.family;
     productFamily.textContent = selectedProduct.title;
     panelTitle.textContent = selectedProduct.title;
-    description.textContent = selectedProduct.description;
-    promise.textContent = selectedKey === "one"
-      ? "Bereitet Ihre schönsten Wäschestücke wieder auf, ganz ohne Waschen."
-      : "Dreckige Wäsche dem System geben und saubere, gefaltete Wäsche zurückbekommen.";
+    description.textContent = selectedProduct.slogan;
+    promise.textContent = selectedProduct.slogan;
+    document.querySelector("[data-benefit-list]").innerHTML = selectedProduct.benefits
+      .map(([label, text]) => `<li><span class="benefit-check" aria-hidden="true">✓</span><strong><span>${label}:</span> <span>${text}</span></strong></li>`)
+      .join("");
+    const hasCalculation = selectedKey !== "one";
+    document.querySelector("[data-benefit-reference]").hidden = !hasCalculation;
+    document.querySelector("[data-benefit-footnote]").hidden = !hasCalculation;
     renderFeatures();
     renderCompare();
   };
@@ -192,3 +202,4 @@
 
   renderProduct();
 })();
+

@@ -5,17 +5,17 @@ export function extractBodyMarkup(documentHtml: string) {
   return body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "");
 }
 
-export function useCodexRuntime(src: string) {
+export function useCodexRuntime(src: string, version = "1") {
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = `${src}?v=1`;
+    script.src = `${src}?v=${version}`;
     script.async = false;
     document.body.appendChild(script);
 
     return () => {
       script.remove();
     };
-  }, [src]);
+  }, [src, version]);
 }
 
 export const CodexMarkup = memo(function CodexMarkup({
@@ -29,3 +29,4 @@ export const CodexMarkup = memo(function CodexMarkup({
     <div className={className} dangerouslySetInnerHTML={{ __html: extractBodyMarkup(html) }} />
   );
 });
+

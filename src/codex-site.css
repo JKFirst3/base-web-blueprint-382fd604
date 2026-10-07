@@ -2549,3 +2549,20 @@ details p {
 .preorder-payment-options strong { font-size: clamp(1.4rem, 4vw, 1.9rem); font-weight: 500; }
 .preorder-payment-options small { color: var(--muted); }
 .preorder-payment-options:disabled label { cursor: default; opacity: .7; }
+
+
+/* Product-specific benefits and primary configuration action. */
+.product-benefits { margin: 0 0 24px; }
+.product-benefits h3 { margin: 0 0 16px; font-size: 1rem; font-weight: 700; }
+.product-benefits h3 a { display: inline-block; padding: 0 5px; color: inherit; text-decoration: none; }
+.product-benefits sup { font-size: .65em; }
+.benefit-list { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.benefit-list li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; align-items: start; }
+.benefit-list strong { font-size: 1rem; font-weight: 700; line-height: 1.45; }
+.benefit-check { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #800d16; color: white; font-size: .9rem; }
+.benefit-footnote { margin: 24px 0 0; color: var(--muted); font-size: .75rem; line-height: 1.5; }
+.config-actions [data-buy-button] { background: #800d16; border-color: #800d16; padding: 12px 22px; min-height: 50px; }
+.config-actions [data-buy-button]:hover { background: #610a11; border-color: #610a11; }
+.config-actions [data-buy-button]:focus-visible,
+.product-benefits h3 a:focus-visible { outline: 2px solid #800d16; outline-offset: 4px; }
+.configurator-page [hidden] { display: none !important; }
