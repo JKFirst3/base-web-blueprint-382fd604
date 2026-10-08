@@ -12,13 +12,19 @@ test("days input always clamps to safe windows", () => {
 test("PostHog is aggregate-only and returns none for unconfigured key", async () => {
   const old = process.env.POSTHOG_PERSONAL_API_KEY;
   delete process.env.POSTHOG_PERSONAL_API_KEY;
-  try { assert.equal((await readPostHogEvents(7)).status, "unconfigured"); }
-  finally { if (old) process.env.POSTHOG_PERSONAL_API_KEY = old; }
+  try {
+    assert.equal((await readPostHogEvents(7)).status, "unconfigured");
+  } finally {
+    if (old) process.env.POSTHOG_PERSONAL_API_KEY = old;
+  }
 });
 
 test("Meta Insights returns unconfigured without an API token", async () => {
   const old = process.env.META_ACCESS_TOKEN;
   delete process.env.META_ACCESS_TOKEN;
-  try { assert.equal((await readMetaInsights(30)).status, "unconfigured"); }
-  finally { if (old) process.env.META_ACCESS_TOKEN = old; }
+  try {
+    assert.equal((await readMetaInsights(30)).status, "unconfigured");
+  } finally {
+    if (old) process.env.META_ACCESS_TOKEN = old;
+  }
 });

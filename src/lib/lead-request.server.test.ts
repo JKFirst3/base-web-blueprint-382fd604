@@ -4,9 +4,18 @@ import { allowedLeadOrigin, isLeadRateLimited } from "./lead-request.server.ts";
 
 test("lead origin is required, exact and same-origin", () => {
   assert.equal(allowedLeadOrigin(null, "https://lavidro.com/api/public/leads"), false);
-  assert.equal(allowedLeadOrigin("https://evil.example", "https://lavidro.com/api/public/leads"), false);
-  assert.equal(allowedLeadOrigin("https://lavidro.com.attacker.test", "https://lavidro.com/api/public/leads"), false);
-  assert.equal(allowedLeadOrigin("https://lavidro.com", "https://lavidro.com/api/public/leads"), true);
+  assert.equal(
+    allowedLeadOrigin("https://evil.example", "https://lavidro.com/api/public/leads"),
+    false,
+  );
+  assert.equal(
+    allowedLeadOrigin("https://lavidro.com.attacker.test", "https://lavidro.com/api/public/leads"),
+    false,
+  );
+  assert.equal(
+    allowedLeadOrigin("https://lavidro.com", "https://lavidro.com/api/public/leads"),
+    true,
+  );
 });
 
 test("lead limiter trusts only platform-provided ip and resets", () => {

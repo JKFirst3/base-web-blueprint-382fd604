@@ -32,4 +32,3 @@ export const CodexMarkup = memo(function CodexMarkup({
     <div className={className} dangerouslySetInnerHTML={{ __html: extractBodyMarkup(html) }} />
   );
 });
-

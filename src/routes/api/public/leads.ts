@@ -26,7 +26,8 @@ export const Route = createFileRoute("/api/public/leads")({
             return Response.json({ error: "Invalid request" }, { status: 400 });
           }
           const parsed: unknown = JSON.parse(text);
-          if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) throw new Error("invalid");
+          if (!parsed || typeof parsed !== "object" || Array.isArray(parsed))
+            throw new Error("invalid");
           body = parsed as Record<string, unknown>;
         } catch {
           return Response.json({ error: "Invalid request" }, { status: 400 });
@@ -87,7 +88,6 @@ export const Route = createFileRoute("/api/public/leads")({
         }
 
         return new Response(null, { status: 204 });
-
       },
     },
   },

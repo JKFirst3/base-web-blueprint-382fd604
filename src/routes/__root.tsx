@@ -196,7 +196,7 @@ function RootComponent() {
         <Outlet />
         <LanguageSlot key={pathname} />
         <Toaster />
-        <CookieBanner />
+        {!pathname.startsWith("/admin") && <CookieBanner />}
       </QueryClientProvider>
     </LanguageProvider>
   );
