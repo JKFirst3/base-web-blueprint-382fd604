@@ -20,6 +20,7 @@ export type CreativeAudit = {
   cta: string;
   imageUrl: string | null;
   landingUrl: string | null;
+  variant?: string | null;
   source: string | null;
   product: string | null;
   mapping: "matched" | "missing" | "ambiguous" | "other_domain" | "not_found";
@@ -81,6 +82,12 @@ export function creativeInfo(raw: unknown) {
   ]);
   const matching = parsed.find((x) => !!x) ?? null;
   const source = sources.size === 1 ? [...sources][0] : null;
+  const variantCodes = ["a","b","c"];
+  const variants = new Set([
+    ...parsed.filter((x):x is URL=>!!x).map(x=>x.searchParams.get("lv_variant")).filter((x):x is string=>!!x&&variantCodes.includes(x)),
+    ...((v)=>v && variantCodes.includes(v) ? [v] : [])(param.get("lv_variant")),
+  ]);
+  const variant = variants.size === 1 ? [...variants][0] : null;
   const mapping: CreativeAudit["mapping"] =
     sources.size > 1
       ? "ambiguous"
@@ -121,6 +128,7 @@ export function creativeInfo(raw: unknown) {
     landingUrl,
     imageUrl,
     product: source ? productFromSource(source) : null,
+    variant,
   };
 }
 export function calculateCpql(
