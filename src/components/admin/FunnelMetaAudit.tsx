@@ -24,7 +24,17 @@ type Finding = {
   adId: string | null;
 };
 type Snapshot = {
-  database: {status:string;sourceStats:Array<{source:string;product:string;variant:string|null;requests:number;confirmed:number;qualified:number}>};
+  database: {
+    status: string;
+    sourceStats: Array<{
+      source: string;
+      product: string;
+      variant: string | null;
+      requests: number;
+      confirmed: number;
+      qualified: number;
+    }>;
+  };
   meta: { status: string; ads: Ad[]; metrics: null | { currency: string } };
   posthog: {
     status: string;
@@ -67,7 +77,8 @@ export function FunnelMetaAudit({ snapshot }: { snapshot: unknown }) {
   const grouped = useMemo(() => {
     const sums = new Map<string, { requests: number; starts: number; views: number }>();
     for (const r of data.posthog.breakdown) {
-      const key = (r.product || "ohne Produkt") + " / Variante " + (r.variant?.toUpperCase() || "unbekannt");
+      const key =
+        (r.product || "ohne Produkt") + " / Variante " + (r.variant?.toUpperCase() || "unbekannt");
       const v = sums.get(key) || { requests: 0, starts: 0, views: 0 };
       if (r.event === "purchase_interest_submitted") v.requests += r.sessions;
       if (r.event === "purchase_interest_started") v.starts += r.sessions;
@@ -212,11 +223,35 @@ export function FunnelMetaAudit({ snapshot }: { snapshot: unknown }) {
       </section>
       <section className="rounded-2xl border border-stone-200 bg-white p-5 sm:p-7">
         <h2 className="text-lg font-semibold">A/B/C → qualifizierte Produktanfragen</h2>
-        <p className="mt-1 text-sm text-stone-500">Supabase-Anfragekohorten nach tatsächlicher lv_variant. Historische Werte bleiben unbekannt; die Zuordnung über Meta-Ad-Creatives ist nicht automatisch randomisiert.</p>
+        <p className="mt-1 text-sm text-stone-500">
+          Supabase-Anfragekohorten nach tatsächlicher lv_variant. Historische Werte bleiben
+          unbekannt; die Zuordnung über Meta-Ad-Creatives ist nicht automatisch randomisiert.
+        </p>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[420px] text-left text-sm">
-            <thead><tr className="border-b border-stone-200 text-stone-500"><th className="py-2">Produkt / Variante</th><th>Anfragen</th><th>DOI</th><th>Qualifiziert</th></tr></thead>
-            <tbody>{data.database.sourceStats.filter(x=>product==="all"||x.product===product).map((row,i)=><tr key={i} className="border-b border-stone-100"><td className="py-2">{row.product} / {row.variant?.toUpperCase()||"unbekannt"} <span className="block text-xs text-stone-400">{row.source}</span></td><td>{fmt(row.requests)}</td><td>{fmt(row.confirmed)}</td><td>{fmt(row.qualified)}</td></tr>)}</tbody>
+            <thead>
+              <tr className="border-b border-stone-200 text-stone-500">
+                <th className="py-2">Produkt / Variante</th>
+                <th>Anfragen</th>
+                <th>DOI</th>
+                <th>Qualifiziert</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.database.sourceStats
+                .filter((x) => product === "all" || x.product === product)
+                .map((row, i) => (
+                  <tr key={i} className="border-b border-stone-100">
+                    <td className="py-2">
+                      {row.product} / {row.variant?.toUpperCase() || "unbekannt"}{" "}
+                      <span className="block text-xs text-stone-400">{row.source}</span>
+                    </td>
+                    <td>{fmt(row.requests)}</td>
+                    <td>{fmt(row.confirmed)}</td>
+                    <td>{fmt(row.qualified)}</td>
+                  </tr>
+                ))}
+            </tbody>
           </table>
         </div>
       </section>
