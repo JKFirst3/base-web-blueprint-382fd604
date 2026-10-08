@@ -21,7 +21,7 @@ export async function readPostHogEvents(days: number, fetcher: typeof fetch = fe
     const res = await fetcher(`https://eu.posthog.com/api/projects/${projectId}/query/`, {
       method: "POST",
       signal: AbortSignal.timeout(9000),
-      headers: { "content-type": "application/json", Authorization: `*** },
+      headers: { "content-type": "application/json", Authorization: `Bearer ${apiKey}` },
       body: JSON.stringify({
         query: { kind: "HogQLQuery", query },
         name: "Lavidro Funnel Admin counts",
@@ -65,7 +65,7 @@ export async function readMetaInsights(days: number, fetcher: typeof fetch = fet
   );
   try {
     const res = await fetcher(u.toString(), {
-      headers: { Authorization: `*** },
+      headers: { Authorization: `Bearer ${token}` },
       signal: AbortSignal.timeout(9000),
     });
     if (!res.ok) throw new Error("Meta status " + res.status);
