@@ -5,6 +5,8 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
   let allowed = false;
   let consentTs = 1;
   let configRequests = 0;
+  let sessionId = "session-1";
+  let acknowledge = true;
   type Event = { event: string; properties: Record<string, unknown> };
   let beforeSend!: (event: Event) => Event | null;
   const captured: Event[] = [];
@@ -20,6 +22,7 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
       beforeSend = options.before_send;
     },
     register: () => {},
+    get_session_id: () => sessionId,
     has_opted_out_capturing: () => false,
     opt_out_capturing: () => {},
     reset: () => {},
@@ -28,11 +31,13 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
         event,
         properties: {
           ...(properties as object),
+          consent_ts: consentTs,
           job_title: "private job",
           email: "private@example.invalid",
         },
       });
-      if (clean) captured.push(clean);
+      // before_send takes ownership of delivery and suppresses the SDK send.
+      assert.equal(clean, null);
     },
   };
   mock.module("./consent.ts", {
@@ -64,9 +69,13 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
     document: { cookie: "", addEventListener: () => {}, getElementById: () => null },
     sessionStorage: store,
     localStorage: store,
-    fetch: async () => {
-      configRequests++;
-      return Response.json({ token: "phc_test", host: "/api/public/ph-ingest" });
+    fetch: async (url: string, options?: RequestInit) => {
+      if (url === "/api/public/posthog-config") {
+        configRequests++;
+        return Response.json({ token: "phc_test", host: "/api/public/ph-ingest" });
+      }
+      if (acknowledge) captured.push(JSON.parse(String(options?.body)));
+      return Response.json({ status: 1, forwarded: acknowledge });
     },
   });
   try {
@@ -77,7 +86,10 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
     await captureEmailConfirmed();
     await captureFunnel("website_visited");
     await captureFunnel("product_comparison_opened", { product_id: "mobile" });
-    await captureFunnel("product_comparison_product_selected", { product_id: "one", source_product_id: "mobile" });
+    await captureFunnel("product_comparison_product_selected", {
+      product_id: "one",
+      source_product_id: "mobile",
+    });
     assert.equal(configRequests, 0);
     assert.equal(captured.length, 0);
     allowed = true;
@@ -104,17 +116,38 @@ test("analytics consent, concurrent saved responses, PII filtering and withdrawa
     await Promise.all([captureFunnel("website_visited"), captureFunnel("website_visited")]);
     await captureFunnel("website_visited");
     assert.equal(captured.filter(({ event }) => event === "website_visited").length, 1);
-    await captureFunnel("product_comparison_opened", { product_id: "mobile", source_product_id: "one" });
-    await captureFunnel("product_comparison_product_selected", { product_id: "one", source_product_id: "mobile" });
+    await captureFunnel("product_comparison_opened", {
+      product_id: "mobile",
+      source_product_id: "one",
+    });
+    await captureFunnel("product_comparison_product_selected", {
+      product_id: "one",
+      source_product_id: "mobile",
+    });
     assert.equal("source_product_id" in captured[5].properties, false);
     assert.equal(captured[6].properties.source_product_id, "mobile");
     assert.equal(captured[6].properties.product_id, "one");
     assert.equal("job_title" in captured[6].properties, false);
+    await captureFunnel("product_area_viewed", { product_id: "mobile" });
+    await captureFunnel("product_area_viewed", { product_id: "cabinet" });
+    await captureFunnel("product_area_viewed", { product_id: "cabinet" });
+    assert.equal(captured.filter(({ event }) => event === "product_area_viewed").length, 2);
+    sessionId = "session-2";
+    await captureFunnel("website_visited");
+    assert.equal(captured.filter(({ event }) => event === "website_visited").length, 2);
+    await captureFunnel("purchase_interest_submitted", {}, "same-submission");
+    assert.equal(captured.filter(({ event }) => event === "purchase_interest_submitted").length, 3);
+    acknowledge = false;
+    await captureFunnel("product_area_viewed", { product_id: "one" });
+    acknowledge = true;
+    await captureFunnel("product_area_viewed", { product_id: "one" });
+    assert.equal(captured.filter(({ event }) => event === "product_area_viewed").length, 3);
+    const beforeWithdrawal = captured.length;
     allowed = false;
     consentTs++;
     listeners.get("lavidro:consent-changed")?.();
     await captureFunnel("purchase_interest_submitted", props, "after-withdrawal");
-    assert.equal(captured.length, 7);
+    assert.equal(captured.length, beforeWithdrawal);
     assert.equal(beforeSend!({ event: "purchase_interest_submitted", properties: props }), null);
   } finally {
     for (const [key, descriptor] of Object.entries(originals)) {

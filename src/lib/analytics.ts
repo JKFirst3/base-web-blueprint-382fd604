@@ -1,6 +1,7 @@
-// Consent-gated PostHog funnel tracking (5 manual events only). No PII.
+// Consent-gated PostHog custom-event tracking. No PII.
 // PostHog JS is loaded dynamically only after explicit analytics consent.
 import type { PostHog } from "posthog-js";
+import { deliverAnalytics } from "./analytics-delivery.ts";
 import { currentCampaign } from "./campaign.ts";
 import { analyticsAllowed, deleteCookie, readConsent, readCookie } from "./consent.ts";
 
@@ -115,15 +116,15 @@ const ONCE_PER_VISIT: FunnelEvent[] = [
   "landing_page_viewed",
   "product_area_viewed",
 ];
-const FIRED_KEY = "lv_ph_fired";
+const FIRED_KEY = "lv_ph_fired_v2";
+let dedupeSession = "";
+let captureDelivery: Promise<boolean> | null = null;
 
 let ph: PostHog | null = null;
 let loading: Promise<PostHog | null> | null = null;
 let listening = false;
 const firedInMemory = new Set<string>();
 const inFlight = new Set<string>();
-// Once-events that failed to send AFTER consent; retried on the next successful load.
-const retry = new Map<FunnelEvent, Props>();
 // Incremented on every consent withdrawal; aborts loads started under an older consent.
 let consentEpoch = 0;
 
@@ -149,22 +150,15 @@ function stripQuery(value: unknown) {
   }
 }
 
-function wasFired(event: string) {
-  if (firedInMemory.has(event)) return true;
+function markFired(key: string) {
+  firedInMemory.add(key);
   try {
-    return (JSON.parse(sessionStorage.getItem(FIRED_KEY) || "[]") as string[]).includes(event);
+    sessionStorage.setItem(
+      FIRED_KEY,
+      JSON.stringify({ session: dedupeSession, keys: [...firedInMemory] }),
+    );
   } catch {
-    return false;
-  }
-}
-
-function markFired(event: string) {
-  firedInMemory.add(event);
-  try {
-    const list = JSON.parse(sessionStorage.getItem(FIRED_KEY) || "[]") as string[];
-    if (!list.includes(event)) sessionStorage.setItem(FIRED_KEY, JSON.stringify([...list, event]));
-  } catch {
-    /* ignore */
+    /* in-memory dedupe still works */
   }
 }
 
@@ -222,7 +216,14 @@ async function load(): Promise<PostHog | null> {
         event.properties = p;
         delete (event as { $set?: unknown }).$set;
         delete (event as { $set_once?: unknown }).$set_once;
-        return event;
+        const epoch = consentEpoch;
+        const consentTs = p.consent_ts;
+        captureDelivery = deliverAnalytics(
+          event,
+          () => epoch === consentEpoch && analyticsAllowed() && readConsent()?.ts === consentTs,
+        );
+        // Prevent a second SDK send. The SDK still supplies identity/session/UUID metadata.
+        return null;
       },
     });
     if (!stillAllowed()) {
@@ -272,35 +273,54 @@ export async function captureFunnel(event: FunnelEvent, props: Props = {}, submi
   // The key stays local: no database submission ID is sent to PostHog.
   if (event === "purchase_interest_submitted" && !submissionId) return;
   const campaign = currentCampaign();
+  const epoch = consentEpoch;
+  const client = await load();
+  if (!client || !analyticsAllowed() || epoch !== consentEpoch) return;
+  // get_session_id() is read-only and does NOT expire idle sessions. Advance the SDK
+  // session before dedupe, just as capture() does, so a return visit is not suppressed.
+  const session =
+    client.sessionManager?.checkAndGetSessionAndWindowId().sessionId ?? client.get_session_id();
+  if (!session) return;
+  if (session !== dedupeSession) {
+    dedupeSession = session;
+    const submitted = [...firedInMemory].filter((key) =>
+      key.startsWith("purchase_interest_submitted:"),
+    );
+    firedInMemory.clear();
+    submitted.forEach((key) => firedInMemory.add(key));
+    try {
+      const previous = JSON.parse(sessionStorage.getItem(FIRED_KEY) || "{}") as {
+        session?: string;
+        keys?: string[];
+      };
+      if (Array.isArray(previous.keys)) {
+        previous.keys
+          .filter(
+            (key) =>
+              typeof key === "string" &&
+              (previous.session === session || key.startsWith("purchase_interest_submitted:")),
+          )
+          .forEach((key) => firedInMemory.add(key));
+      }
+    } catch {
+      /* unavailable storage: in-memory dedupe still works */
+    }
+  }
   const key =
     event === "purchase_interest_submitted"
       ? `${event}:${submissionId}`
-      : `${event}:${campaign ?? "direct"}`;
+      : `${session}:${event}:${campaign ?? "direct"}:${event === "product_area_viewed" ? (props.product_id ?? "overview") : ""}`;
   const once = ONCE_PER_VISIT.includes(event) || event === "purchase_interest_submitted";
-  if (once) {
-    if (wasFired(key) || inFlight.has(key)) return;
-    inFlight.add(key); // synchronous in-flight dedupe (StrictMode / re-renders)
-  }
+  if (once && (firedInMemory.has(key) || inFlight.has(key))) return;
+  if (once) inFlight.add(key);
   try {
-    const client = await load();
-    if (!client || !analyticsAllowed()) {
-      if (ONCE_PER_VISIT.includes(event) && analyticsAllowed()) retry.set(event, props);
-      return;
-    }
+    captureDelivery = null;
     client.capture(event, {
       ...cleanProps(event, props),
       ...(campaign ? { campaign_id: campaign } : {}),
     });
-    if (once) {
-      markFired(key);
-      retry.delete(event);
-    }
-    // Flush once-events that previously failed after consent.
-    for (const [e, p] of [...retry.entries()]) {
-      if (e === event) continue;
-      retry.delete(e);
-      void captureFunnel(e, p);
-    }
+    const delivered = await captureDelivery;
+    if (delivered && once && epoch === consentEpoch && dedupeSession === session) markFired(key);
   } finally {
     if (once) inFlight.delete(key);
   }
@@ -343,7 +363,12 @@ function wipePosthogStorage() {
   try {
     for (const store of [localStorage, sessionStorage]) {
       for (const key of Object.keys(store)) {
-        if (key.startsWith("ph_") || key.startsWith("__ph") || key === FIRED_KEY)
+        if (
+          key.startsWith("ph_") ||
+          key.startsWith("__ph") ||
+          key === FIRED_KEY ||
+          key === "lv_ph_fired"
+        )
           store.removeItem(key);
       }
     }
@@ -376,7 +401,8 @@ function onConsentChanged() {
   stopEngagement();
   // Withdrawal: abort in-flight loads, stop capture, reset identity, wipe storage.
   consentEpoch++;
-  retry.clear();
+  dedupeSession = "";
+  inFlight.clear();
   firedInMemory.clear();
   if (ph) {
     ph.opt_out_capturing();
@@ -459,6 +485,7 @@ function tickEngagement() {
   if (!analyticsAllowed()) return stopEngagement();
   const now = Date.now();
   const page = currentPage();
+  if (ph && ph.get_session_id() !== dedupeSession) catchUpCurrentState();
   if (!engagement) {
     engagement = { ...page, ms: 0, last: now };
     return;
@@ -501,6 +528,7 @@ function onVisibilityChange() {
     flushEngagement(true);
   } else {
     engagement.last = now;
+    catchUpCurrentState();
   }
 }
 

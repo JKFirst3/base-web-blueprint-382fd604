@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 
 type Product = {
@@ -78,13 +77,12 @@ export function ProductWorld() {
                   {p.brand}
                 </h3>
                 <p className="mt-1 text-sm text-foreground/70">{p.name}</p>
-                <Link
-                  to="/Konfigurator"
-                  hash={p.id}
+                <a
+                  href={`/Konfigurator?product=${p.id}`}
                   className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-[#050505] px-5 py-2 text-[13px] font-medium text-white transition hover:opacity-90"
                 >
                   Produkt anzeigen
-                </Link>
+                </a>
               </div>
             </article>
           ))}

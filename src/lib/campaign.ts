@@ -12,12 +12,18 @@ export const SALE_CAMPAIGNS = {
   cabinet: "smoke_google_cabinet_sale_v1",
   one: "smoke_google_one_sale_v1",
 } as const;
-export const CAMPAIGNS = [SMOKE_CAMPAIGN, ...Object.values(PRODUCT_CAMPAIGNS), ...Object.values(SALE_CAMPAIGNS)] as const;
+export const CAMPAIGNS = [
+  SMOKE_CAMPAIGN,
+  ...Object.values(PRODUCT_CAMPAIGNS),
+  ...Object.values(SALE_CAMPAIGNS),
+] as const;
 export type Campaign = (typeof CAMPAIGNS)[number];
 export const PREORDER_SOURCES = ["configurator", ...CAMPAIGNS] as const;
 
 export function validCampaign(value: unknown): Campaign | null {
-  return typeof value === "string" && (CAMPAIGNS as readonly string[]).includes(value) ? value as Campaign : null;
+  return typeof value === "string" && (CAMPAIGNS as readonly string[]).includes(value)
+    ? (value as Campaign)
+    : null;
 }
 export type PreorderSource = (typeof PREORDER_SOURCES)[number];
 
@@ -27,9 +33,25 @@ export function currentCampaign(): Campaign | null {
   return validCampaign(value);
 }
 
-export function campaignLink(href: string, origin: string, campaign: Campaign = SMOKE_CAMPAIGN): string | null {
-  const url = new URL(href, origin);
-  if (url.origin !== origin || !["/", "/Konfigurator", "/aboutLavidro", "/kontakt", "/datenschutz", "/impressum"].includes(url.pathname)) return null;
+export function campaignLink(
+  href: string,
+  origin: string,
+  campaign: Campaign = SMOKE_CAMPAIGN,
+): string | null {
+  const url = new URL(href, `${origin}/`);
+  if (
+    url.origin !== origin ||
+    ![
+      "/",
+      "/Konfigurator",
+      "/aboutLavidro",
+      "/kontakt",
+      "/datenschutz",
+      "/impressum",
+      "/anfrage-bestaetigen",
+    ].includes(url.pathname)
+  )
+    return null;
   url.searchParams.set(CAMPAIGN_PARAM, campaign);
   return `${url.pathname}${url.search}${url.hash}`;
 }
@@ -37,7 +59,7 @@ export function campaignLink(href: string, origin: string, campaign: Campaign = 
 function tagLink(a: HTMLAnchorElement) {
   const campaign = currentCampaign();
   if (!campaign) return;
-  const tagged = campaignLink(a.getAttribute("href")!, window.location.origin, campaign);
+  const tagged = campaignLink(a.href, window.location.origin, campaign);
   if (tagged && tagged !== a.getAttribute("href")) a.setAttribute("href", tagged);
 }
 
@@ -49,14 +71,33 @@ function tagLink(a: HTMLAnchorElement) {
  */
 export function propagateCampaignToSiteLinks(): () => void {
   if (typeof window === "undefined" || !currentCampaign()) return () => {};
-  const selector = 'a[href^="/"]';
+  const selector = "a[href]";
   const tagAll = () => document.querySelectorAll<HTMLAnchorElement>(selector).forEach(tagLink);
   tagAll();
   const observer = new MutationObserver(tagAll);
   observer.observe(document.body, { childList: true, subtree: true });
   const onClick = (e: Event) => {
     const a = (e.target as Element | null)?.closest?.(selector);
-    if (a instanceof HTMLAnchorElement && currentCampaign()) tagLink(a);
+    if (!(a instanceof HTMLAnchorElement) || !currentCampaign()) return;
+    tagLink(a);
+    const click = e as MouseEvent;
+    if (
+      click.button !== 0 ||
+      click.metaKey ||
+      click.ctrlKey ||
+      click.shiftKey ||
+      click.altKey ||
+      a.target === "_blank" ||
+      a.hasAttribute("download")
+    )
+      return;
+    const tagged = campaignLink(a.href, window.location.origin, currentCampaign()!);
+    // Router Links may navigate using their original props instead of the updated DOM href.
+    // Use the actual tagged URL for these links as well, preserving query and fragment.
+    if (tagged && !e.defaultPrevented) {
+      e.preventDefault();
+      window.location.assign(tagged);
+    }
   };
   document.addEventListener("click", onClick, true);
   return () => {

@@ -42,8 +42,21 @@ const GREATEST_VALUES = new Set([
 ]);
 const DEMOGRAPHIC_PROPS = ["household_size", "greatest_value", "job_title_provided"] as const;
 const FORBIDDEN_FREE_TEXT_PROPS = new Set(["name", "email", "job_title", "greatest_value_other"]);
-const PAGE_PATHS = new Set(["/", "/Konfigurator", "/aboutLavidro", "/kontakt", "/impressum", "/datenschutz", "/anfrage-bestaetigen", "other"]);
-const PRODUCTION_HOSTS = new Set(["lavidro.com", "www.lavidro.com", "base-web-blueprint.lovable.app"]);
+const PAGE_PATHS = new Set([
+  "/",
+  "/Konfigurator",
+  "/aboutLavidro",
+  "/kontakt",
+  "/impressum",
+  "/datenschutz",
+  "/anfrage-bestaetigen",
+  "other",
+]);
+const PRODUCTION_HOSTS = new Set([
+  "lavidro.com",
+  "www.lavidro.com",
+  "base-web-blueprint.lovable.app",
+]);
 const MAX_PAST_MS = 24 * 60 * 60 * 1000;
 const MAX_FUTURE_MS = 5 * 60 * 1000;
 const ISO_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-]\d{2}:\d{2})$/;
@@ -56,8 +69,16 @@ export function validTimestamp(v: unknown, now: number): string | undefined {
   return new Date(t).toISOString();
 }
 // Opaque SDK identifiers / metadata: short plain strings only.
-const ID_PROPS = ["distinct_id", "$session_id", "$window_id", "$device_id", "$insert_id", "$lib", "$lib_version"];
-const ID_RE = /^[A-Za-z0-9._:\-]{1,100}$/;
+const ID_PROPS = [
+  "distinct_id",
+  "$session_id",
+  "$window_id",
+  "$device_id",
+  "$insert_id",
+  "$lib",
+  "$lib_version",
+];
+const ID_RE = /^[A-Za-z0-9._:-]{1,100}$/;
 const ALLOWED_INPUT_PROPS = new Set([
   "token",
   "consent_ts",
@@ -90,7 +111,11 @@ export type GateOutcome =
   | "rejected_size"
   | "upstream_error";
 
-export type GateResult = { response: Response; outcome: GateOutcome };
+export type GateResult = {
+  response: Response;
+  outcome: GateOutcome;
+  counts?: { forwarded: number; invalid: number; stale: number };
+};
 
 function json(status: number, body: unknown): Response {
   return new Response(JSON.stringify(body), {
@@ -99,7 +124,10 @@ function json(status: number, body: unknown): Response {
   });
 }
 // "Drop" answers look like success so the SDK does not retry them.
-const drop = (outcome: GateOutcome): GateResult => ({ response: json(200, { status: 1 }), outcome });
+const drop = (outcome: GateOutcome): GateResult => ({
+  response: json(200, { status: 1, forwarded: false }),
+  outcome,
+});
 
 export function readConsentTs(cookieHeader: string | null): number | null {
   if (!cookieHeader) return null;
@@ -108,7 +136,12 @@ export function readConsentTs(cookieHeader: string | null): number | null {
     if (rawName !== CONSENT_COOKIE) continue;
     try {
       const c = JSON.parse(decodeURIComponent(rest.join("="))) as Record<string, unknown>;
-      if (c.v === CONSENT_VERSION && c.analytics === true && typeof c.ts === "number" && Number.isFinite(c.ts)) {
+      if (
+        c.v === CONSENT_VERSION &&
+        c.analytics === true &&
+        typeof c.ts === "number" &&
+        Number.isFinite(c.ts)
+      ) {
         return c.ts;
       }
     } catch {
@@ -181,22 +214,36 @@ function stripUrl(v: unknown, origin: string): string | undefined {
   try {
     const u = new URL(v);
     // Only same-origin, known site paths; query and fragment are always removed.
-    if (u.origin !== origin || u.pathname === "other" || !PAGE_PATHS.has(u.pathname)) return undefined;
+    if (u.origin !== origin || u.pathname === "other" || !PAGE_PATHS.has(u.pathname))
+      return undefined;
     return `${u.origin}${u.pathname}`;
   } catch {
     return undefined;
   }
 }
 
-type CleanEvent = { event: string; distinct_id: string; properties: Record<string, unknown>; uuid?: string; timestamp?: string };
+type CleanEvent = {
+  event: string;
+  distinct_id: string;
+  properties: Record<string, unknown>;
+  uuid?: string;
+  timestamp?: string;
+};
 
-function cleanEvent(raw: unknown, token: string, consentTs: number, origin: string, host: string, now: number):
-  | CleanEvent
-  | "stale"
-  | "invalid" {
+function cleanEvent(
+  raw: unknown,
+  token: string,
+  consentTs: number,
+  origin: string,
+  host: string,
+  now: number,
+): CleanEvent | "stale" | "invalid" {
   if (!raw || typeof raw !== "object") return "invalid";
   const e = raw as Record<string, unknown>;
-  const p = (e.properties && typeof e.properties === "object" ? e.properties : {}) as Record<string, unknown>;
+  const p = (e.properties && typeof e.properties === "object" ? e.properties : {}) as Record<
+    string,
+    unknown
+  >;
   if (typeof e.event !== "string" || !EVENTS.has(e.event)) return "invalid";
   if (Object.keys(p).some((key) => !ALLOWED_INPUT_PROPS.has(key))) return "invalid";
   if (p.token !== token) return "invalid";
@@ -211,39 +258,56 @@ function cleanEvent(raw: unknown, token: string, consentTs: number, origin: stri
     if (!campaign) return "invalid";
     out.campaign_id = campaign;
   }
-  for (const k of ID_PROPS) if (typeof p[k] === "string" && ID_RE.test(p[k] as string)) out[k] = p[k];
+  for (const k of ID_PROPS)
+    if (typeof p[k] === "string" && ID_RE.test(p[k] as string)) out[k] = p[k];
   if (!out.distinct_id) return "invalid";
   if (typeof p.$time === "number" && Number.isFinite(p.$time)) out.$time = p.$time;
   const url = stripUrl(p.$current_url, origin);
   if (url) out.$current_url = url;
-  if (typeof p.product_id === "string" && PRODUCT_IDS.has(p.product_id)) out.product_id = p.product_id;
-  if (e.event === "product_comparison_opened" || e.event === "product_comparison_product_selected") {
+  if (typeof p.product_id === "string" && PRODUCT_IDS.has(p.product_id))
+    out.product_id = p.product_id;
+  if (
+    e.event === "product_comparison_opened" ||
+    e.event === "product_comparison_product_selected"
+  ) {
     if (!out.product_id) return "invalid";
   }
   if ("source_product_id" in p) {
-    if (e.event !== "product_comparison_product_selected" || typeof p.source_product_id !== "string" || !PRODUCT_IDS.has(p.source_product_id)) return "invalid";
+    if (
+      e.event !== "product_comparison_product_selected" ||
+      typeof p.source_product_id !== "string" ||
+      !PRODUCT_IDS.has(p.source_product_id)
+    )
+      return "invalid";
     out.source_product_id = p.source_product_id;
   }
-  if (e.event === "product_comparison_product_selected" && (!out.source_product_id || out.source_product_id === out.product_id)) return "invalid";
-  if (typeof p.business_model === "string" && BUSINESS_MODELS.has(p.business_model)) out.business_model = p.business_model;
-  if (typeof p.entry_type === "string" && ENTRY_TYPES.has(p.entry_type)) out.entry_type = p.entry_type;
+  if (
+    e.event === "product_comparison_product_selected" &&
+    (!out.source_product_id || out.source_product_id === out.product_id)
+  )
+    return "invalid";
+  if (typeof p.business_model === "string" && BUSINESS_MODELS.has(p.business_model))
+    out.business_model = p.business_model;
+  if (typeof p.entry_type === "string" && ENTRY_TYPES.has(p.entry_type))
+    out.entry_type = p.entry_type;
   if ([...FORBIDDEN_FREE_TEXT_PROPS].some((key) => key in p)) return "invalid";
   const hasDemographics = DEMOGRAPHIC_PROPS.some((key) => key in p);
   if (hasDemographics && e.event !== "purchase_interest_submitted") return "invalid";
   if (e.event === "purchase_interest_submitted") {
     if ("household_size" in p) {
-      if (typeof p.household_size !== "string" || !HOUSEHOLD_SIZES.has(p.household_size)) return "invalid";
+      if (typeof p.household_size !== "string" || !HOUSEHOLD_SIZES.has(p.household_size))
+        return "invalid";
       out.household_size = p.household_size;
     }
     if ("greatest_value" in p) {
-      if (typeof p.greatest_value !== "string" || !GREATEST_VALUES.has(p.greatest_value)) return "invalid";
+      if (typeof p.greatest_value !== "string" || !GREATEST_VALUES.has(p.greatest_value))
+        return "invalid";
       out.greatest_value = p.greatest_value;
     }
     if ("job_title_provided" in p) {
       if (typeof p.job_title_provided !== "boolean") return "invalid";
       out.job_title_provided = p.job_title_provided;
     }
-
   }
   // Server-derived only, never client text.
   out.site_environment = PRODUCTION_HOSTS.has(host) ? "production" : "preview";
@@ -256,7 +320,11 @@ function cleanEvent(raw: unknown, token: string, consentTs: number, origin: stri
     out.visible_seconds = s;
   }
   // Top-level distinct_id (required by the capture API) mirrors the validated property.
-  const clean: CleanEvent = { event: e.event, distinct_id: out.distinct_id as string, properties: out };
+  const clean: CleanEvent = {
+    event: e.event,
+    distinct_id: out.distinct_id as string,
+    properties: out,
+  };
   if (typeof e.uuid === "string" && /^[0-9a-f-]{36}$/i.test(e.uuid)) clean.uuid = e.uuid;
   const ts = validTimestamp(e.timestamp, now);
   if (ts) clean.timestamp = ts;
@@ -266,11 +334,17 @@ function cleanEvent(raw: unknown, token: string, consentTs: number, origin: stri
 export async function handleIngest(
   request: Request,
   splat: string,
-  deps: { token: string | null; now?: () => number; fetchUpstream: (url: string, init: RequestInit) => Promise<Response> },
+  deps: {
+    token: string | null;
+    now?: () => number;
+    fetchUpstream: (url: string, init: RequestInit) => Promise<Response>;
+  },
 ): Promise<GateResult> {
   // Only POST capture is forwarded; any other SDK path/method is answered locally, no upstream call.
-  if (request.method !== "POST" || splat.replace(/^\/+|\/+$/g, "") !== "e") return drop("dropped_path");
-  if (!sameOrigin(request)) return { response: json(403, { error: "origin" }), outcome: "rejected_origin" };
+  if (request.method !== "POST" || splat.replace(/^\/+|\/+$/g, "") !== "e")
+    return drop("dropped_path");
+  if (!sameOrigin(request))
+    return { response: json(403, { error: "origin" }), outcome: "rejected_origin" };
   const consentTs = readConsentTs(request.headers.get("cookie"));
   const text = await readLimited(request);
   if (text === null) return { response: json(413, { error: "size" }), outcome: "rejected_size" };
@@ -282,23 +356,36 @@ export async function handleIngest(
   const url = new URL(request.url);
   const now = (deps.now ?? Date.now)();
   const batch: CleanEvent[] = [];
-  let stale = false;
+  let stale = 0;
+  let invalid = 0;
   for (const it of items) {
     const r = cleanEvent(it, token, consentTs, url.origin, url.hostname, now);
-    if (r === "stale") stale = true;
-    else if (r !== "invalid") batch.push(r);
+    if (r === "stale") stale++;
+    else if (r === "invalid") invalid++;
+    else batch.push(r);
   }
-  if (batch.length === 0) return drop(stale ? "dropped_stale_consent" : "dropped_invalid");
+  const counts = { forwarded: 0, invalid, stale };
+  if (batch.length === 0)
+    return { ...drop(stale ? "dropped_stale_consent" : "dropped_invalid"), counts };
   try {
     // Fresh headers only: no visitor IP, cookies, user agent or other browser headers.
     const res = await deps.fetchUpstream(UPSTREAM_URL, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ api_key: token, batch }),
+      signal: AbortSignal.timeout(4000),
     });
-    if (!res.ok) return { response: json(502, { error: "upstream" }), outcome: "upstream_error" };
-    return { response: json(200, { status: 1 }), outcome: "forwarded" };
+    if (!res.ok)
+      return { response: json(502, { error: "upstream" }), outcome: "upstream_error", counts };
+    const accepted = (await res.json()) as { status?: number };
+    if (accepted.status !== 1)
+      return { response: json(502, { error: "upstream" }), outcome: "upstream_error", counts };
+    return {
+      response: json(200, { status: 1, forwarded: true }),
+      outcome: "forwarded",
+      counts: { ...counts, forwarded: batch.length },
+    };
   } catch {
-    return { response: json(502, { error: "upstream" }), outcome: "upstream_error" };
+    return { response: json(502, { error: "upstream" }), outcome: "upstream_error", counts };
   }
 }
