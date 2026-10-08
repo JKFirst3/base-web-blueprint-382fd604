@@ -104,11 +104,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         property: "og:image",
-        content: "https://lavidro.com/assets/lavidro-hero-humanoid-v4-6k.png",
+        content: "https://lavidro.com/assets/lavidro-hero-humanoid-v4.png",
       },
       {
         name: "twitter:image",
-        content: "https://lavidro.com/assets/lavidro-hero-humanoid-v4-6k.png",
+        content: "https://lavidro.com/assets/lavidro-hero-humanoid-v4.png",
       },
     ],
     links: [
