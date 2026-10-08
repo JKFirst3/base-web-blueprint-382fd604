@@ -2,6 +2,7 @@ import { auth, defineMcp } from "@lovable.dev/mcp-js";
 import getProductCatalog from "./tools/get-product-catalog";
 import listLeads from "./tools/list-leads";
 import listPreorders from "./tools/list-preorders";
+import getFunnelSnapshot from "./tools/get-funnel-snapshot";
 
 const projectRef = import.meta.env["VITE_SUPABASE_PROJECT_ID"] ?? "project-ref-unset";
 
@@ -15,5 +16,5 @@ export default defineMcp({
     issuer: `https://${projectRef}.supabase.co/auth/v1`,
     acceptedAudiences: "authenticated",
   }),
-  tools: [getProductCatalog, listLeads, listPreorders],
+  tools: [getProductCatalog, listLeads, listPreorders, getFunnelSnapshot],
 });

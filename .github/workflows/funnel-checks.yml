@@ -1,0 +1,23 @@
+name: Funnel Admin Checks
+on:
+  push:
+    branches: [feat/agentic-funnel-admin-audit]
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'supabase/migrations/**'
+      - 'package.json'
+      - 'bun.lock'
+      - '.github/workflows/funnel-checks.yml'
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run typecheck
+      - run: bun run test
+      - run: bun run build
+      - run: bun run lint

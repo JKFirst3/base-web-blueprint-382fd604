@@ -178,13 +178,14 @@ function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
-    initAnalytics();
-  }, []);
+    if (!pathname.startsWith("/admin")) initAnalytics();
+  }, [pathname]);
 
   const searchStr = useRouterState({ select: (s) => s.location.searchStr });
   useEffect(() => propagateCampaignToSiteLinks(), [pathname, searchStr]);
 
   useEffect(() => {
+    if (pathname.startsWith("/admin")) return;
     void captureFunnel("website_visited");
     if (pathname === "/") void captureFunnel("landing_page_viewed");
   }, [pathname, searchStr]);
