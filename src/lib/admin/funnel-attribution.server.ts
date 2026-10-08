@@ -85,8 +85,12 @@ export function creativeInfo(raw: unknown) {
     sources.size > 1
       ? "ambiguous"
       : !matching
-        ? urls.length ? "other_domain" : "not_found"
-        : source ? "matched" : "missing";
+        ? urls.length
+          ? "other_domain"
+          : "not_found"
+        : source
+          ? "matched"
+          : "missing";
   const headline = string(
     cr.title || link.name || video.title || record(record(feed.titles).data).text,
     180,
