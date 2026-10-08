@@ -156,18 +156,22 @@ async function computeFunnelDashboard(days: 7 | 30 | 90) {
   };
 }
 // Cache bounded aggregate results per worker isolate. No cross-account keys exist here.
-const dashboardCache = new Map<7 | 30 | 90, {
-  expires: number;
-  promise: ReturnType<typeof computeFunnelDashboard>;
-}>();
+const dashboardCache = new Map<
+  7 | 30 | 90,
+  {
+    expires: number;
+    promise: ReturnType<typeof computeFunnelDashboard>;
+  }
+>();
 export async function getFunnelDashboard(days: 7 | 30 | 90) {
   const now = Date.now();
   const hit = dashboardCache.get(days);
   if (hit && hit.expires > now) return hit.promise;
   const promise = computeFunnelDashboard(days);
   dashboardCache.set(days, { expires: now + 30_000, promise });
-  try { return await promise; }
-  catch (err) {
+  try {
+    return await promise;
+  } catch (err) {
     dashboardCache.delete(days);
     throw err;
   }
