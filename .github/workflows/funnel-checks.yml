@@ -45,3 +45,35 @@ jobs:
             git commit -m "style: format funnel-admin implementation [skip ci]"
             git push origin HEAD:feat/agentic-funnel-admin-audit
           fi
+  browser-qa:
+    name: Browser Journey QA (3 products)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - name: Install Playwright into isolated runner
+        run: |
+          npm install --no-save --package-lock=false --ignore-scripts playwright
+          npx playwright install --with-deps chromium
+      - name: Test all three product pages in real Chromium
+        env:
+          FUNNEL_ADMIN_PASSWORD: ci-only-funnel-password-never-production
+          FUNNEL_ADMIN_SESSION_SECRET: ci-only-session-signing-key-longer-than-32-characters
+        run: |
+          bun run dev --host 127.0.0.1 > /tmp/funnel-browser-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          node scripts/funnel-browser-smoke.mjs || { tail -n 60 /tmp/funnel-browser-server.log; exit 1; }
+      - name: Save browser screenshots and audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: funnel-chromium-qa
+          path: funnel-browser-artifacts/
+          retention-days: 14
+          if-no-files-found: warn
