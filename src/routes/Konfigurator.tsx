@@ -192,7 +192,9 @@ function ConfiguratorPage() {
   return (
     <>
       <CodexMarkup html={configuratorHtml} className="configurator-page" />
-      <div className="product-mobile-footer"><Footer /></div>
+      <div className="product-mobile-footer">
+        <Footer />
+      </div>
       {selection && <PreorderDialog selection={selection} onClose={() => setSelection(null)} />}
     </>
   );
@@ -363,9 +365,9 @@ function PreorderDialog({
             <p className="kicker">Unverbindliche Anfrage</p>
             <h2 id="preorder-title">Wartelistenplatz für {selection.productName}</h2>
             <p className="preorder-introduction">
-              Mit Ihrem Wartelistenplatz erhalten Sie ein persönliches Beratungsgespräch.
-              Wir prüfen gemeinsam, wie {selection.productName} zu Ihren Bedürfnissen passt.
-              Die Lösung befindet sich in Entwicklung.
+              Mit Ihrem Wartelistenplatz erhalten Sie ein persönliches Beratungsgespräch. Wir prüfen
+              gemeinsam, wie {selection.productName} zu Ihren Bedürfnissen passt. Die Lösung
+              befindet sich in Entwicklung.
             </p>
 
             {offer && (
@@ -376,7 +378,10 @@ function PreorderDialog({
               </div>
             )}
             <form className="preorder-form" onSubmit={submit}>
-              <fieldset className={`preorder-payment-options${offer ? " sale-pricing" : ""}`} disabled={attemptStarted}>
+              <fieldset
+                className={`preorder-payment-options${offer ? " sale-pricing" : ""}`}
+                disabled={attemptStarted}
+              >
                 <legend>Voraussichtliche, unverbindliche Preisindikation</legend>
                 {(["upfront", "monthly"] as const).map((model) => (
                   <label key={model}>
@@ -444,7 +449,11 @@ function PreorderDialog({
                 <summary>Optional: Ihre Wünsche mitteilen</summary>
                 <label>
                   <span>Haushaltsgröße</span>
-                  <select disabled={attemptStarted} value={householdSize} onChange={(event) => setHouseholdSize(event.target.value)}>
+                  <select
+                    disabled={attemptStarted}
+                    value={householdSize}
+                    onChange={(event) => setHouseholdSize(event.target.value)}
+                  >
                     <option value="">Bitte auswählen</option>
                     <option value="1">1 Person</option>
                     <option value="2">2 Personen</option>
@@ -454,22 +463,45 @@ function PreorderDialog({
                 </label>
                 <label>
                   <span>Was ist Ihnen besonders wichtig?</span>
-                  <select disabled={attemptStarted} value={greatestValue} onChange={(event) => { setGreatestValue(event.target.value); setGreatestValueOther(""); }}>
+                  <select
+                    disabled={attemptStarted}
+                    value={greatestValue}
+                    onChange={(event) => {
+                      setGreatestValue(event.target.value);
+                      setGreatestValueOther("");
+                    }}
+                  >
                     <option value="">Bitte auswählen</option>
                     {VALUE_OPTIONS.map((option) => (
-                      <option key={option} value={option}>{option}</option>
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
                     ))}
                   </select>
                 </label>
                 {greatestValue === "Sonstige" && (
                   <label>
                     <span>Ihr Wunsch</span>
-                    <textarea disabled={attemptStarted} value={greatestValueOther} onChange={(event) => setGreatestValueOther(event.target.value)} maxLength={300} required rows={3} />
+                    <textarea
+                      disabled={attemptStarted}
+                      value={greatestValueOther}
+                      onChange={(event) => setGreatestValueOther(event.target.value)}
+                      maxLength={300}
+                      required
+                      rows={3}
+                    />
                   </label>
                 )}
                 <label>
                   <span>Beruf (optional)</span>
-                  <input disabled={attemptStarted} type="text" value={jobTitle} onChange={(event) => setJobTitle(event.target.value)} maxLength={100} autoComplete="organization-title" />
+                  <input
+                    disabled={attemptStarted}
+                    type="text"
+                    value={jobTitle}
+                    onChange={(event) => setJobTitle(event.target.value)}
+                    maxLength={100}
+                    autoComplete="organization-title"
+                  />
                 </label>
               </details>
               <label className="checkbox">
