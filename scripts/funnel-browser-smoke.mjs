@@ -4,6 +4,17 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { chromium } from "playwright";
 
 const base=process.env.FUNNEL_BROWSER_URL || "http://127.0.0.1:8080";
+async function awaitServer() {
+  for(let i=0;i<90;i++){
+    try{
+      const response=await fetch(base+"/api/admin/funnel-session",{signal:AbortSignal.timeout(700)});
+      if(response.ok)return;
+    }catch{}
+    await new Promise(resolve=>setTimeout(resolve,400));
+  }
+  throw new Error("Development web server is not accepting requests");
+}
+await awaitServer();
 const folder="funnel-browser-artifacts";
 await mkdir(folder,{recursive:true});
 const browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
@@ -59,4 +70,5 @@ await writeFile(`${folder}/results.json`,JSON.stringify({checkedAt:new Date().to
 const report=["# Funnel Browser QA","",`Checked pages: ${checks.length}. Failures: ${failures.length}`,"",...checks.map(c=>`- ${c.status.toUpperCase()}: ${c.name}`),...failures.map(f=>`- ${f.name}: ${f.message}`)].join("\n");
 await writeFile(`${folder}/report.md`,report);
 console.log(`Browser QA: ${checks.length} passed/checks, ${failures.length} failures`);
+for(const failure of failures)console.error(`Browser check failed: ${failure.name}: ${failure.message}`);
 if(failures.length)process.exitCode=1;
