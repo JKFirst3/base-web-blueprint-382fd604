@@ -1,6 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { PREORDER_SOURCES } from "@/lib/campaign";
-import { readMetaInsights, readPostHogEvents } from "./funnel-connectors.server";
+import { readMetaInsights, readPostHogEvents } from "./funnel-connectors.server.ts";
 
 export function safePeriod(value: unknown): 7 | 30 | 90 {
   return value === "7" || value === 7 ? 7 : value === "90" || value === 90 ? 90 : 30;
