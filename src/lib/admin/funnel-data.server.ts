@@ -12,7 +12,7 @@ import {
 export function safePeriod(value: unknown): 7 | 30 | 90 {
   return value === "7" || value === 7 ? 7 : value === "90" || value === 90 ? 90 : 30;
 }
-export async function getFunnelDashboard(days: 7 | 30 | 90) {
+async function computeFunnelDashboard(days: 7 | 30 | 90) {
   const meta = await readMetaInsights(days);
   const period = meta.period ?? reportingPeriod(days);
   const posthogPromise = readPostHogEvents(days, fetch, period);
@@ -155,6 +155,23 @@ export async function getFunnelDashboard(days: 7 | 30 | 90) {
     ],
   };
 }
+// Cache bounded aggregate results per worker isolate. No cross-account keys exist here.
+const dashboardCache = new Map<7 | 30 | 90, {
+  expires: number;
+  promise: ReturnType<typeof computeFunnelDashboard>;
+}>();
+export async function getFunnelDashboard(days: 7 | 30 | 90) {
+  const now = Date.now();
+  const hit = dashboardCache.get(days);
+  if (hit && hit.expires > now) return hit.promise;
+  const promise = computeFunnelDashboard(days);
+  dashboardCache.set(days, { expires: now + 30_000, promise });
+  try { return await promise; }
+  catch (err) {
+    dashboardCache.delete(days);
+    throw err;
+  }
+}
 export async function setPreorderQualification(id: string, qualified: boolean) {
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) return false;
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -174,5 +191,6 @@ export async function setPreorderQualification(id: string, qualified: boolean) {
     },
     { onConflict: "preorder_id" },
   );
+  if (!error) dashboardCache.clear();
   return !error;
 }
