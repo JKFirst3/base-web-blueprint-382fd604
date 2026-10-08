@@ -120,9 +120,10 @@ export function creativeInfo(raw: unknown) {
   // Only allowlisted non-PII URL params. Product and A/B/C variant must survive.
   const params = new URLSearchParams();
   const urlProduct = matching?.searchParams.get("product") ?? null;
-  if(urlProduct && PRODUCTS.includes(urlProduct as typeof PRODUCTS[number]))params.set("product",urlProduct);
-  if(source)params.set("lv_campaign",source);
-  if(variant)params.set("lv_variant",variant);
+  if (urlProduct && PRODUCTS.includes(urlProduct as (typeof PRODUCTS)[number]))
+    params.set("product", urlProduct);
+  if (source) params.set("lv_campaign", source);
+  if (variant) params.set("lv_variant", variant);
   const landingUrl = matching
     ? `${matching.origin}${matching.pathname}${params.size ? "?" + params.toString() : ""}`
     : null;

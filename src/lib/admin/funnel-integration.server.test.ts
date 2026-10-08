@@ -46,12 +46,19 @@ test("campaign attribution handles Meta url_tags without inventing new source cl
   assert.equal(result.source, "smoke_google_mobile_v1");
   assert.equal(result.mapping, "matched");
   assert.equal(result.product, "mobile");
-  const variantInfo = creativeInfo({ url_tags:"lv_campaign=smoke_google_one_v1&lv_variant=c",
-    object_story_spec:{link_data:{link:"https://lavidro.com/Konfigurator?product=one&fbclid=private"}} });
-  assert.equal(variantInfo.variant,"c");
-  assert.equal(variantInfo.product,"one");
-  assert.equal(variantInfo.landingUrl,"https://lavidro.com/Konfigurator?product=one&lv_campaign=smoke_google_one_v1&lv_variant=c");
-  assert.equal(variantInfo.landingUrl?.includes("fbclid"),false);
+  const variantInfo = creativeInfo({
+    url_tags: "lv_campaign=smoke_google_one_v1&lv_variant=c",
+    object_story_spec: {
+      link_data: { link: "https://lavidro.com/Konfigurator?product=one&fbclid=private" },
+    },
+  });
+  assert.equal(variantInfo.variant, "c");
+  assert.equal(variantInfo.product, "one");
+  assert.equal(
+    variantInfo.landingUrl,
+    "https://lavidro.com/Konfigurator?product=one&lv_campaign=smoke_google_one_v1&lv_variant=c",
+  );
+  assert.equal(variantInfo.landingUrl?.includes("fbclid"), false);
   assert.match(result.landingUrl ?? "", /lv_campaign=smoke_google_mobile_v1/);
   const ambiguous = creativeInfo({
     url_tags: "lv_campaign=smoke_google_mobile_v1",
