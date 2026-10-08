@@ -2585,3 +2585,42 @@ details p {
 .sale-pricing label > span > strong { color: #8c0014; }
 .sale-pricing label:has(input:checked) { border-color: #8c0014; background: #8c001408; }
 .sale-pricing input { accent-color: #8c0014; }
+
+/* Product CRO: original Lavidro image-first split layout with less copy. */
+.configurator-intro { margin-bottom: 22px; }
+.configurator-intro .product-panel-label { margin: 0 0 12px; color: var(--ink); font-size: 1.2rem; font-weight: 700; }
+.configurator-intro [data-product-description] { margin: 0; font-size: .96rem; line-height: 1.52; }
+.configurator-page .product-benefits { margin-bottom: 22px; }
+.configurator-page .benefit-list { gap: 13px; }
+.configurator-page .benefit-list strong { font-size: .95rem; font-weight: 600; line-height: 1.4; }
+.configurator-page .product-price-callout { display: grid; gap: 5px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.configurator-page .product-price-callout strong { font-size: clamp(1.25rem, 2vw, 1.65rem); letter-spacing: -.02em; }
+.configurator-page .product-price-callout span { color: var(--muted); font-size: .77rem; }
+.configurator-page .config-actions { margin-top: 22px; gap: 9px; }
+.configurator-page .config-actions [data-buy-button] { flex: 1 1 100%; }
+.configurator-page .config-actions [data-open-compare] { min-height: 38px; width: 100%; border: 0; font-size: .84rem; text-decoration: underline; text-underline-offset: 3px; }
+.configurator-page .product-next-step { margin: 10px 0 5px; font-size: .87rem; font-weight: 700; text-align: center; }
+.configurator-page .product-development-note { margin: 0; color: var(--muted); font-size: .76rem; line-height: 1.45; text-align: center; }
+.configurator-page .product-notes { padding-top: 12px; }
+.configurator-page .product-hero-cta { display: none; }
+.configurator-page .visual-caption h1 { font-size: clamp(2.45rem, 5vw, 5.1rem); line-height: 1.02; max-width: 760px; font-weight: 600; }
+.configurator-page .visual-promise { margin-top: 12px; }
+.configurator-page .visual-promise p { font-weight: 500; max-width: 550px; }
+.preorder-optional { margin: 12px 0; border-top: 1px solid var(--line); }
+.preorder-optional summary { padding: 12px 0; font-weight: 600; font-size: .86rem; }
+.preorder-optional > label { margin: 16px 0; }
+@media (max-width: 980px) {
+  .configurator-page .configurator-visual { height: clamp(430px, 66svh, 620px); }
+  .configurator-page .visual-caption { width: 100%; }
+  .configurator-page .visual-caption h1 { font-size: clamp(2.1rem, 7.2vw, 3.6rem); }
+  .configurator-page .product-hero-cta { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 26px; margin-top: 19px; background: #8c0014; border-color: #8c0014; }
+  .configurator-page .configurator-panel { padding-top: 27px; }
+}
+@media (max-width: 620px) {
+  .configurator-page .visual-caption { bottom: 14px; padding: 18px 23px; }
+  .configurator-page .visual-caption h1 { font-size: clamp(2rem, 9vw, 2.85rem); }
+  .configurator-page .visual-caption .kicker { margin-bottom: 10px; }
+  .configurator-page .visual-promise p { font-size: .87rem; }
+  .configurator-page .product-hero-cta { width: 100%; margin-top: 15px; }
+}
+.page-shell .video-link span::before { content: "↓"; left: 12px; top: 5px; border: 0; color: white; font-size: 20px; }

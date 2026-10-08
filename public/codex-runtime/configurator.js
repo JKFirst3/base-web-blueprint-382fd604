@@ -1,21 +1,12 @@
 (() => {
-  const functions = [
-    { key: "sort", label: "Wäsche sortieren" },
-    { key: "wash", label: "Wäsche waschen & trocknen" },
-    { key: "fold", label: "Wäsche falten" },
-    { key: "provide", label: "Wäsche nach Personen bereitstellen" },
-    { key: "stain", label: "Flecken gezielt behandeln" },
-    { key: "refresh", label: "Kleidungsstücke auffrischen" },
-  ];
-
   const products = {
     mobile: {
-      slogan: "Wäsche abstellen, Assistent einschalten. Saubere Wäsche zurück bekommen.",
-      benefits: [["Zeit", "Ein ganzer Arbeitstag pro Woche gehört wieder Ihnen"], ["Geld", "Ca. 8.300 € Haushaltshilfe pro Jahr gespart"], ["Peace of Mind", "Nutzt Ihren bestehenden Waschraum. Kein Umbau nötig."]],
+      slogan: "Wäschearbeit abgeben. Mehr Zeit für das Leben.",
+      benefits: ["Bis zu acht Stunden weniger Wäschearbeit pro Woche*", "Rund 8.300 € jährlicher Arbeitswert im Modell*"],
       title: "Lavidro Mobile",
       family: "Mobiler Wäscheassistent",
       description:
-        "Ein mobiler Roboterarm auf fahrbarer Basis für automatisierte Wäschepflege. Er wird flexibel im Hauswirtschaftsraum positioniert und übernimmt Ihre Wäsche.",
+        "Sortieren, umladen, falten: Lavidro integriert Robotik anderer Hersteller in Ihren Waschraum.",
       image: "assets/lavidro-hero-humanoid-v4.png",
       highlights: [
         "Mobiler Roboterarm für automatisierte Wäschepflege",
@@ -32,12 +23,12 @@
       },
     },
     cabinet: {
-      slogan: "Schmutzige Wäsche einlegen, saubere Wäsche entnehmen. So einfach ist es.",
-      benefits: [["Zeit", "Ein ganzer Arbeitstag pro Woche gehört wieder Ihnen"], ["Geld", "Ca. 8.300 € Haushaltshilfe pro Jahr gespart"], ["Peace of Mind", "Kein Wäscheberg. Kein Gedanke mehr daran."]],
+      slogan: "Schmutzige Wäsche rein. Gefaltete Wäsche raus.",
+      benefits: ["Schmutzige Wäsche rein. Gefaltete Kleidung zurück.", "Rund 8.300 € jährlicher Arbeitswert im Modell*"],
       title: "Lavidro Cabinet",
       family: "Autonomer Wäscheschrank",
       description:
-        "Vollautomatischer Wäscheschrank mit intelligenter Robotik, diskret integriert und für den Prozess vom Sortieren bis zur bereitgestellten Kleidung konzipiert.",
+        "Diskret integriert: Lavidro verbindet einen Wäscheschrank mit Robotik anderer Hersteller.",
       image: "/__l5e/assets-v1/951a43fb-a953-4e09-b964-5ae22977e862/lavidro-cabinet.png",
       highlights: [
         "Autonomer Wäscheschrank mit intelligenter Robotik",
@@ -54,29 +45,47 @@
       },
     },
     one: {
-      slogan: "Getragene Kleidung rein, wenige Minuten warten, frisch wieder entnehmen.",
-      benefits: [["Weniger Waschen", "70 % weniger Waschgänge"], ["Längere Haltbarkeit", "Kleidung hält 3-mal so lang."], ["Tempo", "Lieblingsteil in Minuten wieder tragbar"]],
+      slogan: "Lieblingsstück schonend reinigen, Knitterfalten glätten.",
+      benefits: ["Flecken gezielt und schonend behandeln", "Knitterfalten glätten statt selbst bügeln"],
       title: "Lavidro One",
       family: "Einzelne Wäscheaufbereitung",
       description:
-        "Ein leistungsstarkes Dampfreinigungssystem entfernt bis zu 99,99 % der Gerüche, Viren und Bakterien aus den Textilien und frischt sie hygienisch auf. Ergänzend behandelt ein integrierter Roboterarm einzelne Kleidungsstücke gezielt, bearbeitet Flecken punktgenau und kann Textilien zusätzlich schonend steamen.",
+        "Flecken gezielt behandeln und Kleidung glätten: Lavidro One integriert Robotik anderer Hersteller.",
       image: "/__l5e/assets-v1/d374de19-f828-4b44-8831-d1e221804f08/lavidro-one.png",
       highlights: [
         "Roboterarm im Schrank für die Behandlung einzelner Kleidungsstücke",
         "Gezielte Fleckenbehandlung statt kompletter Waschladung",
-        "Textilien zwischen zwei Tragevorgängen auffrischen",
+        "Knitterfalten schonend glätten",
       ],
       levels: {
         standard: {
-          note: "Fleckenbehandlung und Auffrischen einzelner Kleidungsstücke",
+          note: "Fleckenbehandlung und Bügeln einzelner Kleidungsstücke",
           price: 8990,
           monthly: 199,
-          features: ["refresh", "stain"],
+          features: ["stain", "iron"],
         },
       },
     },
   };
 
+  // Each ad selects one stable copy variant; A is the default.
+  const variants = {
+    mobile: {
+      a: ["Mehr Zeit. Weniger Wäsche.", "Wäschearbeit abgeben. Mehr Zeit für das Leben."],
+      b: ["Ein Arbeitstag mehr für Ihr Leben.", "Bis zu acht Stunden Wäschearbeit pro Woche zurückgewinnen.*"],
+      c: ["Mehr Zeit für die Menschen, die zählen.", "Lavidro übernimmt die wiederkehrende Wäschearbeit."],
+    },
+    cabinet: {
+      a: ["Schmutzige Wäsche rein. Gefaltete Wäsche raus.", "Wäschepflege, die im Schrank verschwindet."],
+      b: ["Keine Wäscheberge. Mehr Ruhe.", "Ein aufgeräumtes Zuhause beginnt bei der Wäsche."],
+      c: ["Ihr Zuhause. Ihre Zeit. Ihre Ruhe.", "Wäsche reinlegen. Den Rest Lavidro überlassen."],
+    },
+    one: {
+      a: ["Lieblingsstück schonend reinigen, Knitterfalten glätten.", "Gezielte Fleckenbehandlung und Bügeln in einem System."],
+      b: ["Flecken weg. Falten glatt.", "Ihr Lieblingsstück bekommt wieder seinen großen Auftritt."],
+      c: ["Ihr Lieblingsstück verdient einen zweiten Auftritt.", "Flecken schonend entfernen. Knitterfalten glätten."],
+    },
+  };
   const params = new URLSearchParams(window.location.search);
   const selectedKey = products[params.get("product")] ? params.get("product") : "mobile";
   if (params.get("product") && !products[params.get("product")]) {
@@ -84,6 +93,19 @@
     window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
   }
   const selectedProduct = products[selectedKey];
+  const rawVariant = params.get("lv_variant");
+  const selectedVariant = rawVariant === "b" || rawVariant === "c" ? rawVariant : "a";
+  const [variantTitle, variantPromise] = variants[selectedKey][selectedVariant];
+  const saleCampaigns = {
+    mobile: "smoke_google_mobile_sale_v1",
+    cabinet: "smoke_google_cabinet_sale_v1",
+    one: "smoke_google_one_sale_v1",
+  };
+  const saleValues = {
+    mobile: { price: 11490, monthly: 234 },
+    cabinet: { price: 10220, monthly: 195 },
+    one: { price: 4490, monthly: 99 },
+  };
   let selectedLevelKey = Object.keys(selectedProduct.levels)[0];
 
   const productImage = document.querySelector("[data-product-image]");
@@ -92,27 +114,10 @@
   const panelTitle = document.querySelector("[data-panel-title]");
   const description = document.querySelector("[data-product-description]");
   const promise = document.querySelector("[data-product-promise]");
-  const featureList = document.querySelector("[data-feature-list]");
-  const buyButton = document.querySelector("[data-buy-button]");
   const compareTable = document.querySelector("[data-compare-table]");
   const compareDialog = document.querySelector("[data-compare-dialog]");
   const openCompareButtons = document.querySelectorAll("[data-open-compare]");
   const closeCompareButton = document.querySelector("[data-close-compare]");
-
-  const renderFeatures = () => {
-    const activeFeatures = selectedProduct.levels[selectedLevelKey].features;
-    featureList.innerHTML = functions
-      .map((feature) => {
-        const available = activeFeatures.includes(feature.key);
-        return `
-        <li class="${available ? "is-available" : "is-unavailable"}">
-          <span aria-hidden="true">${available ? "✓" : "×"}</span>
-          <strong>${feature.label}</strong>
-        </li>
-      `;
-      })
-      .join("");
-  };
 
   const renderCompare = () => {
     const comparableProducts = Object.entries(products).filter(
@@ -139,18 +144,21 @@
 
   const renderProduct = () => {
     productImage.src = selectedProduct.image;
-    productImage.alt = `${selectedProduct.title} Produktvorschau`;
-    productTitle.textContent = selectedProduct.family;
+    productImage.alt = selectedProduct.title + " Produktvorschau";
+    productTitle.textContent = variantTitle;
     productFamily.textContent = selectedProduct.title;
     panelTitle.textContent = selectedProduct.title;
     description.textContent = selectedProduct.description;
-    promise.textContent = selectedProduct.slogan;
+    promise.textContent = variantPromise;
     document.querySelector("[data-benefit-list]").innerHTML = selectedProduct.benefits
-      .map(([, text]) => `<li><span class="benefit-check" aria-hidden="true">✓</span><strong>${text}</strong></li>`)
+      .map((value) => '<li><span class="benefit-check" aria-hidden="true">✓</span><strong>' + value + '</strong></li>')
       .join("");
-    document.querySelector("[data-benefit-reference]").hidden = false;
-    document.querySelector("[data-benefit-footnote]").hidden = false;
-    renderFeatures();
+    const level = selectedProduct.levels[selectedLevelKey];
+    const isSale = params.get("lv_campaign") === saleCampaigns[selectedKey];
+    const quoted = isSale ? saleValues[selectedKey] : level;
+    document.querySelector("[data-price-indication]").textContent =
+      quoted.price.toLocaleString("de-DE") + " € · " + quoted.monthly.toLocaleString("de-DE") + " €/Monat";
+    document.querySelector("[data-product-notes]").hidden = selectedKey === "one";
     renderCompare();
   };
 
@@ -168,10 +176,10 @@
   placeNotes();
   mobileLayout.addEventListener("change", placeNotes);
 
-  buyButton?.addEventListener("click", () => {
-    const level = selectedProduct.levels[selectedLevelKey];
-    window.dispatchEvent(
-      new CustomEvent("lavidro:preorder", {
+  document.querySelectorAll("[data-buy-button]").forEach((buyButton) => {
+    buyButton.addEventListener("click", () => {
+      const level = selectedProduct.levels[selectedLevelKey];
+      window.dispatchEvent(new CustomEvent("lavidro:preorder", {
         detail: {
           productId: selectedKey,
           productName: selectedProduct.title,
@@ -179,11 +187,10 @@
           tier: selectedLevelKey,
           price: level.price,
           monthly: level.monthly,
-
           paymentType: "upfront",
         },
-      }),
-    );
+      }));
+    });
   });
 
   openCompareButtons.forEach((button) => {

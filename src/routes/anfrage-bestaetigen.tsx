@@ -24,7 +24,7 @@ export const Route = createFileRoute("/anfrage-bestaetigen")({
 type State = "ready" | "missing" | "sending" | "confirmed" | "already_confirmed" | "expired" | "invalid" | "error";
 
 const TEXT: Record<Exclude<State, "ready" | "sending">, { title: string; body: string }> = {
-  confirmed: { title: "Vielen Dank, Ihre E-Mail-Adresse ist bestätigt.", body: "Ihre Anfrage ist vollständig. Wir melden uns zu den nächsten Schritten." },
+  confirmed: { title: "Vielen Dank, Ihre E-Mail-Adresse ist bestätigt.", body: "Ihre E-Mail ist bestätigt. Wir stimmen mit Ihnen ein Beratungsgespräch ab und besprechen Ihre Wünsche." },
   already_confirmed: { title: "Diese Anfrage ist bereits bestätigt.", body: "Sie müssen nichts weiter tun." },
   expired: { title: "Dieser Bestätigungslink ist nicht mehr gültig.", body: "Ihre Anfrage bleibt trotzdem gespeichert. Wenn Sie die Bestätigung nachholen möchten, schreiben Sie uns gern über die Kontaktseite." },
   invalid: { title: "Dieser Link konnte nicht verwendet werden.", body: "Bitte öffnen Sie den Link direkt aus der E-Mail. Falls es weiterhin nicht klappt, schreiben Sie uns über die Kontaktseite." },

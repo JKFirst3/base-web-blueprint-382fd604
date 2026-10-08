@@ -82,9 +82,9 @@ function getCatalogSelection(selection: PreorderSelection): PreorderSelection | 
   return { ...entry, paymentType: selection.paymentType };
 }
 
-const KONFIGURATOR_TITLE = "Produkt | Lavidro Wäschesysteme im Vergleich";
+const KONFIGURATOR_TITLE = "Lavidro – Wartelistenplatz & persönliche Beratung";
 const KONFIGURATOR_DESCRIPTION =
-  "Vergleiche die drei Lavidro Lösungen: Mobiler Wäscheassistent, Autonomer Wäscheschrank und Einzelne Wäscheaufbereitung. Mit Preisindikation und unverbindlicher Anfrage.";
+  "Mobile, Cabinet und One – von weniger Wäschearbeit bis zur schonenden Fleckenbehandlung und Bügeln. Jetzt Wartelistenplatz anfragen.";
 export const Route = createFileRoute("/Konfigurator")({
   head: () => ({
     meta: [
@@ -117,9 +117,9 @@ export const Route = createFileRoute("/Konfigurator")({
               price: 20449,
             },
             {
-              name: "Einzelne Wäscheaufbereitung",
+              name: "Flecken entfernen und bügeln",
               description:
-                "Lavidro One behandelt einzelne Kleidungsstücke mit einem Roboterarm im Schrank: gezielte Fleckenbehandlung und Auffrischen von Textilien.",
+                "Lavidro One behandelt Flecken gezielt und glättet Knitterfalten mithilfe integrierter Robotik.",
               price: 8990,
             },
           ].map((p, index) => ({
@@ -148,7 +148,7 @@ export const Route = createFileRoute("/Konfigurator")({
 
 function ConfiguratorPage() {
   const [selection, setSelection] = useState<PreorderSelection | null>(null);
-  useCodexRuntime("/codex-runtime/configurator.js", "20261007-all-benefit-notes");
+  useCodexRuntime("/codex-runtime/configurator.js", "20261008-cro-abc");
 
   useEffect(() => {
     const requestedProduct = new URLSearchParams(window.location.search).get("product");
@@ -340,7 +340,7 @@ function PreorderDialog({
           <div className="preorder-success">
             <span aria-hidden="true">✓</span>
             <p className="kicker">Anfrage eingegangen</p>
-            <h2 id="preorder-title">Ihre unverbindliche Anfrage ist bei uns eingegangen.</h2>
+            <h2 id="preorder-title">Ihr Wartelistenplatz ist angefragt.</h2>
             <p>
               {emailStatus === "sent" &&
                 "Wir haben Ihnen eine E-Mail geschickt. Bitte bestätigen Sie darin Ihre E-Mail-Adresse."}
@@ -357,11 +357,11 @@ function PreorderDialog({
         ) : (
           <>
             <p className="kicker">Unverbindliche Anfrage</p>
-            <h2 id="preorder-title">{selection.productName} anfragen</h2>
+            <h2 id="preorder-title">Wartelistenplatz für {selection.productName}</h2>
             <p className="preorder-introduction">
-              Lavidro befindet sich in einer frühen Entwicklungsphase. Weitere Details teilen wir
-              gerne im persönlichen Austausch. Senden Sie uns eine unverbindliche Anfrage – wir
-              setzen uns mit Ihnen in Verbindung.
+              Mit Ihrem Wartelistenplatz erhalten Sie ein persönliches Beratungsgespräch.
+              Wir prüfen gemeinsam, wie {selection.productName} zu Ihren Bedürfnissen passt.
+              Die Lösung befindet sich in Entwicklung.
             </p>
 
             {offer && (
@@ -436,62 +436,38 @@ function PreorderDialog({
                   required
                 />
               </label>
-              <label>
-                <span>Wie sieht Ihr Haushalt aus? (freiwillig)</span>
-                <select
-                  disabled={attemptStarted}
-                  value={householdSize}
-                  onChange={(event) => setHouseholdSize(event.target.value)}
-                >
-                  <option value="">Bitte auswählen</option>
-                  <option value="1">1 Person</option>
-                  <option value="2">2 Personen</option>
-                  <option value="3-4">3 bis 4 Personen</option>
-                  <option value="5+">5 oder mehr Personen</option>
-                </select>
-              </label>
-              <label>
-                <span>Was wäre für Sie der größte Mehrwert von Lavidro? (freiwillig)</span>
-                <select
-                  disabled={attemptStarted}
-                  value={greatestValue}
-                  onChange={(event) => {
-                    setGreatestValue(event.target.value);
-                    setGreatestValueOther("");
-                  }}
-                >
-                  <option value="">Bitte auswählen</option>
-                  {VALUE_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              {greatestValue === "Sonstige" && (
+              <details className="preorder-optional">
+                <summary>Optional: Ihre Wünsche mitteilen</summary>
                 <label>
-                  <span>Sonstige: bitte erläutern</span>
-                  <textarea
-                    disabled={attemptStarted}
-                    value={greatestValueOther}
-                    onChange={(event) => setGreatestValueOther(event.target.value)}
-                    maxLength={300}
-                    required
-                    rows={3}
-                  />
+                  <span>Haushaltsgröße</span>
+                  <select disabled={attemptStarted} value={householdSize} onChange={(event) => setHouseholdSize(event.target.value)}>
+                    <option value="">Bitte auswählen</option>
+                    <option value="1">1 Person</option>
+                    <option value="2">2 Personen</option>
+                    <option value="3-4">3 bis 4 Personen</option>
+                    <option value="5+">5 oder mehr Personen</option>
+                  </select>
                 </label>
-              )}
-              <label>
-                <span>Ihr Jobtitel (freiwillig)</span>
-                <input
-                  disabled={attemptStarted}
-                  type="text"
-                  value={jobTitle}
-                  onChange={(event) => setJobTitle(event.target.value)}
-                  maxLength={100}
-                  autoComplete="organization-title"
-                />
-              </label>
+                <label>
+                  <span>Was ist Ihnen besonders wichtig?</span>
+                  <select disabled={attemptStarted} value={greatestValue} onChange={(event) => { setGreatestValue(event.target.value); setGreatestValueOther(""); }}>
+                    <option value="">Bitte auswählen</option>
+                    {VALUE_OPTIONS.map((option) => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                </label>
+                {greatestValue === "Sonstige" && (
+                  <label>
+                    <span>Ihr Wunsch</span>
+                    <textarea disabled={attemptStarted} value={greatestValueOther} onChange={(event) => setGreatestValueOther(event.target.value)} maxLength={300} required rows={3} />
+                  </label>
+                )}
+                <label>
+                  <span>Beruf (optional)</span>
+                  <input disabled={attemptStarted} type="text" value={jobTitle} onChange={(event) => setJobTitle(event.target.value)} maxLength={100} autoComplete="organization-title" />
+                </label>
+              </details>
               <label className="checkbox">
                 <input
                   disabled={attemptStarted}
@@ -520,7 +496,7 @@ function PreorderDialog({
                 </span>
               </label>
               <button className="primary-button" type="submit" disabled={submitting}>
-                {submitting ? "Wird gespeichert …" : "Anfragen"}
+                {submitting ? "Wird gespeichert …" : "Wartelistenplatz anfragen"}
               </button>
               <p className="form-status" role="status" aria-live="polite">
                 {message}
@@ -541,14 +517,14 @@ function PreorderJourney({ confirmed = false }: { confirmed?: boolean }) {
         <strong>{confirmed ? "Anfrage eingegangen" : "Anfrage absenden"}</strong>
         <small>
           {confirmed
-            ? "Wir prüfen Ihre Angaben und melden uns persönlich."
+            ? "Nach der E-Mail-Bestätigung stimmen wir das Beratungsgespräch ab."
             : "Ihre Anfrage ist unverbindlich und löst keine Zahlungspflicht aus."}
         </small>
       </li>
       <li>
         <span>Während der Entwicklung</span>
-        <strong>Bearbeitung der Anfrage</strong>
-        <small>Wir informieren Sie bei Bedarf über die nächsten Schritte Ihrer Anfrage.</small>
+        <strong>Persönliches Beratungsgespräch</strong>
+        <small>Wir besprechen Ihre Wünsche und die passende Lösung.</small>
       </li>
       <li>
         <span>Ausblick</span>
