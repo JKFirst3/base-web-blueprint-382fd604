@@ -1,6 +1,6 @@
 import { validCampaign } from "@/lib/campaign";
 
-export type SourceSummary = {
+export type SourceSummary = { variant?: string | null;
   source: string;
   product: string;
   requests: number;

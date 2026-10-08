@@ -290,6 +290,10 @@ function PreorderDialog({
         client_submission_id: clientSubmissionId,
         ...answers.data,
         source: campaign ?? "configurator",
+        variant_id: (() => {
+          const raw = new URLSearchParams(window.location.search).get("lv_variant");
+          return raw === "b" || raw === "c" ? raw : "a";
+        })(),
       });
 
       void captureFunnel(

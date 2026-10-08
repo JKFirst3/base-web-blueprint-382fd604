@@ -68,6 +68,7 @@ async function computeFunnelDashboard(days: 7 | 30 | 90) {
     const sourceStats: SourceSummary[] = statsResult.data
       .map((x: Record<string, unknown>) => ({
         source: String(x.source),
+      variant: typeof x.variant_id === "string" ? x.variant_id : null,
         product: String(x.product),
         requests: Number(x.requests),
         confirmed: Number(x.confirmed),
