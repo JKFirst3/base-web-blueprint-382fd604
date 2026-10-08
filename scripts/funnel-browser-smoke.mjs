@@ -40,7 +40,8 @@ async function capture(name,url,device) {
   });
   await page.screenshot({path:`${folder}/${name}-${device}.png`,fullPage:false});
   assert.ok(info.title.length>0,"Page must have a title");
-  const lovableManaged=info.broken.filter(x=>typeof x==="string"&&x.startsWith("/__l5e/assets-v1/"));
+  const isStandalone = new URL(base).hostname === "127.0.0.1" || new URL(base).hostname === "localhost";
+  const lovableManaged=isStandalone?info.broken.filter(x=>typeof x==="string"&&x.startsWith("/__l5e/assets-v1/")):[];
   const localBroken=info.broken.filter(x=>!lovableManaged.includes(x));
   if(lovableManaged.length){
     checks.push({name:"Lovable-managed images unavailable in standalone CI for "+url+" "+device,
@@ -62,6 +63,9 @@ try {
     }
     await run("homepage "+device,async()=>{
       const {page,context}=await capture("homepage","/",device);
+      // Real first-visit journey: explicitly decline optional analytics before opening footer.
+      const necessary=page.getByRole("button",{name:"Nur notwendige"});
+      if(await necessary.count())await necessary.click({timeout:6000});
       const footer=page.locator('a.footer-brand[href="/admin/funnel"]');
       assert.ok(await footer.count(),"footer should lead to admin");
       await footer.click({timeout:8000});
