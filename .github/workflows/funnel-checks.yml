@@ -20,5 +20,14 @@ jobs:
       - run: bun run build
       - run: bun run typecheck
       - run: bun run test
+      - name: HTTP smoke test for real admin endpoints
+        env:
+          FUNNEL_ADMIN_PASSWORD: ci-only-funnel-password-never-production
+          FUNNEL_ADMIN_SESSION_SECRET: ci-only-session-signing-key-longer-than-32-characters
+        run: |
+          bun run dev --host 127.0.0.1 > /tmp/funnel-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "\$server_pid" 2>/dev/null || true' EXIT
+          node scripts/funnel-http-smoke.mjs || { tail -n 80 /tmp/funnel-server.log; exit 1; }
       - name: Lint changed TypeScript files
         run: bunx eslint src/lib/admin/*.ts src/lib/lead-request.server*.ts src/routes/admin/funnel.tsx src/routes/api/admin/*.ts src/routes/api/public/leads.ts src/components/site/CodexPage.tsx src/components/site/Footer.tsx src/routes/__root.tsx src/routes/index.tsx src/lib/mcp/tools/get-funnel-snapshot.ts src/lib/mcp/index.ts

@@ -39,6 +39,8 @@ bun install --frozen-lockfile
 bun run build  # regenerates routeTree.gen.ts
 bun run typecheck
 bun run test
+# For a running local server with throwaway FUNNEL_ADMIN_PASSWORD and FUNNEL_ADMIN_SESSION_SECRET:
+node scripts/funnel-http-smoke.mjs
 bun run lint
 ```
 
