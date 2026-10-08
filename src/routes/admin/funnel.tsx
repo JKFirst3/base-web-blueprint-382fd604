@@ -399,7 +399,11 @@ function FunnelAdmin() {
                     value={number(d?.qualified)}
                     foot="Aus dieser Anfrage-Kohorte qualifiziert"
                   />
-                  <Card title="Cost per Qualified Lead" value={data.cpql === null ? "—" : money(data.cpql, m?.currency)} foot={data.cpqlReason ?? "Zuordenbare Meta-Ausgaben pro qualifizierter Anfrage"} />
+                  <Card
+                    title="Cost per Qualified Lead"
+                    value={data.cpql === null ? "—" : money(data.cpql, m?.currency)}
+                    foot={data.cpqlReason ?? "Zuordenbare Meta-Ausgaben pro qualifizierter Anfrage"}
+                  />
                 </div>
                 <section className="rounded-2xl border border-stone-200 bg-white p-5 sm:p-7">
                   <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
@@ -569,48 +573,51 @@ function FunnelAdmin() {
             {tab === "agent" && (
               <div className="mt-6 space-y-4">
                 <FunnelMetaAudit snapshot={data} />
-              <section className="mt-6 rounded-2xl border border-stone-200 bg-white p-5 sm:p-7">
-                <h2 className="text-xl font-semibold">Agentic Audit – Integrationsgerüst</h2>
-                <p className="mt-2 text-sm text-stone-500">
-                  Die automatisierte Prüfung ist noch nicht aktiv. Der bestehende admin-geschützte
-                  MCP-Zugang stellt die aggregierten Daten für einen externen Coding-/CRO-Agenten
-                  bereit.
-                </p>
-                <div className="mt-5 space-y-4">
-                  {[
-                    {
-                      t: "Mobile Browser-Journey",
-                      d: "Playwright: Meta-Landingpage → Produkt → Formular → DOI. Testumgebung ohne echte E-Mail.",
-                    },
-                    {
-                      t: "Technischer QA-Audit",
-                      d: "Lighthouse, Accessibility und Regressionen; Screenshots mit klaren Fundstellen.",
-                    },
-                    {
-                      t: "Kundenorientierte CRO-Hypothesen",
-                      d: "Ad-Copy / Landingpage-Aussage, Vertrauen, Reibung und Einwandbehandlung vergleichen.",
-                    },
-                    {
-                      t: "Freigabe & Wirkungskontrolle",
-                      d: "Experiment als Pull Request vorschlagen, Freigabe abwarten und echte PostHog-Ergebnisse messen.",
-                    },
-                  ].map((item, i) => (
-                    <div className="flex gap-3 rounded-xl border border-stone-100 p-4" key={item.t}>
-                      <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-stone-100 text-sm font-semibold">
-                        {i + 1}
-                      </span>
-                      <div>
-                        <h3 className="font-semibold">{item.t}</h3>
-                        <p className="mt-1 text-sm text-stone-500">{item.d}</p>
+                <section className="mt-6 rounded-2xl border border-stone-200 bg-white p-5 sm:p-7">
+                  <h2 className="text-xl font-semibold">Agentic Audit – Integrationsgerüst</h2>
+                  <p className="mt-2 text-sm text-stone-500">
+                    Die automatisierte Prüfung ist noch nicht aktiv. Der bestehende admin-geschützte
+                    MCP-Zugang stellt die aggregierten Daten für einen externen Coding-/CRO-Agenten
+                    bereit.
+                  </p>
+                  <div className="mt-5 space-y-4">
+                    {[
+                      {
+                        t: "Mobile Browser-Journey",
+                        d: "Playwright: Meta-Landingpage → Produkt → Formular → DOI. Testumgebung ohne echte E-Mail.",
+                      },
+                      {
+                        t: "Technischer QA-Audit",
+                        d: "Lighthouse, Accessibility und Regressionen; Screenshots mit klaren Fundstellen.",
+                      },
+                      {
+                        t: "Kundenorientierte CRO-Hypothesen",
+                        d: "Ad-Copy / Landingpage-Aussage, Vertrauen, Reibung und Einwandbehandlung vergleichen.",
+                      },
+                      {
+                        t: "Freigabe & Wirkungskontrolle",
+                        d: "Experiment als Pull Request vorschlagen, Freigabe abwarten und echte PostHog-Ergebnisse messen.",
+                      },
+                    ].map((item, i) => (
+                      <div
+                        className="flex gap-3 rounded-xl border border-stone-100 p-4"
+                        key={item.t}
+                      >
+                        <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-stone-100 text-sm font-semibold">
+                          {i + 1}
+                        </span>
+                        <div>
+                          <h3 className="font-semibold">{item.t}</h3>
+                          <p className="mt-1 text-sm text-stone-500">{item.d}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-                <p className="mt-5 text-sm text-amber-800">
-                  Keine automatischen Änderungen an Ads, Budget oder Produktivcode ohne explizite
-                  Freigabe.
-                </p>
-              </section>
+                    ))}
+                  </div>
+                  <p className="mt-5 text-sm text-amber-800">
+                    Keine automatischen Änderungen an Ads, Budget oder Produktivcode ohne explizite
+                    Freigabe.
+                  </p>
+                </section>
               </div>
             )}
             <footer className="mt-8 flex flex-wrap items-center justify-between gap-3 text-xs text-stone-500">
