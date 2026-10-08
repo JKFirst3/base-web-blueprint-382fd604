@@ -83,7 +83,7 @@ export async function readMetaInsights(days:number,fetcher:typeof fetch=fetch):P
     insightsUrl.searchParams.set("time_range",JSON.stringify({since:period.since,until:period.until}));
     const insights=await metaPages(insightsUrl.toString(),token,fetcher);
     const adsUrl=new URL(endpoint(version,account,"ads"));
-    adsUrl.searchParams.set("fields","id,name,adset_id,campaign_id,creative{id,name,body,title,call_to_action_type,image_url,object_story_spec,asset_feed_spec}");
+    adsUrl.searchParams.set("fields","id,name,adset_id,campaign_id,creative{id,name,body,title,call_to_action_type,image_url,url_tags,object_story_spec,asset_feed_spec}");
     adsUrl.searchParams.set("limit","200");
     const adDetails=await metaPages(adsUrl.toString(),token,fetcher);
     const details=new Map(adDetails.map(x=>[safe(x.id,80),x]));
@@ -105,7 +105,7 @@ export async function readPostHogEvents(days:number,fetcher:typeof fetch=fetch,p
   if(!/^\d+$/.test(project))return {...none,status:"error" as DataStatus};
   // Event cardinality and unique visitors/sessions are *different* measures.
   const names=POSTHOG_EVENTS.map(x=>`'${x}'`).join(",");
-  const query=`SELECT event, properties.campaign_id, properties.product_id, count(), count(DISTINCT distinct_id), count(DISTINCT properties['$session_id']) FROM events WHERE timestamp >= toDateTime('${period.from}') AND timestamp < toDateTime('${period.to}') AND properties.site_environment = 'production' AND event IN (${names}) GROUP BY event, properties.campaign_id, properties.product_id ORDER BY event LIMIT 250`;
+  const query=`SELECT event, properties.campaign_id, properties.product_id, count(), count(DISTINCT distinct_id), count(DISTINCT properties['$session_id']) FROM events WHERE timestamp >= parseDateTimeBestEffort('${period.from}') AND timestamp < parseDateTimeBestEffort('${period.to}') AND properties.site_environment = 'production' AND event IN (${names}) GROUP BY event, properties.campaign_id, properties.product_id ORDER BY event LIMIT 250`;
   try{
     const res=await fetcher(`https://eu.posthog.com/api/projects/${project}/query/`,{method:"POST",headers:{"content-type":"application/json",Authorization:`Bearer ${key}`},signal:timeout(),body:JSON.stringify({query:{kind:"HogQLQuery",query},name:"LAVIDRO funnel stage aggregates"})});
     if(!res.ok)throw Error("PostHog "+res.status);

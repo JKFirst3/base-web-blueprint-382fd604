@@ -34,7 +34,14 @@ export function creativeInfo(raw: unknown) {
     ...links.map(x => record(x).url),
   ].filter((x):x is string => typeof x === "string" && !!x);
   const parsed = urls.map(x => { try { const u=new URL(x); return u.protocol === "https:" && HOSTS.has(u.hostname) ? u : null; }catch{return null;} });
-  const sources = new Set(parsed.filter((x):x is URL=>!!x).map(x=>validCampaign(x.searchParams.get("lv_campaign"))).filter((x):x is NonNullable<typeof x>=>!!x));
+  // Meta can append final URL parameters through creative.url_tags.
+  const tags = string(cr.url_tags, 700);
+  const param = new URLSearchParams(tags.startsWith("?") ? tags.slice(1) : tags);
+  const tagCampaign = validCampaign(param.get("lv_campaign"));
+  const sources = new Set([
+    ...parsed.filter((x): x is URL => !!x).map(x => validCampaign(x.searchParams.get("lv_campaign"))).filter((x):x is NonNullable<typeof x> => !!x),
+    ...(tagCampaign ? [tagCampaign] : []),
+  ]);
   const matching = parsed.find(x=>!!x) ?? null;
   const source = sources.size === 1 ? [...sources][0] : null;
   const mapping: CreativeAudit["mapping"] = sources.size > 1 ? "ambiguous" : source ? "matched" : urls.length && !matching ? "other_domain" : matching ? "missing" : "not_found";
