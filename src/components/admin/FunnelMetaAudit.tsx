@@ -14,7 +14,6 @@ type Ad = {
   landingUrl: string | null;
   mapping: string;
   product: string | null;
-      variant: string | null;
 };
 type Finding = {
   id: string;
@@ -33,6 +32,7 @@ type Snapshot = {
       event: string;
       campaign: string | null;
       product: string | null;
+      variant: string | null;
       events: number;
       visitors: number;
       sessions: number;
