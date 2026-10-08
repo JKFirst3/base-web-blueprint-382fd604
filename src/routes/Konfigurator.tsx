@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouterState } from "@tanstack/react-router";
 import { X } from "lucide-react";
 import configuratorHtml from "@/content/configurator.html?raw";
 import { CodexMarkup, useCodexRuntime } from "@/components/site/CodexPage";
@@ -147,6 +147,7 @@ export const Route = createFileRoute("/Konfigurator")({
 });
 
 function ConfiguratorPage() {
+  const searchStr = useRouterState({ select: (s) => s.location.searchStr });
   const [selection, setSelection] = useState<PreorderSelection | null>(null);
   useCodexRuntime("/codex-runtime/configurator.js", "20261007-all-benefit-notes");
 
@@ -187,12 +188,14 @@ function ConfiguratorPage() {
       window.removeEventListener("lavidro:comparison-opened", onComparisonOpened);
       window.removeEventListener("lavidro:comparison-product-selected", onComparisonSelected);
     };
-  }, []);
+  }, [searchStr]);
 
   return (
     <>
       <CodexMarkup html={configuratorHtml} className="configurator-page" />
-      <div className="product-mobile-footer"><Footer /></div>
+      <div className="product-mobile-footer">
+        <Footer />
+      </div>
       {selection && <PreorderDialog selection={selection} onClose={() => setSelection(null)} />}
     </>
   );
@@ -372,7 +375,10 @@ function PreorderDialog({
               </div>
             )}
             <form className="preorder-form" onSubmit={submit}>
-              <fieldset className={`preorder-payment-options${offer ? " sale-pricing" : ""}`} disabled={attemptStarted}>
+              <fieldset
+                className={`preorder-payment-options${offer ? " sale-pricing" : ""}`}
+                disabled={attemptStarted}
+              >
                 <legend>Voraussichtliche, unverbindliche Preisindikation</legend>
                 {(["upfront", "monthly"] as const).map((model) => (
                   <label key={model}>

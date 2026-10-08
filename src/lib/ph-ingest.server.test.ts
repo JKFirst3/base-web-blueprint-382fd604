@@ -190,7 +190,9 @@ describe("campaign attribution", () => {
         {
           campaign_id: "smoke_google_v1",
           ...(name === "product_comparison_opened" ? { product_id: "mobile" } : {}),
-          ...(name === "product_comparison_product_selected" ? { product_id: "one", source_product_id: "mobile" } : {}),
+          ...(name === "product_comparison_product_selected"
+            ? { product_id: "one", source_product_id: "mobile" }
+            : {}),
           ...(name === "page_engagement" ? { page_path: "/", visible_seconds: 10 } : {}),
         },
         name,
@@ -228,17 +230,53 @@ test("all three product campaigns pass the consent gate", async () => {
   }
 });
 
- test("comparison events preserve validated source and target only with consent", async () => {
-   const props = { product_id: "one", source_product_id: "mobile" };
-   const accepted = await send(event(props, "product_comparison_product_selected"));
-   assert.equal(accepted.result.outcome, "forwarded");
-   const sent = JSON.parse(String(accepted.calls[0].init.body)).batch[0].properties;
-   assert.equal(sent.product_id, "one");
-   assert.equal(sent.source_product_id, "mobile");
-   assert.equal((await send(event(props, "product_comparison_product_selected"), false)).calls.length, 0);
-   for (const invalid of [{ ...props, source_product_id: "private text" }, { product_id: "one" }, { product_id: "one", source_product_id: "one" }]) {
-     assert.equal((await send(event(invalid, "product_comparison_product_selected"))).result.outcome, "dropped_invalid");
-   }
-   assert.equal((await send(event({ product_id: "mobile" }, "product_comparison_opened"))).result.outcome, "forwarded");
-   assert.equal((await send(event(props, "product_comparison_opened"))).result.outcome, "dropped_invalid");
- });
+test("comparison events preserve validated source and target only with consent", async () => {
+  const props = { product_id: "one", source_product_id: "mobile" };
+  const accepted = await send(event(props, "product_comparison_product_selected"));
+  assert.equal(accepted.result.outcome, "forwarded");
+  const sent = JSON.parse(String(accepted.calls[0].init.body)).batch[0].properties;
+  assert.equal(sent.product_id, "one");
+  assert.equal(sent.source_product_id, "mobile");
+  assert.equal(
+    (await send(event(props, "product_comparison_product_selected"), false)).calls.length,
+    0,
+  );
+  for (const invalid of [
+    { ...props, source_product_id: "private text" },
+    { product_id: "one" },
+    { product_id: "one", source_product_id: "one" },
+  ]) {
+    assert.equal(
+      (await send(event(invalid, "product_comparison_product_selected"))).result.outcome,
+      "dropped_invalid",
+    );
+  }
+  assert.equal(
+    (await send(event({ product_id: "mobile" }, "product_comparison_opened"))).result.outcome,
+    "forwarded",
+  );
+  assert.equal(
+    (await send(event(props, "product_comparison_opened"))).result.outcome,
+    "dropped_invalid",
+  );
+});
+
+test("gateway distinguishes successful forwarding and deliberate drops", async () => {
+  const forwarded = await send(event({}));
+  assert.equal((await forwarded.result.response.json()).forwarded, true);
+  assert.deepEqual(forwarded.result.counts, { forwarded: 1, invalid: 0, stale: 0 });
+  const dropped = await send(event({}), false);
+  assert.equal((await dropped.result.response.json()).forwarded, false);
+  assert.equal(dropped.calls.length, 0);
+});
+
+test("mixed batches report invalid and stale events without logging their contents", async () => {
+  const { result, calls } = await send([
+    event({}),
+    event({ email: "private@example.invalid" }),
+    event({ consent_ts: CONSENT_TS - 1 }),
+  ]);
+  assert.equal(result.outcome, "forwarded");
+  assert.deepEqual(result.counts, { forwarded: 1, invalid: 1, stale: 1 });
+  assert.equal(JSON.parse(String(calls[0].init.body)).batch.length, 1);
+});

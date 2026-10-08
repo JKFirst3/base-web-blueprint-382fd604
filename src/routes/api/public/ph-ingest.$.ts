@@ -5,13 +5,14 @@ import { handleIngest } from "@/lib/ph-ingest.server";
 async function handle(request: Request, splat: string) {
   const raw = (process.env["POSTHOG_API_KEY"] ?? "").trim();
   const token = /^phc_[A-Za-z0-9_-]{10,200}$/.test(raw) ? raw : null;
-  const { response, outcome } = await handleIngest(request, splat, {
+  const { response, outcome, counts } = await handleIngest(request, splat, {
     token,
     fetchUpstream: (url, init) => fetch(url, init),
   });
-  if (outcome === "upstream_error" || outcome === "rejected_origin") {
-    console.warn(`[ph-ingest] ${outcome}`);
-  }
+  // One structured counter record per request/batch; never event contents, IDs or headers.
+  const diagnostic = JSON.stringify({ outcome, requests: 1, ...counts });
+  if (outcome === "upstream_error") console.warn(`[ph-ingest] ${diagnostic}`);
+  else console.info(`[ph-ingest] ${diagnostic}`);
   return response;
 }
 
