@@ -81,16 +81,12 @@ export function creativeInfo(raw: unknown) {
   ]);
   const matching = parsed.find((x) => !!x) ?? null;
   const source = sources.size === 1 ? [...sources][0] : null;
-  const mapping: CreativeAudit["mapping"] = sources.size > 1 ? "ambiguous" : !matching ? (urls.length ? "other_domain" : "not_found") : source ? "matched" : "missing";
+  const mapping: CreativeAudit["mapping"] =
     sources.size > 1
       ? "ambiguous"
-      : source
-        ? "matched"
-        : urls.length && !matching
-          ? "other_domain"
-          : matching
-            ? "missing"
-            : "not_found";
+      : !matching
+        ? urls.length ? "other_domain" : "not_found"
+        : source ? "matched" : "missing";
   const headline = string(
     cr.title || link.name || video.title || record(record(feed.titles).data).text,
     180,
