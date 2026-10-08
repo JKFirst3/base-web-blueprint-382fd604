@@ -117,9 +117,14 @@ export function creativeInfo(raw: unknown) {
     cr.call_to_action_type || record(link.call_to_action).type || videoCta.type,
     70,
   );
-  // Do not return query parameters besides the audited campaign tag, or arbitrary external images.
+  // Only allowlisted non-PII URL params. Product and A/B/C variant must survive.
+  const params = new URLSearchParams();
+  const urlProduct = matching?.searchParams.get("product") ?? null;
+  if(urlProduct && PRODUCTS.includes(urlProduct as typeof PRODUCTS[number]))params.set("product",urlProduct);
+  if(source)params.set("lv_campaign",source);
+  if(variant)params.set("lv_variant",variant);
   const landingUrl = matching
-    ? `${matching.origin}${matching.pathname}${source ? `?lv_campaign=${source}` : ""}`
+    ? `${matching.origin}${matching.pathname}${params.size ? "?" + params.toString() : ""}`
     : null;
   const imageUrlRaw = string(cr.image_url, 700);
   const imageUrl = /^https:\/\//.test(imageUrlRaw) ? imageUrlRaw : null;
