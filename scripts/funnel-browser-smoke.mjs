@@ -70,7 +70,7 @@ try {
       assert.ok(await footer.count(),"footer should lead to admin");
       await footer.click({timeout:8000});
       await page.waitForURL(/\/admin\/funnel/);
-      assert.ok((await page.locator('input[type="password"]').count())>0,"Admin form should be visible");
+      await page.locator('input[type="password"]').waitFor({state:"visible",timeout:15000});
       await page.screenshot({path:`${folder}/admin-login-${device}.png`,fullPage:false});
       await context.close();
     });
