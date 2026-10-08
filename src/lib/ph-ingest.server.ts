@@ -31,6 +31,7 @@ const EVENTS = new Set<string>([...FUNNEL_EVENT_NAMES, ...DIAGNOSTIC_EVENT_NAMES
 const PRODUCT_IDS = new Set(["mobile", "cabinet", "one"]);
 const BUSINESS_MODELS = new Set(["purchase", "subscription"]);
 const ENTRY_TYPES = new Set(["scroll", "direct"]);
+const VARIANTS = new Set(["a", "b", "c"]);
 const HOUSEHOLD_SIZES = new Set(["1", "2", "3-4", "5+"]);
 const GREATEST_VALUES = new Set([
   "Weniger Zeit für Wäsche aufwenden",
@@ -73,6 +74,7 @@ const ALLOWED_INPUT_PROPS = new Set([
   "source_product_id",
   "business_model",
   "entry_type",
+  "variant_id",
   "page_path",
   "visible_seconds",
   ...DEMOGRAPHIC_PROPS,
@@ -227,6 +229,10 @@ function cleanEvent(raw: unknown, token: string, consentTs: number, origin: stri
   if (e.event === "product_comparison_product_selected" && (!out.source_product_id || out.source_product_id === out.product_id)) return "invalid";
   if (typeof p.business_model === "string" && BUSINESS_MODELS.has(p.business_model)) out.business_model = p.business_model;
   if (typeof p.entry_type === "string" && ENTRY_TYPES.has(p.entry_type)) out.entry_type = p.entry_type;
+  if ("variant_id" in p) {
+    if (typeof p.variant_id !== "string" || !VARIANTS.has(p.variant_id) || !out.product_id) return "invalid";
+    out.variant_id = p.variant_id;
+  }
   if ([...FORBIDDEN_FREE_TEXT_PROPS].some((key) => key in p)) return "invalid";
   const hasDemographics = DEMOGRAPHIC_PROPS.some((key) => key in p);
   if (hasDemographics && e.event !== "purchase_interest_submitted") return "invalid";

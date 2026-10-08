@@ -68,15 +68,15 @@ const Email = ({
 }: Props) => (
   <Html lang="de" dir="ltr">
     <Head />
-    <Preview>Bitte bestätigen Sie Ihre E-Mail-Adresse für Ihre Lavidro-Anfrage</Preview>
+    <Preview>Ihre Lavidro-Warteliste: Bitte bestätigen Sie Ihre E-Mail-Adresse</Preview>
     <Body style={main}>
       <Container style={container}>
         <Heading style={heading}>Bitte bestätigen Sie Ihre E-Mail-Adresse</Heading>
         <Text style={paragraph}>{name ? `Guten Tag ${name},` : "Guten Tag,"}</Text>
         <Text style={paragraph}>
-          vielen Dank für Ihr Interesse an Lavidro. Wir haben Ihre unverbindliche Anfrage erhalten.
-          Bitte bestätigen Sie Ihre E-Mail-Adresse, damit wir Sie zu Ihrer Anfrage kontaktieren
-          können.
+          vielen Dank für Ihr Interesse an Lavidro. Ihre unverbindliche Anfrage umfasst
+          einen Wartelistenplatz und ein persönliches Beratungsgespräch. Bitte bestätigen Sie
+          Ihre E-Mail-Adresse, damit wir die nächsten Schritte mit Ihnen abstimmen.
         </Text>
         {confirmUrl ? (
           <Section style={{ margin: "24px 0" }}>

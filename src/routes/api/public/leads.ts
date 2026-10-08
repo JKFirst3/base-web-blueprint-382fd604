@@ -1,40 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { createClient } from "@supabase/supabase-js";
-import type { Database } from "@/integrations/supabase/types";
-
-const ALLOWED_ORIGINS = new Set([
-  "https://lavidro.com",
-  "https://www.lavidro.com",
-  "https://base-web-blueprint.lovable.app",
-  "http://localhost:8080",
-  "http://localhost:5173",
-  "http://localhost:3000",
-]);
-
-const RATE_LIMIT = new Map<string, { count: number; resetsAt: number }>();
-
-function isAllowedOrigin(origin: string | null): boolean {
-  if (!origin || ALLOWED_ORIGINS.has(origin)) return true;
-
-  try {
-    const hostname = new URL(origin).hostname;
-    return hostname.endsWith(".lovable.app") || hostname.endsWith(".lovableproject.com");
-  } catch {
-    return false;
-  }
-}
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const current = RATE_LIMIT.get(ip);
-  if (!current || current.resetsAt <= now) {
-    RATE_LIMIT.set(ip, { count: 1, resetsAt: now + 60_000 });
-    return false;
-  }
-
-  current.count += 1;
-  return current.count > 5;
-}
+import { allowedLeadOrigin, isLeadRateLimited } from "@/lib/lead-request.server";
 
 function cleanOptionalText(value: unknown, maxLength: number): string | null {
   if (typeof value !== "string") return null;
@@ -46,15 +11,11 @@ export const Route = createFileRoute("/api/public/leads")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        if (!isAllowedOrigin(request.headers.get("origin"))) {
+        if (!allowedLeadOrigin(request.headers.get("origin"), request.url)) {
           return Response.json({ error: "Forbidden" }, { status: 403 });
         }
 
-        const ip =
-          request.headers.get("cf-connecting-ip") ??
-          request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-          "unknown";
-        if (isRateLimited(ip)) {
+        if (isLeadRateLimited(request.headers.get("cf-connecting-ip"))) {
           return Response.json({ error: "Too many requests" }, { status: 429 });
         }
 
@@ -64,7 +25,10 @@ export const Route = createFileRoute("/api/public/leads")({
           if (!text || text.length > 2_000) {
             return Response.json({ error: "Invalid request" }, { status: 400 });
           }
-          body = JSON.parse(text) as Record<string, unknown>;
+          const parsed: unknown = JSON.parse(text);
+          if (!parsed || typeof parsed !== "object" || Array.isArray(parsed))
+            throw new Error("invalid");
+          body = parsed as Record<string, unknown>;
         } catch {
           return Response.json({ error: "Invalid request" }, { status: 400 });
         }
@@ -82,16 +46,14 @@ export const Route = createFileRoute("/api/public/leads")({
           return Response.json({ error: "Invalid lead" }, { status: 400 });
         }
 
-        const url = process.env.SUPABASE_URL;
-        const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
-        if (!url || !publishableKey) {
+        // Service-role-only DB insert. Direct public SQL inserts are revoked by the migration.
+        let backend;
+        try {
+          ({ supabaseAdmin: backend } = await import("@/integrations/supabase/client.server"));
+        } catch {
           console.error("[leads] Backend configuration is unavailable");
           return Response.json({ error: "Service unavailable" }, { status: 503 });
         }
-
-        const backend = createClient<Database>(url, publishableKey, {
-          auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
-        });
         const { error } = await backend.from("leads").insert({
           name,
           email,
@@ -126,7 +88,6 @@ export const Route = createFileRoute("/api/public/leads")({
         }
 
         return new Response(null, { status: 204 });
-
       },
     },
   },

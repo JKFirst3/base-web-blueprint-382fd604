@@ -3,10 +3,10 @@ import { openConsentSettings } from "@/lib/consent";
 export function Footer() {
   return (
     <footer className="site-footer">
-      <span className="footer-brand">
+      <a className="footer-brand" href="/admin/funnel" aria-label="Funnel Admin öffnen">
         <img src="/assets/lavidro-icon.svg" alt="" />
         <span>© 2026 Lavidro. Alle Rechte vorbehalten.</span>
-      </span>
+      </a>
       <div>
         <a href="/aboutLavidro">Über Lavidro</a>
         <a href="/impressum">Impressum</a>

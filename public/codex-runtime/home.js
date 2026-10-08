@@ -1,4 +1,12 @@
 (() => {
+  // The script is reinserted on SPA navigation; clear previous observers/listeners.
+  window.__lavidroHomeCleanup?.();
+  const abort = new AbortController();
+  const activeObservers = [];
+  window.__lavidroHomeCleanup = () => {
+    abort.abort();
+    for (const observer of activeObservers) observer.disconnect();
+  };
   const header = document.querySelector("[data-header]");
   const revealItems = document.querySelectorAll(".reveal");
   const form = document.querySelector("[data-form]");
@@ -14,7 +22,7 @@
   };
 
   setHeaderState();
-  window.addEventListener("scroll", setHeaderState, { passive: true });
+  window.addEventListener("scroll", setHeaderState, { passive: true, signal: abort.signal });
 
   const revealObserver = new IntersectionObserver(
     (entries) => {
@@ -28,6 +36,7 @@
     { threshold: 0.18 },
   );
 
+  activeObservers.push(revealObserver);
   revealItems.forEach((item, index) => {
     item.style.transitionDelay = `${Math.min(index % 4, 3) * 90}ms`;
     revealObserver.observe(item);
@@ -49,7 +58,7 @@
     };
 
     setupQuoteMarquee();
-    window.addEventListener("resize", setupQuoteMarquee);
+    window.addEventListener("resize", setupQuoteMarquee, { signal: abort.signal });
   }
 
   if (processSection) {
@@ -129,11 +138,11 @@
 
     prepareProcessPaths();
     updateProcess();
-    window.addEventListener("scroll", requestProcessUpdate, { passive: true });
+    window.addEventListener("scroll", requestProcessUpdate, { passive: true, signal: abort.signal });
     window.addEventListener("resize", () => {
       prepareProcessPaths();
       requestProcessUpdate();
-    });
+    }, { signal: abort.signal });
   }
 
   let ticking = false;
@@ -153,7 +162,7 @@
         ticking = true;
       }
     },
-    { passive: true },
+    { passive: true, signal: abort.signal },
   );
 
   if (counter && progressCard) {
@@ -190,6 +199,7 @@
       { threshold: 0.45 },
     );
 
+    activeObservers.push(progressObserver);
     progressObserver.observe(progressCard);
   }
 
@@ -223,10 +233,10 @@
   if (document.readyState === "complete") {
     scheduleNavigationAlignment();
   } else {
-    window.addEventListener("load", scheduleNavigationAlignment, { once: true });
+    window.addEventListener("load", scheduleNavigationAlignment, { once: true, signal: abort.signal });
   }
 
-  document.fonts?.ready.then(scheduleNavigationAlignment);
-  window.addEventListener("pageshow", scheduleNavigationAlignment);
-  window.addEventListener("hashchange", alignNavigationTarget);
+  document.fonts?.ready.then(() => { if (!abort.signal.aborted) scheduleNavigationAlignment(); });
+  window.addEventListener("pageshow", scheduleNavigationAlignment, { signal: abort.signal });
+  window.addEventListener("hashchange", alignNavigationTarget, { signal: abort.signal });
 })();

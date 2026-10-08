@@ -104,11 +104,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         property: "og:image",
-        content: "https://lavidro.com/assets/lavidro-hero-humanoid-v4-6k.png",
+        content: "https://lavidro.com/assets/lavidro-hero-humanoid-v4.png",
       },
       {
         name: "twitter:image",
-        content: "https://lavidro.com/assets/lavidro-hero-humanoid-v4-6k.png",
+        content: "https://lavidro.com/assets/lavidro-hero-humanoid-v4.png",
       },
     ],
     links: [
@@ -178,13 +178,14 @@ function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
-    initAnalytics();
-  }, []);
+    if (!pathname.startsWith("/admin")) initAnalytics();
+  }, [pathname]);
 
   const searchStr = useRouterState({ select: (s) => s.location.searchStr });
   useEffect(() => propagateCampaignToSiteLinks(), [pathname, searchStr]);
 
   useEffect(() => {
+    if (pathname.startsWith("/admin")) return;
     void captureFunnel("website_visited");
     if (pathname === "/") void captureFunnel("landing_page_viewed");
   }, [pathname, searchStr]);
@@ -195,7 +196,7 @@ function RootComponent() {
         <Outlet />
         <LanguageSlot key={pathname} />
         <Toaster />
-        <CookieBanner />
+        {!pathname.startsWith("/admin") && <CookieBanner />}
       </QueryClientProvider>
     </LanguageProvider>
   );

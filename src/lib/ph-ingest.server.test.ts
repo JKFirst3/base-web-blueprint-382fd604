@@ -242,3 +242,24 @@ test("all three product campaigns pass the consent gate", async () => {
    assert.equal((await send(event({ product_id: "mobile" }, "product_comparison_opened"))).result.outcome, "forwarded");
    assert.equal((await send(event(props, "product_comparison_opened"))).result.outcome, "dropped_invalid");
  });
+
+test("A/B/C variants need a valid product and explicit analytics consent", async () => {
+  for (const variant_id of ["a", "b", "c"]) {
+    const { result, calls } = await send(event({ product_id: "one", variant_id }, "purchase_interest_started"));
+    assert.equal(result.outcome, "forwarded");
+    const batch = JSON.parse(String(calls[0].init.body));
+    assert.equal(batch.batch[0].properties.variant_id, variant_id);
+  }
+  for (const properties of [
+    { product_id: "one", variant_id: "d" },
+    { variant_id: "a" },
+    { product_id: "nonexistent", variant_id: "b" },
+  ]) {
+    const { result, calls } = await send(event(properties, "purchase_interest_started"));
+    assert.equal(result.outcome, "dropped_invalid");
+    assert.equal(calls.length, 0);
+  }
+  const { result, calls } = await send(event({ product_id: "mobile", variant_id: "a" }), false);
+  assert.equal(result.outcome, "dropped_no_consent");
+  assert.equal(calls.length, 0);
+});

@@ -102,8 +102,13 @@ export const Route = createFileRoute("/api/public/preorders")({
         const size = cleanText(body.size, 50) ?? "Standard";
         const payment_type = cleanText(body.payment_type, 20);
         const parsedSource = z.enum(PREORDER_SOURCES).safeParse(body.source ?? "configurator");
-        if (!parsedSource.success) return Response.json({ error: "Invalid preorder" }, { status: 400 });
+        if (!parsedSource.success)
+          return Response.json({ error: "Invalid preorder" }, { status: 400 });
         const source = parsedSource.data;
+        const experimentVariant =
+          body.variant_id == null ? null : z.enum(["a", "b", "c"]).safeParse(body.variant_id);
+        if (experimentVariant !== null && !experimentVariant.success)
+          return Response.json({ error: "Invalid variant" }, { status: 400 });
 
         const product =
           requestedSolutionId && requestedSolutionId in PREORDER_CATALOG
@@ -136,7 +141,8 @@ export const Route = createFileRoute("/api/public/preorders")({
         const tier = requestedTier;
         const offer = salePrices(solution_id, source);
         const price_eur = offer?.price ?? catalogEntry.price;
-        const monthly_eur = normalizedPaymentType === "monthly" ? (offer?.monthly ?? catalogEntry.monthly) : null;
+        const monthly_eur =
+          normalizedPaymentType === "monthly" ? (offer?.monthly ?? catalogEntry.monthly) : null;
         if (!answers.success) return Response.json({ error: "Invalid answers" }, { status: 400 });
 
         const marketingConsent = body.marketing_consent;
@@ -150,12 +156,17 @@ export const Route = createFileRoute("/api/public/preorders")({
           return Response.json({ error: "Service unavailable" }, { status: 503 });
         }
 
+        // Preserve the active A/B/C copy variant with the inquiry (never retroactively infer it).
+        // The migration adds this nullable metadata column; legacy submissions keep null.
+        const untypedBackend =
+          supabaseAdmin as unknown as import("@supabase/supabase-js").SupabaseClient;
         // Saved first: this is the submitted inquiry (funnel step 5), independent of DOI.
         const submission = await createOrFindSubmission(
           async () => {
-            const { data, error } = await supabaseAdmin
+            const { data, error } = await untypedBackend
               .from("preorders")
               .insert({
+                variant_id: experimentVariant?.data ?? null,
                 client_submission_id: clientSubmissionId.data,
                 name,
                 email,

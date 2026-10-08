@@ -56,6 +56,7 @@ type Props = {
   source_product_id?: string;
   business_model?: BusinessModel;
   entry_type?: "scroll" | "direct";
+  variant_id?: "a" | "b" | "c";
   household_size?: "1" | "2" | "3-4" | "5+" | null;
   greatest_value?:
     | "Weniger Zeit für Wäsche aufwenden"
@@ -73,6 +74,7 @@ const ALLOWED_PROPS = [
   "source_product_id",
   "business_model",
   "entry_type",
+  "variant_id",
   "household_size",
   "greatest_value",
   "job_title_provided",
@@ -255,6 +257,7 @@ function cleanProps(event: FunnelEvent, props: Props) {
   }
   if (props.business_model) clean.business_model = props.business_model;
   if (props.entry_type) clean.entry_type = props.entry_type;
+  if (props.variant_id) clean.variant_id = props.variant_id;
   if (event === "purchase_interest_submitted") {
     if (props.household_size) clean.household_size = props.household_size;
     if (props.greatest_value) clean.greatest_value = props.greatest_value;
@@ -272,10 +275,14 @@ export async function captureFunnel(event: FunnelEvent, props: Props = {}, submi
   // The key stays local: no database submission ID is sent to PostHog.
   if (event === "purchase_interest_submitted" && !submissionId) return;
   const campaign = currentCampaign();
+  const variant = new URLSearchParams(window.location.search).get("lv_variant");
+  const variantId: "a" | "b" | "c" = variant === "b" || variant === "c" ? variant : "a";
+  const trackedProps: Props = window.location.pathname === "/Konfigurator" && props.product_id
+    ? { ...props, variant_id: variantId } : props;
   const key =
     event === "purchase_interest_submitted"
       ? `${event}:${submissionId}`
-      : `${event}:${campaign ?? "direct"}`;
+      : `${event}:${campaign ?? "direct"}${event === "product_area_viewed" ? `:${props.product_id ?? "home"}:${trackedProps.variant_id ?? "-"}` : ""}`;
   const once = ONCE_PER_VISIT.includes(event) || event === "purchase_interest_submitted";
   if (once) {
     if (wasFired(key) || inFlight.has(key)) return;
@@ -288,7 +295,7 @@ export async function captureFunnel(event: FunnelEvent, props: Props = {}, submi
       return;
     }
     client.capture(event, {
-      ...cleanProps(event, props),
+      ...cleanProps(event, trackedProps),
       ...(campaign ? { campaign_id: campaign } : {}),
     });
     if (once) {

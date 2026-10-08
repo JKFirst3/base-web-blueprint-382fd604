@@ -6,3 +6,5 @@
 - Product-inquiry double opt-in: raw token only in the email link fragment, SHA-256 hash in preorders; confirmation only via POST /api/public/preorder-confirm calling the service-role-only SQL function confirm_preorder_doi — why: mail scanners must not confirm, and confirmation must be atomic and single-use.
 - Product inquiries use a client-generated UUID stored under a unique database index; retries return the existing DOI state and never resend — why: a browser timeout after insertion must not duplicate inquiries or emails.
 
+
+- Funnel admin: protected /admin/funnel uses only server-side FUNNEL_ADMIN_PASSWORD and FUNNEL_ADMIN_SESSION_SECRET. No password or signing key in VITE_ variables or repository. Aggregate data from Meta, PostHog and Supabase remains separated by denominator and user consent. Qualified leads are manual status via new admin-only table. Preserve existing smoke_google_* campaign values and request_type mapping (explicit scope). No CPQL before a valid campaign-level join. Test login/logout, no-cookie, cross-origin and expiry; see docs/funnel-admin.md.
