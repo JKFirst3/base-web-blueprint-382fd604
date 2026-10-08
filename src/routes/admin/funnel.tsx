@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { FunnelMetaAudit } from "@/components/admin/FunnelMetaAudit";
 import { useCallback, useEffect, useState } from "react";
 import {
   Activity,
@@ -38,11 +39,11 @@ type FunnelData = {
       qualified: boolean;
     }>;
   };
-  cpql: null;
+  cpql: number | null;
   cpqlReason: string;
   notes: string[];
 };
-type Tab = "funnel" | "sources" | "leads" | "agent";
+type Tab = "funnel" | "ads" | "sources" | "leads" | "agent";
 const SOURCE_NAMES: Record<SourceStatus, string> = {
   ok: "Verbunden",
   unconfigured: "Nicht konfiguriert",
@@ -262,6 +263,7 @@ function FunnelAdmin() {
 
   const items: Array<{ id: Tab; label: string }> = [
     { id: "funnel", label: "Übersicht" },
+    { id: "ads", label: "Meta & CRO" },
     { id: "sources", label: "Datenquellen" },
     { id: "leads", label: "Leadqualität" },
     { id: "agent", label: "Agent-Audits" },
@@ -297,7 +299,7 @@ function FunnelAdmin() {
     {
       label: "Qualifiziert",
       value: d?.qualified ?? undefined,
-      source: "Manuelle Qualifizierung (Zeitraum: Abschluss)",
+      source: "Manuelle Qualifizierung (Anfrage-Kohorte)",
     },
   ];
   return (
@@ -383,7 +385,7 @@ function FunnelAdmin() {
                     value={money(m?.spend, m?.currency)}
                     foot={
                       data.meta.status === "ok"
-                        ? "Meta Ads, Account-Ebene"
+                        ? "Meta Ads, auf Anzeigenebene"
                         : "Meta noch nicht verfügbar"
                     }
                   />
@@ -395,9 +397,9 @@ function FunnelAdmin() {
                   <Card
                     title="Qualifizierungen"
                     value={number(d?.qualified)}
-                    foot="Im Zeitraum als qualifiziert markiert"
+                    foot="Aus dieser Anfrage-Kohorte qualifiziert"
                   />
-                  <Card title="Cost per Qualified Lead" value="—" foot={data.cpqlReason} />
+                  <Card title="Cost per Qualified Lead" value={data.cpql === null ? "—" : money(data.cpql, m?.currency)} foot={data.cpqlReason ?? "Zuordenbare Meta-Ausgaben pro qualifizierter Anfrage"} />
                 </div>
                 <section className="rounded-2xl border border-stone-200 bg-white p-5 sm:p-7">
                   <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
@@ -460,6 +462,7 @@ function FunnelAdmin() {
                 </section>
               </div>
             )}
+            {tab === "ads" && <FunnelMetaAudit snapshot={data} />}
             {tab === "sources" && (
               <div className="mt-6 grid gap-4 lg:grid-cols-3">
                 <section className="rounded-2xl border border-stone-200 bg-white p-6">
@@ -564,6 +567,8 @@ function FunnelAdmin() {
               </section>
             )}
             {tab === "agent" && (
+              <div className="mt-6 space-y-4">
+                <FunnelMetaAudit snapshot={data} />
               <section className="mt-6 rounded-2xl border border-stone-200 bg-white p-5 sm:p-7">
                 <h2 className="text-xl font-semibold">Agentic Audit – Integrationsgerüst</h2>
                 <p className="mt-2 text-sm text-stone-500">
@@ -606,6 +611,7 @@ function FunnelAdmin() {
                   Freigabe.
                 </p>
               </section>
+              </div>
             )}
             <footer className="mt-8 flex flex-wrap items-center justify-between gap-3 text-xs text-stone-500">
               <span>
