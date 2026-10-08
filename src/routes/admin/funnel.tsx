@@ -400,7 +400,7 @@ function FunnelAdmin() {
                     foot="Aus dieser Anfrage-Kohorte qualifiziert"
                   />
                   <Card
-                    title="Cost per Qualified Lead"
+                    title="Indikativer Cost per Qualified Lead"
                     value={data.cpql === null ? "—" : money(data.cpql, m?.currency)}
                     foot={data.cpqlReason ?? "Zuordenbare Meta-Ausgaben pro qualifizierter Anfrage"}
                   />

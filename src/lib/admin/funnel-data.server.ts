@@ -150,7 +150,8 @@ export async function getFunnelDashboard(days: 7 | 30 | 90) {
       "PostHog-Ereignisse sind consent-basiert; Besucher, Sessions und Events haben unterschiedliche Nenner.",
       "Supabase-Qualifizierung wird auf die Anfrage-Kohorte nach created_at bezogen, nicht auf den Qualifizierungszeitpunkt.",
       "Newsletter-Einträge request_type=termin sind keine qualifizierten Kaufinteressenten.",
-      "Ein CPQL wird nur bei eindeutiger vollständiger Meta-Zuordnung in EUR und qualifizierten Leads ausgewiesen.",
+      "Indikativer tagbasierter CPQL: URL-Kampagnenkennung allein belegt keinen gültigen Meta-Klick; organische Besuche oder geteilte URLs können enthalten sein.",
+      "CPQL wird nur bei 100 % bekannter Meta-Zuordnung in EUR und mindestens einem qualifizierten Lead angezeigt.",
     ],
   };
 }

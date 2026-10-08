@@ -81,7 +81,7 @@ export function creativeInfo(raw: unknown) {
   ]);
   const matching = parsed.find((x) => !!x) ?? null;
   const source = sources.size === 1 ? [...sources][0] : null;
-  const mapping: CreativeAudit["mapping"] =
+  const mapping: CreativeAudit["mapping"] = sources.size > 1 ? "ambiguous" : !matching ? (urls.length ? "other_domain" : "not_found") : source ? "matched" : "missing";
     sources.size > 1
       ? "ambiguous"
       : source
@@ -143,7 +143,7 @@ export function calculateCpql(
     return { ...base, reason: "Account-Zeitzone und Anfrage-Kohorte nicht vergleichbar." };
   if (currency !== "EUR") return { ...base, reason: "Werbekonto rechnet nicht in EUR ab." };
   if (spend <= 0) return { ...base, reason: "Keine zuordenbaren Werbeausgaben im Zeitraum." };
-  if (coverage < 0.995)
+  if (coverage < 1 - 1e-9)
     return {
       ...base,
       reason: "Nicht sämtliche Meta-Ausgaben haben eine eindeutige lv_campaign-Zuordnung.",
