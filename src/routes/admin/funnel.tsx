@@ -58,7 +58,6 @@ function FunnelAdmin() {
         if (!active) return;
         setConfigured(session.configured);
         setAuthenticated(session.authenticated);
-        if (session.authenticated) await fetchSnapshot();
       } catch { if (active) { setAuthenticated(false); setError("Admin-Server nicht erreichbar."); } }
     })();
     return () => { active = false; };
