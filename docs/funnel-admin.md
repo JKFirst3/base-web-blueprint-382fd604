@@ -36,9 +36,9 @@ Apply in order: `20261008172000_lock_public_inserts.sql`, `20261008173500_funnel
 
 ```sh
 bun install --frozen-lockfile
+bun run build  # regenerates routeTree.gen.ts
 bun run typecheck
 bun run test
-bun run build
 bun run lint
 ```
 
