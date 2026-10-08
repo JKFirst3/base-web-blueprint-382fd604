@@ -13,6 +13,7 @@ type Ad = {
   landingUrl: string | null;
   mapping: string;
   product: string | null;
+      variant: string | null;
 };
 type Finding = {
   id: string;
@@ -64,7 +65,7 @@ export function FunnelMetaAudit({ snapshot }: { snapshot: unknown }) {
   const grouped = useMemo(() => {
     const sums = new Map<string, { requests: number; starts: number; views: number }>();
     for (const r of data.posthog.breakdown) {
-      const key = r.product || "ohne Produkt";
+      const key = (r.product || "ohne Produkt") + " / Variante " + (r.variant?.toUpperCase() || "unbekannt");
       const v = sums.get(key) || { requests: 0, starts: 0, views: 0 };
       if (r.event === "purchase_interest_submitted") v.requests += r.sessions;
       if (r.event === "purchase_interest_started") v.starts += r.sessions;

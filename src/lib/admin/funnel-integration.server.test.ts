@@ -181,8 +181,8 @@ test("PostHog reports event, visitor and session counts independently, with UTC 
       q = JSON.parse(String(opts?.body)).query.query;
       return Response.json({
         results: [
-          ["landing_page_viewed", "smoke_google_mobile_v1", "mobile", 100, 65, 70],
-          ["purchase_interest_submitted", "smoke_google_mobile_v1", "mobile", 12, 9, 10],
+          ["landing_page_viewed", "smoke_google_mobile_v1", "mobile", "a", 100, 65, 70],
+          ["purchase_interest_submitted", "smoke_google_mobile_v1", "mobile", "b", 12, 9, 10],
         ],
       });
     };
@@ -195,6 +195,7 @@ test("PostHog reports event, visitor and session counts independently, with UTC 
     assert.equal(out.events.landing_page_viewed, 100);
     assert.equal(out.breakdown[0].visitors, 65);
     assert.equal(out.breakdown[0].sessions, 70);
+    assert.equal(out.breakdown[0].variant, "a");
     assert.match(q, /site_environment/);
     assert.match(q, /parseDateTimeBestEffort/);
   });

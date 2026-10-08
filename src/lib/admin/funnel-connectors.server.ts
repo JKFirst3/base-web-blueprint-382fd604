@@ -22,6 +22,7 @@ export type Period = {
   timezone: string;
 };
 export type PostHogStage = {
+  variant: string | null;
   event: string;
   campaign: string | null;
   product: string | null;
@@ -235,7 +236,7 @@ export async function readPostHogEvents(
   if (!/^\d+$/.test(project)) return { ...none, status: "error" as DataStatus };
   // Event cardinality and unique visitors/sessions are *different* measures.
   const names = POSTHOG_EVENTS.map((x) => `'${x}'`).join(",");
-  const query = `SELECT event, properties.campaign_id, properties.product_id, count(), count(DISTINCT distinct_id), count(DISTINCT properties['$session_id']) FROM events WHERE timestamp >= parseDateTimeBestEffort('${period.from}') AND timestamp < parseDateTimeBestEffort('${period.to}') AND properties.site_environment = 'production' AND event IN (${names}) GROUP BY event, properties.campaign_id, properties.product_id ORDER BY event LIMIT 250`;
+  const query = `SELECT event, properties.campaign_id, properties.product_id, properties.variant_id, count(), count(DISTINCT distinct_id), count(DISTINCT properties['$session_id']) FROM events WHERE timestamp >= parseDateTimeBestEffort('${period.from}') AND timestamp < parseDateTimeBestEffort('${period.to}') AND properties.site_environment = 'production' AND event IN (${names}) GROUP BY event, properties.campaign_id, properties.product_id, properties.variant_id ORDER BY event LIMIT 250`;
   try {
     const res = await fetcher(`https://eu.posthog.com/api/projects/${project}/query/`, {
       method: "POST",
@@ -258,9 +259,10 @@ export async function readPostHogEvents(
           event: safe(row[0], 90),
           campaign: safe(row[1], 100) || null,
           product: safe(row[2], 40) || null,
-          events: num(row[3]),
-          visitors: num(row[4]),
-          sessions: num(row[5]),
+          variant: safe(row[3], 5) || null,
+          events: num(row[4]),
+          visitors: num(row[5]),
+          sessions: num(row[6]),
         };
       })
       .filter((x) => (POSTHOG_EVENTS as readonly string[]).includes(x.event));
