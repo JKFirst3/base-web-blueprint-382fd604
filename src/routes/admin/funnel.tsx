@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
-import { Activity, ArrowLeft, CheckCircle2, CircleAlert, Database, ExternalLink, KeyRound, LockKeyhole, Megaphone, RefreshCw, ShieldCheck, Workflow } from "lucide-react";
+import { Activity, ArrowLeft, Database, ExternalLink, LockKeyhole, Megaphone, RefreshCw, ShieldCheck, Workflow } from "lucide-react";
 
 type SourceStatus = "ok" | "unconfigured" | "error";
 type FunnelData = {

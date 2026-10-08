@@ -14,6 +14,9 @@ export function useCodexRuntime(src: string, version = "1") {
 
     return () => {
       script.remove();
+      if (src === "/codex-runtime/home.js") {
+        (window as Window & { __lavidroHomeCleanup?: () => void }).__lavidroHomeCleanup?.();
+      }
     };
   }, [src, version]);
 }

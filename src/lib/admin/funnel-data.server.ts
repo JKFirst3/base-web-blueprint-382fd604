@@ -22,7 +22,7 @@ export async function getFunnelDashboard(days: 7 | 30 | 90) {
     // Existing generated Database types predate the optional admin quality table.
     const db = supabaseAdmin as unknown as SupabaseClient;
     const count = async (table: string, col: string, val?: string, dateCol = "created_at") => {
-      let q = db.from(table).select("id", { count: "exact", head: true }).gte(dateCol, start);
+      let q = db.from(table).select("*", { count: "exact", head: true }).gte(dateCol, start);
       if (val !== undefined) q = q.eq(col, val);
       const result = await q;
       if (result.error) throw new Error("count query failed");

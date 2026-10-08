@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test": "node --import ./scripts/test-register.mjs --experimental-test-module-mocks --test src/lib/*.test.ts src/routes/api/public/*.test.ts",
+    "test": "node --import ./scripts/test-register.mjs --experimental-test-module-mocks --test src/lib/*.test.ts src/routes/api/public/*.test.ts src/lib/admin/*.test.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

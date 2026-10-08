@@ -15,7 +15,7 @@ test("admin session uses a server-side password and an expiring signed HttpOnly 
     const req = new Request("https://lavidro.com/api/admin/funnel", { headers: { cookie: `lavidro_funnel_admin=${token}` } });
     assert.equal(await adminSessionValid(req, now), true);
     assert.equal(await adminSessionValid(req, now + 8 * 60 * 60 * 1000), false);
-    assert.equal(await adminSessionValid(new Request(req.url, { headers: { cookie: `lavidro_funnel_admin=${token.slice(0, -1)}0` } }), now), false);
+    assert.equal(await adminSessionValid(new Request(req.url, { headers: { cookie: `lavidro_funnel_admin=${token.slice(0, -1)}${token.endsWith("0") ? "1" : "0"}` } }), now), false);
     const cookie = funnelSessionCookie(req, token);
     assert.match(cookie, /HttpOnly/);
     assert.match(cookie, /Secure/);
