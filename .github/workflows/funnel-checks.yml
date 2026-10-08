@@ -10,6 +10,8 @@ on:
       - 'package.json'
       - 'bun.lock'
       - '.github/workflows/funnel-checks.yml'
+permissions:
+  contents: write
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -17,6 +19,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
       - run: bun install --frozen-lockfile
+      - name: Normalize changed TS/TSX files
+        run: bunx prettier --write src/lib/admin/*.ts src/components/admin/*.tsx src/lib/lead-request.server*.ts src/routes/admin/funnel.tsx src/routes/api/admin/*.ts src/routes/api/public/leads.ts src/components/site/CodexPage.tsx src/components/site/Footer.tsx src/routes/__root.tsx src/routes/index.tsx src/lib/mcp/tools/get-funnel-snapshot.ts src/lib/mcp/index.ts >/dev/null
       - run: bun run build
       - run: bun run typecheck
       - run: bun run test
@@ -30,4 +34,14 @@ jobs:
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
           node scripts/funnel-http-smoke.mjs || { tail -n 80 /tmp/funnel-server.log; exit 1; }
       - name: Lint changed TypeScript files
-        run: bunx eslint src/lib/admin/*.ts src/lib/lead-request.server*.ts src/routes/admin/funnel.tsx src/routes/api/admin/*.ts src/routes/api/public/leads.ts src/components/site/CodexPage.tsx src/components/site/Footer.tsx src/routes/__root.tsx src/routes/index.tsx src/lib/mcp/tools/get-funnel-snapshot.ts src/lib/mcp/index.ts
+        run: bunx eslint src/lib/admin/*.ts src/lib/lead-request.server*.ts src/routes/admin/funnel.tsx src/routes/api/admin/*.ts src/routes/api/public/leads.ts src/components/site/CodexPage.tsx src/components/site/Footer.tsx src/routes/__root.tsx src/routes/index.tsx src/lib/mcp/tools/get-funnel-snapshot.ts src/lib/mcp/index.ts src/components/admin/*.tsx
+      - name: Save formatting in feature branch only
+        if: github.event_name == 'push' && github.ref == 'refs/heads/feat/agentic-funnel-admin-audit'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/lib/admin src/components/admin src/lib/lead-request.server.ts src/lib/lead-request.server.test.ts src/routes/admin/funnel.tsx src/routes/api/admin src/routes/api/public/leads.ts src/components/site/CodexPage.tsx src/components/site/Footer.tsx src/routes/__root.tsx src/routes/index.tsx src/lib/mcp/tools/get-funnel-snapshot.ts src/lib/mcp/index.ts
+          if ! git diff --cached --quiet; then
+            git commit -m "style: format funnel-admin implementation [skip ci]"
+            git push origin HEAD:feat/agentic-funnel-admin-audit
+          fi
