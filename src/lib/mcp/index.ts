@@ -11,7 +11,7 @@ export default defineMcp({
   title: "LAVIDRO",
   version: "0.1.0",
   instructions:
-    "Werkzeuge für die Lavidro Website. `get_product_catalog` liefert die Lösungen mit Preisen. `list_leads` und `list_preorders` geben Kontaktanfragen bzw. Vorbestellungen zurück und setzen ein angemeldetes Konto mit Admin-Rolle voraus.",
+    "Werkzeuge für die Lavidro Website. `get_product_catalog` liefert die Lösungen mit Preisen. `list_leads` und `list_preorders` liefern Kontakte nur mit Admin-Rolle. `get_funnel_snapshot` liefert mit derselben Admin-Rolle aggregierte Meta Ads, PostHog, A/B/C-Anfragekohorten und CRO-Befunde ohne personenbezogene Daten; als Lesezugriff, nicht zur automatischen Änderung von Werbekonten.",
   auth: auth.oauth.issuer({
     issuer: `https://${projectRef}.supabase.co/auth/v1`,
     acceptedAudiences: "authenticated",

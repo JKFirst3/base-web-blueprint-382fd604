@@ -47,3 +47,7 @@
 - `/.github/workflows/funnel-checks.yml` → CI and Chromium screenshot evidence.
 - `scripts/funnel-http-smoke.mjs` → full HTTP login/API checks.
 - `scripts/funnel-browser-smoke.mjs` → mobile/desktop QA without submissions.
+
+## Live variant storage
+
+Every **new** product inquiry records a validated `variant_id` in `public.preorders` (`a`, `b`, `c`; no synthetic backfill). The service-role RPC groups by `source`, `product`, `variant_id`, allowing qualitative outcomes to be shown next to consented PostHog events. Paid A/B/C traffic from ads is not automatically randomized; compare audience and spend mix before claiming causality.

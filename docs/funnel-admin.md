@@ -29,6 +29,7 @@ Official docs: [PostHog API](https://posthog.com/docs/api), [PostHog querying](h
 1. `20261008172000_lock_public_inserts.sql` – revoke anonymous inserts (existing server submission routes already use service role).
 2. `20261008173500_funnel_qualification.sql` – admin-only manual qualification state, RLS.
 3. `20261008190000_funnel_source_stats.sql` – service-role-only PII-free cohort aggregation; after qualification table exists.
+4. `20261008195000_preorder_abc_variants.sql` – nullable A/B/C variant on each new inquiry, with check constraint and an updated cohort RPC grouped by product/source/variant. Historical rows remain NULL.
 
 Run migrations via the same production database migration process as the existing Supabase migrations. Confirm `admin_funnel_source_stats` EXECUTE is granted **only** to service_role. Verify a public anon/authenticated token cannot insert into `leads`, `preorders`, `lead_qualifications` or execute that RPC.
 
@@ -37,7 +38,7 @@ Run migrations via the same production database migration process as the existin
 - Meta reads ad-level Insights, creatives, optional `url_tags` and valid LAVIDRO landing destinations. Traverses paginated data with strict page/result caps; refuses untrusted pagination URLs.
 - Historical `smoke_google_*` values intentionally remain. To attribute an ad, its final destination (or URL Tags) must contain a valid known `lv_campaign`. Meta dynamic parameters not resolved by API are marked unmatched, not silently guessed.
 - PostHog EU: **only consented events** from `site_environment='production'`. Distinguish event count, unique anonymous visitors, unique sessions; an event-count series is not a true same-session funnel.
-- Supabase: requested, confirmed and manually qualified **product inquiries** grouped by preorder creation date, for identical Meta-account calendar-day boundaries. Newsletter/contact requests remain separate even though the legacy stored `request_type=termin` is unchanged.
+- Supabase: requested, confirmed and manually qualified **product inquiries** grouped by preorder creation date and validated A/B/C variant, for identical Meta-account calendar-day boundaries. Newsletter/contact requests remain separate even though the legacy stored `request_type=termin` is unchanged.
 - **Indicative** tag-based CPQL = Meta spend / qualified source-matched preorder cohort, **only** if every paid ad is uniquely mapped, the account currency is EUR and the numerator/denominator period is aligned. A valid URL tag does not prove a paid click. Shared URLs, untracked paths and organic visitors can still bias the metric; do not optimize ad budgets on this number alone.
 - Data sources return `unconfigured`, `error` or `ok`; errors never become zero as if they were measured. CPQL remains unavailable when ambiguous.
 - Dashboard reads are cached for 30 seconds, manual qualification invalidates cache.
@@ -68,3 +69,7 @@ node scripts/funnel-browser-smoke.mjs
 ```
 
 **Release checklist:** all required GitHub checks green; run migrations; secrets available to actual TanStack runtime; read-only PostHog/Meta API requests verified with their real account access; compare same-period insight aggregates in Meta Ads Manager and PostHog; preview /admin/funnel login + qualification; check iOS Safari. No claim of real API connectivity can be made from the CI mock tests alone.
+
+### A/B/C attribution note
+
+Product pages already accept `lv_variant=a|b|c` and include this property in the consent-gated PostHog events. The new preorder column also preserves it for real submitted inquiries. Never infer a historic NULL as A. Ads choose variants through their actual landing URL; they are **not** PostHog-randomized allocations unless an experiment or truly random assignment is separately set up and validated. Report per-product variant totals and qualified outcomes, with a traffic-cohort caveat.
