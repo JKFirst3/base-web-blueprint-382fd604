@@ -1,6 +1,6 @@
-# La Vidro – Website
+# lavidro – Website
 
-Dieses Repository enthält den Quellcode der [La Vidro-Website](https://lavidro.com). Die Website stellt die Wäscheautomatisierungskonzepte La Vidro One, Mobile und Cabinet vor. Besucher können die Produkte vergleichen, den Konfigurator nutzen und eine unverbindliche Produktanfrage stellen.
+Dieses Repository enthält den Quellcode der Website [lavidro.com](https://lavidro.com), die über Lovable betrieben wird. Die Website stellt die Wäscheautomatisierungskonzepte One, Mobile und Cabinet vor. Besucher können die Produkte vergleichen, den Konfigurator nutzen und eine unverbindliche Produktanfrage stellen.
 
 Die Website nutzt React, TypeScript und TanStack Start mit Vite. Supabase speichert Einträge für die Warteliste und Produktanfragen. Lovable versendet die Bestätigungsmails für das Double-Opt-in. PostHog erfasst ausgewählte Ereignisse nach Einwilligung.
 
