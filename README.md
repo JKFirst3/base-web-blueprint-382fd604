@@ -1,51 +1,46 @@
-# LAVIDRO Website
+# La Vidro – Website
 
-Die LAVIDRO Website verbindet das bestehende visuelle Konzept mit der
-Lovable-Infrastruktur und Supabase als Backend.
+Dieses Repository enthält den Quellcode der [La Vidro-Website](https://lavidro.com). Die Website stellt die Wäscheautomatisierungskonzepte La Vidro One, Mobile und Cabinet vor. Besucher können die Produkte vergleichen, den Konfigurator nutzen und eine unverbindliche Produktanfrage stellen.
+
+Die Website nutzt React, TypeScript und TanStack Start mit Vite. Supabase speichert Einträge für die Warteliste und Produktanfragen. Lovable versendet die Bestätigungsmails für das Double-Opt-in. PostHog erfasst ausgewählte Ereignisse nach Einwilligung.
 
 ## Lokal starten
 
-Voraussetzungen:
-
-- Node.js 24 oder neuer (Tests verwenden Nodes TypeScript- und Modul-Mocking-Unterstützung)
-- npm oder Bun
+Für die automatisierten Tests wird Node.js 24 oder neuer benötigt. Mit Bun und der mitgelieferten `bun.lock` lassen sich die festgeschriebenen Paketversionen installieren.
 
 ```bash
-npm install
+bun install --frozen-lockfile
 cp .env.example .env
 npm run dev
 ```
 
-Die lokale Adresse wird anschließend im Terminal angezeigt.
+Vite zeigt die lokale Adresse im Terminal an. Für die Formularabläufe ein separates Supabase-Testprojekt verwenden, die Migrationen aus [`supabase/migrations/`](supabase/migrations/) darauf anwenden und die Werte in `.env` eintragen.
 
-## Umgebungsvariablen
+## Konfiguration
 
-Die benötigten Werte werden lokal in `.env` eingetragen:
+Die [`.env.example`](.env.example) enthält leere Platzhalter für die benötigten Variablen.
 
-```text
-SUPABASE_PROJECT_ID=
-SUPABASE_PUBLISHABLE_KEY=
-SUPABASE_URL=
-VITE_SUPABASE_PROJECT_ID=
-VITE_SUPABASE_PUBLISHABLE_KEY=
-VITE_SUPABASE_URL=
-```
+| Variablen | Zweck |
+| --- | --- |
+| `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY` | Serverseitige Verbindung zu Supabase für öffentliche Formular- und Authentifizierungsabläufe |
+| `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` | Projekt-URL und veröffentlichbarer Schlüssel für den Browser |
+| `SUPABASE_PROJECT_ID`, `VITE_SUPABASE_PROJECT_ID` | Projektkennung für Lovable und die MCP-Integration |
+| `SUPABASE_SERVICE_ROLE_KEY` | Serverseitiger Schlüssel für das Speichern von Produktanfragen und die Double-Opt-in-Bestätigung |
+| `LOVABLE_API_KEY`, `LOVABLE_SEND_URL` | Zugang zum E-Mail-Versand und bei Bedarf eine abweichende Versand-URL |
+| `POSTHOG_API_KEY` | Optionaler PostHog-Projektschlüssel mit Präfix `phc_` |
 
-Die echte `.env` darf nicht in GitHub gespeichert werden. Für Lovable oder
-andere Hosting-Dienste werden dieselben Werte in den jeweiligen
-Projekteinstellungen hinterlegt.
+`VITE_`-Variablen können im Browser-Bundle stehen. Zugangsdaten wie `SUPABASE_SERVICE_ROLE_KEY` und `LOVABLE_API_KEY` gehören in die lokale `.env` oder in die Serverumgebung des Hostings. Die Datenbankmigrationen legen das Schema an. Inhalte eines bestehenden Supabase-Projekts werden beim lokalen Setup nicht übernommen.
 
-## Datenbank
+## Projektstruktur
 
-Die Supabase-Struktur liegt unter `supabase/migrations`. Neue Umgebungen
-benötigen diese Migrationen, bevor Formulare und Vorbestellungen vollständig
-gespeichert werden können.
-
-Verwendete Tabellen:
-
-- `leads` für die Warteliste
-- `contact_messages` für Kontaktanfragen
-- `preorders` für Konfigurationen und Vorbestellungen
+| Pfad | Inhalt |
+| --- | --- |
+| [`src/routes/`](src/routes/) | Website-Seiten und API-Routen |
+| [`src/components/`](src/components/) und [`src/content/`](src/content/) | UI-Komponenten und Seiteninhalte |
+| [`src/lib/`](src/lib/) | Logik für Produktanfragen, Double-Opt-in und Einwilligung |
+| [`public/`](public/) | Bilder, Logos und statische Dateien |
+| [`supabase/`](supabase/) | Datenbankkonfiguration und Migrationen |
+| [`scripts/`](scripts/) | Hilfsdateien für Tests |
 
 ## Prüfungen
 
@@ -56,14 +51,6 @@ npm run lint
 npm run build
 ```
 
-## Projektstruktur
+Die automatisierten Tests simulieren Supabase, E-Mail-Versand und PostHog. Sie brauchen keine Zugangsdaten und senden keine echten Anfragen oder E-Mails. Beim manuellen Testen von Formularen und Bestätigungsmails die Testumgebung verwenden.
 
-- `.lovable/` Lovable-Projektinformationen
-- `public/` Bilder und browserseitige Laufzeitdateien
-- `src/` Website, Routen und Supabase-Anbindung
-- `supabase/` Datenbankkonfiguration und Migrationen
-
-Die Tests ersetzen Datenbank, E-Mail-Versand und PostHog durch lokale Test-Doubles.
-Sie laden keine `.env` und senden keine echten Anfragen oder E-Mails.
-`npm run dev` lädt dagegen die lokale Umgebung: Formularübermittlungen dort
-dürfen nur mit ausdrücklich freigegebenem Test-Backend erfolgen.
+Für eine Bereitstellung muss der Host die Server-Routen von TanStack Start ausführen können. Das Build-Setup nutzt Nitro mit Cloudflare als Standardziel.
