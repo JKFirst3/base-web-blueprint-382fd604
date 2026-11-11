@@ -48,7 +48,7 @@ export function CookieBanner() {
 
   return (
     <Dialog.Root
-      open={view !== "hidden"}
+      open
       onOpenChange={(open) => {
         if (!open && hasChoice) setView("hidden");
       }}
